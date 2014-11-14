@@ -1,0 +1,595 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Page 2 | Archives | Yilin&#39;s blog</title>
+  <meta name="author" content="insaneguy">
+  
+  <meta name="description" content="This guy is insane.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Yilin&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="en"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+    
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+    
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+
+  
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Yilin&#39;s blog</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	      <li><a href="/about">About</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h2>This guy is insane.</h2>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding">
+<h2 class="archive-title">Archives</h2>
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/19/scala_week2_notes_1/">Notes of Scala course on Coursera -- Week 2 (1)</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-19T11:56:29.000Z">05-19-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/19/scala_week2_notes_1/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/19/scala_week2_notes_1/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>.<br><br><br><br></p>
+<hr>
+<h2 id="1-_Recursion_and_Tail_Recursion">1. Recursion and Tail Recursion</h2>
+<h3 id="1-1_Examples_of_Recursion">1.1 Examples of Recursion</h3>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Euclid's Algorithm */</span> </div><div class="line"><span class="keyword">def</span> gcd(a: Int, b: Int): Int = </div><div class="line">  <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</div></pre></td></tr></table></figure>
+
+<p><code>gcd(14, 21)</code> is evaluated as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">gcd(<span class="number">14</span>, <span class="number">21</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="number">21</span> == <span class="number">0</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="keyword">false</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</div><div class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</div><div class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="number">14</span> == <span class="number">0</span>) <span class="number">21</span> <span class="keyword">else</span> gcd(<span class="number">14</span>, <span class="number">21</span> % <span class="number">14</span>)</div><div class="line">--&gt;&gt; gcd(<span class="number">14</span>, <span class="number">7</span>)</div><div class="line">--&gt;&gt; gcd(<span class="number">7</span>, <span class="number">0</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="number">0</span> == <span class="number">0</span>) <span class="number">7</span> <span class="keyword">else</span> gcd(<span class="number">0</span>, <span class="number">7</span> % <span class="number">0</span>)</div><div class="line">--&gt; <span class="number">7</span></div></pre></td></tr></table></figure>
+
+<p>Another example: </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> factorial(n: Int): Int = </div><div class="line">  <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> n * factorial(n - <span class="number">1</span>)</div></pre></td></tr></table></figure>
+
+<p><code>factorial(4)</code> is evaluated as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">factorial(<span class="number">4</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="number">4</span> == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> <span class="number">4</span> * factorial(<span class="number">4</span> - <span class="number">1</span>)</div><div class="line">--&gt;&gt; <span class="number">4</span> * factorial(<span class="number">3</span>)</div><div class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * factorial(<span class="number">2</span>))</div><div class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * factorial(<span class="number">1</span>)))</div><div class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * factorial(<span class="number">0</span>)))) </div><div class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * <span class="number">1</span>)))</div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h3 id="1-2_Tail_Recursion">1.2 Tail Recursion</h3>
+<p><strong>Implementation Consideration:</strong></p>
+<p>If a function calls itself <strong>as its last action</strong>, the function’s <strong>stack frame</strong> can be <strong>reused</strong>. This is called <em>tail recursion</em>.</p>
+<p>Tail recursive functions are iterative processes.</p>
+<p>In general, if the last action of a function consists of calling a function (which may be the same), one stack frame would be sufficient for both functions. Such calls are called <strong>tail-calls</strong>. 
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/19/scala_week2_notes_1/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/19/scala_week1_notes/">Notes of Scala course on Coursera -- Week 1</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-19T05:56:29.000Z">05-19-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/19/scala_week1_notes/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/19/scala_week1_notes/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>Here are my notes for the week 1’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>. </p>
+<h3 id="Evaluation_of_Programming">Evaluation of Programming</h3>
+<p>Every non-trivial programming language provides:</p>
+<ul>
+<li>primitive expressions representing the simplest elements</li>
+<li>ways to combine expressions</li>
+<li>ways to abstract expressions, which introduces a name for an expression by which it can be referred to</li>
+</ul>
+<p>A non-primitive expression is evaluated as follows:</p>
+<ol>
+<li>Take the leftmost operator</li>
+<li>Evaluate its operands (left before right)</li>
+<li>Apply the operator to the operands</li>
+</ol>
+<p>A name is evaluated by replacing it with the right hand side of its definition.</p>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(<span class="number">2</span> * pi) * radius</div><div class="line">(<span class="number">2</span> * <span class="number">3.14159</span>) * radius  </div><div class="line"><span class="number">6.28318</span> * radius</div><div class="line"><span class="number">6.28318</span> * <span class="number">10</span></div></pre></td></tr></table></figure>
+
+<hr>
+<p>Definition can have parameters:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> square(x: Double) = x * x</div></pre></td></tr></table></figure>
+
+<hr>
+<p>Parameter and Return Types:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> power(x: Double, y: Int): Double = ...</div></pre></td></tr></table></figure>
+
+<hr>
+<p>Evaluation of Function Applications</p>
+<ol>
+<li>Evaluate all function arguments, from left to right.</li>
+<li>Replace the function application by the function’s right-hand side, and, at the same time,</li>
+<li>Replace the formal parameters of the function by the actual arguments.</li>
+</ol>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</div><div class="line">sumOfSquares(<span class="number">3</span>, <span class="number">4</span>)</div><div class="line">square(<span class="number">3</span>) + square(<span class="number">4</span>)</div><div class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">4</span>)</div><div class="line"><span class="number">9</span> + square(<span class="number">4</span>)</div><div class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></div><div class="line"><span class="number">9</span> + <span class="number">16</span></div><div class="line"><span class="number">25</span></div></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="The_substitution_model">The substitution model</h3>
+<p>The scheme of expression evaluation is called the substitution model.</p>
+<p>The idea is that all evaluation dose is reduce an expression to a value.</p>
+<p>It can be applied to all expressions, as long as they have no side effects.</p>
+<p>The substitution model is formalized in the <strong>λ-calculus</strong>, which gives a<br>foundation for functional programming. 
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/19/scala_week1_notes/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/17/start_learning_scala/">Start Learning Scala</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-16T16:33:49.000Z">05-17-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/17/start_learning_scala/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/17/start_learning_scala/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>还记得大三时候室友打印了一本厚厚的<a href="http://mitpress.mit.edu/sicp/" target="_blank" rel="external">SICP</a>来读，当时我还不以为意。不过读了<a href="http://en.wikipedia.org/wiki/Paul_Graham_(computer_programmer)" target="_blank" rel="external">Paul Graham</a>的<a href="http://book.douban.com/subject/6021440/" target="_blank" rel="external">《黑客与画家》</a>后我也想亲自尝试一下，领略下<a href="http://en.wikipedia.org/wiki/Functional_programming" target="_blank" rel="external">Functional Programming(函数式编程)</a>的威力。</p>
+<p>于是选了<a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>上的函数式编程课程<a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a>，老师是欧洲名校<a href="http://www.epfl.ch/" target="_blank" rel="external">EPFL(洛桑联邦理工学院)</a>的教授，Scala语言的发明人<a href="http://lampwww.epfl.ch/~odersky/" target="_blank" rel="external">Martin Odersky</a>。目前我刚刚完成前两周的课程，这里从第一周的第一个Lecture里摘选一点内容，简单介绍一下函数式编程。</p>
+<h2><br></h2>
+<p>在说“函数式”之前，先要知道它是一种<code>编程范式(Programming paradigm)</code>。</p>
+<p><a href="http://zh.wikipedia.org/wiki/编程范式" target="_blank" rel="external">Wikipedia</a>上指出：</p>
+<blockquote>
+<p>编程范式是一类典型的编程风格，是指从事软件工程的一类典型的风格(可以对照方法学)。<br>编程范式提供了（同时决定了）程序员对程序执行的看法。</p>
+</blockquote>
+<p>常见的编程范式有：</p>
+<ul>
+<li>imperative programming(命令式编程)</li>
+<li>functional programming(函数式编程)</li>
+<li>logic programming(逻辑式编程)</li>
+<li>object-oriented programming(面向对象编程)<br><br></li>
+</ul>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/17/start_learning_scala/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/16/hello_world/">Hello World</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-16T01:30:29.000Z">05-16-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/16/hello_world/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/16/hello_world/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>在知乎上的一个问题<a href="http://www.zhihu.com/question/20962496" target="_blank" rel="external">如何在github上写博客？</a>中看到<a href="http://zipperary.com/" target="_blank" rel="external">Zippera</a>的回答，参考他的系列博文<a href="http://zipperary.com/categories/hexo/" target="_blank" rel="external">hexo | Zippera’s blog</a>搭建了这个blog。
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/16/hello_world/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination">
+  
+    <a href="/archives/" class="alignleft prev">Prev</a>
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+
+
+
+   </div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:insaneguy.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/07/16/kinect_dev_config_vs2013/">Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
+  
+    <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/categories/Programming/Scala/">Scala</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  
+    <a href="/tags/C/">C++<small>2</small></a>
+  
+    <a href="/tags/Kinect/">Kinect<small>1</small></a>
+  
+    <a href="/tags/OpenCV/">OpenCV<small>1</small></a>
+  
+    <a href="/tags/Ruby/">Ruby<small>4</small></a>
+  
+    <a href="/tags/Scala/">Scala<small>6</small></a>
+  
+    <a href="/tags/coursera/">coursera<small>6</small></a>
+  
+    <a href="/tags/fp/">fp<small>6</small></a>
+  
+    <a href="/tags/hexo/">hexo<small>1</small></a>
+  
+    <a href="/tags/notes/">notes<small>7</small></a>
+  
+</div>
+
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2014 insaneguy
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+			<a href="https://github.com/https://github.com/insaneyilin" target="_blank" title="insaneguy Github"><i class="fa fa-github-square"></i></a>	
+		
+		
+		
+			<a href="http://www.weibo.com/http://weibo.com/guiyilin" target="_blank" title="insaneguy Weibo"><i class="fa fa-weibo"></i></a>	
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+ <script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

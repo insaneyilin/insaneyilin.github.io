@@ -1,0 +1,1063 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2014/5 | Yilin&#39;s blog</title>
+  <meta name="author" content="insaneguy">
+  
+  <meta name="description" content="This guy is insane.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Yilin&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="en"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+    
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+    
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+
+  
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Yilin&#39;s blog</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	      <li><a href="/about">About</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h2>This guy is insane.</h2>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding">
+<h2 class="archive-title">2014/5</h2>
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-29T14:30:29.000Z">05-29-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/29/ruby_quickstart_notes_3/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/29/ruby_quickstart_notes_3/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（3）</p>
+<p><br></p>
+<hr>
+<h2 id="第六章_模块、命名空间、Mix-in">第六章 模块、命名空间、Mix-in</h2>
+<h3 id="1-_Ruby中的模块">1. Ruby中的模块</h3>
+<p>在程序中，相关的、不相关的代码的组合，叫作模块。一般情况下，我们总是把功能相关的代码放在一个模块里。</p>
+<p>把功能相关的程序代码放在一个模块里， 体现了模块的第一个作用： 可以被其它程序代码重复使用。</p>
+<p>数学中常用的函数， Ruby 中的 <code>Math</code> 模块都提供了。 每个使用 <code>Math</code> 模块的程序员无须再重复编写这些常用的函数与常数。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">puts <span class="constant">Math</span>.sqrt(<span class="number">2</span>)    <span class="comment"># 1.4142135623731</span></div><div class="line">puts <span class="constant">Math::PI</span>    <span class="comment"># 3.14159265358979</span></div></pre></td></tr></table></figure>
+
+<p>定义模块用 <code>module...end</code> 。</p>
+<p>模块与类非常相似，但是：</p>
+<ul>
+<li>模块不可以有实例对象；</li>
+<li>模块不可以有子类。<br>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/29/ruby_quickstart_notes_3/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-28T13:56:29.000Z">05-28-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/28/scala_week3_notes/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/28/scala_week3_notes/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>Here are my notes for the week 3’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>.</p>
+<p><br><br><br></p>
+<hr>
+<h2 id="1-_Class_Hierarchies">1. Class Hierarchies</h2>
+<h3 id="1-1_Abstract_Classes">1.1 Abstract Classes</h3>
+<p>Consider the task of writing <em>a class for sets of integers</em> with the following operations.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<p><code>IntSet</code> is an <em>abstract</em> class.</p>
+<p>Abstract classes can contain members which are <em>missing an implementation</em> (in our case, <code>incl</code> and <code>contains</code> ).</p>
+<p>Consequently, <strong>no instances</strong> of an abstract class can be created with the operator <code>new</code>.</p>
+<p><br></p>
+<hr>
+<h3 id="1-2_Class_Extensions">1.2 Class Extensions</h3>
+<p>Let’s consider implementing sets as <em>binary trees</em>.</p>
+<p>There are two types of possible trees: a tree for the empty set, and a tree consisting of an integer and two sub-trees.</p>
+<p>Here are their implementations:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empty</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean = <span class="keyword">false</span></div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet = <span class="keyword">new</span> NonEmpty(x, <span class="keyword">new</span> Empty, <span class="keyword">new</span> Empty)</div><div class="line">}</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NonEmpty</span><span class="params">(elem: Int, left: IntSet, right: IntSet)</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean =</div><div class="line">    <span class="keyword">if</span> (x &lt; elem) left contains x</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) right contains x</div><div class="line">    <span class="keyword">else</span> <span class="keyword">true</span></div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet =</div><div class="line">    <span class="keyword">if</span> (x &lt; elem) <span class="keyword">new</span> NonEmpty(elem, left incl x, right)</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) <span class="keyword">new</span> NonEmpty(elem, left, right incl x)</div><div class="line">    <span class="keyword">else</span> <span class="keyword">this</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>Empty and NonEmpty both <em>extend</em> the class <code>IntSet</code> .</p>
+<p>This implies that the types <code>Empty</code> and <code>NonEmpty</code> <em>conform</em> to the type <code>IntSet</code></p>
+<ul>
+<li>an object of type <code>Empty</code> or <code>NonEmpty</code> can be used wherever an object of type <code>IntSet</code> is required.</li>
+</ul>
+<p><br></p>
+<hr>
+<p>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/28/scala_week3_notes/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-28T11:30:29.000Z">05-28-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/28/ruby_quickstart_notes_2/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/28/ruby_quickstart_notes_2/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（2）<br><br></p>
+<hr>
+<h2 id="第四章_Ruby面向对象初探">第四章 Ruby面向对象初探</h2>
+<h3 id="1-_封装">1. 封装</h3>
+<p>让我们来定义一个类， 类名是 <code>Person</code>， <strong>类名首字母要大写</strong>；<br>属性有姓名<code>@name</code>、年龄<code>@age</code>、国籍<code>@motherland</code>，实例变量用<code>@</code>开头；<br>方法有一个，叫 <code>talk</code>, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。</p>
+<figure class="highlight ruby"><figcaption><span>Person.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>initialize(name, age = <span class="number">18</span>)</div><div class="line">    <span class="variable">@name</span> = name</div><div class="line">    <span class="variable">@age</span> = age</div><div class="line">    <span class="variable">@motherland</span> = <span class="string">"China"</span></div><div class="line">  <span class="keyword">end</span>  <span class="comment"># 初始化方法结束</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>talk</div><div class="line">    puts <span class="string">"my name is "</span> + <span class="variable">@name</span> + <span class="string">", age is "</span> + <span class="variable">@age</span>.to_s</div><div class="line">    <span class="keyword">if</span> <span class="variable">@motherland</span> == <span class="string">"China"</span></div><div class="line">      puts <span class="string">"I am a Chinese."</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">      puts <span class="string">"I am a foreigner."</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span>  <span class="comment"># talk方法结束</span></div><div class="line">  <span class="keyword">attr_writer</span> <span class="symbol">:motherland</span>  <span class="comment"># <span class="yardoctag">@motherland</span>的setter</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">p1 = <span class="constant">Person</span>.new(<span class="string">"Yilin"</span>, <span class="number">23</span>)</div><div class="line">p1.talk</div><div class="line"></div><div class="line">p2 = <span class="constant">Person</span>.new(<span class="string">"Ben"</span>)</div><div class="line">p2.motherland = <span class="string">"ABC"</span></div><div class="line">p2.talk</div></pre></td></tr></table></figure>
+
+<p><code>initialize</code> 是初始化方法，相当于构造函数。<br>参数 <code>age</code> 有一个缺省值 <code>18</code>，可以在任何方法内使用缺省参数,而不仅仅是 <code>initialize</code>。<br>如果有缺省参数， 参数表必须以有缺省值的参数结尾。</p>
+<p>注意我们定义了<code>@motherland</code>成员变量的setter：<br>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/28/ruby_quickstart_notes_2/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/26/ruby_quickstart_notes_1/">Ruby Quick Start (1) -- A Glimpse of Syntax</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-26T11:30:29.000Z">05-26-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/26/ruby_quickstart_notes_1/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/26/ruby_quickstart_notes_1/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>学习Ruby时在网上找到了一本小册子<a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>，虽然是07年的东西了，但是作为快速熟悉Ruby基本语法还是很有帮助的，做一下笔记。</p>
+<p>开始前先问下自己两个问题。</p>
+<p>(1) <em>我为什么要学习Ruby？</em></p>
+<p>为了Web开发。</p>
+<p>(2) <em>为什么选择Ruby，而不是Python，PHP？</em></p>
+<p>看了知乎上的<a href="http://www.zhihu.com/question/19573703/answer/12258814" target="_blank" rel="external">这个答案</a>：</p>
+<ul>
+<li>假如你想帮他尽快找个活儿， 赚到钱， 推荐 PHP</li>
+<li>假如你想让他成为一个高效工程师， 推荐 Python</li>
+<li>假如你想让他爱上他的工作， 推荐 Ruby </li>
+</ul>
+<p>无论如何，别人的答案只能作为参考，自己尝试过后才有资格评价，所以最好的方法就是亲自动手学习下Ruby。
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/26/ruby_quickstart_notes_1/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/">《编写高质量代码：改善C++程序的150个建议》读书笔记(2)</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-22T05:56:29.000Z">05-22-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p><a href="http://insaneguy.me/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" target="_blank" rel="external">《编写高质量代码——改善C++程序的150个建议》读书笔记(1)</a></p>
+<p><br></p>
+<hr>
+<h2 id="第二部分_编码习惯和规范篇">第二部分 编码习惯和规范篇</h2>
+<h3 id="建议81：避免无意中的内部数据裸露">建议81：避免无意中的内部数据裸露</h3>
+<p>对于<code>const</code>成员函数，不要返回内部数据的句柄，因为它会<strong>破坏封装性</strong>，违反抽象性，造成内部数据无意中的裸露，这会出现很多“不可思议”的情形，比如<code>const</code>对象的非常量性。<br><br></p>
+<h3 id="建议82：积极使用const为函数保驾护航">建议82：积极使用const为函数保驾护航</h3>
+<p><code>const</code>的真正威力体现在几个方面：</p>
+<ol>
+<li>修饰函数形式的参数：<code>const</code>只能修饰输入参数，对于内置数据类型的输入参数，不要将“值传递”的方式改为“<code>const</code> 引用传递”；</li>
+<li>修饰函数返回值；</li>
+<li>修饰成员函数：用<code>const</code>修饰成员函数的目的是提高程序的健壮性。<code>const</code>成员函数不允许对数据成员进行任何修改。</li>
+</ol>
+<p>关于<code>const</code>成员函数，须遵循几个规则：</p>
+<ol>
+<li><code>const</code>对象只能访问<code>const</code>成员函数，而非<code>const</code>对象可以访问任意的成员函数；</li>
+<li><code>const</code>对象的成员是不可修改的，然而<code>const</code>对象通过指针维护的对象却是可以修改的；</li>
+<li><code>const</code>成员函数不可以修改对象的数据，不管对象是否具有<code>const</code>性质。<br><br></li>
+</ol>
+<h3 id="建议83：不要返回局部变量的引用">建议83：不要返回局部变量的引用</h3>
+<p>局部变量的引用是一件不太靠谱的事儿，所以尽量避免让函数返回局部变量的引用。同时也不要返回<code>new</code>生成对象的引用，因为这样会让代码层次混乱，让使用者苦不堪言。<br><br></p>
+<h3 id="建议84：切忌过度使用传引用代替传对象">建议84：切忌过度使用传引用代替传对象</h3>
+<p>相较于传对象，传引用的优点：它减少了临时对象的构造与析构，所以更具效率。但须审慎地使用传引用替代传对象，必须传回内部对象时，就传对象，勿传引用。<br><br></p>
+<h3 id="建议85：了解指针参数传递内存中的玄机">建议85：了解指针参数传递内存中的玄机</h3>
+<p>用指针参数传回一块动态申请的内存，是很常见的一种需求。然而如果不甚小心，就很容易造成严重错误：程序崩溃+内存泄露，解决之道就是用指针的指针来传递，或者换种内存传递方式，用返回值来传递。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 指针型变量在函数体中需要改变的写法</span></div><div class="line"><span class="keyword">void</span> f(<span class="keyword">int</span> *&x)    <span class="comment">// 使用指针变量的引用</span></div><div class="line">{</div><div class="line">    ++x;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><br><br>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/">《编写高质量代码：改善C++程序的150个建议》读书笔记(1)</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-22T04:56:29.000Z">05-22-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>前一段时间看了这本<a href="http://book.douban.com/subject/7059901/" target="_blank" rel="external">《编写高质量代码——改善C++程序的150个建议》</a>，感觉和<a href="http://book.douban.com/subject/6517498/" target="_blank" rel="external"><em>Effective C++</em></a>有点类似。看完还是有不少收获的，在此整理、记录一下。</p>
+<p><br></p>
+<hr>
+<h2 id="第一部分_语法篇">第一部分 语法篇</h2>
+<h3 id="建议1：区分0的4种面孔">建议1：区分0的4种面孔</h3>
+<ol>
+<li>整型0，32位（4个字节）；</li>
+<li>空指针<code>NULL</code>，指针与<code>int</code>类型所占空间是一样的，都是32位；</li>
+<li>字符串结束标志’\0’，8位，一个字节，与’0’有区别；</li>
+<li>逻辑<code>FALSE</code>/<code>false</code>，<code>FALSE</code>/<code>TRUE</code>是<code>int</code>类型，而<code>false</code>/<code>true</code>是<code>bool</code>类型。<br><br></li>
+</ol>
+<h3 id="建议5：不要忘记指针变量的初始化">建议5：不要忘记指针变量的初始化</h3>
+<ol>
+<li>可以将其初始化为空指针<code>0</code>(<code>NULL</code>)；</li>
+<li>对于全局变量来说，在声明的同时，编译器会<strong>悄悄完成</strong>对变量的初始化。<br><br></li>
+</ol>
+<h3 id="建议6：明晰逗号分隔表达式的奇怪之处">建议6：明晰逗号分隔表达式的奇怪之处</h3>
+<ol>
+<li>在使用逗号分隔表达式时，C++会确保每个表达式都被执行，而整个表达式的值则是<strong>最右边表达式的结果</strong>；</li>
+<li>在C++中，逗号分隔表达式<strong>既可以用作左值，也可以用作右值</strong>。<br><br></li>
+</ol>
+<h3 id="建议9：防止重复包含头文件">建议9：防止重复包含头文件</h3>
+<p>注意在大型项目中的形式应类似下面：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#ifndef _PROJECT_PATH_FILE_H</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> _PROJECT_PATH_FILE_H</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></div></pre></td></tr></table></figure>
+
+<p><br></p>
+<h3 id="建议10：优化结构体中元素的布局">建议10：优化结构体中元素的布局</h3>
+<p>把结构体中的变量<strong>按照类型大小从小到大</strong>依次声明，尽量<strong>减少中间的填充字节</strong>。<br><br><br>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/20/scala_week2_notes_3/">Notes of Scala course on Coursera -- Week 2 (3)</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-20T03:56:29.000Z">05-20-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/20/scala_week2_notes_3/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/20/scala_week2_notes_3/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>.</p>
+<p><br><br><br></p>
+<hr>
+<h2 id="1-_Functions_and_Data">1. Functions and Data</h2>
+<h3 id="1-1_Classes">1.1 Classes</h3>
+<p>In Scala, a class ia defined like this:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span><span class="params">(x: Int, y: Int)</span> </span>{</div><div class="line">  <span class="keyword">def</span> numer = x</div><div class="line">  <span class="keyword">def</span> denom = y</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>This definition introduces two entities:</p>
+<ul>
+<li>A new <em>type</em>, named <code>Rational</code> .</li>
+<li>A <em>constructor</em> <code>Rational</code> to create elements of this type.<br>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/20/scala_week2_notes_3/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/19/scala_week2_notes_2/">Notes of Scala course on Coursera -- Week 2 (2)</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-19T13:56:29.000Z">05-19-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/19/scala_week2_notes_2/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/19/scala_week2_notes_2/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>.</p>
+<p><br><br><br></p>
+<hr>
+<h2 id="4-_Example:_Finding_Fixed_Points">4. Example: Finding Fixed Points</h2>
+<h3 id="4-1_Finding_a_fixed_point_of_a_function">4.1 Finding a fixed point of a function</h3>
+<p>A number <em>x</em> is called a <em>fixed point</em> of a function f if</p>
+<p><img src="http://latex.codecogs.com/gif.latex?f(x)=x"></p>
+<p>For some functions f we can locate the fixed points by starting with an initial estimate and then by applying f in a repetitive way.</p>
+<p><img src="http://latex.codecogs.com/gif.latex?x,f(x),f(f(x)),f(f(f(x))),..."></p>
+<p>until the value does not vary anymore (or the change is sufficiently small). 
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/19/scala_week2_notes_2/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/19/scala_week2_notes_1/">Notes of Scala course on Coursera -- Week 2 (1)</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-19T11:56:29.000Z">05-19-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/19/scala_week2_notes_1/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/19/scala_week2_notes_1/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>.<br><br><br><br></p>
+<hr>
+<h2 id="1-_Recursion_and_Tail_Recursion">1. Recursion and Tail Recursion</h2>
+<h3 id="1-1_Examples_of_Recursion">1.1 Examples of Recursion</h3>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Euclid's Algorithm */</span> </div><div class="line"><span class="keyword">def</span> gcd(a: Int, b: Int): Int = </div><div class="line">  <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</div></pre></td></tr></table></figure>
+
+<p><code>gcd(14, 21)</code> is evaluated as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">gcd(<span class="number">14</span>, <span class="number">21</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="number">21</span> == <span class="number">0</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="keyword">false</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</div><div class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</div><div class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="number">14</span> == <span class="number">0</span>) <span class="number">21</span> <span class="keyword">else</span> gcd(<span class="number">14</span>, <span class="number">21</span> % <span class="number">14</span>)</div><div class="line">--&gt;&gt; gcd(<span class="number">14</span>, <span class="number">7</span>)</div><div class="line">--&gt;&gt; gcd(<span class="number">7</span>, <span class="number">0</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="number">0</span> == <span class="number">0</span>) <span class="number">7</span> <span class="keyword">else</span> gcd(<span class="number">0</span>, <span class="number">7</span> % <span class="number">0</span>)</div><div class="line">--&gt; <span class="number">7</span></div></pre></td></tr></table></figure>
+
+<p>Another example: </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> factorial(n: Int): Int = </div><div class="line">  <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> n * factorial(n - <span class="number">1</span>)</div></pre></td></tr></table></figure>
+
+<p><code>factorial(4)</code> is evaluated as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">factorial(<span class="number">4</span>)</div><div class="line">--&gt; <span class="keyword">if</span> (<span class="number">4</span> == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> <span class="number">4</span> * factorial(<span class="number">4</span> - <span class="number">1</span>)</div><div class="line">--&gt;&gt; <span class="number">4</span> * factorial(<span class="number">3</span>)</div><div class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * factorial(<span class="number">2</span>))</div><div class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * factorial(<span class="number">1</span>)))</div><div class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * factorial(<span class="number">0</span>)))) </div><div class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * <span class="number">1</span>)))</div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h3 id="1-2_Tail_Recursion">1.2 Tail Recursion</h3>
+<p><strong>Implementation Consideration:</strong></p>
+<p>If a function calls itself <strong>as its last action</strong>, the function’s <strong>stack frame</strong> can be <strong>reused</strong>. This is called <em>tail recursion</em>.</p>
+<p>Tail recursive functions are iterative processes.</p>
+<p>In general, if the last action of a function consists of calling a function (which may be the same), one stack frame would be sufficient for both functions. Such calls are called <strong>tail-calls</strong>. 
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/19/scala_week2_notes_1/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/19/scala_week1_notes/">Notes of Scala course on Coursera -- Week 1</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-19T05:56:29.000Z">05-19-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/19/scala_week1_notes/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/19/scala_week1_notes/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>Here are my notes for the week 1’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>. </p>
+<h3 id="Evaluation_of_Programming">Evaluation of Programming</h3>
+<p>Every non-trivial programming language provides:</p>
+<ul>
+<li>primitive expressions representing the simplest elements</li>
+<li>ways to combine expressions</li>
+<li>ways to abstract expressions, which introduces a name for an expression by which it can be referred to</li>
+</ul>
+<p>A non-primitive expression is evaluated as follows:</p>
+<ol>
+<li>Take the leftmost operator</li>
+<li>Evaluate its operands (left before right)</li>
+<li>Apply the operator to the operands</li>
+</ol>
+<p>A name is evaluated by replacing it with the right hand side of its definition.</p>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(<span class="number">2</span> * pi) * radius</div><div class="line">(<span class="number">2</span> * <span class="number">3.14159</span>) * radius  </div><div class="line"><span class="number">6.28318</span> * radius</div><div class="line"><span class="number">6.28318</span> * <span class="number">10</span></div></pre></td></tr></table></figure>
+
+<hr>
+<p>Definition can have parameters:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> square(x: Double) = x * x</div></pre></td></tr></table></figure>
+
+<hr>
+<p>Parameter and Return Types:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> power(x: Double, y: Int): Double = ...</div></pre></td></tr></table></figure>
+
+<hr>
+<p>Evaluation of Function Applications</p>
+<ol>
+<li>Evaluate all function arguments, from left to right.</li>
+<li>Replace the function application by the function’s right-hand side, and, at the same time,</li>
+<li>Replace the formal parameters of the function by the actual arguments.</li>
+</ol>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</div><div class="line">sumOfSquares(<span class="number">3</span>, <span class="number">4</span>)</div><div class="line">square(<span class="number">3</span>) + square(<span class="number">4</span>)</div><div class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">4</span>)</div><div class="line"><span class="number">9</span> + square(<span class="number">4</span>)</div><div class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></div><div class="line"><span class="number">9</span> + <span class="number">16</span></div><div class="line"><span class="number">25</span></div></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="The_substitution_model">The substitution model</h3>
+<p>The scheme of expression evaluation is called the substitution model.</p>
+<p>The idea is that all evaluation dose is reduce an expression to a value.</p>
+<p>It can be applied to all expressions, as long as they have no side effects.</p>
+<p>The substitution model is formalized in the <strong>λ-calculus</strong>, which gives a<br>foundation for functional programming. 
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/19/scala_week1_notes/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination">
+  
+  
+    <a href="/archives/2014/05/page/2/" class="alignright next">Next</a>
+  
+  <div class="clearfix"></div>
+</nav>
+
+
+
+
+   </div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:insaneguy.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/07/16/kinect_dev_config_vs2013/">Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
+  
+    <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/categories/Programming/Scala/">Scala</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  
+    <a href="/tags/C/">C++<small>2</small></a>
+  
+    <a href="/tags/Kinect/">Kinect<small>1</small></a>
+  
+    <a href="/tags/OpenCV/">OpenCV<small>1</small></a>
+  
+    <a href="/tags/Ruby/">Ruby<small>4</small></a>
+  
+    <a href="/tags/Scala/">Scala<small>6</small></a>
+  
+    <a href="/tags/coursera/">coursera<small>6</small></a>
+  
+    <a href="/tags/fp/">fp<small>6</small></a>
+  
+    <a href="/tags/hexo/">hexo<small>1</small></a>
+  
+    <a href="/tags/notes/">notes<small>7</small></a>
+  
+</div>
+
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2014 insaneguy
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+			<a href="https://github.com/https://github.com/insaneyilin" target="_blank" title="insaneguy Github"><i class="fa fa-github-square"></i></a>	
+		
+		
+		
+			<a href="http://www.weibo.com/http://weibo.com/guiyilin" target="_blank" title="insaneguy Weibo"><i class="fa fa-weibo"></i></a>	
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+ <script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

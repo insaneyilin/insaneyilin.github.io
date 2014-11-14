@@ -1,0 +1,435 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86) | Yilin&#39;s blog</title>
+  <meta name="author" content="insaneguy">
+  
+  <meta name="description" content="This guy is insane.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)"/>
+  <meta property="og:site_name" content="Yilin&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="en"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+    
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+    
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+
+  
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Yilin&#39;s blog</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	      <li><a href="/about">About</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h1>Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</h1>
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-07-16T14:15:19.000Z">07-16-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="#ds-thread"><span class="ds-thread-count" data-thread-key="2014/07/16/kinect_dev_config_vs2013/" data-count-type="comments"></span></a>
+              
+            </li>
+          </ul>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+  
+  
+    <div class="post-content">
+  
+      
+      <div class="entry">
+        
+          <p>OS为Windows 8 32位，VS2013已安装并可以正常使用。</p>
+<h2 id="一-_安装和配置Kinect_for_Windows_SDK_v1-8">一. 安装和配置Kinect for Windows SDK v1.8</h2>
+<p>在<a href="http://www.microsoft.com/en-us/kinectforwindowsdev/Start.aspx" target="_blank" rel="external">官方网站</a>下载<strong>Kinect for Windows SDK</strong>和<strong>Developer Toolkit</strong>：</p>
+<p>KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口）</p>
+<p>KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的工具，包括Kinect Studio和多种编程语言的开发例程等）<br><a id="more"></a><br>按照默认选项安装完成后，接入Kinect，系统将会自动的搜索驱动进行安装。打开设备管理器查看驱动是否安装成功：</p>
+<p><img src="/imgs/KinectDrivers.jpg" alt="Kinect Drivers"></p>
+<p>再打开Developer Toolkit Browser v1.8.0 (Kinect for Windows)：</p>
+<p><img src="/imgs/KinectDevBrower.jpg" alt="Developer Toolkit Browser"></p>
+<p>测试读取深度图像的例子：</p>
+<p><img src="/imgs/KinectDepthDemo.jpg" alt="Depth Basics Demo"></p>
+<hr>
+<h2 id="二-_安装OpenCV2-4-9">二. 安装OpenCV2.4.9</h2>
+<p>OpenCV主页：<a href="opencv.org">opencv.org</a></p>
+<p>下载<a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-win/2.4.9/opencv-2.4.9.exe/download" target="_blank" rel="external">OpenCV for Windows</a></p>
+<p>安装很简单，不用自己编译。假设安装在E盘 <code>E:\opencv</code> 。</p>
+<hr>
+<h2 id="三-_VS2013配置">三. VS2013配置</h2>
+<p>打开VS2013，新建project，命名为<code>KinectDepthData</code>。打开<code>VIEW</code>中的<code>Property Manager</code>，打开<code>Debug | Win32</code>下的<code>Microsoft.Cpp.Win32.user</code>:</p>
+<p><img src="/imgs/VS2013_opencv_props.jpg" alt="Property Manager"></p>
+<p>分别配置OpenCV和Kinect的项目属性：</p>
+<h3 id="OpenCV">OpenCV</h3>
+<ol>
+<li>Include files加入E:\opencv\build\include；</li>
+<li>Library files加入E:\opencv\build\x86\vc10\lib；</li>
+<li><p>在Linker的Input中，添加Additional Dependencies(根据需要添加)：</p>
+<p> opencv_core249d.lib<br> opencv_highgui249d.lib<br> opencv_video249d.lib<br> opencv_imgproc249d.lib<br> opencv_features2d249d.lib<br> opencv_nonfree249d.lib<br> opencv_legacy249d.lib<br> opencv_calib3d249d.lib</p>
+</li>
+</ol>
+<h3 id="Kinect">Kinect</h3>
+<ol>
+<li>Include files加入C:\Program Files\Microsoft SDKs\Kinect\v1.8\inc；</li>
+<li>Library files加入C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\x86；</li>
+<li><p>在Linker的Input中，添加Additional Dependencies：</p>
+<p> Kinect10.lib</p>
+</li>
+</ol>
+<p><img src="/imgs/VS2013_opencv_vcpp_dir.jpg" alt="VC++ Directories"></p>
+<p><img src="/imgs/VS2013_opencv_linker.jpg" alt="Linker"></p>
+<hr>
+<h2 id="四-_测试用Kinect读取深度图像并用OpenCV显示">四. 测试用Kinect读取深度图像并用OpenCV显示</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/************************************************</span></div><div class="line">代码原作者：zouxy09</div><div class="line">来自：http://http://blog.csdn.net/zouxy09/article/details/8146266</div><div class="line"></div><div class="line">Kinect for Windows SDK + OpenCV2读取并显示深度图像</div><div class="line"></div><div class="line">************************************************/</div><div class="line"></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;windows.h&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;NuiApi.h&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;opencv2/opencv.hpp&gt;</span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</div><div class="line">{</div><div class="line">    Mat image;</div><div class="line">    <span class="comment">// 这里我们用灰度图来表述深度数据，越远的数据越暗</span></div><div class="line">    image.create(<span class="number">240</span>, <span class="number">320</span>, CV_8UC1);</div><div class="line"></div><div class="line">    <span class="comment">// 1. 初始化NUI，注意这里传入的参数有变化，为DEPTH</span></div><div class="line">    HRESULT hr = NuiInitialize(NUI_INITIALIZE_FLAG_USES_DEPTH);</div><div class="line">    <span class="keyword">if</span> (FAILED(hr))</div><div class="line">    {</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"NuiInitialize failed"</span> &lt;&lt; endl;</div><div class="line">        <span class="keyword">return</span> hr;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">// 2. 定义事件句柄</span></div><div class="line">    <span class="comment">// 创建读取下一帧的信号事件句柄，控制Kinect是否可以开始读取下一帧数据</span></div><div class="line">    HANDLE nextColorFrameEvent = CreateEvent(NULL, TRUE, FALSE, NULL);</div><div class="line">    HANDLE depthStreamHandle = NULL;  <span class="comment">// 保存图像数据流的句柄，用以提取数据</span></div><div class="line"></div><div class="line">    <span class="comment">// 3. 打开Kinect设备的深度图信息通道，并用depthStreamHandle保存该流的句柄，以便以后读取</span></div><div class="line">    hr = NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH, NUI_IMAGE_RESOLUTION_320x240,</div><div class="line">        <span class="number">0</span>, <span class="number">2</span>, nextColorFrameEvent, &depthStreamHandle);</div><div class="line">    <span class="keyword">if</span> (FAILED(hr))  <span class="comment">// 判断读取是否正确</span></div><div class="line">    {</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Could not open color image stream video"</span> &lt;&lt; endl;</div><div class="line">        NuiShutdown();</div><div class="line">        <span class="keyword">return</span> hr;</div><div class="line">    }</div><div class="line">    namedWindow(<span class="string">"depthImage"</span>, CV_WINDOW_AUTOSIZE);</div><div class="line"></div><div class="line">    <span class="comment">// 4. 开始读取深度数据</span></div><div class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>)</div><div class="line">    {</div><div class="line">        <span class="keyword">const</span> NUI_IMAGE_FRAME * pImageFrame = NULL;</div><div class="line"></div><div class="line">        <span class="comment">// 4.1 无限等待新的数据，等到后返回</span></div><div class="line">        <span class="keyword">if</span> (WaitForSingleObject(nextColorFrameEvent, INFINITE) == <span class="number">0</span>)</div><div class="line">        {</div><div class="line">            <span class="comment">// 4.2 从刚才打开数据流的流句柄中得到该帧数据，读取到的数据地址存于pImageFrame</span></div><div class="line">            hr = NuiImageStreamGetNextFrame(depthStreamHandle, <span class="number">0</span>, &pImageFrame);</div><div class="line">            <span class="keyword">if</span> (FAILED(hr))  <span class="comment">// 判断读取是否正确</span></div><div class="line">            {</div><div class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"Could not get depth image"</span> &lt;&lt; endl;</div><div class="line">                NuiShutdown();</div><div class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">            }</div><div class="line"></div><div class="line">            INuiFrameTexture * pTexture = pImageFrame-&gt;pFrameTexture;</div><div class="line">            NUI_LOCKED_RECT LockedRect;</div><div class="line"></div><div class="line">            <span class="comment">// 4.3 提取数据帧到LockedRect，它包括两个数据对象：Pitch每行字节数，pBits第一个字节地址</span></div><div class="line">            <span class="comment">// 并锁定数据，这样当我们读取数据时，Kinect就不会去修改它</span></div><div class="line">            pTexture-&gt;LockRect(<span class="number">0</span>, &LockedRect, NULL, <span class="number">0</span>);</div><div class="line"></div><div class="line">            <span class="comment">// 4.4 确定获得的数据是否有效</span></div><div class="line">            <span class="keyword">if</span> (LockedRect.Pitch != <span class="number">0</span>)</div><div class="line">            {</div><div class="line">                <span class="comment">// 4.5 将数据转换为OpenCV的Mat格式</span></div><div class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; image.rows; ++i)</div><div class="line">                {</div><div class="line">                    uchar *ptr = image.ptr&lt;uchar&gt;(i);  <span class="comment">// 第i行的指针</span></div><div class="line"></div><div class="line">                    <span class="comment">// 深度图像数据含有两种格式，这里像素的低12位表示一个深度值，高4位未使用</span></div><div class="line">                    <span class="comment">// 注意这里需要进行转换，因为每个数据是2个字节，存储的同上面获取的颜色信息不一样</span></div><div class="line">                    uchar *pBufferRun = (uchar*)(LockedRect.pBits) + i * LockedRect.Pitch;</div><div class="line">                    USHORT *pBuffer = (USHORT*)pBufferRun;</div><div class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; image.cols; ++j)</div><div class="line">                    {</div><div class="line">                        ptr[j] = <span class="number">255</span> - (uchar)(<span class="number">256</span> * pBuffer[j] / <span class="number">0x0fff</span>);  <span class="comment">// 直接将数据归一化处理</span></div><div class="line">                    }</div><div class="line">                }</div><div class="line">                imshow(<span class="string">"depthImage"</span>, image);</div><div class="line">            }</div><div class="line">            <span class="keyword">else</span></div><div class="line">            {</div><div class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"Buffer length of received texture is bogus\r\n"</span> &lt;&lt; endl;</div><div class="line">            }</div><div class="line"></div><div class="line">            <span class="comment">// 5. 这一帧已经处理完了，所以将其解锁</span></div><div class="line">            pTexture-&gt;UnlockRect(<span class="number">0</span>);</div><div class="line"></div><div class="line">            <span class="comment">// 6. 释放本帧数据，准备迎接下一帧</span></div><div class="line">            NuiImageStreamReleaseFrame(depthStreamHandle, pImageFrame);</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (cvWaitKey(<span class="number">20</span>) == <span class="number">27</span>)</div><div class="line">        {</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">// 7. 关闭NUI链接</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>程序运行效果：</p>
+<p><img src="/imgs/kinect_opencv_depthImage.jpg" alt="Kinect + OpenCV Depth Image"></p>
+<hr>
+<h2 id="参考">参考</h2>
+<p><a href="http://blog.csdn.net/zouxy09/article/details/8146055" target="_blank" rel="external">Kinect开发学习笔记之（三）Kinect开发环境配置</a></p>
+
+        
+      </div>
+      <footer>
+        
+          
+  
+  <div class="categories">
+    <a href="/categories/Programming/">Programming</a>
+  </div>
+
+          
+  
+  <div class="tags">
+    <a href="/tags/Kinect/">Kinect</a>, <a href="/tags/OpenCV/">OpenCV</a>
+  </div>
+
+          <div class="share">
+  
+
+    
+
+    
+      <div class="g-plusone"></div>
+
+      <script type="text/javascript">
+        window.___gcfg = {lang: 'en-GB'};
+
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+    
+
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="halfer53">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+  
+</div>
+          
+<nav class="article-nav clearfix">
+ 
+
+<div class="article-next">
+<a href="/2014/06/03/ruby_quickstart_notes_4/"  title="Ruby Quick Start (4) -- Array, String, Closure">
+ <span>Ruby Quick Start (4) -- Array, String, Closure
+</span>
+<i class="fa fa-long-arrow-right"></i>
+</a>
+</div>
+
+</nav>
+
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+
+     <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2014/07/16/kinect_dev_config_vs2013/" data-title="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)" data-url="http://insaneguy.me2014/07/16/kinect_dev_config_vs2013/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:insaneguy.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/07/16/kinect_dev_config_vs2013/">Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
+  
+    <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/categories/Programming/Scala/">Scala</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  
+    <a href="/tags/C/">C++<small>2</small></a>
+  
+    <a href="/tags/Kinect/">Kinect<small>1</small></a>
+  
+    <a href="/tags/OpenCV/">OpenCV<small>1</small></a>
+  
+    <a href="/tags/Ruby/">Ruby<small>4</small></a>
+  
+    <a href="/tags/Scala/">Scala<small>6</small></a>
+  
+    <a href="/tags/coursera/">coursera<small>6</small></a>
+  
+    <a href="/tags/fp/">fp<small>6</small></a>
+  
+    <a href="/tags/hexo/">hexo<small>1</small></a>
+  
+    <a href="/tags/notes/">notes<small>7</small></a>
+  
+</div>
+
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2014 insaneguy
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+			<a href="https://github.com/https://github.com/insaneyilin" target="_blank" title="insaneguy Github"><i class="fa fa-github-square"></i></a>	
+		
+		
+		
+			<a href="http://www.weibo.com/http://weibo.com/guiyilin" target="_blank" title="insaneguy Weibo"><i class="fa fa-weibo"></i></a>	
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+ <script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

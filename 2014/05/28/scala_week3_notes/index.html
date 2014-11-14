@@ -1,0 +1,649 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Notes of Scala course on Coursera -- Week 3 | Yilin&#39;s blog</title>
+  <meta name="author" content="insaneguy">
+  
+  <meta name="description" content="This guy is insane.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Notes of Scala course on Coursera -- Week 3"/>
+  <meta property="og:site_name" content="Yilin&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="en"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+    
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+    
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+
+  
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Yilin&#39;s blog</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	      <li><a href="/about">About</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h1>Notes of Scala course on Coursera -- Week 3</h1>
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-28T13:56:29.000Z">05-28-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/28/scala_week3_notes/" data-count-type="comments"></span></a>
+              
+            </li>
+          </ul>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+  
+  
+    <div class="post-content">
+  
+      
+      <div class="entry">
+        
+          <p>Here are my notes for the week 3’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>.</p>
+<p><br><br><br></p>
+<hr>
+<h2 id="1-_Class_Hierarchies">1. Class Hierarchies</h2>
+<h3 id="1-1_Abstract_Classes">1.1 Abstract Classes</h3>
+<p>Consider the task of writing <em>a class for sets of integers</em> with the following operations.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<p><code>IntSet</code> is an <em>abstract</em> class.</p>
+<p>Abstract classes can contain members which are <em>missing an implementation</em> (in our case, <code>incl</code> and <code>contains</code> ).</p>
+<p>Consequently, <strong>no instances</strong> of an abstract class can be created with the operator <code>new</code>.</p>
+<p><br></p>
+<hr>
+<h3 id="1-2_Class_Extensions">1.2 Class Extensions</h3>
+<p>Let’s consider implementing sets as <em>binary trees</em>.</p>
+<p>There are two types of possible trees: a tree for the empty set, and a tree consisting of an integer and two sub-trees.</p>
+<p>Here are their implementations:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empty</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean = <span class="keyword">false</span></div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet = <span class="keyword">new</span> NonEmpty(x, <span class="keyword">new</span> Empty, <span class="keyword">new</span> Empty)</div><div class="line">}</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NonEmpty</span><span class="params">(elem: Int, left: IntSet, right: IntSet)</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean =</div><div class="line">    <span class="keyword">if</span> (x &lt; elem) left contains x</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) right contains x</div><div class="line">    <span class="keyword">else</span> <span class="keyword">true</span></div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet =</div><div class="line">    <span class="keyword">if</span> (x &lt; elem) <span class="keyword">new</span> NonEmpty(elem, left incl x, right)</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) <span class="keyword">new</span> NonEmpty(elem, left, right incl x)</div><div class="line">    <span class="keyword">else</span> <span class="keyword">this</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>Empty and NonEmpty both <em>extend</em> the class <code>IntSet</code> .</p>
+<p>This implies that the types <code>Empty</code> and <code>NonEmpty</code> <em>conform</em> to the type <code>IntSet</code></p>
+<ul>
+<li>an object of type <code>Empty</code> or <code>NonEmpty</code> can be used wherever an object of type <code>IntSet</code> is required.</li>
+</ul>
+<p><br></p>
+<hr>
+<p><a id="more"></a></p>
+<h3 id="1-3_Base_Classes_and_Subclasses">1.3 Base Classes and Subclasses</h3>
+<p><code>IntSet</code> is called the <em>superclass</em> of <code>Empty</code> and <code>NonEmpty</code> .</p>
+<p><code>Empty</code> and <code>NonEmpty</code> are <em>subclasses</em> of <code>IntSet</code> .</p>
+<p>In Scala, any user-defined class extends another class.</p>
+<p>If no superclass is given, the standard class <code>Object</code> in the Java package <code>java.lang</code> is assumed.</p>
+<p>The direct or indirect superclasses of a class C are called <em>base classes</em> of C .</p>
+<p>So, the base classes of <code>NonEmpty</code> are <code>IntSet</code> and <code>Object</code>.</p>
+<p><br></p>
+<hr>
+<h3 id="1-4_Implementation_and_Overriding">1.4 Implementation and Overriding</h3>
+<p>The definitions of <code>contains</code> and <code>incl</code> in the classes <code>Empty</code> and <code>NonEmpty</code> implement the abstract functions in the base trait <code>IntSet</code> .</p>
+<p>It is also possible to <em>redefine an existing, non-abstract definition</em> in a subclass by using <code>override</code></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>{</div><div class="line">  <span class="keyword">def</span> foo = <span class="number">1</span></div><div class="line">  <span class="keyword">def</span> bar: Int</div><div class="line">}</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">extends</span> <span class="title">Base</span> </span>{</div><div class="line">  <span class="keyword">override</span> <span class="keyword">def</span> foo = <span class="number">2</span></div><div class="line">  <span class="keyword">def</span> bar = <span class="number">3</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<p><br></p>
+<hr>
+<h3 id="1-5_Object_Definitions">1.5 Object Definitions</h3>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">object</span> <span class="title">Empty</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean = <span class="keyword">false</span></div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet = <span class="keyword">new</span> NonEmpty(x, Empty, Empty)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>This defines a <strong>singleton object</strong> named <code>Empty</code> .</p>
+<p>No other <code>Empty</code> instances can be (or need to be) created.</p>
+<p>Singleton objects are <em>values</em>, so Empty evaluates to itself.</p>
+<p><br></p>
+<p>Run Scala Application Program in command line:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Hello.scala</span></div><div class="line"><span class="class"><span class="keyword">object</span> <span class="title">Hello</span> </span>{</div><div class="line">  <span class="keyword">def</span> main(args: Array[String]) = println(<span class="string">"hello, world!"</span>)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>In command line:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="blockquote">&gt; scala Hello</span></div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h4 id="Exercise">Exercise</h4>
+<p>Write a method <code>union</code> for forming the union of two sets. You should implement the following abstract class.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean</div><div class="line">  <span class="keyword">def</span> union(other: IntSet): IntSet</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><strong>Answer:</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empty</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean = <span class="keyword">false</span></div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet = <span class="keyword">new</span> NonEmpty(x, <span class="keyword">new</span> Empty, <span class="keyword">new</span> Empty)</div><div class="line">  <span class="keyword">def</span> union(other: IntSet): IntSet = other  </div><div class="line">}</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NonEmpty</span><span class="params">(elem: Int, left: IntSet, right: IntSet)</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>{</div><div class="line">  <span class="keyword">def</span> contains(x: Int): Boolean =</div><div class="line">    <span class="keyword">if</span> (x &lt; elem) left contains x</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) right contains x</div><div class="line">    <span class="keyword">else</span> <span class="keyword">true</span></div><div class="line">  <span class="keyword">def</span> incl(x: Int): IntSet =</div><div class="line">    <span class="keyword">if</span> (x &lt; elem) <span class="keyword">new</span> NonEmpty(elem, left incl x, right)</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) <span class="keyword">new</span> NonEmpty(elem, left, right incl x)</div><div class="line">    <span class="keyword">else</span> <span class="keyword">this</span></div><div class="line">  <span class="keyword">def</span> union(other: IntSet): IntSet = </div><div class="line">    ((left union right) union other) incl elem</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h3 id="1-6_Dynamic_Binding">1.6 Dynamic Binding</h3>
+<p>Object-oriented languages (including Scala) implement <strong>dynamic method dispatch</strong>.</p>
+<p>This means that the code invoked by a method call depends on the <em>runtime type</em> of the object that contains the method.</p>
+<h4 id="Example">Example</h4>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Empty contains <span class="number">1</span></div><div class="line">-&gt; [<span class="number">1</span>/x] [Empty/<span class="keyword">this</span>] <span class="keyword">false</span></div><div class="line">= <span class="keyword">false</span></div></pre></td></tr></table></figure>
+
+<p>Another evaluation using <code>NonEmpty</code> :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(<span class="keyword">new</span> NonEmpty(<span class="number">7</span>, Empty, Empty)) contains <span class="number">7</span></div><div class="line">→ [<span class="number">7</span>/elem] [<span class="number">7</span>/x] [<span class="keyword">new</span> NonEmpty(<span class="number">7</span>, Empty, Empty)/<span class="keyword">this</span>]</div><div class="line">    <span class="keyword">if</span> (x &lt; elem) <span class="keyword">this</span>.left contains x</div><div class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) <span class="keyword">this</span>.right contains x <span class="keyword">else</span> <span class="keyword">true</span></div><div class="line">= <span class="keyword">if</span> (<span class="number">7</span> &lt; <span class="number">7</span>) <span class="keyword">new</span> NonEmpty(<span class="number">7</span>, Empty, Empty).left contains <span class="number">7</span></div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">7</span> &gt; <span class="number">7</span>) <span class="keyword">new</span> NonEmpty(<span class="number">7</span>, Empty, Empty).right</div><div class="line">      contains <span class="number">7</span> <span class="keyword">else</span> <span class="keyword">true</span></div><div class="line">→ <span class="keyword">true</span></div></pre></td></tr></table></figure>
+
+<p><br><br><br></p>
+<hr>
+<h2 id="2-_How_Classes_are_Organized">2. How Classes are Organized</h2>
+<h3 id="2-1_Packages">2.1 Packages</h3>
+<p>Classes and objects are organized in packages.</p>
+<p>To place a class or object inside a package, use a <code>package</code> clause at the top of your source file.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> progfun.examples</div><div class="line"><span class="class"><span class="keyword">object</span> <span class="title">Hello</span> </span>{ ... }</div></pre></td></tr></table></figure>
+
+<p>This would place <code>Hello</code> in the package <code>progfun.examples</code> .</p>
+<p>You can then refer to <code>Hello</code> by its fully qualified name <code>progfun.examples.Hello</code> . For instance, to run the Hello program:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; scala progfun.examples.Hello</div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h3 id="2-2_Import">2.2 Import</h3>
+<p>Say we have a class <code>Rational</code> in package <code>week3</code> .</p>
+<p>You can use the class using its fully qualified name:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> r = <span class="keyword">new</span> week3.Rational(<span class="number">1</span>, <span class="number">2</span>)</div></pre></td></tr></table></figure>
+
+<p>Alternatively, you can use an <code>import</code> :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> week3.Rational</div><div class="line"><span class="keyword">val</span> r = <span class="keyword">new</span> Rational(<span class="number">1</span>, <span class="number">2</span>)</div></pre></td></tr></table></figure>
+
+<p>Imports come in several forms:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> week3.Rational <span class="comment">// imports just Rational</span></div><div class="line"><span class="keyword">import</span> week3.{Rational, Hello} <span class="comment">// imports both Rational and Hello</span></div><div class="line"><span class="keyword">import</span> week3._ <span class="comment">// imports everything in package week3</span></div></pre></td></tr></table></figure>
+
+<p>The first two forms are called <em>named imports</em>.</p>
+<p>The last form is called a <em>wildcard import</em>.</p>
+<p>You can import from either a package or an object.</p>
+<p><br></p>
+<h4 id="Automatic_Imports">Automatic Imports</h4>
+<p>Some entities are automatically imported in any Scala program.</p>
+<p>These are:</p>
+<ul>
+<li>All members of package scala</li>
+<li>All members of package java.lang</li>
+<li>All members of the singleton object scala.Predef</li>
+</ul>
+<p><br></p>
+<hr>
+<h3 id="2-3_Traits">2.3 Traits</h3>
+<p>In Java, as well as in Scala, a class can only have one superclass.</p>
+<p>But what if a class has several natural supertypes to which it conforms or from which it wants to inherit code?</p>
+<p>Here, you could use <code>trait</code> s.</p>
+<p>A trait is declared like an abstract class, just with trait instead of abstract class</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Planar</span> </span>{</div><div class="line">  <span class="keyword">def</span> height: Int</div><div class="line">  <span class="keyword">def</span> width: Int</div><div class="line">  <span class="keyword">def</span> surface = height * width</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>Classes, objects and traits can inherit from at most one class but arbitrary many traits.</p>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Shape</span> <span class="keyword">with</span> <span class="title">Planar</span> <span class="keyword">with</span> <span class="title">Movable</span> ...</span></div></pre></td></tr></table></figure>
+
+<p>Traits resemble interfaces in Java, but are more powerful because they can contains fields and concrete methods.</p>
+<p>On the other hand, traits <em>cannot have (value) parameters</em>, only classes can.</p>
+<p><br></p>
+<hr>
+<h3 id="2-4_Scala’s_Class_Hierarchy">2.4 Scala’s Class Hierarchy</h3>
+<p><img src="/imgs/scalaclasshierarchy.png" alt="Scala&#39;s Class Hierarchy"></p>
+<p><br></p>
+<p><img src="/imgs/toptypes.png" alt="Top Types"></p>
+<p><br></p>
+<hr>
+<h3 id="2-5_The_Nothing_Type">2.5 The Nothing Type</h3>
+<p><code>Nothing</code> is at the bottom of Scala’s type hierarchy. It is a subtype of every other type.</p>
+<p>There is <em>no value</em> of type <code>Nothing</code> .</p>
+<p>Why is that useful?</p>
+<ul>
+<li>To signal abnormal termination</li>
+<li>As an element type of empty collections (see next session)</li>
+</ul>
+<p><br></p>
+<hr>
+<h3 id="2-6_Exceptions">2.6 Exceptions</h3>
+<p>Scala’s exception handling is similar to Java’s.</p>
+<p>The expression</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">throw</span> Exc</div></pre></td></tr></table></figure>
+
+<p>aborts evaluation with the exception <code>Exc</code> .<br>The type of this expression is <code>Nothing</code> .</p>
+<p><br></p>
+<hr>
+<h3 id="2-7_The_Null_Type">2.7 The Null Type</h3>
+<p>Every reference class type also has <code>null</code> as a value. </p>
+<p>The type of <code>null</code> is <code>Null</code> .</p>
+<p><code>Null</code> is a subtype of every class that inherits from <code>Object</code> ; it is incompatible with subtypes of <code>AnyVal</code> .</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> x = <span class="keyword">null</span> <span class="comment">// x: Null</span></div><div class="line"><span class="keyword">val</span> y: String = <span class="keyword">null</span> <span class="comment">// y: String</span></div><div class="line"><span class="keyword">val</span> z: Int = <span class="keyword">null</span> <span class="comment">// error: type mismatch</span></div></pre></td></tr></table></figure>
+
+
+
+<p><br><br><br></p>
+<hr>
+<h2 id="3-_Polymorphism">3. Polymorphism</h2>
+<h3 id="3-1_Cons-Lists">3.1 Cons-Lists</h3>
+<p>A fundamental data structure in many functional languages is the immutable linked list.</p>
+<p>It is constructed form two building blocks:</p>
+<ul>
+<li><code>Nil</code>, the empty list</li>
+<li><code>Cons</code>, a cell containing an element and the remainder of the list.</li>
+</ul>
+<p><br></p>
+<h4 id="Examples_for_Cons-Lists">Examples for Cons-Lists</h4>
+<p><img src="/imgs/examplesforconslist.png" alt="Examples for Cons-Lists"></p>
+<p><br></p>
+<h3 id="3-2_Cons-Lists_in_Scala">3.2 Cons-Lists in Scala</h3>
+<p>Here’s an outline of a class hierarchy that represents lists of integers in this fashion:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> week4</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">trait</span> <span class="title">IntList</span> ...</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cons</span><span class="params">(val head: Int, val tail: IntList)</span> <span class="keyword">extends</span> <span class="title">IntList</span> ...</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Nil</span> <span class="keyword">extends</span> <span class="title">IntList</span> ...</span></div></pre></td></tr></table></figure>
+
+<p>A list is either</p>
+<ul>
+<li>an empty list <code>new Nil</code>, or</li>
+<li>a list <code>new Cons(x, xs)</code> consisting of a head element <code>x</code> and a list <code>xs</code> .</li>
+</ul>
+<p><br></p>
+<h4 id="Value_Parameters">Value Parameters</h4>
+<p>Note the abbreviation <code>(val head: Int, val tail: IntList)</code> in the definition of <code>Cons</code> .</p>
+<p>This defines at the same time parameters and fields of a class.</p>
+<p>It is equivalent to:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cons</span><span class="params">(_head: Int, _tail: IntList)</span> <span class="keyword">extends</span> <span class="title">IntList</span> </span>{</div><div class="line">  <span class="keyword">val</span> head = _head</div><div class="line">  <span class="keyword">val</span> tail = _tail</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>where <code>_head</code> and <code>_tail</code> are otherwise unused names.</p>
+<p><br></p>
+<h4 id="Type_Parameters">Type Parameters</h4>
+<p>It seems too narrow to define only lists with <code>Int</code> elements.</p>
+<p>We’d need another class hierarchy for Double list, and so on, one for each possible element type.</p>
+<p>We can generalize the definition using a typing parameter:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> week4</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">trait</span> <span class="title">List</span>[<span class="title">T</span>]</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cons</span>[<span class="title">T</span>]<span class="params">(val head: T, val tail: List[T])</span> <span class="keyword">extends</span> <span class="title">List</span>[<span class="title">T</span>]</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Nil</span>[<span class="title">T</span>] <span class="keyword">extends</span> <span class="title">List</span>[<span class="title">T</span>]</span></div></pre></td></tr></table></figure>
+
+<p>Type parameters are written in square brackets, e.g. [T].</p>
+<p><br></p>
+<h4 id="Complete_Definition_of_List">Complete Definition of List</h4>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">trait</span> <span class="title">List</span>[<span class="title">T</span>] </span>{</div><div class="line">  <span class="keyword">def</span> isEmpty: Boolean</div><div class="line">  <span class="keyword">def</span> head: T</div><div class="line">  <span class="keyword">def</span> tail: List[T]</div><div class="line">}</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cons</span>[<span class="title">T</span>]<span class="params">(val head: T, val tail: List[T])</span> <span class="keyword">extends</span> <span class="title">List</span>[<span class="title">T</span>] </span>{</div><div class="line">  <span class="keyword">def</span> isEmpty = <span class="keyword">false</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Nil</span>[<span class="title">T</span>] <span class="keyword">extends</span> <span class="title">List</span>[<span class="title">T</span>] </span>{</div><div class="line">  <span class="keyword">def</span> isEmpty = <span class="keyword">true</span></div><div class="line">  <span class="keyword">def</span> head = <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException(<span class="string">"Nil.head"</span>)</div><div class="line">  <span class="keyword">def</span> tail = <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException(<span class="string">"Nil.tail"</span>)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><br></p>
+<h4 id="Generic_Functions">Generic Functions</h4>
+<p>Like classes, functions can have type parameters.</p>
+<p>For instance, here is a function that creates a list consisting of a single element.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> singleton[T](elem: T) = <span class="keyword">new</span> Cons[T](elem, <span class="keyword">new</span> Nil[T])</div></pre></td></tr></table></figure>
+
+<p>We can then write:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">singleton[Int](<span class="number">1</span>)</div><div class="line">singleton[Boolean](<span class="keyword">true</span>)</div></pre></td></tr></table></figure>
+
+<p>In fact, the Scala compiler can usually deduce the correct type parameters from the value arguments of a function call.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">singleton(<span class="number">1</span>)</div><div class="line">singleton(<span class="keyword">true</span>)</div></pre></td></tr></table></figure>
+
+<p><br></p>
+<h4 id="Types_and_Evaluation">Types and Evaluation</h4>
+<p>Type parameters do not affect evaluation in Scala.</p>
+<p>We can assume that all type parameters and type arguments are removed before evaluating the program.</p>
+<p>This is also called type erasure.</p>
+<p>Languages that use type erasure include Java, Scala, Haskell, ML, OCaml.</p>
+<p>Some other languages keeps the type parameters around at run time, these include C++, C#, F#.</p>
+<p><br></p>
+<h4 id="Polymorphism">Polymorphism</h4>
+<p>Polymorphism means that a function type comes “in many forms”.</p>
+<p>In programming it means that</p>
+<ul>
+<li>the function can be applied to arguments of many types, or</li>
+<li>the type can have instances of many types</li>
+</ul>
+<p>We have seen two principal forms of polymorphism:</p>
+<ul>
+<li><strong>subtyping</strong>: instances of a subclass can be passed to a base class</li>
+<li><strong>generics</strong>: instances of a function or class are created by type parameterization.</li>
+</ul>
+<p><br></p>
+<hr>
+<h4 id="Exercise-1">Exercise</h4>
+<p>Wirte a function <code>nth</code> that takes an integer n and a list and selects the n’th element of the list.</p>
+<p>Elements are numbered from 0.</p>
+<p>If index is outside the range from 0 up the length of the list minus one, a <code>IndexOutOfBoundsException</code> should be thrown.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> week4</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">trait</span> <span class="title">List</span>[<span class="title">T</span>] </span>{</div><div class="line">  <span class="keyword">def</span> isEmpty: Boolean</div><div class="line">  <span class="keyword">def</span> head: T</div><div class="line">  <span class="keyword">def</span> tail: List[T]</div><div class="line">}</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cons</span>[<span class="title">T</span>]<span class="params">(val head: T, val tail: List[T])</span> <span class="keyword">extends</span> <span class="title">List</span>[<span class="title">T</span>] </span>{</div><div class="line">  <span class="keyword">def</span> isEmpty = <span class="keyword">false</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Nil</span>[<span class="title">T</span>] <span class="keyword">extends</span> <span class="title">List</span>[<span class="title">T</span>] </span>{</div><div class="line">  <span class="keyword">def</span> isEmpty = <span class="keyword">true</span></div><div class="line">  <span class="keyword">def</span> head = <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException(<span class="string">"Nil.head"</span>)</div><div class="line">  <span class="keyword">def</span> tail = <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException(<span class="string">"Nil.tail"</span>)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> week4._</div><div class="line"></div><div class="line"><span class="keyword">def</span> nth[T](n: Int, xs: List[T]): T =</div><div class="line">  <span class="keyword">if</span> (xs.isEmpty) <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException </div><div class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">0</span>) xs.head</div><div class="line">  <span class="keyword">else</span> nth(n - <span class="number">1</span>, xs.tail)</div><div class="line"></div><div class="line"><span class="keyword">val</span> list = <span class="keyword">new</span> Cons(<span class="number">1</span>, <span class="keyword">new</span> Cons(<span class="number">2</span>, <span class="keyword">new</span> Cons(<span class="number">3</span>, <span class="keyword">new</span> Nil)))</div><div class="line"></div><div class="line">nth(<span class="number">2</span>, list)</div></pre></td></tr></table></figure>
+
+
+        
+      </div>
+      <footer>
+        
+          
+  
+  <div class="categories">
+    <a href="/categories/Programming/">Programming</a>, <a href="/categories/Programming/Scala/">Scala</a>
+  </div>
+
+          
+  
+  <div class="tags">
+    <a href="/tags/Scala/">Scala</a>, <a href="/tags/fp/">fp</a>, <a href="/tags/coursera/">coursera</a>, <a href="/tags/notes/">notes</a>
+  </div>
+
+          <div class="share">
+  
+
+    
+
+    
+      <div class="g-plusone"></div>
+
+      <script type="text/javascript">
+        window.___gcfg = {lang: 'en-GB'};
+
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+    
+
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="halfer53">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+  
+</div>
+          
+<nav class="article-nav clearfix">
+ 
+ <div class="article-prev" >
+ <a href="/2014/05/29/ruby_quickstart_notes_3/" title="Ruby Quick Start (3) -- Module, Mix-in">
+  <i class="fa fa-long-arrow-left"></i>
+  <span>
+  Ruby Quick Start (3) -- Module, Mix-in</span>
+</a>
+</div>
+
+
+<div class="article-next">
+<a href="/2014/05/28/ruby_quickstart_notes_2/"  title="Ruby Quick Start (2) -- Objects in Ruby">
+ <span>Ruby Quick Start (2) -- Objects in Ruby
+</span>
+<i class="fa fa-long-arrow-right"></i>
+</a>
+</div>
+
+</nav>
+
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+
+     <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2014/05/28/scala_week3_notes/" data-title="Notes of Scala course on Coursera -- Week 3" data-url="http://insaneguy.me2014/05/28/scala_week3_notes/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:insaneguy.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/07/16/kinect_dev_config_vs2013/">Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
+  
+    <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/categories/Programming/Scala/">Scala</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  
+    <a href="/tags/C/">C++<small>2</small></a>
+  
+    <a href="/tags/Kinect/">Kinect<small>1</small></a>
+  
+    <a href="/tags/OpenCV/">OpenCV<small>1</small></a>
+  
+    <a href="/tags/Ruby/">Ruby<small>4</small></a>
+  
+    <a href="/tags/Scala/">Scala<small>6</small></a>
+  
+    <a href="/tags/coursera/">coursera<small>6</small></a>
+  
+    <a href="/tags/fp/">fp<small>6</small></a>
+  
+    <a href="/tags/hexo/">hexo<small>1</small></a>
+  
+    <a href="/tags/notes/">notes<small>7</small></a>
+  
+</div>
+
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2014 insaneguy
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+			<a href="https://github.com/https://github.com/insaneyilin" target="_blank" title="insaneguy Github"><i class="fa fa-github-square"></i></a>	
+		
+		
+		
+			<a href="http://www.weibo.com/http://weibo.com/guiyilin" target="_blank" title="insaneguy Weibo"><i class="fa fa-weibo"></i></a>	
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+ <script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

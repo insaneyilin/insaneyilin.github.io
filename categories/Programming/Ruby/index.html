@@ -1,0 +1,567 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ruby | Yilin&#39;s blog</title>
+  <meta name="author" content="insaneguy">
+  
+  <meta name="description" content="This guy is insane.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Yilin&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="en"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+    
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+    
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+
+  
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Yilin&#39;s blog</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	      <li><a href="/about">About</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h2>This guy is insane.</h2>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding">
+<h2 class="archive-title category">Ruby</h2>
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-06-03T14:30:29.000Z">06-03-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/06/03/ruby_quickstart_notes_4/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/06/03/ruby_quickstart_notes_4/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（4）<br><br></p>
+<hr>
+<h2 id="第八章_Ruby中的数组、字符串、闭包">第八章 Ruby中的数组、字符串、闭包</h2>
+<h3 id="1-_Ruby中的数组">1. Ruby中的数组</h3>
+<h4 id="1-1_建立数组">1.1 建立数组</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">arr1 = []</div><div class="line">arr2 = <span class="constant">Array</span>.new</div><div class="line">arr3 = [<span class="string">'4 '</span>, <span class="string">'5 '</span>, <span class="string">'6 '</span>]</div><div class="line">print arr1, <span class="string">"\n"</span></div><div class="line">print arr2, <span class="string">"\n"</span></div><div class="line">print arr3, <span class="string">"\n"</span></div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h4 id="1-2_访问数组元素">1.2 访问数组元素</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">arr = [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line">puts arr[<span class="number">0</span>]    <span class="comment"># 3</span></div><div class="line">puts arr.first    <span class="comment"># 3</span></div><div class="line">puts arr[arr.length-<span class="number">1</span>]    <span class="comment"># 9</span></div><div class="line">puts arr[arr.size-<span class="number">1</span>]    <span class="comment"># 9</span></div><div class="line">puts arr.last    <span class="comment"># 9</span></div><div class="line">puts arr[-<span class="number">1</span>]    <span class="comment"># 9</span></div><div class="line">puts arr[-<span class="number">2</span>]    <span class="comment"># 8</span></div><div class="line">print arr[<span class="number">1</span>..<span class="number">3</span>] ,<span class="string">"\n"</span>    <span class="comment"># 456</span></div><div class="line">print arr[-<span class="number">3</span>, <span class="number">2</span>] ,<span class="string">"\n"</span>    <span class="comment"># 78</span></div></pre></td></tr></table></figure>
+
+<p>数组的索引从 <code>0</code> 开始，一直到数组的长度减去 <code>1</code>；</p>
+<p>负数表示从数组末尾开始的索引；</p>
+<p>用一对数字来索引数组，第一个数字表示开始位置，第二数字表示从开始位置起的元素数目。</p>
+<p><br></p>
+<hr>
+<h4 id="1-3_增加、删除数组元素">1.3 增加、删除数组元素</h4>
+<p>Ruby 的数组大小是动态的，你能够随时增加、删除数组元素。<br>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/06/03/ruby_quickstart_notes_4/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-29T14:30:29.000Z">05-29-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/29/ruby_quickstart_notes_3/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/29/ruby_quickstart_notes_3/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（3）</p>
+<p><br></p>
+<hr>
+<h2 id="第六章_模块、命名空间、Mix-in">第六章 模块、命名空间、Mix-in</h2>
+<h3 id="1-_Ruby中的模块">1. Ruby中的模块</h3>
+<p>在程序中，相关的、不相关的代码的组合，叫作模块。一般情况下，我们总是把功能相关的代码放在一个模块里。</p>
+<p>把功能相关的程序代码放在一个模块里， 体现了模块的第一个作用： 可以被其它程序代码重复使用。</p>
+<p>数学中常用的函数， Ruby 中的 <code>Math</code> 模块都提供了。 每个使用 <code>Math</code> 模块的程序员无须再重复编写这些常用的函数与常数。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">puts <span class="constant">Math</span>.sqrt(<span class="number">2</span>)    <span class="comment"># 1.4142135623731</span></div><div class="line">puts <span class="constant">Math::PI</span>    <span class="comment"># 3.14159265358979</span></div></pre></td></tr></table></figure>
+
+<p>定义模块用 <code>module...end</code> 。</p>
+<p>模块与类非常相似，但是：</p>
+<ul>
+<li>模块不可以有实例对象；</li>
+<li>模块不可以有子类。<br>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/29/ruby_quickstart_notes_3/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-28T11:30:29.000Z">05-28-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/28/ruby_quickstart_notes_2/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/28/ruby_quickstart_notes_2/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（2）<br><br></p>
+<hr>
+<h2 id="第四章_Ruby面向对象初探">第四章 Ruby面向对象初探</h2>
+<h3 id="1-_封装">1. 封装</h3>
+<p>让我们来定义一个类， 类名是 <code>Person</code>， <strong>类名首字母要大写</strong>；<br>属性有姓名<code>@name</code>、年龄<code>@age</code>、国籍<code>@motherland</code>，实例变量用<code>@</code>开头；<br>方法有一个，叫 <code>talk</code>, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。</p>
+<figure class="highlight ruby"><figcaption><span>Person.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>initialize(name, age = <span class="number">18</span>)</div><div class="line">    <span class="variable">@name</span> = name</div><div class="line">    <span class="variable">@age</span> = age</div><div class="line">    <span class="variable">@motherland</span> = <span class="string">"China"</span></div><div class="line">  <span class="keyword">end</span>  <span class="comment"># 初始化方法结束</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>talk</div><div class="line">    puts <span class="string">"my name is "</span> + <span class="variable">@name</span> + <span class="string">", age is "</span> + <span class="variable">@age</span>.to_s</div><div class="line">    <span class="keyword">if</span> <span class="variable">@motherland</span> == <span class="string">"China"</span></div><div class="line">      puts <span class="string">"I am a Chinese."</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">      puts <span class="string">"I am a foreigner."</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span>  <span class="comment"># talk方法结束</span></div><div class="line">  <span class="keyword">attr_writer</span> <span class="symbol">:motherland</span>  <span class="comment"># <span class="yardoctag">@motherland</span>的setter</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">p1 = <span class="constant">Person</span>.new(<span class="string">"Yilin"</span>, <span class="number">23</span>)</div><div class="line">p1.talk</div><div class="line"></div><div class="line">p2 = <span class="constant">Person</span>.new(<span class="string">"Ben"</span>)</div><div class="line">p2.motherland = <span class="string">"ABC"</span></div><div class="line">p2.talk</div></pre></td></tr></table></figure>
+
+<p><code>initialize</code> 是初始化方法，相当于构造函数。<br>参数 <code>age</code> 有一个缺省值 <code>18</code>，可以在任何方法内使用缺省参数,而不仅仅是 <code>initialize</code>。<br>如果有缺省参数， 参数表必须以有缺省值的参数结尾。</p>
+<p>注意我们定义了<code>@motherland</code>成员变量的setter：<br>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/28/ruby_quickstart_notes_2/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <div class="icon"></div>
+            
+    
+      <h1 class="title transition"><a href="/2014/05/26/ruby_quickstart_notes_1/">Ruby Quick Start (1) -- A Glimpse of Syntax</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-26T11:30:29.000Z">05-26-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="/2014/05/26/ruby_quickstart_notes_1/#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/26/ruby_quickstart_notes_1/" data-count-type="comments"></span></a>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>学习Ruby时在网上找到了一本小册子<a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>，虽然是07年的东西了，但是作为快速熟悉Ruby基本语法还是很有帮助的，做一下笔记。</p>
+<p>开始前先问下自己两个问题。</p>
+<p>(1) <em>我为什么要学习Ruby？</em></p>
+<p>为了Web开发。</p>
+<p>(2) <em>为什么选择Ruby，而不是Python，PHP？</em></p>
+<p>看了知乎上的<a href="http://www.zhihu.com/question/19573703/answer/12258814" target="_blank" rel="external">这个答案</a>：</p>
+<ul>
+<li>假如你想帮他尽快找个活儿， 赚到钱， 推荐 PHP</li>
+<li>假如你想让他成为一个高效工程师， 推荐 Python</li>
+<li>假如你想让他爱上他的工作， 推荐 Ruby </li>
+</ul>
+<p>无论如何，别人的答案只能作为参考，自己尝试过后才有资格评价，所以最好的方法就是亲自动手学习下Ruby。
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2014/05/26/ruby_quickstart_notes_1/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+
+
+
+   </div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:insaneguy.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/07/16/kinect_dev_config_vs2013/">Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
+  
+    <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/categories/Programming/Scala/">Scala</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  
+    <a href="/tags/C/">C++<small>2</small></a>
+  
+    <a href="/tags/Kinect/">Kinect<small>1</small></a>
+  
+    <a href="/tags/OpenCV/">OpenCV<small>1</small></a>
+  
+    <a href="/tags/Ruby/">Ruby<small>4</small></a>
+  
+    <a href="/tags/Scala/">Scala<small>6</small></a>
+  
+    <a href="/tags/coursera/">coursera<small>6</small></a>
+  
+    <a href="/tags/fp/">fp<small>6</small></a>
+  
+    <a href="/tags/hexo/">hexo<small>1</small></a>
+  
+    <a href="/tags/notes/">notes<small>7</small></a>
+  
+</div>
+
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2014 insaneguy
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+			<a href="https://github.com/https://github.com/insaneyilin" target="_blank" title="insaneguy Github"><i class="fa fa-github-square"></i></a>	
+		
+		
+		
+			<a href="http://www.weibo.com/http://weibo.com/guiyilin" target="_blank" title="insaneguy Weibo"><i class="fa fa-weibo"></i></a>	
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+ <script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ruby Quick Start (4) -- Array, String, Closure | Yilin&#39;s blog</title>
+  <meta name="author" content="insaneguy">
+  
+  <meta name="description" content="This guy is insane.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Ruby Quick Start (4) -- Array, String, Closure"/>
+  <meta property="og:site_name" content="Yilin&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="en"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+    
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+    
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+
+  
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Yilin&#39;s blog</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	      <li><a href="/about">About</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h1>Ruby Quick Start (4) -- Array, String, Closure</h1>
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-06-03T14:30:29.000Z">06-03-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="#ds-thread"><span class="ds-thread-count" data-thread-key="2014/06/03/ruby_quickstart_notes_4/" data-count-type="comments"></span></a>
+              
+            </li>
+          </ul>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+  
+  
+    <div class="post-content">
+  
+      
+      <div class="entry">
+        
+          <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（4）<br><br></p>
+<hr>
+<h2 id="第八章_Ruby中的数组、字符串、闭包">第八章 Ruby中的数组、字符串、闭包</h2>
+<h3 id="1-_Ruby中的数组">1. Ruby中的数组</h3>
+<h4 id="1-1_建立数组">1.1 建立数组</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">arr1 = []</div><div class="line">arr2 = <span class="constant">Array</span>.new</div><div class="line">arr3 = [<span class="string">'4 '</span>, <span class="string">'5 '</span>, <span class="string">'6 '</span>]</div><div class="line">print arr1, <span class="string">"\n"</span></div><div class="line">print arr2, <span class="string">"\n"</span></div><div class="line">print arr3, <span class="string">"\n"</span></div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h4 id="1-2_访问数组元素">1.2 访问数组元素</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">arr = [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line">puts arr[<span class="number">0</span>]    <span class="comment"># 3</span></div><div class="line">puts arr.first    <span class="comment"># 3</span></div><div class="line">puts arr[arr.length-<span class="number">1</span>]    <span class="comment"># 9</span></div><div class="line">puts arr[arr.size-<span class="number">1</span>]    <span class="comment"># 9</span></div><div class="line">puts arr.last    <span class="comment"># 9</span></div><div class="line">puts arr[-<span class="number">1</span>]    <span class="comment"># 9</span></div><div class="line">puts arr[-<span class="number">2</span>]    <span class="comment"># 8</span></div><div class="line">print arr[<span class="number">1</span>..<span class="number">3</span>] ,<span class="string">"\n"</span>    <span class="comment"># 456</span></div><div class="line">print arr[-<span class="number">3</span>, <span class="number">2</span>] ,<span class="string">"\n"</span>    <span class="comment"># 78</span></div></pre></td></tr></table></figure>
+
+<p>数组的索引从 <code>0</code> 开始，一直到数组的长度减去 <code>1</code>；</p>
+<p>负数表示从数组末尾开始的索引；</p>
+<p>用一对数字来索引数组，第一个数字表示开始位置，第二数字表示从开始位置起的元素数目。</p>
+<p><br></p>
+<hr>
+<h4 id="1-3_增加、删除数组元素">1.3 增加、删除数组元素</h4>
+<p>Ruby 的数组大小是动态的，你能够随时增加、删除数组元素。<br><a id="more"></a><br><code>print arr.join(&quot;, &quot;), &quot;\n&quot;</code>  意思是：将数组 <code>arr</code> 转换成字符串输出，用”<code>,</code>“隔开每个元素，并且换行。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">arr = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 4, 5, 6</span></div><div class="line">arr[<span class="number">4</span>] = <span class="string">"m"</span>        <span class="comment"># 把 4 号索引位置元素赋值为"m"</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 4, 5, 6, , m</span></div><div class="line">print arr[<span class="number">3</span>], <span class="string">"\n"</span>    <span class="comment"># 打印 3 号索引位置元素 #nil</span></div><div class="line">arr.delete_at(<span class="number">3</span>)    <span class="comment"># 删除 3 号索引位置元素</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 4, 5, 6, m</span></div><div class="line">arr[<span class="number">2</span>] = [<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>]        <span class="comment"># 把 2 号索引位置元素赋值为["a","b","c"]</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 4, 5, a, b, c, m</span></div><div class="line">print arr[<span class="number">2</span>], <span class="string">"\n"</span>        <span class="comment"># 打印 2 号索引位置元素 #abc</span></div><div class="line">arr[<span class="number">0</span>..<span class="number">1</span>] = [<span class="number">7</span>, <span class="string">"h"</span>, <span class="string">"b"</span>]        <span class="comment"># 把 0..1 号元素替换为 7, "h", "b"</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>        <span class="comment"># 7, h, b, a, b, c, m</span></div><div class="line">arr.push(<span class="string">"b"</span> )        <span class="comment"># 加入元素"b"</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>        <span class="comment"># 7, h, b, a, b, c, m, b</span></div><div class="line">arr.delete([<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>])        <span class="comment"># 删除元素["a","b","c"]</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>        <span class="comment"># 7, h, b, m, b</span></div><div class="line">arr.delete(<span class="string">"b"</span>)            <span class="comment"># 删除所有元素"b"</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 7, h, m</span></div><div class="line">arr.insert(<span class="number">3</span>, <span class="string">"d"</span>)        <span class="comment"># 在 3 号索引位置插入元素"d"</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>        <span class="comment"># 7, h, m, d</span></div><div class="line">arr &lt;&lt; <span class="string">"f"</span> &lt;&lt; <span class="number">2</span>            <span class="comment"># 加入元素"f"；加入元素 2</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 7, h, m, d, f, 2</span></div><div class="line">arr.pop            <span class="comment"># 删除尾元素</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 7, h, m, d, f</span></div><div class="line">arr.shift            <span class="comment"># 删除首元素</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># h, m, d, f</span></div><div class="line">arr.clear            <span class="comment"># 清空数组 arr</span></div><div class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment">#</span></div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h4 id="1-4_数组运算">1.4 数组运算</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">aaaa = [<span class="string">" aa "</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="string">" bb "</span>]</div><div class="line">bbbb = [<span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>]</div><div class="line">print aaaa + bbbb, <span class="string">"\n"</span>    <span class="comment">#  aa 45 bb 41325</span></div><div class="line">print aaaa * <span class="number">2</span>, <span class="string">"\n"</span>        <span class="comment">#  aa 45 bb aa 45 bb</span></div><div class="line">print bbbb - aaaa, <span class="string">"\n"</span>    <span class="comment"># 132</span></div><div class="line"><span class="comment"># 并运算；交运算</span></div><div class="line">print aaaa | bbbb, <span class="string">"\n"</span>    <span class="comment">#  aa 45 bb 132</span></div><div class="line">print aaaa & bbbb, <span class="string">"\n"</span>    <span class="comment"># 45</span></div><div class="line"><span class="comment"># 排序；倒置</span></div><div class="line">print bbbb.sort, <span class="string">"\n"</span>        <span class="comment"># 12345</span></div><div class="line">print aaaa.reverse, <span class="string">"\n"</span>        <span class="comment">#  bb 54 aa</span></div></pre></td></tr></table></figure>
+
+<p><br><br><br></p>
+<hr>
+<h3 id="2-_Ruby中的字符串">2. Ruby中的字符串</h3>
+<h4 id="2-1_字符串的创建">2.1 字符串的创建</h4>
+<p>字符串是 <code>String</code> 类的对象，一般使用字面值来创建。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">str1 = <span class="string">'this is str1'</span></div><div class="line">str2 = <span class="string">"this is str2"</span></div><div class="line">str3 = <span class="string">%q/this is str3/</span></div><div class="line">str4 = %<span class="constant">Q</span>/this is str4/</div><div class="line">str5 = &lt;&lt; <span class="constant">OK_str</span></div><div class="line">    <span class="constant">Here</span> is string document, str5</div><div class="line">        line one;</div><div class="line">        line two;</div><div class="line">        line three.</div><div class="line">    <span class="constant">OK</span></div><div class="line"><span class="constant">OK_str</span></div><div class="line">puts str3</div><div class="line">puts str4</div><div class="line">puts str5</div></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<blockquote>
+
+<p>this is str3<br>this is str4<br>    Here is string document, str5<br>        line one;<br>        line two;<br>        line three.<br>    OK</p>
+</blockquote>
+
+<p><code>%q</code> 用来生成单引号字符串；<code>%Q</code> 用来生成双引号字符串。 </p>
+<p><code>%q</code> 或者 <code>%Q</code> 后面跟着的是分隔符，可以是配对的<code>! !</code>； <code>/ /</code>； <code>&lt; &gt;</code>； <code>( )</code>； <code>[ ]</code> ；<code>{ }</code>；等等。</p>
+<p><code>str5</code> 是一个字符串文档，从 <code>&lt;&lt;</code> 和文档结束符的下一行开始，直到遇到一个放置在行首的文档结束符，结束整个字符串文档。</p>
+<p>一个数组可以用 <code>join</code> 方法转换成字符串，<code>join()</code> 内的参数也是一个字符串，用来分隔数组的每个元素，例如：<code>arr.join(&quot;, &quot;)</code>。</p>
+<p><br></p>
+<hr>
+<h4 id="2-2_字符串操作">2.2 字符串操作</h4>
+<p>字符串既然是 <code>String</code> 类的对象， <code>String</code> 类的方法你都可以使用在字符串变量上，<code>String</code> 类的方法非常多，下面略举几例。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">str = <span class="string">' this'</span> + <span class="string">" is"</span></div><div class="line">str += <span class="string">" you"</span></div><div class="line">str &lt;&lt; <span class="string">" string"</span> &lt;&lt; <span class="string">" ."</span></div><div class="line">puts str*<span class="number">2</span>    <span class="comment"># this is you string . this is you string .</span></div><div class="line">puts str[-<span class="number">12</span>, <span class="number">12</span>]    <span class="comment"># you string .</span></div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
+<h4 id="2-3_字符串转义">2.3 字符串转义</h4>
+<p>双引号括起来的字符串会有转义，例如：”<code>\n</code>“ 表示换行。还有一些其它的转义符号，比如制表符之类。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">str = <span class="string">" this is you string ."</span></div><div class="line">puts str * <span class="number">2</span>        <span class="comment"># this is you string . this is you string .</span></div><div class="line">str = <span class="string">" this is you string .\n"</span></div><div class="line">puts str*<span class="number">2</span>        <span class="comment"># this is you string .</span></div><div class="line">this is you string .</div><div class="line">str = <span class="string">" \tthis is you string ."</span></div><div class="line">puts str        <span class="comment"># this is you string .</span></div><div class="line">str = <span class="string">' this\'s you string .\n'</span></div><div class="line">puts str        <span class="comment"># this's you string .\n</span></div></pre></td></tr></table></figure>
+
+<p>单引号括起来的字符串并不会对字符串作任何解释，你看到的是什么便是什么，有一个例外：单引号字符串里的 <code>单引号</code> 需要转义。</p>
+<p><br></p>
+<hr>
+<h4 id="2-4_字符串内嵌表达式">2.4 字符串内嵌表达式</h4>
+<p>在双引号扩起来的字符串中， 不仅可以使用各种转义符， 而且可以放置任意的Ruby 表达式在 <code>#{ }</code> 之中，这些表达式在使用这个字符串的时候被计算出值，然后放入字符串。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>hello(name)</div><div class="line">  <span class="string">" Welcome, <span class="subst">#{name}</span> !"</span></div><div class="line"><span class="keyword">end</span></div><div class="line">puts hello(<span class="string">"Yilin"</span>)    <span class="comment"># Welcome, Yilin !</span></div><div class="line">puts hello(<span class="string">"Ben"</span>)        <span class="comment"># Welcome, Ben !</span></div></pre></td></tr></table></figure>
+
+<p>字符串内嵌表达式，使得你能够更加灵活地组织代码，表现出更强、更多的动态特性。</p>
+<p><br></p>
+<hr>
+<h3 id="3-_Ruby中的正则表达式(暂时略过)">3. Ruby中的正则表达式(暂时略过)</h3>
+<p>Ruby是一种强烈而灵活地支持正则表达式的语言。</p>
+<p>正则表达式强大，但是枯燥。有一个办法，就是<strong>等你需要用的时候再来学习</strong>。</p>
+<p><br></p>
+<hr>
+<h3 id="4-_迭代器、代码块、闭包">4. 迭代器、代码块、闭包</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(<span class="number">1</span>..<span class="number">9</span>).each {|i| print i <span class="keyword">if</span> i &lt; <span class="number">7</span>}</div></pre></td></tr></table></figure>
+
+<p>迭代器 <code>each</code> 是数组类的一个方法；大括号<code>{ }</code>里的代码是代码块，简称<strong>块</strong>。</p>
+<p>你可以用大括号<code>{ }</code>将代码组织成块，也可以用 <code>do...end</code> 将代码组织成块。</p>
+<p>大括号<code>{ }</code>的优先级高于 <code>do...end</code>。</p>
+<p>我们来写一个最简单的块：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>one_block</div><div class="line">  <span class="keyword">yield</span></div><div class="line">  <span class="keyword">yield</span></div><div class="line">  <span class="keyword">yield</span></div><div class="line"><span class="keyword">end</span></div><div class="line">one_block { puts <span class="string">"This is a block. "</span> }</div></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<blockquote>
+
+<p>This is a block.<br>This is a block.<br>This is a block.</p>
+</blockquote>
+
+
+<p>从上面的程序可以看到调用一个块要用关键字 <code>yield</code>。每一次 <code>yield</code>，块就被调用一次。</p>
+<p><code>yield</code> 还可以带参数调用块：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>one_block</div><div class="line">  <span class="keyword">for</span> num <span class="keyword">in</span> <span class="number">1</span>..<span class="number">3</span></div><div class="line">    <span class="keyword">yield</span>(num)</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line">one_block <span class="keyword">do</span> |i|</div><div class="line">  puts <span class="string">"This is block <span class="subst">#{i}</span>. "</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<blockquote>
+
+<p>This is block 1.<br>This is block 2.<br>This is block 3.</p>
+</blockquote>
+
+
+<p>一个块可以接收 <code>yield</code> 传来的参数，还可以将结果返回给调用它的方法。</p>
+<p>到目前为止，实在看不出使用代码块的优势，可以把块里的代码直接写在方法中。</p>
+<p>如果我们还没有决定块里写什么代码， 又或者块里的代码会随着不同的情形而变化， 那么就看出代码块的灵活性了。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>do_something</div><div class="line">  <span class="keyword">yield</span></div><div class="line"><span class="keyword">end</span></div><div class="line">do_something <span class="keyword">do</span></div><div class="line">  (<span class="number">1</span>..<span class="number">9</span>).each {|i| print i <span class="keyword">if</span> i&lt;<span class="number">5</span>}</div><div class="line">  puts</div><div class="line"><span class="keyword">end</span></div><div class="line">do_something <span class="keyword">do</span></div><div class="line">  <span class="number">3</span>.times { print <span class="string">"Hi!"</span> }</div><div class="line">  puts</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<blockquote>
+
+<p>1234<br>Hi!Hi!Hi!</p>
+</blockquote>
+
+
+<p>其中的技巧：先写出方法的大致框架，调用方法的时候才告诉方法要做什么。</p>
+<p>虽然与代码块有关联的方法不都是迭代器，但是， 迭代器确实是一个与代码块有关联的方法。让我们为数组类增加一个迭代器 <code>one_by_one</code>：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Array</span></span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>one_by_one</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>...size</div><div class="line">      <span class="keyword">yield</span>(<span class="keyword">self</span>[i])</div><div class="line">    <span class="keyword">end</span></div><div class="line">    puts</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line">arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</div><div class="line">arr.one_by_one {|k| print k, <span class="string">", "</span>}    <span class="comment"># 1, 3, 5, 7, 9,</span></div><div class="line">arr.one_by_one {|h| print h * h, <span class="string">", "</span>}    <span class="comment"># 1, 9, 25, 49, 81,</span></div></pre></td></tr></table></figure>
+
+<p>代码块是一段代码，相当于一个<strong>匿名方法</strong>，被调用它的方法所调用。</p>
+<p>如果我们不仅仅想调用代码块，还想<strong>把代码块作为参数传递给其它方法</strong>，就要使用<strong>闭包</strong>了。</p>
+<p>闭包也是一段代码，一个代码块，而且<strong>能够共享其它方法的局部变量</strong>。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>method(pr)</div><div class="line">  puts pr.call(<span class="number">7</span>)</div><div class="line"><span class="keyword">end</span></div><div class="line">oneProc = proc{|k| k *= <span class="number">3</span> }</div><div class="line">method(oneProc)</div></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<blockquote>
+
+<p>21</p>
+</blockquote>
+
+
+<p>来看一个闭包共享其它方法局部变量的例子：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>method(n)</div><div class="line">  <span class="keyword">return</span> proc{|i| n += i }</div><div class="line"><span class="keyword">end</span></div><div class="line">oneProc = method(<span class="number">3</span>)</div><div class="line">puts oneProc.call(<span class="number">9</span>)    <span class="comment"># 12</span></div><div class="line">puts oneProc.call(<span class="number">5</span>)    <span class="comment"># 17, 注意不是8！</span></div></pre></td></tr></table></figure>
+
+<p>方法 <code>method</code> 返回一个 <code>Proc</code> 对象，这个对象引用了这个函数的参数：<code>n</code> 。即使 <code>n</code> 这个参数在闭包被调用时已经不在自己的作用域里了，这个闭包还是可以访问 <code>n</code> 这个参数，并且和方法 <code>method</code> 共同拥有变量 <code>n</code> 。开始的时候，方法 <code>method</code> 的变量 <code>n</code> 是 <code>3</code>；<code>oneProc.call(9)</code>的时候，<code>oneProc</code> 更新了变量 <code>n</code>，把 <code>n=12</code> 传回给方法 <code>method</code>；<code>oneProc.call(5)</code>的时候，<code>oneProc</code> 取出方法 <code>method</code> 的变量 <code>n=12</code>，更新为 <code>n=17</code>，传回给方法 <code>method</code> 的同时，也把 <code>n=17</code> 作为自己的返回值输出。</p>
+
+        
+      </div>
+      <footer>
+        
+          
+  
+  <div class="categories">
+    <a href="/categories/Programming/">Programming</a>, <a href="/categories/Programming/Ruby/">Ruby</a>
+  </div>
+
+          
+  
+  <div class="tags">
+    <a href="/tags/Ruby/">Ruby</a>
+  </div>
+
+          <div class="share">
+  
+
+    
+
+    
+      <div class="g-plusone"></div>
+
+      <script type="text/javascript">
+        window.___gcfg = {lang: 'en-GB'};
+
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+    
+
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="halfer53">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+  
+</div>
+          
+<nav class="article-nav clearfix">
+ 
+ <div class="article-prev" >
+ <a href="/2014/07/16/kinect_dev_config_vs2013/" title="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)">
+  <i class="fa fa-long-arrow-left"></i>
+  <span>
+  Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</span>
+</a>
+</div>
+
+
+<div class="article-next">
+<a href="/2014/05/29/ruby_quickstart_notes_3/"  title="Ruby Quick Start (3) -- Module, Mix-in">
+ <span>Ruby Quick Start (3) -- Module, Mix-in
+</span>
+<i class="fa fa-long-arrow-right"></i>
+</a>
+</div>
+
+</nav>
+
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+
+     <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2014/06/03/ruby_quickstart_notes_4/" data-title="Ruby Quick Start (4) -- Array, String, Closure" data-url="http://insaneguy.me2014/06/03/ruby_quickstart_notes_4/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:insaneguy.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/07/16/kinect_dev_config_vs2013/">Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
+  
+    <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/categories/Programming/Scala/">Scala</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  
+    <a href="/tags/C/">C++<small>2</small></a>
+  
+    <a href="/tags/Kinect/">Kinect<small>1</small></a>
+  
+    <a href="/tags/OpenCV/">OpenCV<small>1</small></a>
+  
+    <a href="/tags/Ruby/">Ruby<small>4</small></a>
+  
+    <a href="/tags/Scala/">Scala<small>6</small></a>
+  
+    <a href="/tags/coursera/">coursera<small>6</small></a>
+  
+    <a href="/tags/fp/">fp<small>6</small></a>
+  
+    <a href="/tags/hexo/">hexo<small>1</small></a>
+  
+    <a href="/tags/notes/">notes<small>7</small></a>
+  
+</div>
+
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2014 insaneguy
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+			<a href="https://github.com/https://github.com/insaneyilin" target="_blank" title="insaneguy Github"><i class="fa fa-github-square"></i></a>	
+		
+		
+		
+			<a href="http://www.weibo.com/http://weibo.com/guiyilin" target="_blank" title="insaneguy Weibo"><i class="fa fa-weibo"></i></a>	
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+ <script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

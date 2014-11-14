@@ -1,0 +1,528 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Start Learning Scala | Yilin&#39;s blog</title>
+  <meta name="author" content="insaneguy">
+  
+  <meta name="description" content="This guy is insane.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Start Learning Scala"/>
+  <meta property="og:site_name" content="Yilin&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="en"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'null', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+    
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+    
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
+
+  
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Yilin&#39;s blog</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	      <li><a href="/about">About</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h1>Start Learning Scala</h1>
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2014-05-16T16:33:49.000Z">05-17-2014</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">insaneguy</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="#ds-thread"><span class="ds-thread-count" data-thread-key="2014/05/17/start_learning_scala/" data-count-type="comments"></span></a>
+              
+            </li>
+          </ul>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+  
+  
+    <div class="post-content">
+  
+      
+      <div class="entry">
+        
+          <p>还记得大三时候室友打印了一本厚厚的<a href="http://mitpress.mit.edu/sicp/" target="_blank" rel="external">SICP</a>来读，当时我还不以为意。不过读了<a href="http://en.wikipedia.org/wiki/Paul_Graham_(computer_programmer)" target="_blank" rel="external">Paul Graham</a>的<a href="http://book.douban.com/subject/6021440/" target="_blank" rel="external">《黑客与画家》</a>后我也想亲自尝试一下，领略下<a href="http://en.wikipedia.org/wiki/Functional_programming" target="_blank" rel="external">Functional Programming(函数式编程)</a>的威力。</p>
+<p>于是选了<a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>上的函数式编程课程<a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a>，老师是欧洲名校<a href="http://www.epfl.ch/" target="_blank" rel="external">EPFL(洛桑联邦理工学院)</a>的教授，Scala语言的发明人<a href="http://lampwww.epfl.ch/~odersky/" target="_blank" rel="external">Martin Odersky</a>。目前我刚刚完成前两周的课程，这里从第一周的第一个Lecture里摘选一点内容，简单介绍一下函数式编程。</p>
+<h2><br></h2>
+<p>在说“函数式”之前，先要知道它是一种<code>编程范式(Programming paradigm)</code>。</p>
+<p><a href="http://zh.wikipedia.org/wiki/编程范式" target="_blank" rel="external">Wikipedia</a>上指出：</p>
+<blockquote>
+<p>编程范式是一类典型的编程风格，是指从事软件工程的一类典型的风格(可以对照方法学)。<br>编程范式提供了（同时决定了）程序员对程序执行的看法。</p>
+</blockquote>
+<p>常见的编程范式有：</p>
+<ul>
+<li>imperative programming(命令式编程)</li>
+<li>functional programming(函数式编程)</li>
+<li>logic programming(逻辑式编程)</li>
+<li>object-oriented programming(面向对象编程)<br><br></li>
+</ul>
+<a id="more"></a>
+
+<h3 id="Imperative_Programming">Imperative Programming</h3>
+<p>即命令式编程，其特点是：</p>
+<ul>
+<li>modifying mutable variables, (可修改变量)</li>
+<li>using assignments(使用赋值操作)</li>
+<li>and control structure such as if-then-else, loops, break, continue, return.(使用if-else、循环等控制结构)</li>
+</ul>
+<p>通过与<a href="http://en.wikipedia.org/wiki/Von_Neumann_computer" target="_blank" rel="external">Von Neumann computer</a>的指令序列比较可以更好地理解命令式编程：</p>
+<p>Mutable variables 　　　　≈ 　　　memory cells<br>variables dereferences　 　≈ 　　　load instructions<br>variables assignments  　　≈ 　　　store instructions<br>Control structures     　　　　≈ 　　　jumps  </p>
+<p>命令式编程是很流行的编程范式，不过后来<a href="http://en.wikipedia.org/wiki/John_Backus" target="_blank" rel="external">John Backus</a>提出了纯命令式编程的<code>&quot;Von Neumann&quot;瓶颈</code>(见<a href="http://www.thocp.net/biographies/papers/backus_turingaward_lecture.pdf" title="Can Programming Be Liberated From the von Neumann Style? 1977 Turing Award Lecture" target="_blank" rel="external">1977年图灵奖演讲</a>)：</p>
+<blockquote>
+<p>One tends to conceptualize data structures word-by-word.</p>
+</blockquote>
+<p>这样一来，我们需要其他技术来定义<code>高级的抽象结构</code>(如集合，多项式，几何图形等)。  </p>
+<p>因此，我们需要研究关于这些抽象结构的<strong>理论(theory)</strong>。</p>
+<p>What is a <em>Theory</em>?</p>
+<p>我本科是学数学专业，对于理论这东西可不陌生，但是为了理解FP的由来，我们要注意这里<code>Martin给出的定义</code>：  </p>
+<ul>
+<li>one or more data types(一种或更多数据类型)</li>
+<li>operations on these types(定义在这些类型上的操作)</li>
+<li>laws that describe the relationships between values and operations(描述这些类型的值与操作之间的法则)</li>
+</ul>
+<p>写到这里想到了<code>抽象代数</code>(学渣表示全还给吴Sir了╮(╯▽╰)╭)。</p>
+<p>还要注意的一点是：A theory does <strong>not</strong> describe <strong>mutations</strong>!</p>
+<p>mutation的意思是说改变某个东西的值但又不改变其本身(表达不太清楚，我理解为改变一个变量x的值，但x这个变量的名字还是x)。</p>
+<p>举一个栗子：  </p>
+<p><img src="/imgs/forinstance.png"></p>
+<p>关于多项式的theory中，两个多项式的和可以定义为<code>(a*x + b) + (c*x + d) = (a+c)*x + (b+d)</code>，但是没有定义在多项式本身不变的情况下改变多项式的系数。</p>
+<p>这里我们应该注意到后者<code>在命令式编程中随处可见</code>，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class Polynomial {double[] coefficient; }</div><div class="line">Polynomial p = ...;</div><div class="line">p.coefficient[0] = 42;</div></pre></td></tr></table></figure>
+
+<p>另一个关于string的例子：<br>定义字符串连接操作(concatenation operator)为<code>++</code>，则在理论上有<code>(a ++ b) ++ c = a ++ (b ++ c)</code>。</p>
+<p>但是理论没有定义改变一个序列元素时，仍保持其不变(大部分命令式语言中string使用数组表示)。这里提到了一个例外，Java’s strings are immutable.</p>
+<p>用惯了命令式编程的人会觉得mutation理所应当，那么<code>为什么理论中不允许其存在呢</code>？Martin指出：</p>
+<ul>
+<li>The theories do not admit it.(理论不允许)</li>
+<li>Mutation can destroy useful laws in the theories.(mutation会破坏有用的理论)</li>
+</ul>
+<p>因此，我们需要：</p>
+<ul>
+<li>concentrate on defining theories for operators expressed as functions.</li>
+<li>avoid mutations.</li>
+<li>have powerful ways to abstract and compose functions.</li>
+</ul>
+<p>于是我们有了函数式编程的概念。</p>
+<h3 id="Functional_Programming">Functional Programming</h3>
+<ul>
+<li>严格来说，FP表示<code>没有</code>变量、赋值、循环或其他命令式控制结构的编程</li>
+<li>宽泛地说，FP表示关注<code>函数本身</code>的编程</li>
+<li>函数是<code>一等公民(first-class citizens)</code>，可以有值(values that are produced, consumed and composed)<ul>
+<li>函数可以在任何地方被定义，包括其他函数内部</li>
+<li>和其他类型的值一样，函数可以作为函数的参数和返回结果</li>
+<li>对于其他值，存在一组将它们构造成函数的操作</li>
+</ul>
+</li>
+<li>上一条在其他语言中也可以实现，但是在函数式编程语言中<code>更加容易和直观</code><br><br></li>
+</ul>
+<hr>
+<h3 id="Why_Functional_Programming?">Why Functional Programming?</h3>
+<p>经常有人去讨论语言的优劣，大家各执一词，你有你的好处，我有我的优点。编程语言<code>有优劣吗</code>？我认为是<code>有的</code>，但比起关注语言好坏，我更倾向于关注这种语言<code>能帮我完成什么问题</code>。与其争论优劣，不如讨论<strong>在不同情况下选用哪种编程语言更合适</strong>。</p>
+<p>所以，现在的问题是：<strong>我们为什么要学习FP</strong>？</p>
+<p>Martin指出：<br>FP is becoming <strong>increasingly popular</strong>, because it offers the following benefits.</p>
+<ul>
+<li>simpler reasoning principles</li>
+<li>better modularity</li>
+<li>good for exploiting <code>parallelism</code> for multicore and <code>cloud computing</code></li>
+</ul>
+<p>Martin还给出了他在OSCON 2011上的talk(youtube):<a href="http://www.youtube.com/watch?v=3jg1AheF4n0" target="_blank" rel="external">Working Hard to Keep it Simple</a>。搜了一下发现youku上也有：<a href="http://v.youku.com/v_show/id_XNjEzOTEwODI0.html" target="_blank" rel="external">Martin’s talk at OSCON 2011</a>。</p>
+<p>视频里Martin提出了Scala在处理传统编程范式不擅长处理的<code>并行(Parallel)</code>和<code>并发(Concurrent)</code>方面的优势。</p>
+<p>他首先指出并发线程<code>对可变状态进行操作</code>可能会造成<code>不确定性</code>，进而带来问题，如：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> x = <span class="number">0</span></div><div class="line">async {x = x + <span class="number">1</span>}</div><div class="line">async {x = x * <span class="number">2</span>}</div><div class="line"><span class="comment">// can give 0, 1, 2</span></div></pre></td></tr></table></figure>
+
+<p>为了得到确定性的处理结果，最好的方法就是<strong>禁止可变状态(avoid mutable state)</strong>！</p>
+<p>如同上面讨论过的，<code>禁止可变状态 --&gt; 函数式编程</code>！<br><br></p>
+<p>目前Scala的应用领域：</p>
+<ul>
+<li>Web platforms</li>
+<li>Trading platforms</li>
+<li>Financial modeling</li>
+<li>Simulation</li>
+</ul>
+<p>非常适合用来快速开发第一产品，之后可以进行扩展。(Fast to first product, scalable afterwards.)</p>
+<p>接着是通过具体例子比较Scala和Java。</p>
+<h2 id="首先是语法上">首先是语法上</h2>
+<p>in Java:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line">...</div><div class="line">Person[] people;</div><div class="line">Person[] minors;</div><div class="line">Person[] adults;</div><div class="line">{  ArrayList&lt;Person&gt; minorsList = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</div><div class="line">   ArrayList&lt;Person&gt; adultsList = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</div><div class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; people.length; ++i)</div><div class="line">       (people[i].age &lt; <span class="number">18</span> ? minorsList : adultsList)</div><div class="line">            .add(people[i]);</div><div class="line">   minors = minorsList.toArray(people);</div><div class="line">   adults = adultsList.toArray(people);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>in Scala:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> people: Array[Person]</div><div class="line"><span class="keyword">var</span> (minors, adults) = people.par partition (_.age &lt; <span class="number">18</span>)</div></pre></td></tr></table></figure>
+
+<p>Scala的简洁显而易见。</p>
+<h2 id="接着是处理并行(Going_Parallel)">接着是处理并行(Going Parallel)</h2>
+<p>in Java: ???</p>
+<p>in Scala:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> people: Array[Person]</div><div class="line"><span class="keyword">var</span> (minors, adults) = people.par partition (_.age &lt; <span class="number">18</span>)</div></pre></td></tr></table></figure>
+
+<h2 id="It’s_so_cool!">It’s so cool!</h2>
+<p>Martin后面还举了其他的几个例子，不列举了。</p>
+<p>总之，作为一种函数式编程语言，Scala很有用也很酷。下面这些事实可能会让你更有动机来学习一门函数式编程语言：</p>
+<ul>
+<li>著名MOOC站点Coursera选用Scala作为其主要开发语言。见<a href="https://tech.coursera.org/blog/2014/02/18/why-we-love-scala-at-coursera/" target="_blank" rel="external">Why we love Scala at Coursera</a></li>
+<li>年初应该听说过Facebook以190亿美元收购的<a href="http://www.whatsapp.com/" target="_blank" rel="external">WhatsApp</a>吧，看看这篇文章：<a href="http://www.ithome.com/html/it/76809.htm" target="_blank" rel="external">WhatsApp成功背后的Erlang语言</a></li>
+<li>硅谷创业之父Paul Graham使用Lisp完成了他的成名作<a href="http://en.wikipedia.org/wiki/Viaweb" target="_blank" rel="external">Viaweb</a>。<a href="http://www.douban.com/note/27947234/" target="_blank" rel="external">超越平凡—Lisp在一个创业公司中的故事</a></li>
+<li>…</li>
+</ul>
+<p>看看哪些公司在使用Scala：</p>
+<p><img src="/imgs/scalacompanies.png" alt="companies adopting scala"></p>
+<p>可能还是有人会说</p>
+<ul>
+<li>绝大部分问题OOP就能解决了啊</li>
+<li>现在招FP的公司毕竟还是很少</li>
+<li>FP这么有用，为啥上大学不教？</li>
+</ul>
+<p>好吧，对此我说一下我的想法。当今技术领域的改变本来就是极快的，那种“一招鲜，吃遍天”的想法在当今社会已经很难行得通了。一个程序员如果说“我是一个XXX程序员，我对XXX语言不感兴趣，也用不到”，那么他就把自己限定在了一个比较小的框架里，进步空间也就狭窄了很多。</p>
+<p>作为程序员，我暂时没找到不对新技术产生兴趣的理由。所以，一起来学习函数式编程吧！</p>
+
+        
+      </div>
+      <footer>
+        
+          
+  
+  <div class="categories">
+    <a href="/categories/Programming/">Programming</a>, <a href="/categories/Programming/Scala/">Scala</a>
+  </div>
+
+          
+  
+  <div class="tags">
+    <a href="/tags/Scala/">Scala</a>, <a href="/tags/fp/">fp</a>, <a href="/tags/coursera/">coursera</a>
+  </div>
+
+          <div class="share">
+  
+
+    
+
+    
+      <div class="g-plusone"></div>
+
+      <script type="text/javascript">
+        window.___gcfg = {lang: 'en-GB'};
+
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+    
+
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="halfer53">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+  
+</div>
+          
+<nav class="article-nav clearfix">
+ 
+ <div class="article-prev" >
+ <a href="/2014/05/19/scala_week1_notes/" title="Notes of Scala course on Coursera -- Week 1">
+  <i class="fa fa-long-arrow-left"></i>
+  <span>
+  Notes of Scala course on Coursera -- Week 1</span>
+</a>
+</div>
+
+
+<div class="article-next">
+<a href="/2014/05/16/hello_world/"  title="Hello World">
+ <span>Hello World
+</span>
+<i class="fa fa-long-arrow-right"></i>
+</a>
+</div>
+
+</nav>
+
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+
+     <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2014/05/17/start_learning_scala/" data-title="Start Learning Scala" data-url="http://insaneguy.me2014/05/17/start_learning_scala/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:insaneguy.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/07/16/kinect_dev_config_vs2013/">Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+      </li>
+    
+      <li>
+        <a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
+  
+    <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/categories/Programming/Scala/">Scala</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  
+    <a href="/tags/C/">C++<small>2</small></a>
+  
+    <a href="/tags/Kinect/">Kinect<small>1</small></a>
+  
+    <a href="/tags/OpenCV/">OpenCV<small>1</small></a>
+  
+    <a href="/tags/Ruby/">Ruby<small>4</small></a>
+  
+    <a href="/tags/Scala/">Scala<small>6</small></a>
+  
+    <a href="/tags/coursera/">coursera<small>6</small></a>
+  
+    <a href="/tags/fp/">fp<small>6</small></a>
+  
+    <a href="/tags/hexo/">hexo<small>1</small></a>
+  
+    <a href="/tags/notes/">notes<small>7</small></a>
+  
+</div>
+
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2014 insaneguy
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+			<a href="https://github.com/https://github.com/insaneyilin" target="_blank" title="insaneguy Github"><i class="fa fa-github-square"></i></a>	
+		
+		
+		
+			<a href="http://www.weibo.com/http://weibo.com/guiyilin" target="_blank" title="insaneguy Weibo"><i class="fa fa-weibo"></i></a>	
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+ <script type="text/javascript">
+var duoshuoQuery = {short_name:"InsaneYilin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>
