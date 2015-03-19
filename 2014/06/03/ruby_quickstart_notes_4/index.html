@@ -1,7 +1,5 @@
 <!DOCTYPE HTML>
-
-<html lang="en">
-  
+<html>
 <head>
   <meta charset="utf-8">
   
@@ -20,125 +18,51 @@
     <meta property="og:image" content="undefined"/>
   
 
-  
-    <meta http-equiv="Content-Language" content="en"/>
-  
-
-  <link href="/img/favicon.png" rel="icon">
-  
-    <link rel="apple-touch-icon" href="/img/apple-icon.png">
-    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
-    
-
+  <link href="/favicon.png" rel="icon">
   <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  
-  <style type="text/css">
-  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
-body{ -webkit-animation: bugfix infinite 1s; }
-@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
-
-  
-
-  
-    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
-  
-</style>
-
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'null', 'auto');
-  ga('send', 'pageview');
- 
-</script>
-
-
-
-
   
-    
-      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
-    
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
-
-  
-
-
 
 </head>
 
 
 <body>
-  <header id="header" class="inner"><div class="padding">
-	<div class="alignleft logo">
-	  <h1><a href="/">Yilin&#39;s blog</a></h1>
-	</div>
-	<nav id="main-nav" class="alignright">
-		<input type="checkbox" id="toggle" />
-		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
-	  <ul class="menu">
-	    
-	      <li><a href="/">Home</a></li>
-	    
-	      <li><a href="/archives">Archives</a></li>
-	    
-	      <li><a href="/about">About</a></li>
-	    
-	    
-	  </ul>
-	</nav>
-	<div class="clearfix"></div>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Yilin&#39;s blog</a></h1>
+  <h2><a href="/">This guy is insane.</a></h2>
 </div>
-</header>
-  <div id="page-heading-wrap">
-  	<div class="inner">
-      <div class="padding">
-    		
-          <h1>Ruby Quick Start (4) -- Array, String, Closure</h1>
-          <ul>
-            <li>
-              <span class="heading-span">Posted on: </span>
-              <time datetime="2014-06-03T14:30:29.000Z">06-03-2014</time>
-            </li>
-            
-              <li>
-                <span class="heading-span">By: </span>
-
-                
-                  <a href="/">insaneguy</a>
-                
-
-              </li>
-            
-            <li>
-              <span class="heading-span">With: </span>
-              
-
-                <a href="#ds-thread"><span class="ds-thread-count" data-thread-key="2014/06/03/ruby_quickstart_notes_4/" data-count-type="comments"></span></a>
-              
-            </li>
-          </ul>
-        
-      </div>
-  	</div>
-  </div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
-  
-    <div class="post-content">
-  
+  <div class="post-content">
+    <header>
       
-      <div class="entry">
-        
-          <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（4）<br><br></p>
+        <div class="icon"></div>
+        <time datetime="2014-06-03T14:30:29.000Z"><a href="/2014/06/03/ruby_quickstart_notes_4/">06-03-2014</a></time>
+      
+      
+  
+    <h1 class="title">Ruby Quick Start (4) -- Array, String, Closure</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（4）<br><br></p>
 <hr>
 <h2 id="第八章_Ruby中的数组、字符串、闭包">第八章 Ruby中的数组、字符串、闭包</h2>
 <h3 id="1-_Ruby中的数组">1. Ruby中的数组</h3>
@@ -268,119 +192,78 @@ body{ -webkit-animation: bugfix infinite 1s; }
 
 <p>方法 <code>method</code> 返回一个 <code>Proc</code> 对象，这个对象引用了这个函数的参数：<code>n</code> 。即使 <code>n</code> 这个参数在闭包被调用时已经不在自己的作用域里了，这个闭包还是可以访问 <code>n</code> 这个参数，并且和方法 <code>method</code> 共同拥有变量 <code>n</code> 。开始的时候，方法 <code>method</code> 的变量 <code>n</code> 是 <code>3</code>；<code>oneProc.call(9)</code>的时候，<code>oneProc</code> 更新了变量 <code>n</code>，把 <code>n=12</code> 传回给方法 <code>method</code>；<code>oneProc.call(5)</code>的时候，<code>oneProc</code> 取出方法 <code>method</code> 的变量 <code>n=12</code>，更新为 <code>n=17</code>，传回给方法 <code>method</code> 的同时，也把 <code>n=17</code> 作为自己的返回值输出。</p>
 
+      
+    </div>
+    <footer>
+      
         
-      </div>
-      <footer>
-        
-          
   
   <div class="categories">
     <a href="/categories/Programming/">Programming</a>, <a href="/categories/Programming/Ruby/">Ruby</a>
   </div>
 
-          
+        
   
   <div class="tags">
     <a href="/tags/Ruby/">Ruby</a>
   </div>
 
-          <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-          
-<nav class="article-nav clearfix">
- 
- <div class="article-prev" >
- <a href="/2014/07/16/kinect_dev_config_vs2013/" title="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)">
-  <i class="fa fa-long-arrow-left"></i>
-  <span>
-  Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</span>
-</a>
-</div>
-
-
-<div class="article-next">
-<a href="/2014/05/29/ruby_quickstart_notes_3/"  title="Ruby Quick Start (3) -- Module, Mix-in">
- <span>Ruby Quick Start (3) -- Module, Mix-in
-</span>
-<i class="fa fa-long-arrow-right"></i>
-</a>
-</div>
-
-</nav>
-
         
-        <div class="clearfix"></div>
-      </footer>
-    </div>
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
 </article>
 
 
 <section id="comment">
-  <h2 class="title">Comments</h2>
+  <h1 class="title">Comments</h1>
 
   
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
 
-     <!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2014/06/03/ruby_quickstart_notes_4/" data-title="Ruby Quick Start (4) -- Array, String, Closure" data-url="http://insaneguy.me2014/06/03/ruby_quickstart_notes_4/"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"insaneguy"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- 多说公共JS代码 end -->
-
+<div class="fb-comments" data-href="http://insaneguy.me/2014/06/03/ruby_quickstart_notes_4/" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
   
 </section>
 
 </div></div>
-    <aside id="sidebar" class="alignright"><div class="padding">
-	
-	  <div class="search">
+    <aside id="sidebar" class="alignright">
+  <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
     <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:insaneguy.me">
   </form>
 </div>
-	
-	  
-<div class="widget recent-post">
-  <h3 class="title">Recent Posts</h3>
-  <ul class="entry">
-    
-      <li>
-        <a href="/2014/07/16/kinect_dev_config_vs2013/">Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)</a>
-      </li>
-    
-      <li>
-        <a href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
-      </li>
-    
-      <li>
-        <a href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
-      </li>
-    
-      <li>
-        <a href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
-      </li>
-    
-      <li>
-        <a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
-      </li>
-    
-  </ul>
-</div>
 
-	
-	  
-<div class="widget category">
+  
+<div class="widget tag">
   <h3 class="title">Categories</h3>
   <ul class="entry">
   
@@ -397,79 +280,47 @@ var duoshuoQuery = {short_name:"insaneguy"};
   </ul>
 </div>
 
-	
-	  
+
+  
 <div class="widget tag">
   <h3 class="title">Tags</h3>
+  <ul class="entry">
   
-    <a href="/tags/C/">C++<small>2</small></a>
+    <li><a href="/tags/C/">C++</a><small>2</small></li>
   
-    <a href="/tags/Kinect/">Kinect<small>1</small></a>
+    <li><a href="/tags/Kinect/">Kinect</a><small>1</small></li>
   
-    <a href="/tags/OpenCV/">OpenCV<small>1</small></a>
+    <li><a href="/tags/OpenCV/">OpenCV</a><small>1</small></li>
   
-    <a href="/tags/Ruby/">Ruby<small>4</small></a>
+    <li><a href="/tags/Ruby/">Ruby</a><small>4</small></li>
   
-    <a href="/tags/Scala/">Scala<small>6</small></a>
+    <li><a href="/tags/Scala/">Scala</a><small>6</small></li>
   
-    <a href="/tags/coursera/">coursera<small>6</small></a>
+    <li><a href="/tags/coursera/">coursera</a><small>6</small></li>
   
-    <a href="/tags/fp/">fp<small>6</small></a>
+    <li><a href="/tags/fp/">fp</a><small>6</small></li>
   
-    <a href="/tags/hexo/">hexo<small>1</small></a>
+    <li><a href="/tags/hexo/">hexo</a><small>1</small></li>
   
-    <a href="/tags/notes/">notes<small>7</small></a>
+    <li><a href="/tags/notes/">notes</a><small>7</small></li>
   
+  </ul>
 </div>
 
-	
-</div></aside>
+</aside>
     <div class="clearfix"></div>
   </div>
-  <footer id="footer" class="inner"><div class="padding">
-	<div class="alignleft">
-	  
-	  &copy; 2015 insaneguy
-	  
-	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
-	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
-	</div>
-
-	<div class="alignright">
-		
-		
-			<a href="https://github.com/https://github.com/insaneyilin" target="_blank" title="insaneguy Github"><i class="fa fa-github-square"></i></a>	
-		
-		
-		
-			<a href="http://www.weibo.com/http://weibo.com/guiyilin" target="_blank" title="insaneguy Weibo"><i class="fa fa-weibo"></i></a>	
-		
-		
-		
-		
-	</div>
-
-	<div class="clearfix"></div>
-</div>
-
-<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  <footer id="footer" class="inner"><div class="alignleft">
   
-
- <script type="text/javascript">
-var duoshuoQuery = {short_name:"insaneguy"};
-(function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = 'http://static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
-
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+  &copy; 2015 insaneguy
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
+
+
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
@@ -479,24 +330,6 @@ var duoshuoQuery = {short_name:"insaneguy"};
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
-
-
-<script type="text/javascript">
-$(window).scroll(function() {
-
-    if($(this).scrollTop() > 400) {
-        $('.scroll-top').fadeIn(200);
-    } else {
-        $('.scroll-top').fadeOut(200);
-    }
-});
-
-$('.scroll-top').bind('click', function(e) {
-    e.preventDefault();
-    $('body,html').animate({scrollTop:0},200);
-});
-</script>
-
 
 </body>
 </html>
