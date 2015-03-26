@@ -53,6 +53,51 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-05-19T13:56:29.000Z"><a href="/2014/05/19/scala_week2_notes_2/">05-19-2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/05/19/scala_week2_notes_2/">Notes of Scala course on Coursera -- Week 2 (2)</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="external">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="external">Coursera</a>.</p>
+<p><br><br><br></p>
+<hr>
+<h2 id="4-_Example:_Finding_Fixed_Points">4. Example: Finding Fixed Points</h2>
+<h3 id="4-1_Finding_a_fixed_point_of_a_function">4.1 Finding a fixed point of a function</h3>
+<p>A number <em>x</em> is called a <em>fixed point</em> of a function f if</p>
+<p><img src="http://latex.codecogs.com/gif.latex?f(x)=x"></p>
+<p>For some functions f we can locate the fixed points by starting with an initial estimate and then by applying f in a repetitive way.</p>
+<p><img src="http://latex.codecogs.com/gif.latex?x,f(x),f(f(x)),f(f(f(x))),..."></p>
+<p>until the value does not vary anymore (or the change is sufficiently small). 
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/05/19/scala_week2_notes_2/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-05-19T11:56:29.000Z"><a href="/2014/05/19/scala_week2_notes_1/">05-19-2014</a></time>
       
       
@@ -293,6 +338,8 @@
   
     <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
   
+    <li><a href="/categories/Mathematics/">Mathematics</a><small>1</small></li>
+  
     <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
   
     <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
@@ -321,6 +368,10 @@
     <li><a href="/tags/coursera/">coursera</a><small>6</small></li>
   
     <li><a href="/tags/fp/">fp</a><small>6</small></li>
+  
+    <li><a href="/tags/geometry/">geometry</a><small>1</small></li>
+  
+    <li><a href="/tags/graphics/">graphics</a><small>1</small></li>
   
     <li><a href="/tags/hexo/">hexo</a><small>1</small></li>
   
@@ -352,6 +403,36 @@
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 </body>
 </html>

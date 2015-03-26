@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>旋转矩阵与四元数 | Yilin&#39;s blog</title>
+  <meta name="author" content="insaneguy">
+  
+  <meta name="description" content="This guy is insane.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="旋转矩阵与四元数"/>
+  <meta property="og:site_name" content="Yilin&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Yilin&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Yilin&#39;s blog</a></h1>
+  <h2><a href="/">This guy is insane.</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/about">About</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-03-25T13:56:29.000Z"><a href="/2015/03/25/rotation_matrix_and_quaternions/">03-25-2015</a></time>
+      
+      
+  
+    <h1 class="title">旋转矩阵与四元数</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>在计算机图形学的学习中，几何变换（Transformations）是一块重要的内容，我们使用齐次坐标（Homogeneous coordinates）描述点和向量，使用变换矩阵描述平移、旋转等变换。</p>
+<p>而在平移、旋转、缩放这几种变换中，又以旋转的情况最为复杂。实际上，计算机图形学中三维空间的旋转不仅仅有旋转矩阵一种表达形式，欧拉角（Euler angles）和四元数（Quaternions）也是常用的方法。</p>
+<a id="more"></a>
+
+<p><br></p>
+<hr>
+<h2 id="旋转矩阵">旋转矩阵</h2>
+<p>三维空间中的一个点 $P$ ，我们用齐次坐标表示：</p>
+<p>$$ P = [x, y, z, w]^T $$</p>
+<p>我们首先考虑分别绕 X 轴、Y 轴、Z 轴旋转一定角度的情况。</p>
+<p><img src="/imgs/rotate_3_dimension.jpg" alt="绕坐标轴旋转"></p>
+<p>设 $P$ 绕 X 轴、Y 轴、Z 轴的旋转角度分别为 $\alpha$、$\beta$ 和 $\theta$。 </p>
+<p>我们使用右手坐标系，旋转角度的正向由右手定则确定。</p>
+<p>点绕坐标轴旋转可以考虑点在相应坐标平面上投影的旋转。比如绕 Y 轴旋转，那么考虑点 $P$ 在 X-Z 平面上的投影的旋转，如下图所示：</p>
+<p><img src="/imgs/rotate_3_dimension_y.jpg" alt="绕Y轴旋转"></p>
+<p>假设点 $P$ 在 X-Z 平面上的投影点与坐标原点连成的向量长度为 L ，那么根据简单的平面几何知识，我们可以得到：</p>
+<p>\begin{equation}<br>\begin{bmatrix}<br>x1 \\<br>z1<br>\end{bmatrix}<br>=<br>\begin{bmatrix}<br>cos\beta &amp; sin\beta \\<br>-sin\beta &amp; cos\beta<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>z<br>\end{bmatrix}<br>\end{equation}</p>
+<p>用齐次坐标表示绕Y轴的旋转为：</p>
+<p>\begin{equation}<br>\begin{bmatrix}<br>x1 \\<br>y1 \\<br>z1 \\<br>w1<br>\end{bmatrix}<br>=<br>\begin{bmatrix}<br>cos\beta &amp; 0 &amp; sin\beta &amp; 0 \\<br>0 &amp; 1 &amp; 0 &amp; 0 \\<br>-sin\beta &amp; 0 &amp; cos\beta &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y \\<br>z \\<br>w<br>\end{bmatrix}<br>\end{equation}</p>
+<p>同理可分别得到绕X轴与绕Y轴的情况。</p>
+<p>绕X轴旋转：</p>
+<p>\begin{equation}<br>\begin{bmatrix}<br>x2 \\<br>y2 \\<br>z2 \\<br>w2<br>\end{bmatrix}<br>=<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 0 &amp; 0 \\<br>0 &amp; cos\alpha &amp; -sin\alpha &amp; 0 \\<br>0 &amp; sin\alpha &amp; cos\alpha &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y \\<br>z \\<br>w<br>\end{bmatrix}<br>\end{equation}</p>
+<p>绕Z轴旋转：</p>
+<p>\begin{equation}<br>\begin{bmatrix}<br>x3 \\<br>y3 \\<br>z3 \\<br>w3<br>\end{bmatrix}<br>=<br>\begin{bmatrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \\<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \\<br>0 &amp; 0 &amp; 1 &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y \\<br>z \\<br>w<br>\end{bmatrix}<br>\end{equation}</p>
+<p>我们可以将绕X、Y和Z坐标轴的旋转矩阵分别记为 $R_x(\alpha), R_y(\beta), R_z(\theta)$，则有：</p>
+<p>\begin{equation}<br>R_x(\alpha) =<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 0 &amp; 0 \\<br>0 &amp; cos\alpha &amp; -sin\alpha &amp; 0 \\<br>0 &amp; sin\alpha &amp; cos\alpha &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
+<p>\begin{equation}<br>R_y(\beta) =<br>\begin{bmatrix}<br>cos\beta &amp; 0 &amp; sin\beta &amp; 0 \\<br>0 &amp; 1 &amp; 0 &amp; 0 \\<br>-sin\beta &amp; 0 &amp; cos\beta &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
+<p>\begin{equation}<br>R_z(\theta) =<br>\begin{bmatrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \\<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \\<br>0 &amp; 0 &amp; 1 &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
+<p>旋转矩阵可以通过其他旋转矩阵复合得到（矩阵乘法）。</p>
+<p><br></p>
+<hr>
+<h2 id="欧拉角">欧拉角</h2>
+<p>上面讨论了绕三条坐标轴旋转的旋转矩阵，旋转矩阵的一般形式（这里没有用齐次坐标）为：</p>
+<p>$$<br>C =<br>        \begin{bmatrix}<br>        c11 &amp; c12 &amp; c13 \\<br>        c21 &amp; c22 &amp; c23 \\<br>        c31 &amp; c32 &amp; c33<br>        \end{bmatrix}<br>$$</p>
+<p>物体在三维空间中的旋转可以从坐标系的旋转来考虑（三维空间中坐标轴，即三维线性空间中基的变换）。那么矩阵 $C$ 的三个列向量实际对应着原坐标系三个坐标轴方向的单位向量在旋转后的新坐标系下的坐标。</p>
+<p>我们知道直角坐标系的三个坐标轴方向的单位向量实际上是一组标准正交基，于是矩阵 $C$ 是一个正交矩阵。所以旋转矩阵表面上看起来依赖于 9 个参数，实际上只有三个是独立的。</p>
+<p>为了更直接地指出这三个独立参数，欧拉（Euler）证明了如下事实：任何一个旋转都可以由连续施行的三次绕轴旋转来实现，这三次绕轴旋转的旋转角就是三个独立参数，称为欧拉角。</p>
+<p>根据绕轴旋转的顺序不同，欧拉角的表示也不同。常见的欧拉角表示有 Yaw-Pitch-Roll (Y-X-Z顺序)，通过下面的图片可以形象地进行理解。</p>
+<p><img src="/imgs/Roll_Pitch_Yaw.jpg" alt="Yaw-Pitch-Roll"></p>
+<p>偏航(Yaw)：</p>
+<p><img src="/imgs/yaw.gif" alt="airplane Yaw"></p>
+<p>仰俯(Pitch)：</p>
+<p><img src="/imgs/pitch.gif" alt="airplane Pitch"></p>
+<p>侧偏(Roll)：</p>
+<p><img src="/imgs/roll.gif" alt="airplane Roll"></p>
+<p>设 Yaw 、Pitch 、Roll 三个角度分别为 $\theta, \varphi, \psi$，那么利用欧拉角进行旋转对应的旋转变换矩阵为：</p>
+<p>$$<br>        \begin{bmatrix}<br>        cos\psi \ cos\theta - sin\psi \ cos\varphi \ sin\theta &amp; -sin\psi \ cos\theta - cos\psi \ cos\varphi \ sin\theta &amp; sin\varphi \ sin\theta \\<br>        cos\psi \ sin\theta + sin\psi \ cos\varphi \ cos\theta &amp; -sin\psi \ sin\theta + cos\psi \ cos\varphi \ cos\theta &amp; -sin\varphi \ cos\theta \\<br>        sin\psi \ sin\varphi &amp; cos\psi \ sin\varphi &amp; cos\varphi<br>        \end{bmatrix}<br>$$</p>
+<p>实际上 Yaw 、Pitch 、Roll 的旋转就分别对应着前面我们给出的旋转矩阵 $R_x(\theta), R_y(\varphi), R_z(\psi)$，上面的矩阵就是这三个矩阵的复合。</p>
+<p>欧拉角的好处是简单、容易理解，但使用它作为旋转的工具有严重的缺陷—万向节死锁（Gimbal Lock）。</p>
+<p>万向节死锁是指物体的两个旋转轴指向同一个方向。实际上，当两个旋转轴平行时，我们就说万向节锁现象发生了，换句话说，绕一个轴旋转可能会覆盖住另一个轴的旋转，从而失去一维自由度。</p>
+<p>例如，三维空间中有一个平行于 X 轴的向量，我们将它绕 Y 轴旋转直到它平行于 Z 轴，这时，我们会发现任何绕 Z 轴的旋转都改变不了该向量的方向，即出现了万向节死锁。</p>
+<p>由于万向节死锁的存在，使用欧拉角也无法很好地处理旋转的插值（以实现“平滑”旋转）。</p>
+<p><br></p>
+<hr>
+<h2 id="四元数">四元数</h2>
+<p>从前面的讨论我们发现三角度系统（three-angle system）无法很好地处理旋转的插值。下面介绍四元数（Quaternions）以及如何利用四元数描述旋转。</p>
+<p><br></p>
+<h3 id="四元数的定义">四元数的定义</h3>
+<p>四元数是由数学家 William Rowan Hamilton 于1843年所发明的数学概念，是复数的推广，可以说是“三维的复数”，形式为 $ w + x \ \mathbf{i} + y \ \mathbf{j} + z \ \mathbf{k} $ ，其中 $\mathbf{i}, \mathbf{j}, \mathbf{k}$ 的关系如下：</p>
+<p>$$<br>    \mathbf{i}^2 = \mathbf{j}^2 = \mathbf{k}^2 = -1 \\<br>    \mathbf{i} \cdot \mathbf{j} = -\mathbf{j} \cdot \mathbf{i} = \mathbf{k} \\<br>    \mathbf{i} \cdot \mathbf{k} = -\mathbf{k} \cdot \mathbf{i} = \mathbf{j} \\<br>    \mathbf{j} \cdot \mathbf{k} = -\mathbf{k} \cdot \mathbf{j} = \mathbf{i}<br>$$</p>
+<p>假设有两个四元数：</p>
+<p>$$<br>q_1 = w_1 + x_1 \ i + y_1 \ j + z_1 \ k \\<br>q_2 = w_2 + x_2 \ i + y_2 \ j + z_2 \ k<br>$$</p>
+<p>四元数的加法定义如下：</p>
+<p>$$<br>q_1 + q_2 = (w_1 + w_2) + (x_1 + x_2) \ i + (y_1 + y_2) \ j + (z_1 + z_2) \ k<br>$$</p>
+<p>四元数的乘法定义，利用简单的分配律定义如下：</p>
+<p>$$<br>q_1 \cdot q_2 =<br>(w_1 \cdot w_2 - x_1 \cdot x_2 - y_1 \cdot y_2 - z_1 \cdot z_2) + \\<br>(w_1 \cdot x_2 + x_1 \cdot w_2 + y_1 \cdot z_2 - z_1 \cdot y_2) \ i + \\<br>(w_1 \cdot y_2 - x_1 \cdot z_2 + y_1 \cdot w_2 + z_1 \cdot x_1) \ j + \\<br>(w_1 \cdot z_2 + x_1 \cdot y_2 - y_1 \cdot x_2 + z_1 \cdot w_2) \ k<br>$$</p>
+<p>为了方便表示，我们将四元数记为：</p>
+<p>$$<br>\mathbf{q} = (x, y, z, w) = (\vec{v}, w)<br>$$</p>
+<blockquote>
+<p>注意，这里四元数的表示形式和“齐次坐标”长得一样，但是它们之间<strong>没什么关系</strong>！</p>
+<p>四元数常常用来表示旋转，很多人将其理解为“w表示旋转角度，<strong>v</strong>表示旋转轴”，也是<strong>错误</strong>的！</p>
+<p>正确的理解应为：“w与旋转角度有关，<strong>v</strong>与旋转轴有关”。</p>
+</blockquote>
+<p>四元数的模（norm）定义为</p>
+<p>$$<br>|\mathbf{q}| = x^2 + y^2 + z^2 + w^2<br>$$</p>
+<p>模为1的四元数称为<strong>单位四元数</strong>(Unit quaternions)。</p>
+<p>四元数的共轭（conjugate）定义为:</p>
+<p>$$<br>\mathbf{q}^{*} = (-\vec{v}, w)<br>$$</p>
+<p>四元数的倒数定义为：</p>
+<p>$$<br>1 / \mathbf{q} = \mathbf{q}^{*} / |\mathbf{q}|^2<br>$$</p>
+<p><br></p>
+<h3 id="四元数与旋转">四元数与旋转</h3>
+<p>这里直接给出结论：如果把单位四元数表示为：</p>
+<p>$$<br>\mathbf{q} = (\vec{n} \cdot sin \frac{\theta}{2}, \ cos \frac{\theta}{2})<br>$$</p>
+<p>的形式，那么该单位四元数可以表示绕轴 $\vec{n}$<br> 进行 $\theta$ 角的旋转。</p>
+<p>该单位四元数对应的旋转矩阵为</p>
+<p>$$<br>R(\mathbf{q}) =<br>        \begin{bmatrix}<br>        1-2(y^2 + z^2) &amp; 2(xy - zw) &amp; 2(xz + yw) \\<br>        2(xy + zw) &amp; 1-2(x^2 + z^2) &amp; 2(yz - xw) \\<br>        2(xz - yw) &amp; 2(yz + xw) &amp; 1-2(x^2 + y^2)<br>        \end{bmatrix}<br>$$</p>
+<p>这里的推导用到了轴-角旋转表示中的<a href="http://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula" target="_blank" rel="external">Rodrigues’ rotation formula</a>，具体证明这里不展开了，有兴趣的可以查阅相关资料。</p>
+<p>我们发现用四元数描述旋转需要的存储空间很小，更为关键的是可以使用被称为<em>球面线性插值</em>（<a href="http://en.wikipedia.org/wiki/Slerp" target="_blank" rel="external">Slerp Algorithm</a>）的方法对四元数进行插值运算，从而解决了平滑旋转的插值问题。</p>
+<p>在 OpenGL 或者 DirectX 中我们通常使用模型视图矩阵来进行几何变换，当我们希望实现光滑旋转、对旋转进行插值时，就可以利用四元数这一工具。处理过程为：</p>
+<ul>
+<li>模型视图矩阵 -&gt; 四元数</li>
+<li>使用四元数进行运算</li>
+<li>四元数 -&gt; 模型视图矩阵</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Mathematics/">Mathematics</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/graphics/">graphics</a>, <a href="/tags/geometry/">geometry</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+ <nav id="pagination" >
+    
+    
+    <a href="/2014/07/16/kinect_dev_config_vs2013/" class="alignright next" >Next</a>
+    
+    <div class="clearfix"></div></nav>
+
+<section id="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015/03/25/rotation_matrix_and_quaternions/" data-title="旋转矩阵与四元数" data-url="http://insaneguy.me2015/03/25/rotation_matrix_and_quaternions/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"insaneguy"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:insaneguy.me">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Mathematics/">Mathematics</a><small>1</small></li>
+  
+    <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
+  
+    <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/categories/Programming/Scala/">Scala</a><small>6</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C/">C++</a><small>2</small></li>
+  
+    <li><a href="/tags/Kinect/">Kinect</a><small>1</small></li>
+  
+    <li><a href="/tags/OpenCV/">OpenCV</a><small>1</small></li>
+  
+    <li><a href="/tags/Ruby/">Ruby</a><small>4</small></li>
+  
+    <li><a href="/tags/Scala/">Scala</a><small>6</small></li>
+  
+    <li><a href="/tags/coursera/">coursera</a><small>6</small></li>
+  
+    <li><a href="/tags/fp/">fp</a><small>6</small></li>
+  
+    <li><a href="/tags/geometry/">geometry</a><small>1</small></li>
+  
+    <li><a href="/tags/graphics/">graphics</a><small>1</small></li>
+  
+    <li><a href="/tags/hexo/">hexo</a><small>1</small></li>
+  
+    <li><a href="/tags/notes/">notes</a><small>7</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 insaneguy
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+</html>

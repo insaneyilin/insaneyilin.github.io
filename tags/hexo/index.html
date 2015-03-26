@@ -50,49 +50,21 @@
 <h2 class="archive-title tag">hexo</h2>
 
 
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-05-16T01:30:29.000Z"><a href="/2014/05/16/hello_world/">05-16-2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/05/16/hello_world/">Hello World</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>在知乎上的一个问题<a href="http://www.zhihu.com/question/20962496" target="_blank" rel="external">如何在github上写博客？</a>中看到<a href="http://zipperary.com/" target="_blank" rel="external">Zippera</a>的回答，参考他的系列博文<a href="http://zipperary.com/categories/hexo/" target="_blank" rel="external">hexo | Zippera’s blog</a>搭建了这个blog。
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/05/16/hello_world/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
+  <div class="archive">
+    
+      <article class="post">
+        <div class="post-content">
+          <header>
+            <div class="icon"></div>
+            <time datetime="2014-05-16T01:30:29.000Z"><a href="/2014/05/16/hello_world/">05-16-2014</a></time>
+            
+              <h1 class="title"><a href="/2014/05/16/hello_world/">Hello World</a></h1>
+            
+          </header>
+        </div>
+      </article>
+    
   </div>
-</article>
-
-
-
-  
-
-  <nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav>
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
@@ -110,6 +82,8 @@
     <li><a href="/categories/Programming/C/">C++</a><small>2</small></li>
   
     <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
+  
+    <li><a href="/categories/Mathematics/">Mathematics</a><small>1</small></li>
   
     <li><a href="/categories/Programming/">Programming</a><small>13</small></li>
   
@@ -139,6 +113,10 @@
     <li><a href="/tags/coursera/">coursera</a><small>6</small></li>
   
     <li><a href="/tags/fp/">fp</a><small>6</small></li>
+  
+    <li><a href="/tags/geometry/">geometry</a><small>1</small></li>
+  
+    <li><a href="/tags/graphics/">graphics</a><small>1</small></li>
   
     <li><a href="/tags/hexo/">hexo</a><small>1</small></li>
   
@@ -170,6 +148,36 @@
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 </body>
 </html>
