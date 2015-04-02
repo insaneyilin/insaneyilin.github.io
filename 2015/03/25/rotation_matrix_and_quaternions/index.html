@@ -72,11 +72,11 @@
 <p>三维空间中的一个点 $P$ ，我们用齐次坐标表示：</p>
 <p>$$ P = [x, y, z, w]^T $$</p>
 <p>我们首先考虑分别绕 X 轴、Y 轴、Z 轴旋转一定角度的情况。</p>
-<p><img src="/imgs/rotate_3_dimension.jpg" alt="绕坐标轴旋转"></p>
+<p><img src="/imgs/20150325_rotation_matrix_and_quaternions/rotate_3_dimension.jpg" alt="绕坐标轴旋转"></p>
 <p>设 $P$ 绕 X 轴、Y 轴、Z 轴的旋转角度分别为 $\alpha$、$\beta$ 和 $\theta$。 </p>
 <p>我们使用右手坐标系，旋转角度的正向由右手定则确定。</p>
 <p>点绕坐标轴旋转可以考虑点在相应坐标平面上投影的旋转。比如绕 Y 轴旋转，那么考虑点 $P$ 在 X-Z 平面上的投影的旋转，如下图所示：</p>
-<p><img src="/imgs/rotate_3_dimension_y.jpg" alt="绕Y轴旋转"></p>
+<p><img src="/imgs/20150325_rotation_matrix_and_quaternions/rotate_3_dimension_y.jpg" alt="绕Y轴旋转"></p>
 <p>假设点 $P$ 在 X-Z 平面上的投影点与坐标原点连成的向量长度为 L ，那么根据简单的平面几何知识，我们可以得到：</p>
 <p>\begin{equation}<br>\begin{bmatrix}<br>x1 \\<br>z1<br>\end{bmatrix}<br>=<br>\begin{bmatrix}<br>cos\beta &amp; sin\beta \\<br>-sin\beta &amp; cos\beta<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>z<br>\end{bmatrix}<br>\end{equation}</p>
 <p>用齐次坐标表示绕Y轴的旋转为：</p>
@@ -100,13 +100,13 @@
 <p>我们知道直角坐标系的三个坐标轴方向的单位向量实际上是一组标准正交基，于是矩阵 $C$ 是一个正交矩阵。所以旋转矩阵表面上看起来依赖于 9 个参数，实际上只有三个是独立的。</p>
 <p>为了更直接地指出这三个独立参数，欧拉（Euler）证明了如下事实：任何一个旋转都可以由连续施行的三次绕轴旋转来实现，这三次绕轴旋转的旋转角就是三个独立参数，称为欧拉角。</p>
 <p>根据绕轴旋转的顺序不同，欧拉角的表示也不同。常见的欧拉角表示有 Yaw-Pitch-Roll (Y-X-Z顺序)，通过下面的图片可以形象地进行理解。</p>
-<p><img src="/imgs/Roll_Pitch_Yaw.jpg" alt="Yaw-Pitch-Roll"></p>
+<p><img src="/imgs/20150325_rotation_matrix_and_quaternions/Roll_Pitch_Yaw.jpg" alt="Yaw-Pitch-Roll"></p>
 <p>偏航(Yaw)：</p>
-<p><img src="/imgs/yaw.gif" alt="airplane Yaw"></p>
+<p><img src="/imgs/20150325_rotation_matrix_and_quaternions/yaw.gif" alt="airplane Yaw"></p>
 <p>仰俯(Pitch)：</p>
-<p><img src="/imgs/pitch.gif" alt="airplane Pitch"></p>
+<p><img src="/imgs/20150325_rotation_matrix_and_quaternions/pitch.gif" alt="airplane Pitch"></p>
 <p>侧偏(Roll)：</p>
-<p><img src="/imgs/roll.gif" alt="airplane Roll"></p>
+<p><img src="/imgs/20150325_rotation_matrix_and_quaternions/roll.gif" alt="airplane Roll"></p>
 <p>设 Yaw 、Pitch 、Roll 三个角度分别为 $\theta, \varphi, \psi$，那么利用欧拉角进行旋转对应的旋转变换矩阵为：</p>
 <p>$$<br>        \begin{bmatrix}<br>        cos\psi \ cos\theta - sin\psi \ cos\varphi \ sin\theta &amp; -sin\psi \ cos\theta - cos\psi \ cos\varphi \ sin\theta &amp; sin\varphi \ sin\theta \\<br>        cos\psi \ sin\theta + sin\psi \ cos\varphi \ cos\theta &amp; -sin\psi \ sin\theta + cos\psi \ cos\varphi \ cos\theta &amp; -sin\varphi \ cos\theta \\<br>        sin\psi \ sin\varphi &amp; cos\psi \ sin\varphi &amp; cos\varphi<br>        \end{bmatrix}<br>$$</p>
 <p>实际上 Yaw 、Pitch 、Roll 的旋转就分别对应着前面我们给出的旋转矩阵 $R_x(\theta), R_y(\varphi), R_z(\psi)$，上面的矩阵就是这三个矩阵的复合。</p>
