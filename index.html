@@ -53,6 +53,48 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-04-02T11:56:29.000Z"><a href="/2015/04/02/crop_pdf_with_OpenCV/">04-02-2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>网上找到的一些课件讲义等资料有时候会是 PPT 多页打印而成的 PDF 文件，比如下图这种：</p>
+<p><img src="/imgs/20150402_crop_pdf_with_OpenCV/slides_in_pdf.png" alt="slides in pdf"></p>
+<p>有些人希望对 PDF 页面进行裁剪，将 PDF 还原为原 slides 那样一页一张演示文稿的形式。（其实我个人觉得没什么必要，因为不影响阅读，而且 PDF 格式读起来还不用频繁翻页了。）</p>
+<p>前几天，我在知乎上看到了有这样需求的<a href="http://www.zhihu.com/question/29065981" target="_blank" rel="external">一个问题</a>。<br>当时想到用 Python 和 <a href="http://opencv.org/" target="_blank" rel="external">OpenCV</a> 来做这样的图像处理小任务应该很简单的吧。于是动手撸了段代码，简单的 <strong>“边缘检测+轮廓提取”</strong>，最后结果看起来还不错：</p>
+<p><img src="/imgs/20150402_crop_pdf_with_OpenCV/pdf_cropped.png" alt="pdf cropped results"></p>
+<p>下面给出 Python 代码并简单解释下。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-03-30T14:56:29.000Z"><a href="/2015/03/30/lambda_expressions_in_cpp/">03-30-2015</a></time>
       
       
@@ -489,69 +531,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-05-22T04:56:29.000Z"><a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/">05-22-2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/">《编写高质量代码：改善C++程序的150个建议》读书笔记(1)</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>前一段时间看了这本<a href="http://book.douban.com/subject/7059901/" target="_blank" rel="external">《编写高质量代码——改善C++程序的150个建议》</a>，感觉和<a href="http://book.douban.com/subject/6517498/" target="_blank" rel="external"><em>Effective C++</em></a>有点类似。看完还是有不少收获的，在此整理、记录一下。</p>
-<p><br></p>
-<hr>
-<h2 id="第一部分_语法篇">第一部分 语法篇</h2>
-<h3 id="建议1：区分0的4种面孔">建议1：区分0的4种面孔</h3>
-<ol>
-<li>整型0，32位（4个字节）；</li>
-<li>空指针<code>NULL</code>，指针与<code>int</code>类型所占空间是一样的，都是32位；</li>
-<li>字符串结束标志’\0’，8位，一个字节，与’0’有区别；</li>
-<li>逻辑<code>FALSE</code>/<code>false</code>，<code>FALSE</code>/<code>TRUE</code>是<code>int</code>类型，而<code>false</code>/<code>true</code>是<code>bool</code>类型。<br><br></li>
-</ol>
-<h3 id="建议5：不要忘记指针变量的初始化">建议5：不要忘记指针变量的初始化</h3>
-<ol>
-<li>可以将其初始化为空指针<code>0</code>(<code>NULL</code>)；</li>
-<li>对于全局变量来说，在声明的同时，编译器会<strong>悄悄完成</strong>对变量的初始化。<br><br></li>
-</ol>
-<h3 id="建议6：明晰逗号分隔表达式的奇怪之处">建议6：明晰逗号分隔表达式的奇怪之处</h3>
-<ol>
-<li>在使用逗号分隔表达式时，C++会确保每个表达式都被执行，而整个表达式的值则是<strong>最右边表达式的结果</strong>；</li>
-<li>在C++中，逗号分隔表达式<strong>既可以用作左值，也可以用作右值</strong>。<br><br></li>
-</ol>
-<h3 id="建议9：防止重复包含头文件">建议9：防止重复包含头文件</h3>
-<p>注意在大型项目中的形式应类似下面：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#ifndef _PROJECT_PATH_FILE_H</span></div><div class="line"><span class="preprocessor">#<span class="keyword">define</span> _PROJECT_PATH_FILE_H</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></div></pre></td></tr></table></figure>
-
-<p><br></p>
-<h3 id="建议10：优化结构体中元素的布局">建议10：优化结构体中元素的布局</h3>
-<p>把结构体中的变量<strong>按照类型大小从小到大</strong>依次声明，尽量<strong>减少中间的填充字节</strong>。<br><br><br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -572,7 +551,7 @@
   
     <li><a href="/categories/Mathematics/">Mathematics</a><small>1</small></li>
   
-    <li><a href="/categories/Programming/">Programming</a><small>14</small></li>
+    <li><a href="/categories/Programming/">Programming</a><small>15</small></li>
   
     <li><a href="/categories/Programming/Ruby/">Ruby</a><small>4</small></li>
   
@@ -589,9 +568,11 @@
   
     <li><a href="/tags/C/">C++</a><small>3</small></li>
   
+    <li><a href="/tags/Image-Processing/">Image Processing</a><small>1</small></li>
+  
     <li><a href="/tags/Kinect/">Kinect</a><small>1</small></li>
   
-    <li><a href="/tags/OpenCV/">OpenCV</a><small>1</small></li>
+    <li><a href="/tags/OpenCV/">OpenCV</a><small>2</small></li>
   
     <li><a href="/tags/Ruby/">Ruby</a><small>4</small></li>
   
