@@ -102,6 +102,16 @@
 <p>虽然如此，PIMPL 仍然是一种实现数据隐藏、减少编译时间的有效方法。除非会引起显著的程序性能下降，推荐使用 PIMPL 进行设计。</p>
 <p><br></p>
 <hr>
+<h1 id="4_C++11_风格的_PIMPL">4 C++11 风格的 PIMPL</h1>
+<p>现代 C++ 中不提倡使用 <em>owning raw pointers</em> 和 <code>delete</code> ，我们可以用智能指针实现 PIMPL。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// myclass.h</span></div><div class="line"><span class="keyword">class</span> MyClass</div><div class="line">{</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="comment">/* ... */</span></div><div class="line"></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">class</span> AImpl;  <span class="comment">// forward declaration</span></div><div class="line">    unique_ptr&lt;AImpl&gt; _pimpl;  <span class="comment">// opaque type here</span></div><div class="line">};</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// myclass.cpp</span></div><div class="line"></div><div class="line"><span class="keyword">class</span> MyClass::AImpl</div><div class="line">{</div><div class="line">    <span class="comment">/* ... */</span></div><div class="line">};</div><div class="line"></div><div class="line">MyClass::MyClass() : _pimpl(<span class="keyword">new</span> AImpl())</div><div class="line">{</div><div class="line">    <span class="comment">/* ... */</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><br></p>
+<hr>
 <h1 id="参考">参考</h1>
 <p><a href="http://stackoverflow.com/questions/60570/why-should-the-pimpl-idiom-be-used" target="_blank" rel="external">http://stackoverflow.com/questions/60570/why-should-the-pimpl-idiom-be-used</a></p>
 <p><a href="http://en.wikipedia.org/wiki/Opaque_pointer" target="_blank" rel="external">http://en.wikipedia.org/wiki/Opaque_pointer</a></p>
