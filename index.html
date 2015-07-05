@@ -53,6 +53,117 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-07-05T09:56:29.000Z"><a href="/2015/07/05/150705_webgl_first_try/">07-05-2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Coursera 上最近新开了一门课 <a href="http://www.coursera.org/course/webgl" target="_blank" rel="external">Interactive Computer Graphics with WebGL</a>，通过 WebGL 来介绍计算机图形学。</p>
+<p>从本科时学习 OpenGL 1.x ，到研一重新学习 OpenGL 3.x 之后基于 shader 的方法，OpenGL 也算是我的一位老朋友了。现在 Web 开发热火朝天，桌面应用 Web 化早已成为趋势，我正好借着这门课学习下 WebGL，同时也了解一下网络前端开发。</p>
+<p><br></p>
+<h2 id="OpenGL">OpenGL</h2>
+<p>OpenGL = Open Graphics Library，是图形硬件的一种标准软件接口，其最初由 SGI 创建，用于在不同硬件体系结构的图形设备上进行二维和三维图形的绘制。OpenGL 不是一种编程语言，也不是 OpenCV 之类的算法工具库，而是一个图形显示标准 API 集合。</p>
+<p><br></p>
+<h2 id="Modern_OpenGL">Modern OpenGL</h2>
+<p>学习过 OpenGL 1.x 和 2.x 的朋友应该对 <code>glBegin()</code> 、<code>glVertex()</code> 和 <code>glEnd()</code> 印象深刻，使用这种方式绘制属于“立即模式”(immediate mode)，每次顶点被创建后都会由 CPU 发送给 GPU 进行绘制，从而造成了 CPU 和 GPU 之间的性能瓶颈。</p>
+<p>立即模式在 OpenGL 3.1 及之后的版本已经被移除，Modern OpenGL 是基于 Shader 来进行图形的绘制的，即所有绘制工作都应由 GPU 负责，CPU 仅仅负责将要绘制的数据传送给 GPU。</p>
+<p>Shader(着色器) 也是一种程序，其使用 GLSL(GL Shading Language) 编写，分为顶点着色器(vertex shader)和片段着色器(fragment shader)，前者处理顶点相关的属性，后者处理像素点相关的属性。着色器在程序运行时进行编译。</p>
+<p>Modern OpenGL 通过“保留模式”(retained mode) 进行图形绘制：将所有顶点数据放在一个数组中，将该数组发送给 GPU ，通过 shaders 完成绘制。</p>
+<p><br></p>
+<h2 id="WebGL">WebGL</h2>
+<p>WebGL 是 OpenGL ES 2.0 的 JavaScript 实现，是面向浏览器的 OpenGL。WebGL 可以与 HTML5、CSS 结合使用，借助本地系统显卡在浏览器中构建和显示三维场景与模型。</p>
+<p>WebGL 使用 JavaScript 作为编程语言，尽管有一些问题和局限性，但能在浏览器轻松构建三维图形程序仍是一件很酷的事！</p>
+<p><br></p>
+<h2 id="第一个例子：绘制三角形">第一个例子：绘制三角形</h2>
+<p>现在开始我们的第一个 WebGL 例子：绘制一个有颜色的二维三角形。</p>
+<p>这里利用 <a href="http://www.cs.unm.edu/~angel/" target="_blank" rel="external">Edward Angel 教授</a>提供的<a href="http://www.cs.unm.edu/~angel/COURSERA/CODE/Common/" target="_blank" rel="external">辅助脚本</a>进行实现。</p>
+<p>创建一个 WebGL 应用程序的基本步骤：</p>
+<ul>
+<li>创建 WebGL 上下文</li>
+<li>创建顶点缓冲 (vertex buffer)</li>
+<li>创建顶点着色器（vertex shader）和片段着色器（fragment shader）</li>
+<li>编译着色器</li>
+<li>创建程序对象，链接着色器</li>
+<li>绘制场景</li>
+</ul>
+<p>Angel 教授提供的辅助脚本已经为我们封装了一些基本 WebGL 操作，因此我们只需要关心三个元素：</p>
+<ul>
+<li>vertex shader</li>
+<li>fragment shader</li>
+<li>HTML canvas</li>
+</ul>
+<p>HTML 文件与 JS 文件各有分工：</p>
+<ul>
+<li>HTML文件<ul>
+<li>描述页面布局，包含 canvas 元素</li>
+<li>加载 JS 脚本文件</li>
+<li>包含顶点和片段着色器</li>
+</ul>
+</li>
+<li>JS 文件<ul>
+<li>创建 WebGL 上下文</li>
+<li>创建顶点缓冲</li>
+<li>编译、链接着色器</li>
+<li>创建数据</li>
+<li>渲染数据（绘制）</li>
+</ul>
+</li>
+</ul>
+<p>先来看一看 HTML 文件(myTriangle.html)：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">id</span>=<span class="value">"vertex-shader"</span> <span class="attribute">type</span>=<span class="value">"x-shader/x-vertex"</span>&gt;</span><span class="javascript"></span></div><div class="line">attribute vec4 vPosition;</div><div class="line"><span class="keyword">void</span> main() {</div><div class="line">  gl_Position = vPosition;</div><div class="line">}</div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">id</span>=<span class="value">"fragment-shader"</span> <span class="attribute">type</span>=<span class="value">"x-shader/x-fragment"</span>&gt;</span><span class="javascript"></span></div><div class="line">precision mediump float;</div><div class="line"><span class="keyword">void</span> main() {</div><div class="line">  gl_FragColor = vec4(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>);</div><div class="line">}</div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"../Common/webgl-utils.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"../Common/initShaders.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"myTriangle.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"gl-canvas"</span> <span class="attribute">width</span>=<span class="value">"512"</span> <span class="attribute">height</span>=<span class="value">"512"</span>&gt;</span></div><div class="line">Oops ... your browser doesn't support the HTML5 canvas element</div><div class="line"><span class="tag">&lt;/<span class="title">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>上面代码的底部是如下 HTML 代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"gl-canvas"</span> <span class="attribute">width</span>=<span class="value">"512"</span> <span class="attribute">height</span>=<span class="value">"512"</span>&gt;</span></div><div class="line">Oops ... your browser doesn't support the HTML5 canvas element</div><div class="line"><span class="tag">&lt;/<span class="title">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>整个文件只有这一段是页面的body部分代码，其余都是 js 代码。<code>&lt;canvas&gt;</code> 标签就是要显示图形的部分，这里设置了其 id 和宽高，在之后的 js 文件中会用到。</p>
+<p>上面 HTML 文件中的 <code>&lt;head&gt;</code> 标签中定义了顶点着色器和片段着色器：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">id</span>=<span class="value">"vertex-shader"</span> <span class="attribute">type</span>=<span class="value">"x-shader/x-vertex"</span>&gt;</span><span class="javascript"></span></div><div class="line">attribute vec4 vPosition;</div><div class="line"><span class="keyword">void</span> main() {</div><div class="line">  gl_Position = vPosition;</div><div class="line">}</div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">id</span>=<span class="value">"fragment-shader"</span> <span class="attribute">type</span>=<span class="value">"x-shader/x-fragment"</span>&gt;</span><span class="javascript"></span></div><div class="line">precision mediump float;</div><div class="line"><span class="keyword">void</span> main() {</div><div class="line">  gl_FragColor = vec4(<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>);</div><div class="line">}</div><div class="line"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>这里顶点着色器通过 vPosition 属性获取每个顶点的位置；片段着色器第一行声明浮点数精度，然后通过RGBA的四元向量设置片段着色器的输出颜色。</p>
+<p>下面看一下 JS 文件(myTriangle.js)：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="pi">"use strict"</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> gl;</div><div class="line"><span class="keyword">var</span> points;</div><div class="line"></div><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span> </span>{</div><div class="line">	<span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">"gl-canvas"</span>);</div><div class="line">	gl = WebGLUtils.setupWebGL(canvas);</div><div class="line">	<span class="keyword">if</span> (!gl) {</div><div class="line">		alert(<span class="string">"WebGL isn't available"</span>);</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">var</span> vertices = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([-<span class="number">1</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, -<span class="number">1</span>]);</div><div class="line">	</div><div class="line">	<span class="comment">// configure WebGL</span></div><div class="line">	gl.viewport(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</div><div class="line">	gl.clearColor(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>);</div><div class="line">	</div><div class="line">	<span class="comment">// load shaders and initialize attribute buffers</span></div><div class="line">	<span class="keyword">var</span> program = initShaders(gl, <span class="string">"vertex-shader"</span>, <span class="string">"fragment-shader"</span>);</div><div class="line">	gl.useProgram(program);</div><div class="line">	</div><div class="line">	<span class="comment">// load the data into the GPU</span></div><div class="line">	<span class="keyword">var</span> bufferId = gl.createBuffer();</div><div class="line">	gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);</div><div class="line">	gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);</div><div class="line">	</div><div class="line">	<span class="comment">// associate our shader variables with our data buffer</span></div><div class="line">	<span class="keyword">var</span> vPosition = gl.getAttribLocation(program, <span class="string">"vPosition"</span>);</div><div class="line">	gl.vertexAttribPointer(vPosition, <span class="number">2</span>, gl.FLOAT, <span class="literal">false</span>, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">	gl.enableVertexAttribArray(vPosition);</div><div class="line">	</div><div class="line">	render();</div><div class="line">};</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">()</span> </span>{</div><div class="line">	gl.clear(gl.COLOR_BUFFER_BIT);</div><div class="line">	gl.drawArrays(gl.TRIANGLES, <span class="number">0</span>, <span class="number">3</span>);</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>首先通过 <code>document.getElementById</code> 找到 HTML 中的 canvas 元素；然后创建并设置 WebGL 上下文，加载着色器，创建数据缓冲；接着将数据载入 GPU，将着色器与顶点缓冲进行关联，完成绘制。</p>
+<p>注意 <code>gl.vertexAttribPointer</code> 方法，该方法指示 WebGL 刚刚绑定在 gl.ARRAY_BUFFER 上的缓冲数据是如何组织的。该方法各个参数的意义如下：</p>
+<ul>
+<li>第一个参数告诉 WebGL 绑定的缓冲应作为哪个通用属性索引的输入</li>
+<li>第二个参数定义每个位置信息要用多少个元素表示。这里是二维图形，每个位置由 x, y 两个分量组成</li>
+<li>第三个参数表示元素为浮点类型</li>
+<li>第四个参数为规范化标志</li>
+<li>第五个参数为步长，0 表示默认紧凑存储</li>
+<li>第六个参数是顶点数据类型中第一个元素的偏移值，由于这里只有位置数据，偏移值为 0 </li>
+</ul>
+<p><code>gl.enableVertexAttribArray(vPosition);</code> 用于激活顶点着色器中的位置属性。</p>
+<p>WebGL 创建的应用可以轻松的通过网页展示。这里我使用 <a href="http://codepen.io" target="_blank" rel="external">CodePen</a> 展示上面绘制三角形的例子，效果如下：</p>
+<p></p><p data-height="577" data-theme-id="0" data-slug-hash="vOROBW" data-default-tab="result" data-user="insaneguy" class="codepen">See the Pen <a href="http://codepen.io/insaneguy/pen/vOROBW/" target="_blank" rel="external">webgl_demos</a> by insaneguy (<a href="http://codepen.io/insaneguy" target="_blank" rel="external">@insaneguy</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p></p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-04-05T11:56:29.000Z"><a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">04-05-2015</a></time>
       
       
@@ -460,53 +571,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-05-26T11:30:29.000Z"><a href="/2014/05/26/ruby_quickstart_notes_1/">05-26-2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/05/26/ruby_quickstart_notes_1/">Ruby Quick Start (1) -- A Glimpse of Syntax</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>学习Ruby时在网上找到了一本小册子<a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>，虽然是07年的东西了，但是作为快速熟悉Ruby基本语法还是很有帮助的，做一下笔记。</p>
-<p>开始前先问下自己两个问题。</p>
-<p>(1) <em>我为什么要学习Ruby？</em></p>
-<p>为了Web开发。</p>
-<p>(2) <em>为什么选择Ruby，而不是Python，PHP？</em></p>
-<p>看了知乎上的<a href="http://www.zhihu.com/question/19573703/answer/12258814" target="_blank" rel="external">这个答案</a>：</p>
-<ul>
-<li>假如你想帮他尽快找个活儿， 赚到钱， 推荐 PHP</li>
-<li>假如你想让他成为一个高效工程师， 推荐 Python</li>
-<li>假如你想让他爱上他的工作， 推荐 Ruby </li>
-</ul>
-<p>无论如何，别人的答案只能作为参考，自己尝试过后才有资格评价，所以最好的方法就是亲自动手学习下Ruby。
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/05/26/ruby_quickstart_notes_1/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -532,7 +596,7 @@
   
     <li><a href="/categories/Mathematics/">Mathematics</a><small>1</small></li>
   
-    <li><a href="/categories/Programming/">Programming</a><small>16</small></li>
+    <li><a href="/categories/Programming/">Programming</a><small>17</small></li>
   
   </ul>
 </div>
@@ -542,7 +606,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/C/" style="font-size: 15.00px;">C++</a><a href="/tags/Design-Pattern/" style="font-size: 10.00px;">Design Pattern</a><a href="/tags/Image-Processing/" style="font-size: 10.00px;">Image Processing</a><a href="/tags/Kinect/" style="font-size: 10.00px;">Kinect</a><a href="/tags/OpenCV/" style="font-size: 12.50px;">OpenCV</a><a href="/tags/Ruby/" style="font-size: 15.00px;">Ruby</a><a href="/tags/Scala/" style="font-size: 17.50px;">Scala</a><a href="/tags/coursera/" style="font-size: 17.50px;">coursera</a><a href="/tags/fp/" style="font-size: 17.50px;">fp</a><a href="/tags/graphics/" style="font-size: 10.00px;">graphics</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/lambda-expression/" style="font-size: 10.00px;">lambda expression</a><a href="/tags/notes/" style="font-size: 20.00px;">notes</a>
+    <a href="/tags/C/" style="font-size: 15.00px;">C++</a><a href="/tags/Design-Pattern/" style="font-size: 10.00px;">Design Pattern</a><a href="/tags/Image-Processing/" style="font-size: 10.00px;">Image Processing</a><a href="/tags/Kinect/" style="font-size: 10.00px;">Kinect</a><a href="/tags/OpenCV/" style="font-size: 12.50px;">OpenCV</a><a href="/tags/Ruby/" style="font-size: 15.00px;">Ruby</a><a href="/tags/Scala/" style="font-size: 17.50px;">Scala</a><a href="/tags/coursera/" style="font-size: 20.00px;">coursera</a><a href="/tags/fp/" style="font-size: 17.50px;">fp</a><a href="/tags/graphics/" style="font-size: 12.50px;">graphics</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/lambda-expression/" style="font-size: 10.00px;">lambda expression</a><a href="/tags/notes/" style="font-size: 20.00px;">notes</a>
   </div>
 </div>
 
