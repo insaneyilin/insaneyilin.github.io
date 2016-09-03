@@ -53,6 +53,50 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-05-28T11:30:29.000Z"><a href="/2014/05/28/ruby_quickstart_notes_2/">05-28-2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="external">《Ruby语言入门教程v1.0》</a>笔记（2）<br><br></p>
+<hr>
+<h2 id="第四章_Ruby面向对象初探">第四章 Ruby面向对象初探</h2>
+<h3 id="1-_封装">1. 封装</h3>
+<p>让我们来定义一个类， 类名是 <code>Person</code>， <strong>类名首字母要大写</strong>；<br>属性有姓名<code>@name</code>、年龄<code>@age</code>、国籍<code>@motherland</code>，实例变量用<code>@</code>开头；<br>方法有一个，叫 <code>talk</code>, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。</p>
+<figure class="highlight ruby"><figcaption><span>Person.rb</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>initialize(name, age = <span class="number">18</span>)</div><div class="line">    <span class="variable">@name</span> = name</div><div class="line">    <span class="variable">@age</span> = age</div><div class="line">    <span class="variable">@motherland</span> = <span class="string">"China"</span></div><div class="line">  <span class="keyword">end</span>  <span class="comment"># 初始化方法结束</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>talk</div><div class="line">    puts <span class="string">"my name is "</span> + <span class="variable">@name</span> + <span class="string">", age is "</span> + <span class="variable">@age</span>.to_s</div><div class="line">    <span class="keyword">if</span> <span class="variable">@motherland</span> == <span class="string">"China"</span></div><div class="line">      puts <span class="string">"I am a Chinese."</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">      puts <span class="string">"I am a foreigner."</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">  <span class="keyword">end</span>  <span class="comment"># talk方法结束</span></div><div class="line">  <span class="keyword">attr_writer</span> <span class="symbol">:motherland</span>  <span class="comment"># <span class="yardoctag">@motherland</span>的setter</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">p1 = <span class="constant">Person</span>.new(<span class="string">"Yilin"</span>, <span class="number">23</span>)</div><div class="line">p1.talk</div><div class="line"></div><div class="line">p2 = <span class="constant">Person</span>.new(<span class="string">"Ben"</span>)</div><div class="line">p2.motherland = <span class="string">"ABC"</span></div><div class="line">p2.talk</div></pre></td></tr></table></figure>
+
+<p><code>initialize</code> 是初始化方法，相当于构造函数。<br>参数 <code>age</code> 有一个缺省值 <code>18</code>，可以在任何方法内使用缺省参数,而不仅仅是 <code>initialize</code>。<br>如果有缺省参数， 参数表必须以有缺省值的参数结尾。</p>
+<p>注意我们定义了<code>@motherland</code>成员变量的setter：<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/05/28/ruby_quickstart_notes_2/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-05-26T11:30:29.000Z"><a href="/2014/05/26/ruby_quickstart_notes_1/">05-26-2014</a></time>
       
       
@@ -554,6 +598,8 @@
   <h3 class="title">Categories</h3>
   <ul class="entry">
   
+    <li><a href="/categories/Computer-Graphics/">Computer Graphics</a><small>1</small></li>
+  
     <li><a href="/categories/Diary/">Diary</a><small>1</small></li>
   
     <li><a href="/categories/Mathematics/">Mathematics</a><small>1</small></li>
@@ -568,7 +614,7 @@
 <div class="widget tagcloud">
   <h3 class="title">Tag Cloud</h3>
   <div class="entry">
-    <a href="/tags/C/" style="font-size: 15.00px;">C++</a><a href="/tags/Design-Pattern/" style="font-size: 10.00px;">Design Pattern</a><a href="/tags/Image-Processing/" style="font-size: 10.00px;">Image Processing</a><a href="/tags/Kinect/" style="font-size: 10.00px;">Kinect</a><a href="/tags/OpenCV/" style="font-size: 12.50px;">OpenCV</a><a href="/tags/Ruby/" style="font-size: 15.00px;">Ruby</a><a href="/tags/Scala/" style="font-size: 17.50px;">Scala</a><a href="/tags/coursera/" style="font-size: 20.00px;">coursera</a><a href="/tags/fp/" style="font-size: 17.50px;">fp</a><a href="/tags/graphics/" style="font-size: 12.50px;">graphics</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/lambda-expression/" style="font-size: 10.00px;">lambda expression</a><a href="/tags/notes/" style="font-size: 20.00px;">notes</a>
+    <a href="/tags/C/" style="font-size: 15.00px;">C++</a><a href="/tags/Design-Pattern/" style="font-size: 10.00px;">Design Pattern</a><a href="/tags/Image-Processing/" style="font-size: 10.00px;">Image Processing</a><a href="/tags/Kinect/" style="font-size: 10.00px;">Kinect</a><a href="/tags/OpenCV/" style="font-size: 12.50px;">OpenCV</a><a href="/tags/Ruby/" style="font-size: 15.00px;">Ruby</a><a href="/tags/Scala/" style="font-size: 17.50px;">Scala</a><a href="/tags/coursera/" style="font-size: 20.00px;">coursera</a><a href="/tags/data-structure/" style="font-size: 10.00px;">data structure</a><a href="/tags/fp/" style="font-size: 17.50px;">fp</a><a href="/tags/graphics/" style="font-size: 12.50px;">graphics</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/kd-tree/" style="font-size: 10.00px;">kd tree</a><a href="/tags/lambda-expression/" style="font-size: 10.00px;">lambda expression</a><a href="/tags/notes/" style="font-size: 20.00px;">notes</a><a href="/tags/octree/" style="font-size: 10.00px;">octree</a>
   </div>
 </div>
 
@@ -577,7 +623,7 @@
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2015 insaneguy
+  &copy; 2016 insaneguy
   
 </div>
 <div class="clearfix"></div></footer>
