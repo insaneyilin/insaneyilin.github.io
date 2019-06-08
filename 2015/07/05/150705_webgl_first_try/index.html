@@ -45,6 +45,8 @@ WebGL 使用 JavaScript 作为编程语言，尽管有一些问题和局限性�
   
     <link rel="icon" href="/css/images/favicon.ico">
   
+
+  <link rel="stylesheet" href="/css/desert.css">
   <link rel="stylesheet" href="/css/style.css">
   
 
@@ -99,7 +101,7 @@ WebGL 使用 JavaScript 作为编程语言，尽管有一些问题和局限性�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjwnjj30v0000dybhx59f9t2s" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjwnkdlbk0000rdbh7gqhsz8y" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -381,18 +383,7 @@ function render() {
   
 </div>
       </div>
-      
-<!-- Highlight.js -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/rainbow.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
-
-<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
-    hljs.initLineNumbersOnLoad();
-</script>
-
-<footer id="colophon" role="contentinfo">
+      <footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
@@ -409,6 +400,15 @@ function render() {
 <script src="/js/script.js"></script>
 
 <script src="/js/navigation.js"></script>
+
+<!--prettify代码高亮脚本引入-->
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+$(window).on('load', function(){ 
+  $('pre').addClass('prettyprint linenums');
+  prettyPrint();
+});
+</script>
 
 <div id="bg"></div>
 

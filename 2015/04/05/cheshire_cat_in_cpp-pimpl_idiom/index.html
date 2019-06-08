@@ -34,6 +34,8 @@
   
     <link rel="icon" href="/css/images/favicon.ico">
   
+
+  <link rel="stylesheet" href="/css/desert.css">
   <link rel="stylesheet" href="/css/style.css">
   
 
@@ -88,7 +90,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="cjwnjj3120002dybhvm5ozqt6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="cjwnkdlbr0002rdbhdd72gdk6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -385,18 +387,7 @@ MyClass::MyClass() : _pimpl(new AImpl())
   
 </div>
       </div>
-      
-<!-- Highlight.js -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/rainbow.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
-
-<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
-    hljs.initLineNumbersOnLoad();
-</script>
-
-<footer id="colophon" role="contentinfo">
+      <footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
@@ -413,6 +404,15 @@ MyClass::MyClass() : _pimpl(new AImpl())
 <script src="/js/script.js"></script>
 
 <script src="/js/navigation.js"></script>
+
+<!--prettify代码高亮脚本引入-->
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+$(window).on('load', function(){ 
+  $('pre').addClass('prettyprint linenums');
+  prettyPrint();
+});
+</script>
 
 <div id="bg"></div>
 
