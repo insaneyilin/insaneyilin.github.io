@@ -4,7 +4,21 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="WRYYYYY!">
+  <meta name="description" content="Coursera 上最近新开了一门课 Interactive Computer Graphics with WebGL，通过 WebGL 来介绍计算机图形学。
+从本科时学习 OpenGL 1.x ，到研一重新学习 OpenGL 3.x 之后基于 shader 的方法，OpenGL 也算是我的一位老朋友了。现在 Web 开发热火朝天，桌面应用 Web 化早已成为趋势，我正好借着这门课学习下 WebGL，同时也了解一下网络前端开发。
+
+
+OpenGLOpenGL = Open Graphics Library，是图形硬件的一种标准软件接口，其最初由 SGI 创建，用于在不同硬件体系结构的图形设备上进行二维和三维图形的绘制。OpenGL 不是一种编程语言，也不是 OpenCV 之类的算法工具库，而是一个图形显示标准 API 集合。
+
+
+Modern OpenGL学习过 OpenGL 1.x 和 2.x 的朋友应该对 glBegin() 、glVertex() 和 glEnd() 印象深刻，使用这种方式绘制属于“立即模式”(immediate mode)，每次顶点被创建后都会由 CPU 发送给 GPU 进行绘制，从而造成了 CPU 和 GPU 之间的性能瓶颈。
+立即模式在 OpenGL 3.1 及之后的版本已经被移除，Modern OpenGL 是基于 Shader 来进行图形的绘制的，即所有绘制工作都应由 GPU 负责，CPU 仅仅负责将要绘制的数据传送给 GPU。
+Shader(着色器) 也是一种程序，其使用 GLSL(GL Shading Language) 编写，分为顶点着色器(vertex shader)和片段着色器(fragment shader)，前者处理顶点相关的属性，后者处理像素点相关的属性。着色器在程序运行时进行编译。
+Modern OpenGL 通过“保留模式”(retained mode) 进行图形绘制：将所有顶点数据放在一个数组中，将该数组发送给 GPU ，通过 shaders 完成绘制。
+
+
+WebGLWebGL 是 OpenGL ES 2.0 的 JavaScript 实现，是面向浏览器的 OpenGL。WebGL 可以与 HTML5、CSS 结合使用，借助本地系统显卡在浏览器中构建和显示三维场景与模型。
+WebGL 使用 JavaScript 作为编程语言，尽管有一些问题和局限性，但能在浏览器轻松构建三维图形程序仍是一件很酷的事！">
   
 
   
@@ -46,8 +60,9 @@
         <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
       </h1>
       
-        <h2 class="site-description hitokoto"></h2>
-        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+        <h2 class="site-description">
+          <a href="/" id="subtitle">WRYYYYY!</a>
+        </h2>
       
     </hgroup>
 
@@ -84,7 +99,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjwnd22su0006trbhruu6kz20" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjwnfe8ej0000whbhtaip7muw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

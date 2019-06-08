@@ -4,7 +4,18 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="WRYYYYY!">
+  <meta name="description" content="Here are my notes for the week 3’s lecture of Functional Programming Principles in Scala on Coursera.
+
+
+
+
+1. Class Hierarchies1.1 Abstract ClassesConsider the task of writing a class for sets of integers with the following operations.
+12345678910111213141516171819202122232425262728293031323334353637383940abstract class IntSet &amp;#123;  def incl(x: Int): IntSet  def contains(x: Int): Boolean&amp;#125;``` `IntSet` is an *abstract* class.Abstract classes can contain members which are *missing an implementation* (in our case, `incl` and `contains` ).Consequently, **no instances** of an abstract class can be created with the operator `new`.&amp;lt;br/&amp;gt;---### 1.2 Class ExtensionsLet’s consider implementing sets as *binary trees*.There are two types of possible trees: a tree for the empty set, and a tree consisting of an integer and two sub-trees.Here are their implementations:```scalaclass Empty extends IntSet &amp;#123;  def contains(x: Int): Boolean = false  def incl(x: Int): IntSet = new NonEmpty(x, new Empty, new Empty)&amp;#125;class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet &amp;#123;  def contains(x: Int): Boolean =    if (x &amp;lt; elem) left contains x    else if (x &amp;gt; elem) right contains x    else true  def incl(x: Int): IntSet =    if (x &amp;lt; elem) new NonEmpty(elem, left incl x, right)    else if (x &amp;gt; elem) new NonEmpty(elem, left, right incl x)    else this&amp;#125;
+
+Empty and NonEmpty both extend the class IntSet .
+This implies that the types Empty and NonEmpty conform to the type IntSet
+
+an object of type Empty or NonEmpty can be used wherever an object of type IntSet is required.">
   
 
   
@@ -49,8 +60,9 @@
         <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
       </h1>
       
-        <h2 class="site-description hitokoto"></h2>
-        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+        <h2 class="site-description">
+          <a href="/" id="subtitle">WRYYYYY!</a>
+        </h2>
       
     </hgroup>
 
@@ -87,7 +99,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/scala_week3_notes/" data-id="cjwnd22u5001ztrbhtjq14gls" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/scala_week3_notes/" data-id="cjwnfe8g90020whbhrkll0q5q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

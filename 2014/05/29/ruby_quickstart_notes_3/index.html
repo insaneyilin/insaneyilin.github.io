@@ -4,7 +4,20 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="WRYYYYY!">
+  <meta name="description" content="《Ruby语言入门教程v1.0》笔记（3）
+
+
+
+第六章 模块、命名空间、Mix-in1. Ruby中的模块在程序中，相关的、不相关的代码的组合，叫作模块。一般情况下，我们总是把功能相关的代码放在一个模块里。
+把功能相关的程序代码放在一个模块里， 体现了模块的第一个作用： 可以被其它程序代码重复使用。
+数学中常用的函数， Ruby 中的 Math 模块都提供了。 每个使用 Math 模块的程序员无须再重复编写这些常用的函数与常数。
+12puts Math.sqrt(2)    # 1.4142135623731puts Math::PI    # 3.14159265358979
+
+定义模块用 module...end 。
+模块与类非常相似，但是：
+
+模块不可以有实例对象；
+模块不可以有子类。">
   
 
   
@@ -46,8 +59,9 @@
         <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
       </h1>
       
-        <h2 class="site-description hitokoto"></h2>
-        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+        <h2 class="site-description">
+          <a href="/" id="subtitle">WRYYYYY!</a>
+        </h2>
       
     </hgroup>
 
@@ -84,7 +98,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/29/ruby_quickstart_notes_3/" data-id="cjwnd22sy000atrbhu9ody90k" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/29/ruby_quickstart_notes_3/" data-id="cjwnfe8ez000awhbhaxxzwkkl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

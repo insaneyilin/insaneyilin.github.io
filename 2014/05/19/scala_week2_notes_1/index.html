@@ -4,7 +4,27 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="WRYYYYY!">
+  <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera. 
+
+
+1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&#39;s Algorithm */ def gcd(a: Int, b: Int): Int =   if (b == 0) a else gcd(b, a % b)
+
+gcd(14, 21) is evaluated as follows:
+12345678910gcd(14, 21)--&amp;gt; if (21 == 0) 14 else gcd(21, 14 % 21)--&amp;gt; if (false) 14 else gcd(21, 14 % 21)--&amp;gt; gcd(21, 14 % 21)--&amp;gt; gcd(21, 14)--&amp;gt; if (14 == 0) 21 else gcd(14, 21 % 14)--&amp;gt;&amp;gt; gcd(14, 7)--&amp;gt;&amp;gt; gcd(7, 0)--&amp;gt; if (0 == 0) 7 else gcd(0, 7 % 0)--&amp;gt; 7
+
+Another example: 
+12def factorial(n: Int): Int =   if (n == 0) 1 else n * factorial(n - 1)
+
+factorial(4) is evaluated as follows:
+1234567factorial(4)--&amp;gt; if (4 == 0) 1 else 4 * factorial(4 - 1)--&amp;gt;&amp;gt; 4 * factorial(3)--&amp;gt;&amp;gt; 4 * (3 * factorial(2))--&amp;gt;&amp;gt; 4 * (3 * (2 * factorial(1)))--&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * factorial(0)))) --&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * 1)))
+
+
+
+
+1.2 Tail RecursionImplementation Consideration:
+If a function calls itself as its last action, the function’s stack frame can be reused. This is called tail recursion.
+Tail recursive functions are iterative processes.
+In general, if the last action of a function consists of calling a function (which may be the same), one stack frame would be sufficient for both functions. Such calls are called tail-calls.">
   
 
   
@@ -48,8 +68,9 @@
         <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
       </h1>
       
-        <h2 class="site-description hitokoto"></h2>
-        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+        <h2 class="site-description">
+          <a href="/" id="subtitle">WRYYYYY!</a>
+        </h2>
       
     </hgroup>
 
@@ -86,7 +107,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwnd22u1001rtrbh82xr96im" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwnfe8g5001uwhbhg566rom0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

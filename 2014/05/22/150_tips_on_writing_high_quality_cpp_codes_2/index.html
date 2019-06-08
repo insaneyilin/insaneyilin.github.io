@@ -4,7 +4,29 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="WRYYYYY!">
+  <meta name="description" content="《编写高质量代码——改善C++程序的150个建议》读书笔记(1)
+
+
+
+第二部分 编码习惯和规范篇建议81：避免无意中的内部数据裸露对于const成员函数，不要返回内部数据的句柄，因为它会破坏封装性，违反抽象性，造成内部数据无意中的裸露，这会出现很多“不可思议”的情形，比如const对象的非常量性。
+建议82：积极使用const为函数保驾护航const的真正威力体现在几个方面：
+
+修饰函数形式的参数：const只能修饰输入参数，对于内置数据类型的输入参数，不要将“值传递”的方式改为“const 引用传递”；
+修饰函数返回值；
+修饰成员函数：用const修饰成员函数的目的是提高程序的健壮性。const成员函数不允许对数据成员进行任何修改。
+
+关于const成员函数，须遵循几个规则：
+
+const对象只能访问const成员函数，而非const对象可以访问任意的成员函数；
+const对象的成员是不可修改的，然而const对象通过指针维护的对象却是可以修改的；
+const成员函数不可以修改对象的数据，不管对象是否具有const性质。
+
+
+
+建议83：不要返回局部变量的引用局部变量的引用是一件不太靠谱的事儿，所以尽量避免让函数返回局部变量的引用。同时也不要返回new生成对象的引用，因为这样会让代码层次混乱，让使用者苦不堪言。
+建议84：切忌过度使用传引用代替传对象相较于传对象，传引用的优点：它减少了临时对象的构造与析构，所以更具效率。但须审慎地使用传引用替代传对象，必须传回内部对象时，就传对象，勿传引用。
+建议85：了解指针参数传递内存中的玄机用指针参数传回一块动态申请的内存，是很常见的一种需求。然而如果不甚小心，就很容易造成严重错误：程序崩溃+内存泄露，解决之道就是用指针的指针来传递，或者换种内存传递方式，用返回值来传递。
+12345// 指针型变量在函数体中需要改变的写法void f(int *&amp;amp;x)    // 使用指针变量的引用&amp;#123;    ++x;&amp;#125;">
   
 
   
@@ -46,8 +68,9 @@
         <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
       </h1>
       
-        <h2 class="site-description hitokoto"></h2>
-        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+        <h2 class="site-description">
+          <a href="/" id="subtitle">WRYYYYY!</a>
+        </h2>
       
     </hgroup>
 
@@ -84,7 +107,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwnd22um002qtrbh49uzo8xc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwnfe8gl002rwhbh6sql42o1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

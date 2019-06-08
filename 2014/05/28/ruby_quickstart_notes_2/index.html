@@ -4,7 +4,15 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="WRYYYYY!">
+  <meta name="description" content="《Ruby语言入门教程v1.0》笔记（2）
+
+第四章 Ruby面向对象初探1. 封装让我们来定义一个类， 类名是 Person， 类名首字母要大写；   
+属性有姓名@name、年龄@age、国籍@motherland，实例变量用@开头；方法有一个，叫 talk, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。
+Person.rb1234567891011121314151617181920212223class Person  def initialize(name, age = 18)    @name = name    @age = age    @motherland = &#34;China&#34;  end  # 初始化方法结束  def talk    puts &#34;my name is &#34; + @name + &#34;, age is &#34; + @age.to_s    if @motherland == &#34;China&#34;      puts &#34;I am a Chinese.&#34;    else      puts &#34;I am a foreigner.&#34;    end  end  # talk方法结束  attr_writer :motherland  # @motherland的setterendp1 = Person.new(&#34;Yilin&#34;, 23)p1.talkp2 = Person.new(&#34;Ben&#34;)p2.motherland = &#34;ABC&#34;p2.talk
+
+initialize 是初始化方法，相当于构造函数。参数 age 有一个缺省值 18，可以在任何方法内使用缺省参数,而不仅仅是 initialize。   
+如果有缺省参数， 参数表必须以有缺省值的参数结尾。
+注意我们定义了@motherland成员变量的setter：">
   
 
   
@@ -46,8 +54,9 @@
         <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
       </h1>
       
-        <h2 class="site-description hitokoto"></h2>
-        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+        <h2 class="site-description">
+          <a href="/" id="subtitle">WRYYYYY!</a>
+        </h2>
       
     </hgroup>
 
@@ -84,7 +93,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjwnd22un002rtrbh6wa0u2za" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjwnfe8gm002swhbha0nndjbk" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

@@ -4,7 +4,46 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="WRYYYYY!">
+  <meta name="description" content="Here are my notes for the week 1’s lecture of Functional Programming Principles in Scala on Coursera. 
+Evaluation of ProgrammingEvery non-trivial programming language provides:
+
+primitive expressions representing the simplest elements
+ways to combine expressions
+ways to abstract expressions, which introduces a name for an expression by which it can be referred to
+
+A non-primitive expression is evaluated as follows:
+
+Take the leftmost operator
+Evaluate its operands (left before right)
+Apply the operator to the operands
+
+A name is evaluated by replacing it with the right hand side of its definition.
+Example:
+1234(2 * pi) * radius(2 * 3.14159) * radius  6.28318 * radius6.28318 * 10
+
+
+Definition can have parameters:
+1def square(x: Double) = x * x
+
+
+Parameter and Return Types:
+1def power(x: Double, y: Int): Double = ...
+
+
+Evaluation of Function Applications
+
+Evaluate all function arguments, from left to right.
+Replace the function application by the function’s right-hand side, and, at the same time,
+Replace the formal parameters of the function by the actual arguments.
+
+Example:
+12345678sumOfSquares(3, 2+2)sumOfSquares(3, 4)square(3) + square(4)3 * 3 + square(4)9 + square(4)9 + 4 * 49 + 1625
+
+
+The substitution modelThe scheme of expression evaluation is called the substitution model.
+The idea is that all evaluation dose is reduce an expression to a value.
+It can be applied to all expressions, as long as they have no side effects.
+The substitution model is formalized in the λ-calculus, which gives afoundation for functional programming.">
   
 
   
@@ -53,8 +92,9 @@
         <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
       </h1>
       
-        <h2 class="site-description hitokoto"></h2>
-        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+        <h2 class="site-description">
+          <a href="/" id="subtitle">WRYYYYY!</a>
+        </h2>
       
     </hgroup>
 
@@ -91,7 +131,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwnd22u4001wtrbh0d36r6z8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwnfe8g4001swhbhqm3p59jh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
