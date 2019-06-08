@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="Here are my notes for the week 1’s lecture of Functional Programming Principles in Scala on Coursera. 
+Evaluation of ProgrammingEvery non-trivial programming language provides:
+
+primitive expressions representing the simplest elements
+ways to combine expressions
+ways to abstract expressions, which introduces a name for an expression by which it can be referred to
+
+A non-primitive expression is evaluated as follows:
+
+Take the leftmost operator
+Evaluate its operands (left before right)
+Apply the operator to the operands
+
+A name is evaluated by replacing it with the right hand side of its definition.
+Example:
+1234(2 * pi) * radius(2 * 3.14159) * radius  6.28318 * radius6.28318 * 10
+
+
+Definition can have parameters:
+1def square(x: Double) = x * x
+
+
+Parameter and Return Types:
+1def power(x: Double, y: Int): Double = ...
+
+
+Evaluation of Function Applications
+
+Evaluate all function arguments, from left to right.
+Replace the function application by the function’s right-hand side, and, at the same time,
+Replace the formal parameters of the function by the actual arguments.
+
+Example:
+12345678sumOfSquares(3, 2+2)sumOfSquares(3, 4)square(3) + square(4)3 * 3 + square(4)9 + square(4)9 + 4 * 49 + 1625
+
+
+The substitution modelThe scheme of expression evaluation is called the substitution model.
+The idea is that all evaluation dose is reduce an expression to a value.
+It can be applied to all expressions, as long as they have no side effects.
+The substitution model is formalized in the λ-calculus, which gives afoundation for functional programming.">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Notes of Scala course on Coursera -- Week 1 | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Here are my notes for the week 1’s lecture of Functional Programming Principles in Scala on Coursera.  Evaluation of ProgrammingEvery non-trivial programming language provides:  primitive expressions">
+<meta name="keywords" content="Scala,fp,coursera,notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes of Scala course on Coursera -- Week 1">
+<meta property="og:url" content="https://yilingui.xyz/2014/05/19/scala_week1_notes/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="Here are my notes for the week 1’s lecture of Functional Programming Principles in Scala on Coursera.  Evaluation of ProgrammingEvery non-trivial programming language provides:  primitive expressions">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://yilingui.xyz/imgs/cbv_vs_cbn.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/cbn_cbv_example.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/cbn.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/cbv.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/sqrtnewton.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/scoping.png">
+<meta property="og:updated_time" content="2019-06-08T08:32:42.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Notes of Scala course on Coursera -- Week 1">
+<meta name="twitter:description" content="Here are my notes for the week 1’s lecture of Functional Programming Principles in Scala on Coursera.  Evaluation of ProgrammingEvery non-trivial programming language provides:  primitive expressions">
+<meta name="twitter:image" content="https://yilingui.xyz/imgs/cbv_vs_cbn.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-scala_week1_notes" class="post-scala_week1_notes post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Notes of Scala course on Coursera -- Week 1
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwn9komg001uhabhnz89f3gf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 1’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>. </p>
+<h3 id="Evaluation-of-Programming"><a href="#Evaluation-of-Programming" class="headerlink" title="Evaluation of Programming"></a>Evaluation of Programming</h3><p>Every non-trivial programming language provides:</p>
+<ul>
+<li>primitive expressions representing the simplest elements</li>
+<li>ways to combine expressions</li>
+<li>ways to abstract expressions, which introduces a name for an expression by which it can be referred to</li>
+</ul>
+<p>A non-primitive expression is evaluated as follows:</p>
+<ol>
+<li>Take the leftmost operator</li>
+<li>Evaluate its operands (left before right)</li>
+<li>Apply the operator to the operands</li>
+</ol>
+<p>A name is evaluated by replacing it with the right hand side of its definition.</p>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">2</span> * pi) * radius</span><br><span class="line">(<span class="number">2</span> * <span class="number">3.14159</span>) * radius  </span><br><span class="line"><span class="number">6.28318</span> * radius</span><br><span class="line"><span class="number">6.28318</span> * <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Definition can have parameters:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span></span>(x: <span class="type">Double</span>) = x * x</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Parameter and Return Types:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">power</span></span>(x: <span class="type">Double</span>, y: <span class="type">Int</span>): <span class="type">Double</span> = ...</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Evaluation of Function Applications</p>
+<ol>
+<li>Evaluate all function arguments, from left to right.</li>
+<li>Replace the function application by the function’s right-hand side, and, at the same time,</li>
+<li>Replace the formal parameters of the function by the actual arguments.</li>
+</ol>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">square(<span class="number">3</span>) + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line"><span class="number">9</span> + <span class="number">16</span></span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="The-substitution-model"><a href="#The-substitution-model" class="headerlink" title="The substitution model"></a>The substitution model</h3><p>The scheme of expression evaluation is called the substitution model.</p>
+<p>The idea is that all evaluation dose is reduce an expression to a value.</p>
+<p>It can be applied to all expressions, as long as they have no side effects.</p>
+<p>The substitution model is formalized in the <strong>λ-calculus</strong>, which gives a<br>foundation for functional programming. <a id="more"></a><br><br><br><br></p>
+<hr>
+<h3 id="Call-By-Value-v-s-Call-By-Name"><a href="#Call-By-Value-v-s-Call-By-Name" class="headerlink" title="Call By Value v.s. Call By Name"></a>Call By Value v.s. Call By Name</h3><p>Both strategies reduce to the same final values as long as</p>
+<ul>
+<li>the reduced expression consists of pure functions, and</li>
+<li>both evaluations terminate.</li>
+</ul>
+<p>Call-by-value has the advantage that <strong>it evaluates every function<br>argument only once</strong>.</p>
+<p>Call-by-name has the advantage that <strong>a function argument is not<br>evaluated if the corresponding parameter is unused in the evaluation<br>of the function body</strong>.</p>
+<p>An Example of CBV:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">square(<span class="number">3</span>) + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line"><span class="number">9</span> + <span class="number">16</span></span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
+
+
+<p>An Example of CBN:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">square(<span class="number">3</span>) + square(<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">9</span> + square(<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">9</span> + (<span class="number">2</span>+<span class="number">2</span>) * (<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * (<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
+
+
+<p>CBV vs CBN:</p>
+<p><img src="/imgs/cbv_vs_cbn.png" alt="Call By Value v.s. Call By Name"></p>
+<ul>
+<li>If CBV evaluation of an expression <em>e</em> terminates, then CBN evaluation of <em>e</em> terminates, too. </li>
+<li>The other direction is <strong>not true.</strong></li>
+</ul>
+<p>Let’s define</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">first</span></span>(x: <span class="type">Int</span>, y: <span class="type">Int</span>) = x</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop</span></span>: <span class="type">Int</span> = loop</span><br></pre></td></tr></table></figure>
+
+
+<p>and consider the expression <code>first(1, loop)</code>.</p>
+<p>Under CBN, it will terminate.</p>
+<p>Under CBV, it <strong>won’t</strong>.</p>
+<p><img src="/imgs/cbn_cbv_example.png" alt="CBN v.s. CBV"></p>
+<p><strong>Scala normally uses call-by-value.</strong></p>
+<ul>
+<li>Because it avoids this repeated recomputation of argument expressions that call by name entails</li>
+<li>It plays much nicer with, imperative effects and side effects because you tend to know much better when expressions will be evaluated</li>
+</ul>
+<p><strong>But if the type of a function parameter starts with <code>=&gt;</code> it uses call-by-name.</strong></p>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">constOne</span></span>(x: <span class="type">Int</span>, y: =&gt; <span class="type">Int</span>) = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+<p>Let’s trace the evaluations of </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">constOne(<span class="number">1</span>+<span class="number">2</span>, loop)</span><br><span class="line">constOne(loop, <span class="number">1</span>+<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/cbn.png" alt="CBN"></p>
+<p><img src="/imgs/cbv.png" alt="CBV"></p>
+<br>
+<br>
+
+<hr>
+<h3 id="Conditional-Expressions"><a href="#Conditional-Expressions" class="headerlink" title="Conditional Expressions"></a>Conditional Expressions</h3><p>It looks like a if-else in Java, but is used for <em>expressions</em>, not <em>statements</em>.</p>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">abs</span></span>(x: <span class="type">Int</span>) = <span class="keyword">if</span> (x &gt;= <span class="number">0</span>) x <span class="keyword">else</span> -x</span><br></pre></td></tr></table></figure>
+
+
+<br>
+<br>
+
+<hr>
+<h3 id="Value-Definitions"><a href="#Value-Definitions" class="headerlink" title="Value Definitions"></a>Value Definitions</h3><p><code>def</code>: “by-name”, its right hand side is evaluated on each<br>use.</p>
+<p><code>var</code>: “by-value”, Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="number">2</span></span><br><span class="line"><span class="keyword">val</span> y = square(x) <span class="comment">// y refers to 4 , not square(2)</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Value-Definitions-and-Termination"><a href="#Value-Definitions-and-Termination" class="headerlink" title="Value Definitions and Termination"></a>Value Definitions and Termination</h4><p>A definition</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">x</span> </span>= loop</span><br></pre></td></tr></table></figure>
+
+
+<p>is OK, but a definition</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = loop</span><br></pre></td></tr></table></figure>
+
+
+<p>will lead to an infinite loop. </p>
+<br>
+
+<hr>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><p>Write functions and and or such that for all argument expressions x<br>and y :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">and(x, y) == x &amp;&amp; y</span><br><span class="line">or(x, y) == x || y</span><br></pre></td></tr></table></figure>
+
+
+<p>(do not use || and &amp;&amp; in your implementation)</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">and</span></span>(x: <span class="type">Boolean</span>, y: <span class="type">Boolean</span>) = </span><br><span class="line">  <span class="keyword">if</span> (x) y <span class="keyword">else</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">or</span></span>(x: <span class="type">Boolean</span>, y: <span class="type">Boolean</span>) = </span><br><span class="line">  <span class="keyword">if</span> (x) <span class="literal">true</span> <span class="keyword">else</span> y</span><br></pre></td></tr></table></figure>
+
+<p>It seems OK, but what if</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and(<span class="literal">false</span> loop)</span><br></pre></td></tr></table></figure>
+
+
+<p>OOPS! What’ wrong? <code>y: Boolean</code> is a <strong>call-by-value</strong> form, let’s change it to call-by-name form:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">and</span></span>(x: <span class="type">Boolean</span>, y: =&gt; <span class="type">Boolean</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p>Try <code>and(false loop)</code> again, it’s OK!</p>
+<br>
+<br>
+
+<hr>
+<h3 id="Example-–-square-roots-with-Newton’s-method"><a href="#Example-–-square-roots-with-Newton’s-method" class="headerlink" title="Example – square roots with Newton’s method"></a>Example – square roots with Newton’s method</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Calculates the square root of parameter x */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sqrt</span></span>(x: <span class="type">Double</span>): <span class="type">Double</span> = ...</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/imgs/sqrtnewton.png" alt="Square roots with Newton’s method"></p>
+<h4 id="Implementation-in-Scala"><a href="#Implementation-in-Scala" class="headerlink" title="Implementation in Scala"></a>Implementation in Scala</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sqrt</span></span>(x: <span class="type">Double</span>): <span class="type">Double</span> = &#123; </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sqrtIter</span></span>(guess: <span class="type">Double</span>, x: <span class="type">Double</span>): <span class="type">Double</span> = </span><br><span class="line">	<span class="keyword">if</span> (isGoodEnough(guess, x)) guess </span><br><span class="line">	<span class="keyword">else</span> sqrtIter(improve(guess, x), x)</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">improve</span></span>(guess: <span class="type">Double</span>, x: <span class="type">Double</span>) = </span><br><span class="line">	(guess + x / guess) / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isGoodEnough</span></span>(guess: <span class="type">Double</span>, x: <span class="type">Double</span>) = </span><br><span class="line">	abs(guess * guess - x) / x &lt; <span class="number">0.0001</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">abs</span></span>(x: <span class="type">Double</span>) = <span class="keyword">if</span> (x &lt; <span class="number">0</span>) -x <span class="keyword">else</span> x </span><br><span class="line"></span><br><span class="line">  sqrtIter(<span class="number">1</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<br>
+<br>
+
+<hr>
+<h3 id="Blocks-and-Lexical-Scope"><a href="#Blocks-and-Lexical-Scope" class="headerlink" title="Blocks and Lexical Scope"></a>Blocks and Lexical Scope</h3><h4 id="Nested-functions"><a href="#Nested-functions" class="headerlink" title="Nested functions"></a>Nested functions</h4><p>It’s good functional programming style to split up a task into many small functions.</p>
+<p>But the names of functions like <code>sqrtIter</code>, <code>improve</code>, and <code>isGoodEnough</code> matter only for the <em>implementation</em> of <code>sqrt</code> , not for its <em>usage</em>.</p>
+<p>Normally we would <em>not</em> like users to access these functions <em>directly</em>.</p>
+<p>We can achieve this and at the same time avoid <strong>“name-space<br>pollution”</strong> by putting the auxciliary functions inside sqrt.</p>
+<h4 id="Blocks-in-Scala"><a href="#Blocks-in-Scala" class="headerlink" title="Blocks in Scala"></a>Blocks in Scala</h4><ul>
+<li>A block is delimited by braces { … }</li>
+<li>It contains a sequence of definitions or expressions.</li>
+<li>The last element of a block is an expression that defines its value.</li>
+<li>This return expression can be preceded by auxiliary definitions.</li>
+<li>Blocks are themselves expressions; a block may appear everywhere an expression can. </li>
+</ul>
+<h4 id="Blocks-and-Visibility"><a href="#Blocks-and-Visibility" class="headerlink" title="Blocks and Visibility"></a>Blocks and Visibility</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(y: <span class="type">Int</span>) = y + <span class="number">1</span></span><br><span class="line"><span class="keyword">val</span> result = &#123;</span><br><span class="line">  <span class="keyword">val</span> x = f(<span class="number">3</span>)</span><br><span class="line">  x * x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>The definitions inside a block are only visible from within the block.</li>
+<li>The definitions inside a block shadow definitions of the same names outside the block.</li>
+</ul>
+<p><img src="/imgs/scoping.png" alt="Scope Rules"></p>
+<h4 id="Lexical-Scoping"><a href="#Lexical-Scoping" class="headerlink" title="Lexical Scoping"></a>Lexical Scoping</h4><p>Definitions of outer blocks are <strong>visible</strong> inside a block unless they are<br>shadowed.</p>
+<p>Therefore, we can simplify sqrt by <strong>eliminating redundant<br>occurrences of the x parameter</strong>, which means everywhere the same<br>thing:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sqrt</span></span>(x: <span class="type">Double</span>) = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sqrtIter</span></span>(guess: <span class="type">Double</span>): <span class="type">Double</span> =</span><br><span class="line">	<span class="keyword">if</span> (isGoodEnough(guess)) guess</span><br><span class="line">	<span class="keyword">else</span> sqrtIter(improve(guess))</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">improve</span></span>(guess: <span class="type">Double</span>) =</span><br><span class="line">	(guess + x / guess) / <span class="number">2</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isGoodEnough</span></span>(guess: <span class="type">Double</span>) =</span><br><span class="line">	abs(square(guess) - x) &lt; <span class="number">0.001</span></span><br><span class="line">  sqrtIter(<span class="number">1.0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Semicolons"><a href="#Semicolons" class="headerlink" title="Semicolons"></a>Semicolons</h4><p>In Scala, semicolons at the end of lines are in most cases optional.<br>You could write</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>but most people would omit the semicolon.<br>On the other hand, if there are more than one statements on a line,<br>they need to be separated by semicolons:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> y = x + <span class="number">1</span>; y * y</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Semicolons-and-infix-operators"><a href="#Semicolons-and-infix-operators" class="headerlink" title="Semicolons and infix operators"></a>Semicolons and infix operators</h4><p>One issue with Scala’s semicolon convention is how to write<br>expressions that span several lines. For instance</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">someLongExpression</span><br><span class="line">+ someOtherExpression</span><br></pre></td></tr></table></figure>
+
+<p>would be interpreted as two expressions:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">someLongExpression;</span><br><span class="line">+ someOtherExpression</span><br></pre></td></tr></table></figure>
+
+<p>There are two ways to overcome this problem.<br>You could write the multi-line expression in parentheses, because<br>semicolons are never inserted inside (…) :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(someLongExpression</span><br><span class="line">+ someOtherExpression)</span><br></pre></td></tr></table></figure>
+
+<p>Or you could <strong>write the operator on the first line</strong>, because this tells<br>the Scala compiler that the expression is not yet finished:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">someLongExpression +</span><br><span class="line">someOtherExpression</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/19/scala_week1_notes/">
+    <time datetime="2014-05-19T05:56:29.000Z" class="entry-date">
+        2014-05-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2014/05/19/scala_week2_notes_1/" rel="prev"><span class="meta-nav">←</span> Notes of Scala course on Coursera -- Week 2 (1)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2014/05/17/start_learning_scala/" rel="next">Start Learning Scala <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

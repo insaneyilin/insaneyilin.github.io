@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="lambda 表达式是函数式编程语言中一个很 cool 的特性，而 C++11 标准加入了对 lambda 表达式的支持。本篇文章对 C++11 中的 lambda 表达式做一个简单的介绍。
+
+
+
+什么是 lambda 表达式说到 lambda expression 就不能不提 lambda calculus，前者是从后者中衍生出的概念，lambda calculus 有着严格的数学定义，与图灵机有着等价的计算能力。这里只介绍编程语言中的 lambda 表达式概念。
+在函数式编程语言中，函数是一等公民。有时我们需要一个函数，但又不想要定义一个具有名字的函数，即我们需要一个匿名函数，而一个 lambda 表达式实际上就是通过表达式的方式定义了一个匿名函数。">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>C++ 中的 lambda 表达式 | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="lambda 表达式是函数式编程语言中一个很 cool 的特性，而 C++11 标准加入了对 lambda 表达式的支持。本篇文章对 C++11 中的 lambda 表达式做一个简单的介绍。    什么是 lambda 表达式说到 lambda expression 就不能不提 lambda calculus，前者是从后者中衍生出的概念，lambda calculus 有着严格的数学定义，与图灵机">
+<meta name="keywords" content="C++,lambda expression">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 中的 lambda 表达式">
+<meta property="og:url" content="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="lambda 表达式是函数式编程语言中一个很 cool 的特性，而 C++11 标准加入了对 lambda 表达式的支持。本篇文章对 C++11 中的 lambda 表达式做一个简单的介绍。    什么是 lambda 表达式说到 lambda expression 就不能不提 lambda calculus，前者是从后者中衍生出的概念，lambda calculus 有着严格的数学定义，与图灵机">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-08T08:32:20.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ 中的 lambda 表达式">
+<meta name="twitter:description" content="lambda 表达式是函数式编程语言中一个很 cool 的特性，而 C++11 标准加入了对 lambda 表达式的支持。本篇文章对 C++11 中的 lambda 表达式做一个简单的介绍。    什么是 lambda 表达式说到 lambda expression 就不能不提 lambda calculus，前者是从后者中衍生出的概念，lambda calculus 有着严格的数学定义，与图灵机">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-lambda_expressions_in_cpp" class="post-lambda_expressions_in_cpp post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      C++ 中的 lambda 表达式
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="cjwn9kom8001lhabhfdeqzxo3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>lambda 表达式是函数式编程语言中一个很 cool 的特性，而 C++11 标准加入了对 lambda 表达式的支持。本篇文章对 C++11 中的 lambda 表达式做一个简单的介绍。</p>
+<br>
+
+<hr>
+<h2 id="什么是-lambda-表达式"><a href="#什么是-lambda-表达式" class="headerlink" title="什么是 lambda 表达式"></a>什么是 lambda 表达式</h2><p>说到 <a href="http://en.wikipedia.org/wiki/Lambda_Calculus" target="_blank" rel="noopener">lambda expression</a> 就不能不提 lambda calculus，前者是从后者中衍生出的概念，lambda calculus 有着严格的数学定义，与<a href="http://en.wikipedia.org/wiki/Turing_machine" target="_blank" rel="noopener">图灵机</a>有着等价的计算能力。这里只介绍编程语言中的 lambda 表达式概念。</p>
+<p>在函数式编程语言中，函数是一等公民。有时我们需要一个函数，但又不想要定义一个具有名字的函数，即我们需要一个<strong>匿名函数</strong>，而一个 lambda 表达式实际上就是通过表达式的方式定义了一个匿名函数。</p>
+<a id="more"></a>
+
+<h3 id="C-中-lambda-表达式的语法规则"><a href="#C-中-lambda-表达式的语法规则" class="headerlink" title="C++ 中 lambda 表达式的语法规则"></a>C++ 中 lambda 表达式的语法规则</h3><p>先通过一个简单的例子来看看 C++ 中 lambda 表达式的基本语法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> foo = []() &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello, Lambda!\n"</span>; &#125;;</span><br><span class="line">    foo();  <span class="comment">// call the function</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> foo2 = [](<span class="keyword">int</span> x) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    foo2(<span class="number">9</span>);  <span class="comment">// 9</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> y = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">auto</span> foo3 = [y](<span class="keyword">int</span> x)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; x * y &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    foo3(<span class="number">5</span>);  <span class="comment">// 10</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>[ capture ] ( params ) { body }</code> 是 lambda 表达式的基本写法。</p>
+<p>C++ 中 lambda 表达式以 <code>[]</code> 开头，<code>[]</code> 称为 <em>capture specification</em> ，中括号中间的参数 capture 是我们希望捕获的外部引用参数。圆括号中的 params 是匿名函数的参数，而 body 即函数内容，符合 C++ 中一般函数的写法。</p>
+<br>
+
+<hr>
+<h2 id="怎么用-lambda-表达式"><a href="#怎么用-lambda-表达式" class="headerlink" title="怎么用 lambda 表达式"></a>怎么用 lambda 表达式</h2><p>上面的例子中我们用 <code>auto</code> 定义变量保存了 lambda 表达式定义的函数，然后就可以像普通函数一样进行调用。实际上还可以直接调用 lambda 表达式定义的匿名函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">my_name</span><span class="params">(<span class="string">"insaneguy"</span>)</span></span>;</span><br><span class="line">    [](<span class="keyword">const</span> <span class="built_in">string</span>&amp; name) &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"My name is "</span> + name &lt;&lt; <span class="built_in">endl</span>; &#125; (my_name);</span><br><span class="line">    <span class="comment">// "My name is insaneguy"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n = [](<span class="keyword">int</span> x, <span class="keyword">int</span> y) &#123; <span class="keyword">return</span> x + y; &#125; (<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，lambda 表达式返回的实际上是一个匿名的<strong>函数对象(functor)</strong>，或者说是一个<strong>仿函数</strong>实例，而不是直接一个普通函数。因此我们可以将 lambda 表达式作为参数传入 STL 算法，下面举一个 <code>for_each</code> 的例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; numbers;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        numbers.push_back(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// print even numbers</span></span><br><span class="line">    for_each(numbers.begin(), numbers.end(), [](<span class="keyword">int</span> n) &#123; </span><br><span class="line">        <span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; n &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h2 id="为什么要使用-lambda-表达式"><a href="#为什么要使用-lambda-表达式" class="headerlink" title="为什么要使用 lambda 表达式"></a>为什么要使用 lambda 表达式</h2><p>前面举的例子都不能很好体现 lambda 表达式的优点。事实上，利用 lambda 表达式创建那些“只用一次”或者比较短小的函数非常方便和高效。</p>
+<p>在编写 GUI (图形用户界面) 程序时，回调（callback）函数往往属于“用过就扔”的，即只在程序中与控件绑定一次，之后不会由用户显式地调用。传统的做法是把回调函数写成类的私有成员方法，现在我们可以使用 lambda 表达式来创建回调函数，既可以减少代码量，又能提高程序可读性。</p>
+<h3 id="使用-lambda-表达式构造事件回调-callback"><a href="#使用-lambda-表达式构造事件回调-callback" class="headerlink" title="使用 lambda 表达式构造事件回调(callback)"></a>使用 lambda 表达式构造事件回调(callback)</h3><p>下面举 <a href="http://www.cocos2d-x.org/" target="_blank" rel="noopener">Cocos2d-x 3.x</a> 中的控件事件监听绑定的例子。</p>
+<h4 id="第一种方式：通过回调函数绑定的形式添加事件监听器"><a href="#第一种方式：通过回调函数绑定的形式添加事件监听器" class="headerlink" title="第一种方式：通过回调函数绑定的形式添加事件监听器"></a>第一种方式：通过回调函数绑定的形式添加事件监听器</h4><p><code>HelloWorld</code> 是游戏的主场景层，其中有一个 <code>Label</code> 标签控件，我们希望点击标签弹出一个对话框。</p>
+<p>首先要在 <code>HelloWorld</code> 类中定义一个回调方法 HelloWorld::touchBeganHandler() ：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloWorldScene.h </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"cocos2d.h"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> :</span> <span class="keyword">public</span> cocos2d::LayerColor</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">static</span> cocos2d::<span class="function">Scene* <span class="title">createScene</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">init</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 一个处理触摸（onTouchBegan）事件的回调(callback)方法</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">touchBeganHandler</span><span class="params">(cocos2d::Touch*, cocos2d::Event*)</span></span>;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloWorldScene.cpp</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">bool</span> HelloWorld::touchBeganHandler(Touch*, Event*)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 弹出一个对话框</span></span><br><span class="line">    MessageBox(<span class="string">"touch began"</span>, <span class="string">"Title"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在 <code>HelloWorld::init()</code> 中绑定事件监听器和回调方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloWorldScene.cpp</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">bool</span> HelloWorld::init()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 创建一个 Label 控件并添加到当前层中</span></span><br><span class="line">    <span class="keyword">auto</span> label = Label::create();</span><br><span class="line">    label-&gt;setString(<span class="string">"Hello Cocos2d-x"</span>);</span><br><span class="line">    label-&gt;setPosition(visibleSize / <span class="number">2</span>);</span><br><span class="line">    addChild(label);</span><br><span class="line">   </span><br><span class="line">    <span class="comment">// 为 label 创建一个事件监听器，将 label 的 onTouchBegan 事件与</span></span><br><span class="line">    <span class="comment">// HelloWorld::touchBeganHandler() 回调方法进行绑定</span></span><br><span class="line">    <span class="keyword">auto</span> listener = EventListenerTouchOneByOne::create();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 利用 Cocos2d-x 中的宏绑定事件监听器与回调方法</span></span><br><span class="line">    listener-&gt;onTouchBegan = </span><br><span class="line">        CC_CALLBACK_2(HelloWorld::touchBeganHandler, <span class="keyword">this</span>);  </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为 label 控件添加事件监听器</span></span><br><span class="line">    Director::getInstance()-&gt;getEventDispatcher()-&gt;</span><br><span class="line">        addEventListenerWithSceneGraphPriority(listener, label);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二种方式：使用-C-lambda-表达式的形式添加事件监听器"><a href="#第二种方式：使用-C-lambda-表达式的形式添加事件监听器" class="headerlink" title="第二种方式：使用 C++ lambda 表达式的形式添加事件监听器"></a>第二种方式：使用 C++ lambda 表达式的形式添加事件监听器</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloWorldScene.cpp</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">bool</span> HelloWorld::init()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 创建一个 Label 并添加到当前层中</span></span><br><span class="line">    <span class="keyword">auto</span> label = Label::create();</span><br><span class="line">    label-&gt;setString(<span class="string">"Hello Cocos2d-x"</span>);</span><br><span class="line">    label-&gt;setPosition(visibleSize / <span class="number">2</span>);</span><br><span class="line">    addChild(label);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个事件监听器，通过 lambda 表达式创建一个匿名回调方法</span></span><br><span class="line">    <span class="comment">// 并与 listener 的 onTouchBegan 进行绑定</span></span><br><span class="line">    <span class="keyword">auto</span> listener = EventListenerTouchOneByOne::create();</span><br><span class="line">    listener-&gt;onTouchBegan = [](cocos2d::Touch*, cocos2d::Event* ) </span><br><span class="line">    &#123;</span><br><span class="line">        MessageBox(<span class="string">"touch began"</span>, <span class="string">"Title"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直观上感受，使用 lambda 表达式的版本代码更少，逻辑清晰，代码的可读性高。</p>
+<p>进一步来看，上面的例子中我们只为一个 <code>Label</code> 控件绑定了事件回调，该回调函数只“用”了一次，不需要重用，使用 lambda 表达式不需要额外为 <code>HelloWorld</code> 类添加一个成员方法，减少了类的名字空间被“污染”的可能性。</p>
+<p>使用 lambda 表达式还可以帮助我们写出符合 <strong>DRY (Don’t Repeat Yourself)</strong> 的代码。</p>
+<h4 id="使用-lambda-表达式编写-DRY-的代码"><a href="#使用-lambda-表达式编写-DRY-的代码" class="headerlink" title="使用 lambda 表达式编写 DRY 的代码"></a>使用 lambda 表达式编写 <strong>DRY</strong> 的代码</h4><p>现在我们的 <code>HelloWorld</code> 场景中有四个控件，我们希望为这四个控件编写相同的事件处理。考虑如下代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloWorldScene.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"cocos2d.h"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> :</span> <span class="keyword">public</span> cocos2d::LayerColor</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    cocos2d::TextFieldTTF *aTf, *bTf;  <span class="comment">// 文本输入框控件</span></span><br><span class="line">    cocos2d::Label *aLabel, *bLabel;   <span class="comment">// 文本标签控件</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloWorldScene.cpp</span></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 为控件添加事件监听器的方法</span></span><br><span class="line"><span class="keyword">void</span> HelloWorld::addListeners()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> director = Director::getInstance();  <span class="comment">// 获取 Director 类实例</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 使用 lambda 表达式实现 onTouchBegan 事件回调方法</span></span><br><span class="line">    <span class="comment">// 暂时未编写事件处理代码</span></span><br><span class="line">    <span class="keyword">auto</span> handler = [](Touch *t, Event *e) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 为输入框 aTf 添加事件监听</span></span><br><span class="line">    <span class="keyword">auto</span> aTfClickListener = EventListenerTouchOneByOne::create();</span><br><span class="line">    aTfClickListener-&gt;onTouchBegan = handler;</span><br><span class="line">    director-&gt;getEventDispatcher()-&gt;</span><br><span class="line">        addEventListenerWithSceneGraphPriority(aTfClickListener, aTf);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 为输入框 bTf 添加事件监听</span></span><br><span class="line">    <span class="keyword">auto</span> bTfClickListener = EventListenerTouchOneByOne::create();</span><br><span class="line">    bTfClickListener-&gt;onTouchBegan = handler;</span><br><span class="line">    director-&gt;getEventDispatcher()-&gt;</span><br><span class="line">        addEventListenerWithSceneGraphPriority(bTfClickListener, bTf);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// 为 aLabel 添加事件监听</span></span><br><span class="line">    <span class="keyword">auto</span> aLabelListener = EventListenerTouchOneByOne::create();</span><br><span class="line">    aLabelListener-&gt;onTouchBegan = handler;</span><br><span class="line">    director-&gt;getEventDispatcher()-&gt;</span><br><span class="line">        addEventListenerWithSceneGraphPriority(aLabelListener, aLabel);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 为 bLabel 添加事件监听</span></span><br><span class="line">    <span class="keyword">auto</span> bLabelListener = EventListenerTouchOneByOne::create();</span><br><span class="line">    bLabelListener-&gt;onTouchBegan = handler;</span><br><span class="line">    director-&gt;getEventDispatcher()-&gt;</span><br><span class="line">        addEventListenerWithSceneGraphPriority(bLabelListener, bLabel);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>HelloWorld::addListeners()</code> 方法中为不同控件添加事件监听的代码出现了明显的重复现象，我们可以使用 lambda 表达式来优化：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HelloWorldScene.cpp</span></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> HelloWorld::addListeners()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">auto</span> director = Director::getInstance();  <span class="comment">// 获取 Director 类实例</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 lambda 表达式实现 onTouchBegan 事件回调函数</span></span><br><span class="line">    <span class="comment">// 暂时未编写事件处理代码</span></span><br><span class="line">    <span class="keyword">auto</span> handler = [=](Touch *t, Event *e) &#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 使用 lambda 表达式为控件添加事件监听</span></span><br><span class="line">    <span class="keyword">auto</span> addListenerToTarget = [director, handler](Node *target) &#123;</span><br><span class="line">        <span class="keyword">auto</span> listener = EventListenerTouchOneByOne::create();</span><br><span class="line">        listener-&gt;onTouchBegan = handler;</span><br><span class="line">        director-&gt;getEventDispatcher()-&gt;</span><br><span class="line">            addEventListenerWithSceneGraphPriority(listener, target);</span><br><span class="line">    &#125;;</span><br><span class="line"> </span><br><span class="line">    addListenerToTarget(aTf);</span><br><span class="line">    addListenerToTarget(bTf);</span><br><span class="line">    addListenerToTarget(aLabel);</span><br><span class="line">    addListenerToTarget(bLabel);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在看起来舒服多了~</p>
+<p>注意上面的代码中 <code>auto handler = [=](Touch *t, Event *e) {/*...*/}</code> 的 <code>[=]</code> 表示通过拷贝方式捕获所有外部引用变量。关于 lambda 表达式捕获外部变量的语法有如下几种：</p>
+<ul>
+<li><code>[]</code>  : 不捕获任何外部变量</li>
+<li><code>[&amp;]</code>  : 通过引用方式捕获所有外部变量</li>
+<li><code>[=]</code>  : 通过拷贝方式捕获所有外部变量</li>
+<li><code>[=, &amp;foo]</code>  : 通过引用方式捕获 <code>foo</code> 变量，其他外部变量通过拷贝方式捕获</li>
+<li><code>[bar]</code>  : 通过拷贝方式捕获 <code>bar</code> 变量</li>
+<li><code>[this]</code>  : 捕获当前类的 <code>this</code> 指针</li>
+</ul>
+<br>
+
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="http://www.cprogramming.com/c++11/c++11-lambda-closures.html" target="_blank" rel="noopener">Lambda Functions in C++11 - the Definitive Guide</a></li>
+<li><a href="https://msdn.microsoft.com/zh-cn/library/vstudio/dd293599" target="_blank" rel="noopener">Lambda表达式的示例-MSDN</a></li>
+</ol>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2015/03/30/lambda_expressions_in_cpp/">
+    <time datetime="2015-03-30T14:56:29.000Z" class="entry-date">
+        2015-03-30
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lambda-expression/">lambda expression</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2015/04/02/crop_pdf_with_OpenCV/" rel="prev"><span class="meta-nav">←</span> 使用 OpenCV 裁剪 PDF 页面</a></span>
+    
+    
+        <span class="nav-next"><a href="/2015/03/25/rotation_matrix_and_quaternions/" rel="next">旋转矩阵与四元数 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

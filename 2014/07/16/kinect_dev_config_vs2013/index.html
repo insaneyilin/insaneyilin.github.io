@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。
+一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit：
+KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口）
+KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的工具，包括Kinect Studio和多种编程语言的开发例程等）">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86) | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。 一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit： KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口） KinectDeveloperToolkit-v1.8.0-Set">
+<meta name="keywords" content="OpenCV,Kinect">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)">
+<meta property="og:url" content="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。 一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit： KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口） KinectDeveloperToolkit-v1.8.0-Set">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/KinectDrivers.jpg">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/KinectDevBrower.jpg">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/KinectDepthDemo.jpg">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_props.jpg">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_vcpp_dir.jpg">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_linker.jpg">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/kinect_opencv_depthImage.jpg">
+<meta property="og:updated_time" content="2019-06-08T08:32:16.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)">
+<meta name="twitter:description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。 一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit： KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口） KinectDeveloperToolkit-v1.8.0-Set">
+<meta name="twitter:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/KinectDrivers.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-kinect_dev_config_vs2013" class="post-kinect_dev_config_vs2013 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjwn9koki0005habhsj4kmfaz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>OS为Windows 8 32位，VS2013已安装并可以正常使用。</p>
+<h2 id="一-安装和配置Kinect-for-Windows-SDK-v1-8"><a href="#一-安装和配置Kinect-for-Windows-SDK-v1-8" class="headerlink" title="一. 安装和配置Kinect for Windows SDK v1.8"></a>一. 安装和配置Kinect for Windows SDK v1.8</h2><p>在<a href="http://www.microsoft.com/en-us/kinectforwindowsdev/Start.aspx" target="_blank" rel="noopener">官方网站</a>下载<strong>Kinect for Windows SDK</strong>和<strong>Developer Toolkit</strong>：</p>
+<p>KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口）</p>
+<p>KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的工具，包括Kinect Studio和多种编程语言的开发例程等）</p>
+<a id="more"></a>
+<p>按照默认选项安装完成后，接入Kinect，系统将会自动的搜索驱动进行安装。打开设备管理器查看驱动是否安装成功：</p>
+<p><img src="/imgs/20140716_kinect_dev_config_vs2013/KinectDrivers.jpg" alt="Kinect Drivers"></p>
+<p>再打开Developer Toolkit Browser v1.8.0 (Kinect for Windows)：</p>
+<p><img src="/imgs/20140716_kinect_dev_config_vs2013/KinectDevBrower.jpg" alt="Developer Toolkit Browser"></p>
+<p>测试读取深度图像的例子：</p>
+<p><img src="/imgs/20140716_kinect_dev_config_vs2013/KinectDepthDemo.jpg" alt="Depth Basics Demo"></p>
+<hr>
+<h2 id="二-安装OpenCV2-4-9"><a href="#二-安装OpenCV2-4-9" class="headerlink" title="二. 安装OpenCV2.4.9"></a>二. 安装OpenCV2.4.9</h2><p>OpenCV主页：<a href="opencv.org">opencv.org</a></p>
+<p>下载<a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-win/2.4.9/opencv-2.4.9.exe/download" target="_blank" rel="noopener">OpenCV for Windows</a></p>
+<p>安装很简单，不用自己编译。假设安装在E盘 <code>E:\opencv</code> 。</p>
+<hr>
+<h2 id="三-VS2013配置"><a href="#三-VS2013配置" class="headerlink" title="三. VS2013配置"></a>三. VS2013配置</h2><p>打开VS2013，新建project，命名为<code>KinectDepthData</code>。打开<code>VIEW</code>中的<code>Property Manager</code>，打开<code>Debug | Win32</code>下的<code>Microsoft.Cpp.Win32.user</code>:</p>
+<p><img src="/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_props.jpg" alt="Property Manager"></p>
+<p>分别配置OpenCV和Kinect的项目属性：</p>
+<h3 id="OpenCV"><a href="#OpenCV" class="headerlink" title="OpenCV"></a>OpenCV</h3><ol>
+<li><p>Include files加入E:\opencv\build\include；</p>
+</li>
+<li><p>Library files加入E:\opencv\build\x86\vc10\lib；</p>
+</li>
+<li><p>在Linker的Input中，添加Additional Dependencies(根据需要添加)：</p>
+<p> opencv_core249d.lib<br> opencv_highgui249d.lib<br> opencv_video249d.lib<br> opencv_imgproc249d.lib<br> opencv_features2d249d.lib<br> opencv_nonfree249d.lib<br> opencv_legacy249d.lib<br> opencv_calib3d249d.lib</p>
+</li>
+</ol>
+<h3 id="Kinect"><a href="#Kinect" class="headerlink" title="Kinect"></a>Kinect</h3><ol>
+<li><p>Include files加入C:\Program Files\Microsoft SDKs\Kinect\v1.8\inc；</p>
+</li>
+<li><p>Library files加入C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\x86；</p>
+</li>
+<li><p>在Linker的Input中，添加Additional Dependencies：</p>
+<p> Kinect10.lib</p>
+</li>
+</ol>
+<p><img src="/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_vcpp_dir.jpg" alt="VC++ Directories"></p>
+<p><img src="/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_linker.jpg" alt="Linker"></p>
+<hr>
+<h2 id="四-测试用Kinect读取深度图像并用OpenCV显示"><a href="#四-测试用Kinect读取深度图像并用OpenCV显示" class="headerlink" title="四. 测试用Kinect读取深度图像并用OpenCV显示"></a>四. 测试用Kinect读取深度图像并用OpenCV显示</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/************************************************</span></span><br><span class="line"><span class="comment">代码原作者：zouxy09</span></span><br><span class="line"><span class="comment">来自：http://blog.csdn.net/zouxy09/article/details/8146266</span></span><br><span class="line"><span class="comment">Kinect for Windows SDK + OpenCV2读取并显示深度图像</span></span><br><span class="line"><span class="comment">************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;NuiApi.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image;</span><br><span class="line">    <span class="comment">// 这里我们用灰度图来表述深度数据，越远的数据越暗</span></span><br><span class="line">    image.create(<span class="number">240</span>, <span class="number">320</span>, CV_8UC1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 初始化NUI，注意这里传入的参数有变化，为DEPTH</span></span><br><span class="line">    HRESULT hr = NuiInitialize(NUI_INITIALIZE_FLAG_USES_DEPTH);</span><br><span class="line">    <span class="keyword">if</span> (FAILED(hr))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"NuiInitialize failed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> hr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 定义事件句柄</span></span><br><span class="line">    <span class="comment">// 创建读取下一帧的信号事件句柄，控制Kinect是否可以开始读取下一帧数据</span></span><br><span class="line">    HANDLE nextColorFrameEvent = CreateEvent(<span class="literal">NULL</span>, TRUE, FALSE, <span class="literal">NULL</span>);</span><br><span class="line">    HANDLE depthStreamHandle = <span class="literal">NULL</span>;  <span class="comment">// 保存图像数据流的句柄，用以提取数据</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 打开Kinect设备的深度图信息通道，并用depthStreamHandle保存该流的句柄，以便以后读取</span></span><br><span class="line">    hr = NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH, NUI_IMAGE_RESOLUTION_320x240,</span><br><span class="line">        <span class="number">0</span>, <span class="number">2</span>, nextColorFrameEvent, &amp;depthStreamHandle);</span><br><span class="line">    <span class="keyword">if</span> (FAILED(hr))  <span class="comment">// 判断读取是否正确</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Could not open color image stream video"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        NuiShutdown();</span><br><span class="line">        <span class="keyword">return</span> hr;</span><br><span class="line">    &#125;</span><br><span class="line">    namedWindow(<span class="string">"depthImage"</span>, CV_WINDOW_AUTOSIZE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 开始读取深度数据</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> NUI_IMAGE_FRAME * pImageFrame = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.1 无限等待新的数据，等到后返回</span></span><br><span class="line">        <span class="keyword">if</span> (WaitForSingleObject(nextColorFrameEvent, INFINITE) == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 4.2 从刚才打开数据流的流句柄中得到该帧数据，读取到的数据地址存于pImageFrame</span></span><br><span class="line">            hr = NuiImageStreamGetNextFrame(depthStreamHandle, <span class="number">0</span>, &amp;pImageFrame);</span><br><span class="line">            <span class="keyword">if</span> (FAILED(hr))  <span class="comment">// 判断读取是否正确</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"Could not get depth image"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                NuiShutdown();</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            INuiFrameTexture * pTexture = pImageFrame-&gt;pFrameTexture;</span><br><span class="line">            NUI_LOCKED_RECT LockedRect;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 4.3 提取数据帧到LockedRect，它包括两个数据对象：Pitch每行字节数，pBits第一个字节地址</span></span><br><span class="line">            <span class="comment">// 并锁定数据，这样当我们读取数据时，Kinect就不会去修改它</span></span><br><span class="line">            pTexture-&gt;LockRect(<span class="number">0</span>, &amp;LockedRect, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 4.4 确定获得的数据是否有效</span></span><br><span class="line">            <span class="keyword">if</span> (LockedRect.Pitch != <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 4.5 将数据转换为OpenCV的Mat格式</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; image.rows; ++i)</span><br><span class="line">                &#123;</span><br><span class="line">                    uchar *ptr = image.ptr&lt;uchar&gt;(i);  <span class="comment">// 第i行的指针</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 深度图像数据含有两种格式，这里像素的低12位表示一个深度值，高4位未使用</span></span><br><span class="line">                    <span class="comment">// 注意这里需要进行转换，因为每个数据是2个字节，存储的同上面获取的颜色信息不一样</span></span><br><span class="line">                    uchar *pBufferRun = (uchar*)(LockedRect.pBits) + i * LockedRect.Pitch;</span><br><span class="line">                    USHORT *pBuffer = (USHORT*)pBufferRun;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; image.cols; ++j)</span><br><span class="line">                    &#123;</span><br><span class="line">                        ptr[j] = <span class="number">255</span> - (uchar)(<span class="number">256</span> * pBuffer[j] / <span class="number">0x0fff</span>);  <span class="comment">// 直接将数据归一化处理</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                imshow(<span class="string">"depthImage"</span>, image);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"Buffer length of received texture is bogus\r\n"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 5. 这一帧已经处理完了，所以将其解锁</span></span><br><span class="line">            pTexture-&gt;UnlockRect(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 6. 释放本帧数据，准备迎接下一帧</span></span><br><span class="line">            NuiImageStreamReleaseFrame(depthStreamHandle, pImageFrame);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cvWaitKey(<span class="number">20</span>) == <span class="number">27</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 关闭NUI链接</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>程序运行效果：</p>
+<p><img src="/imgs/20140716_kinect_dev_config_vs2013/kinect_opencv_depthImage.jpg" alt="Kinect + OpenCV Depth Image"></p>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/zouxy09/article/details/8146055" target="_blank" rel="noopener">Kinect开发学习笔记之（三）Kinect开发环境配置</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/07/16/kinect_dev_config_vs2013/">
+    <time datetime="2014-07-16T14:15:19.000Z" class="entry-date">
+        2014-07-16
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kinect/">Kinect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV/">OpenCV</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2015/03/25/rotation_matrix_and_quaternions/" rel="prev"><span class="meta-nav">←</span> 旋转矩阵与四元数</a></span>
+    
+    
+        <span class="nav-next"><a href="/2014/06/03/ruby_quickstart_notes_4/" rel="next">Ruby Quick Start (4) -- Array, String, Closure <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

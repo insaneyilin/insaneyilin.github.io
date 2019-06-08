@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera. 
+
+
+1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&#39;s Algorithm */ def gcd(a: Int, b: Int): Int =   if (b == 0) a else gcd(b, a % b)
+
+gcd(14, 21) is evaluated as follows:
+12345678910gcd(14, 21)--&amp;gt; if (21 == 0) 14 else gcd(21, 14 % 21)--&amp;gt; if (false) 14 else gcd(21, 14 % 21)--&amp;gt; gcd(21, 14 % 21)--&amp;gt; gcd(21, 14)--&amp;gt; if (14 == 0) 21 else gcd(14, 21 % 14)--&amp;gt;&amp;gt; gcd(14, 7)--&amp;gt;&amp;gt; gcd(7, 0)--&amp;gt; if (0 == 0) 7 else gcd(0, 7 % 0)--&amp;gt; 7
+
+Another example: 
+12def factorial(n: Int): Int =   if (n == 0) 1 else n * factorial(n - 1)
+
+factorial(4) is evaluated as follows:
+1234567factorial(4)--&amp;gt; if (4 == 0) 1 else 4 * factorial(4 - 1)--&amp;gt;&amp;gt; 4 * factorial(3)--&amp;gt;&amp;gt; 4 * (3 * factorial(2))--&amp;gt;&amp;gt; 4 * (3 * (2 * factorial(1)))--&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * factorial(0)))) --&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * 1)))
+
+
+
+
+1.2 Tail RecursionImplementation Consideration:
+If a function calls itself as its last action, the function’s stack frame can be reused. This is called tail recursion.
+Tail recursive functions are iterative processes.
+In general, if the last action of a function consists of calling a function (which may be the same), one stack frame would be sufficient for both functions. Such calls are called tail-calls.">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Notes of Scala course on Coursera -- Week 2 (1) | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&apos;s Algorithm */ def gcd(a:">
+<meta name="keywords" content="Scala,fp,coursera,notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes of Scala course on Coursera -- Week 2 (1)">
+<meta property="og:url" content="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&apos;s Algorithm */ def gcd(a:">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\sum_{n=a}^{b}f(n)">
+<meta property="og:updated_time" content="2019-06-08T08:32:45.374Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Notes of Scala course on Coursera -- Week 2 (1)">
+<meta name="twitter:description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&apos;s Algorithm */ def gcd(a:">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?\sum_{n=a}^{b}f(n)">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-scala_week2_notes_1" class="post-scala_week2_notes_1 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Notes of Scala course on Coursera -- Week 2 (1)
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwn9komh001whabhnchdmv28" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>. 
+<br><br><br></p>
+<hr>
+<h2 id="1-Recursion-and-Tail-Recursion"><a href="#1-Recursion-and-Tail-Recursion" class="headerlink" title="1. Recursion and Tail Recursion"></a>1. Recursion and Tail Recursion</h2><h3 id="1-1-Examples-of-Recursion"><a href="#1-1-Examples-of-Recursion" class="headerlink" title="1.1 Examples of Recursion"></a>1.1 Examples of Recursion</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Euclid's Algorithm */</span> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</span><br></pre></td></tr></table></figure>
+
+<p><code>gcd(14, 21)</code> is evaluated as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gcd(<span class="number">14</span>, <span class="number">21</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">21</span> == <span class="number">0</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="literal">false</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">14</span> == <span class="number">0</span>) <span class="number">21</span> <span class="keyword">else</span> gcd(<span class="number">14</span>, <span class="number">21</span> % <span class="number">14</span>)</span><br><span class="line">--&gt;&gt; gcd(<span class="number">14</span>, <span class="number">7</span>)</span><br><span class="line">--&gt;&gt; gcd(<span class="number">7</span>, <span class="number">0</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">0</span> == <span class="number">0</span>) <span class="number">7</span> <span class="keyword">else</span> gcd(<span class="number">0</span>, <span class="number">7</span> % <span class="number">0</span>)</span><br><span class="line">--&gt; <span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<p>Another example: </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span></span>(n: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> n * factorial(n - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>factorial(4)</code> is evaluated as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">factorial(<span class="number">4</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">4</span> == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> <span class="number">4</span> * factorial(<span class="number">4</span> - <span class="number">1</span>)</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * factorial(<span class="number">3</span>)</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * factorial(<span class="number">2</span>))</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * factorial(<span class="number">1</span>)))</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * factorial(<span class="number">0</span>)))) </span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * <span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="1-2-Tail-Recursion"><a href="#1-2-Tail-Recursion" class="headerlink" title="1.2 Tail Recursion"></a>1.2 Tail Recursion</h3><p><strong>Implementation Consideration:</strong></p>
+<p>If a function calls itself <strong>as its last action</strong>, the function’s <strong>stack frame</strong> can be <strong>reused</strong>. This is called <em>tail recursion</em>.</p>
+<p>Tail recursive functions are iterative processes.</p>
+<p>In general, if the last action of a function consists of calling a function (which may be the same), one stack frame would be sufficient for both functions. Such calls are called <strong>tail-calls</strong>. <a id="more"></a></p>
+<h3 id="1-3-Tail-Recursion-in-Scala"><a href="#1-3-Tail-Recursion-in-Scala" class="headerlink" title="1.3 Tail Recursion in Scala"></a>1.3 Tail Recursion in Scala</h3><p>In Scala, only directly recursive calls to the current function are optimized.</p>
+<p>One can require that a function is tail-recursive using a @tailrec annotation:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tailrec</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = ...</span><br></pre></td></tr></table></figure>
+
+<p>If the annotation is given, and the implementation of gcd were not tail recursive, an <strong>error</strong> would be issued.</p>
+<br>
+
+<hr>
+<h4 id="Exercise-Tail-recursion"><a href="#Exercise-Tail-recursion" class="headerlink" title="Exercise: Tail recursion"></a>Exercise: Tail recursion</h4><p>Design a tail recursive version of factorial.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span></span>(n: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">loop</span></span>(acc: <span class="type">Int</span>, n: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) acc <span class="keyword">else</span> loop(acc * n, n - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  loop(<span class="number">1</span>, n) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+<br>
+
+<hr>
+<h2 id="2-High-Order-Functions"><a href="#2-High-Order-Functions" class="headerlink" title="2. High-Order Functions"></a>2. High-Order Functions</h2><p>In functional languages, functions are <em>first-class values</em>.</p>
+<p>Like any other value, a function can be passed as a <em>parameter</em> and <em>returned as a result</em>.</p>
+<p>This provides a flexible way to compose programs.</p>
+<p><strong>Functions that take other functions as parameters or that return functions as results are called higher order functions.</strong></p>
+<h3 id="2-1-Begin-with-an-Example"><a href="#2-1-Begin-with-an-Example" class="headerlink" title="2.1 Begin with an Example:"></a>2.1 Begin with an Example:</h3><p>Take the sum of the integers between a and b:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> a + sumInts(a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
+
+<p>Take the sum of the cubes of all the integers between a and b :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cube</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = x * x * x</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> cube(a) + sumCubes(a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
+
+<p>Take the sum of the factorials of all the integers between a and b :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumFactorials</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> fact(a) + sumFactorials(a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
+
+<p>All above are special cases of</p>
+<img src="http://latex.codecogs.com/gif.latex?\sum_{n=a}^{b}f(n)">
+
+<p>for different values of f.</p>
+<p>Can we factor out <strong>the common pattern</strong>?</p>
+<br>
+
+<hr>
+<h3 id="2-2-Summing-with-Higher-Order-Functions"><a href="#2-2-Summing-with-Higher-Order-Functions" class="headerlink" title="2.2 Summing with Higher-Order Functions"></a>2.2 Summing with Higher-Order Functions</h3><p>Let’s define:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>, a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> f(a) + sum(f, a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
+
+<p>We can then write:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(id, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(cube, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumFactorials</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(fact, a, b)</span><br></pre></td></tr></table></figure>
+
+<p>where</p>
+<p>We can then write:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">id</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = x</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cube</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = x * x * x</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fact</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = <span class="keyword">if</span> (x == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> x * fact(x - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="2-3-Function-Types"><a href="#2-3-Function-Types" class="headerlink" title="2.3 Function Types"></a>2.3 Function Types</h3><p>The type <code>A =&gt; B</code> is the type of a <em>function</em> takes an argument of type <code>A</code> and returns a result of type <code>B</code>.</p>
+<p>So, <code>Int =&gt;</code> Int is the type of functions that map integers to integers.</p>
+<br>
+
+<hr>
+<h3 id="2-4-Anonymous-Functions"><a href="#2-4-Anonymous-Functions" class="headerlink" title="2.4 Anonymous Functions"></a>2.4 Anonymous Functions</h3><p>Passing functions as parameters leads to the creation of many small functions</p>
+<ul>
+<li>Sometimes it is tedious to have to define (and name) these functions using <code>def</code>.</li>
+<li>We would like function literals, which let us write a function without giving it a name.</li>
+<li>These are called <em>anonymous functions</em>.</li>
+</ul>
+<br>
+
+<hr>
+<h4 id="Example-A-function-that-raises-its-argument-to-a-cube"><a href="#Example-A-function-that-raises-its-argument-to-a-cube" class="headerlink" title="Example: A function that raises its argument to a cube:"></a>Example: A function that raises its argument to a cube:</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x: <span class="type">Int</span>) =&gt; x * x * x</span><br></pre></td></tr></table></figure>
+
+<p>Here, (x: Int) is the <strong>parameter</strong> of the function, and x * x * x is its <strong>body</strong>.</p>
+<ul>
+<li>The type of the parameter can be omitted if it can be inferred by the compiler from the context.</li>
+</ul>
+<p>If there are several parameters, they are separated by commas:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x: <span class="type">Int</span>, y: <span class="type">Int</span>) =&gt; x + y</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h4 id="Anonymous-Functions-are-Syntactic-Sugar"><a href="#Anonymous-Functions-are-Syntactic-Sugar" class="headerlink" title="Anonymous Functions are Syntactic Sugar"></a>Anonymous Functions are Syntactic Sugar</h4><p>An anonymous function <code>(x1 : T1, ..., xn : Tn) =&gt; E</code> can always be expressed using <code>def</code> as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(x1: <span class="type">T1</span>, ..., xn: <span class="type">Tn</span>) = <span class="type">E</span>; f</span><br></pre></td></tr></table></figure>
+
+<p>where <code>f</code> is an arbitrary, fresh name (that’s not yet used in the program).</p>
+<ul>
+<li>One can therefore say that anonymous functions are syntactic sugar.</li>
+</ul>
+<p>Using anonymous functions, we can write sums in a shorter way:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(x =&gt; x, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(x =&gt; x * x * x, a, b)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><p>The <code>sum</code> function uses linear recursion. Write a tail-recursion version by replacing the <code>???</code>s</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">loop</span></span>(a: <span class="type">Int</span>, acc: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">    <span class="keyword">if</span> (???) ???</span><br><span class="line">    <span class="keyword">else</span> loop(???, ???)</span><br><span class="line">  loop(???, ???)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Answer:</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">loop</span></span>(a: <span class="type">Int</span>, acc: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">    <span class="keyword">if</span> (a &gt; b) acc</span><br><span class="line">    <span class="keyword">else</span> loop(a + <span class="number">1</span>, f(a) + acc)</span><br><span class="line">  loop(a, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+<br>
+
+<hr>
+<h2 id="3-Currying"><a href="#3-Currying" class="headerlink" title="3. Currying"></a>3. Currying</h2><h3 id="3-1-Motivation"><a href="#3-1-Motivation" class="headerlink" title="3.1 Motivation"></a>3.1 Motivation</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(x =&gt; x, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(x =&gt; x * x * x, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumFactorials</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(fact, a, b)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><p>Note that <code>a</code> and <code>b</code> get passed unchanged from <code>sumInts</code> and <code>sumCubes</code> into <code>sum</code> .</p>
+<p>Can we be even shorter by <strong>getting rid of these parameters</strong>?</p>
+<br>
+
+<hr>
+<h3 id="3-2-Functions-Returning-Functions"><a href="#3-2-Functions-Returning-Functions" class="headerlink" title="3.2 Functions Returning Functions"></a>3.2 Functions Returning Functions</h3><p>Let’s rewrite sum as follows.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>): (<span class="type">Int</span>, <span class="type">Int</span>) =&gt; <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sumF</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">    <span class="keyword">if</span> (a &gt; b) <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span> f(a) + sumF(a + <span class="number">1</span>, b)</span><br><span class="line">  sumF</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>sum</code> is now a function that <strong>returns another function</strong>.</p>
+<p>The returned function <code>sumF</code> applies the given function parameter <code>f</code> and sums the results.</p>
+<br>
+
+<hr>
+<h3 id="3-3-Stepwise-Applications"><a href="#3-3-Stepwise-Applications" class="headerlink" title="3.3 Stepwise Applications"></a>3.3 Stepwise Applications</h3><p>We can define:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span> </span>= sum(x =&gt; x)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span> </span>= sum(x =&gt; x * x * x)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumFactorials</span> </span>= sum(fact)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="3-4-Consecutive-Stepwise-Applications"><a href="#3-4-Consecutive-Stepwise-Applications" class="headerlink" title="3.4 Consecutive Stepwise Applications"></a>3.4 Consecutive Stepwise Applications</h3><p>Can we avoid these <em>middlemen</em> : <code>sumInts</code> , <code>sumCubes</code> , … ?</p>
+<p>Of course we can:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(cube)(<span class="number">1</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>sum(cube)</code> applies <code>sum</code> to <code>cube</code> and returns the sum of cubes function.</li>
+<li><code>sum(cube)</code> is therefore equivalent to <code>sumCubes</code> .</li>
+<li>This function is next applied to the arguments <code>(1, 10)</code> .</li>
+</ul>
+<p>Generally, function application <strong>associates to the left</strong>:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(cube)(<span class="number">1</span>, <span class="number">10</span>) == (sum(cube))(<span class="number">1</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="3-5-Multiple-Parameter-Lists"><a href="#3-5-Multiple-Parameter-Lists" class="headerlink" title="3.5 Multiple Parameter Lists"></a>3.5 Multiple Parameter Lists</h3><p>The definition of <em>functions that return functions</em> is so useful in functional programming that there is a <em>special syntax</em> for it in Scala.</p>
+<p>For example, the following definition of <code>sum</code> is equivalent to the one with the nested <code>sumF</code> function, but shorter:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> f(a) + sum(f)(a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="3-6-Expansion-of-Multiple-Parameter-Lists"><a href="#3-6-Expansion-of-Multiple-Parameter-Lists" class="headerlink" title="3.6 Expansion of Multiple Parameter Lists"></a>3.6 Expansion of Multiple Parameter Lists</h3><p>In general, a definition of a function with multiple parameter lists</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(args_1)...(args_n) = <span class="type">E</span></span><br></pre></td></tr></table></figure>
+
+<p>where <code>n &gt; 1</code>, is equivalent to</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(args_1)...(args_[n<span class="number">-1</span>]) = &#123;<span class="function"><span class="keyword">def</span> <span class="title">g</span></span>(args_n) = <span class="type">E</span>; g&#125;</span><br></pre></td></tr></table></figure>
+
+<p>where <code>g</code> is a fresh identifier. Or for short:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(args_1)...(args_[n<span class="number">-1</span>]) = (args_n =&gt; <span class="type">E</span>)</span><br></pre></td></tr></table></figure>
+
+<p>By repeating the process <em>n</em> times</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(args_1)...(args_n) = <span class="type">E</span></span><br></pre></td></tr></table></figure>
+
+<p>is shown to be equivalent to</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span> </span>= (args_1 =&gt; (args_2 =&gt; ...(args_n =&gt; <span class="type">E</span>)...))</span><br></pre></td></tr></table></figure>
+
+<p>This style of definition and function application is called <a href="http://en.wikipedia.org/wiki/Currying" target="_blank" rel="noopener">currying</a>, named for its instigator, <a href="http://en.wikipedia.org/wiki/Haskell_Curry" target="_blank" rel="noopener">Haskell Brooks Curry</a> (1900-1982), a twentieth century logician.</p>
+<p>In fact, the idea goes back even further to <a href="http://en.wikipedia.org/wiki/Moses_Sch?nfinkel" target="_blank" rel="noopener">Sch?nfinkel</a> and <a href="http://en.wikipedia.org/wiki/Gottlob_Frege" target="_blank" rel="noopener">Frege</a>, but the term “currying” has stuck.</p>
+<br>
+
+<hr>
+<h3 id="3-7-More-Function-Types"><a href="#3-7-More-Function-Types" class="headerlink" title="3.7 More Function Types"></a>3.7 More Function Types</h3><p>Question: Given</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = ...</span><br></pre></td></tr></table></figure>
+
+<p>What is the type of <code>sum</code> ?</p>
+<p><strong>Answer:</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="type">Int</span> =&gt; <span class="type">Int</span>) =&gt; (<span class="type">Int</span>, <span class="type">Int</span>) =&gt; <span class="type">Int</span></span><br></pre></td></tr></table></figure>
+
+<p>Note that functional types <strong>associate to the right</strong>. That is to say that</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Int</span> =&gt; <span class="type">Int</span> =&gt; <span class="type">Int</span></span><br></pre></td></tr></table></figure>
+
+<p>is equivalent to</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Int</span> =&gt; (<span class="type">Int</span> =&gt; <span class="type">Int</span>)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h4 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise"></a>Exercise</h4><ol>
+<li>Write a <code>product</code> function that calculates the product of the values of a function for the points on a given interval.</li>
+<li>Write factorial in terms of <code>product</code>.</li>
+<li>Can you write a more general function, which generalizes both <code>sum</code> and <code>product</code>?</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Ex1 &amp; Ex2*/</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">product</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">1</span></span><br><span class="line">  <span class="keyword">else</span> f(a) * product(f)(a + <span class="number">1</span>, b)</span><br><span class="line"></span><br><span class="line">product(x =&gt; x * x)(<span class="number">3</span>, <span class="number">4</span>)    <span class="comment">// squares product, (3 * 3) * (4 * 4)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fact</span></span>(n: <span class="type">Int</span>) = product(x =&gt; x)(<span class="number">1</span>, n)</span><br><span class="line"></span><br><span class="line">fact(<span class="number">5</span>)     <span class="comment">// product(x =&gt; x)(1, 5)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Ex3 */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mapReduce</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>, combine: (<span class="type">Int</span>, <span class="type">Int</span>) =&gt; <span class="type">Int</span>, zero: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) zero</span><br><span class="line">  <span class="keyword">else</span> combine(f(a), mapReduce(f, combine, zero)(a + <span class="number">1</span>, b))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">product</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = mapReduce(f, (x, y) =&gt; x * y, <span class="number">1</span>)(a, b)</span><br><span class="line"></span><br><span class="line">product(x =&gt; x * x)(<span class="number">3</span>, <span class="number">4</span>)    <span class="comment">// mapReduce(x =&gt; x * x, (x, y) =&gt; x * y, 1)(3, 4)</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/19/scala_week2_notes_1/">
+    <time datetime="2014-05-19T11:56:29.000Z" class="entry-date">
+        2014-05-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2014/05/19/scala_week2_notes_2/" rel="prev"><span class="meta-nav">←</span> Notes of Scala course on Coursera -- Week 2 (2)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2014/05/19/scala_week1_notes/" rel="next">Notes of Scala course on Coursera -- Week 1 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

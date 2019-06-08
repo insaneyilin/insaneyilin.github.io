@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.
+
+
+
+
+1. Functions and Data1.1 ClassesIn Scala, a class ia defined like this:
+1234class Rational(x: Int, y: Int) &amp;#123;  def numer = x  def denom = y&amp;#125;
+
+This definition introduces two entities:
+
+A new type, named Rational .
+A constructor Rational to create elements of this type.">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Notes of Scala course on Coursera -- Week 2 (3) | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.     1. Functions and Data1.1 ClassesIn Scala, a class ia defined like this: 1234class Rational(x:">
+<meta name="keywords" content="Scala,fp,coursera,notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes of Scala course on Coursera -- Week 2 (3)">
+<meta property="og:url" content="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.     1. Functions and Data1.1 ClassesIn Scala, a class ia defined like this: 1234class Rational(x:">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}+\frac{n_2}{d_2}=\frac{n_1d_2+n_2d_1}{d_1d_2}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}-\frac{n_2}{d_2}=\frac{n_1d_2-n_2d_1}{d_1d_2}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}\cdot\frac{n_2}{d_2}=\frac{n_1{\cdot}n_2}{d_1d_2}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}/\frac{n_2}{d_2}=\frac{n_1d_2}{d_1n_2}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}=\frac{n_2}{d_2}{\iff}n_1d_2=d_1n_2">
+<meta property="og:updated_time" content="2019-06-08T08:32:50.789Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Notes of Scala course on Coursera -- Week 2 (3)">
+<meta name="twitter:description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.     1. Functions and Data1.1 ClassesIn Scala, a class ia defined like this: 1234class Rational(x:">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}+\frac{n_2}{d_2}=\frac{n_1d_2+n_2d_1}{d_1d_2}">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-scala_week2_notes_3" class="post-scala_week2_notes_3 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Notes of Scala course on Coursera -- Week 2 (3)
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjwn9koml0022habhro1w9mk8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>.</p>
+<br>
+<br>
+
+<hr>
+<h2 id="1-Functions-and-Data"><a href="#1-Functions-and-Data" class="headerlink" title="1. Functions and Data"></a>1. Functions and Data</h2><h3 id="1-1-Classes"><a href="#1-1-Classes" class="headerlink" title="1.1 Classes"></a>1.1 Classes</h3><p>In Scala, a class ia defined like this:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">numer</span> </span>= x</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">denom</span> </span>= y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This definition introduces two entities:</p>
+<ul>
+<li>A new <em>type</em>, named <code>Rational</code> .</li>
+<li>A <em>constructor</em> <code>Rational</code> to create elements of this type.<a id="more"></a>
+<br>
+
+</li>
+</ul>
+<hr>
+<h3 id="1-2-Objects"><a href="#1-2-Objects" class="headerlink" title="1.2 Objects"></a>1.2 Objects</h3><p>We call the elements of a class type <code>objects</code>.</p>
+<p>We create an object by prefixing an application of the constructor of the class with the operator <code>new</code>.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="1-3-Members-of-an-Object"><a href="#1-3-Members-of-an-Object" class="headerlink" title="1.3 Members of an Object"></a>1.3 Members of an Object</h3><p>Objects of the class <code>Rational</code> have two members, <code>numer</code> and <code>denom</code> .</p>
+<p>We select the members of an object with the infix operator ‘<code>.</code>’ (like in Java).</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>)    <span class="comment">// x: Rational = Rational@2abe0e27, cbv</span></span><br><span class="line">x.numer    <span class="comment">// 1</span></span><br><span class="line">x.denom    <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="1-4-Rational-Arithmetic"><a href="#1-4-Rational-Arithmetic" class="headerlink" title="1.4 Rational Arithmetic"></a>1.4 Rational Arithmetic</h3><p>We can now define the arithmetic functions that implement the standard rules.</p>
+<br>
+<img src="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}+\frac{n_2}{d_2}=\frac{n_1d_2+n_2d_1}{d_1d_2}"> 
+<br>
+<img src="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}-\frac{n_2}{d_2}=\frac{n_1d_2-n_2d_1}{d_1d_2}">
+<br>
+<img src="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}\cdot\frac{n_2}{d_2}=\frac{n_1{\cdot}n_2}{d_1d_2}">
+<br>
+<img src="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}/\frac{n_2}{d_2}=\frac{n_1d_2}{d_1n_2}">
+<br>
+<img src="http://latex.codecogs.com/gif.latex?\frac{n_1}{d_1}=\frac{n_2}{d_2}{\iff}n_1d_2=d_1n_2">
+
+<br>
+
+<hr>
+<h3 id="1-5-Implementing-Rational-Arithmetic"><a href="#1-5-Implementing-Rational-Arithmetic" class="headerlink" title="1.5 Implementing Rational Arithmetic"></a>1.5 Implementing Rational Arithmetic</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">addRational</span></span>(r: <span class="type">Rational</span>, s: <span class="type">Rational</span>): <span class="type">Rational</span> =</span><br><span class="line">  <span class="keyword">new</span> <span class="type">Rational</span>(</span><br><span class="line">    r.numer * s.denom + s.numer * r.denom,</span><br><span class="line">    r.denom * s.denom)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">makeString</span></span>(r: <span class="type">Rational</span>) =</span><br><span class="line">  r.numer + ”/” + r.denom</span><br><span class="line"></span><br><span class="line">makeString(addRational(<span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>), <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">2</span>, <span class="number">3</span>)))     <span class="comment">// =&gt; 7/6</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="1-6-Methods"><a href="#1-6-Methods" class="headerlink" title="1.6 Methods"></a>1.6 Methods</h3><p>One can go further and also package functions operating on a data abstraction <em>in the data abstraction itself</em>.</p>
+<p>Such functions are called <em>methods</em>.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">numer</span> </span>= x</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">denom</span> </span>= y</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">add</span></span>(r: <span class="type">Rational</span>) =</span><br><span class="line">    <span class="keyword">new</span> <span class="type">Rational</span>(numer * r.denom + r.numer * denom,</span><br><span class="line">                 denom * r.denom)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">mul</span></span>(r: <span class="type">Rational</span>) = ...</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">toString</span> </span>= numer + ”/” + denom</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Remark</strong>: the modifier <code>override</code> declares that toString redefines a method that already exists (in the class <code>java.lang.Object</code> ).</p>
+<p>Calling Methods:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">val</span> y = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">5</span>, <span class="number">7</span>)</span><br><span class="line"><span class="keyword">val</span> z = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line">x.add(y).mul(z)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><p>(1) In your worksheet, add a method <code>neg</code> to class <code>Rational</code> that is used like this:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.neg</span><br></pre></td></tr></table></figure>
+
+<p>(2)  Add a method <code>sub</code> to subtract two rational numbers.</p>
+<p>(3) With the values of x , y , z as given in the previous slide, what is the result of <code>x - y - z</code>?</p>
+<p><strong>Answer</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WorkSheet</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numer</span> </span>= x</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">denom</span> </span>= y</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span></span>(r: <span class="type">Rational</span>) =</span><br><span class="line">      <span class="keyword">new</span> <span class="type">Rational</span>(numer * r.denom + r.numer * denom,</span><br><span class="line">                   denom * r.denom)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mul</span></span>(r: <span class="type">Rational</span>) =</span><br><span class="line">      <span class="keyword">new</span> <span class="type">Rational</span>(numer * r.numer, denom * r.denom)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">neg</span></span>: <span class="type">Rational</span> = <span class="keyword">new</span> <span class="type">Rational</span>(-numer, denom)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sub</span></span>(that: <span class="type">Rational</span>) = add(that.neg)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">toString</span> </span>= numer + <span class="string">"/"</span> + denom</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">3</span>)                      <span class="comment">//&gt; x  : greeter.WorkSheet.Rational = 1/3</span></span><br><span class="line">  <span class="keyword">val</span> y = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">5</span>, <span class="number">7</span>)                      <span class="comment">//&gt; y  : greeter.WorkSheet.Rational = 5/7</span></span><br><span class="line">  <span class="keyword">val</span> z = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">3</span>, <span class="number">2</span>)                      <span class="comment">//&gt; z  : greeter.WorkSheet.Rational = 3/2</span></span><br><span class="line">  x.add(y).mul(z)                                 <span class="comment">//&gt; res0: greeter.WorkSheet.Rational = 66/42</span></span><br><span class="line">  x.sub(y).sub(z)                                 <span class="comment">//&gt; res1: greeter.WorkSheet.Rational = -79/42</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+<br>
+
+<hr>
+<h2 id="2-More-Fun-with-Rationals"><a href="#2-More-Fun-with-Rationals" class="headerlink" title="2. More Fun with Rationals"></a>2. More Fun with Rationals</h2><h3 id="2-1-Data-Abstraction"><a href="#2-1-Data-Abstraction" class="headerlink" title="2.1 Data Abstraction"></a>2.1 Data Abstraction</h3><p>One would expect the rational numbers to be <em>simplified</em>:</p>
+<ul>
+<li>reduce them to their smallest numerator and denominator by dividing both with a divisor.</li>
+</ul>
+<p>We could implement this in each rational operation, but it would be easy to forget this division in an operation.</p>
+<p>A better alternative consists of simplifying the representation in the class when the objects are <strong>constructed</strong>:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> g = gcd(x, y)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">numer</span> </span>= x / g</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">denom</span> </span>= y / g</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>It is also possible to call gcd in the code of <code>numer</code> and <code>denom</code> :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">numer</span> </span>= x / gcd(x, y)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">denom</span> </span>= y / gcd(x, y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This can be advantageous if it is expected that the functions <code>numer</code> and <code>denom</code> are called <em>infrequently</em>.</p>
+<p>It is equally possible to turn <code>numer</code> and <code>denom</code> into <code>val</code>s, so that they are <em>computed only once</em>:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</span><br><span class="line">  <span class="keyword">val</span> numer = x / gcd(x, y)</span><br><span class="line">  <span class="keyword">val</span> denom = y / gcd(x, y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This can be advantageous if the functions <code>numer</code> and <code>denom</code> are called <em>often</em>.</p>
+<br>
+
+<hr>
+<h3 id="2-2-The-Client’s-View"><a href="#2-2-The-Client’s-View" class="headerlink" title="2.2 The Client’s View"></a>2.2 The Client’s View</h3><p>Clients observe exactly <strong>the same behavior</strong> in each case.</p>
+<p>This ability to choose different implementations of the data <em>without affecting clients</em> is called <strong>data abstraction</strong>.</p>
+<p>It is a cornerstone of software engineering.</p>
+<br>
+
+<hr>
+<h3 id="2-3-Self-Reference"><a href="#2-3-Self-Reference" class="headerlink" title="2.3 Self Reference"></a>2.3 Self Reference</h3><p>On the inside of a class, the name <code>this</code> represents the object on which the current method is executed.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">less</span></span>(that: <span class="type">Rational</span>) =</span><br><span class="line">    numer * that.denom &lt; that.numer * denom</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">max</span></span>(that: <span class="type">Rational</span>) =</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.less(that)) that <span class="keyword">else</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Note that a simple name <code>x</code> , which refers to another member of the class, is an abbreviation of <code>this.x</code> . Thus, an equivalent way to formulate <code>less</code> is as follows.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">less</span></span>(that: <span class="type">Rational</span>) =</span><br><span class="line">  <span class="keyword">this</span>.numer * that.denom &lt; that.numer * <span class="keyword">this</span>.denom</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="2-4-Preconditions"><a href="#2-4-Preconditions" class="headerlink" title="2.4 Preconditions"></a>2.4 Preconditions</h3><p>Let’s say our <code>Rational</code> class <em>requires</em> that the denominator is <em>positive</em>.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  require(y &gt; <span class="number">0</span>, ”denominator must be positive”)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>require</code> is a <em>predefined function</em>.</p>
+<p>It takes a <em>condition</em> and an <em>optional message string</em>.</p>
+<p>If the condition passed to require is <code>false</code> , an <code>IllegalArgumentException</code> is thrown with the given message string.</p>
+<br>
+
+<hr>
+<h3 id="2-5-Assertions"><a href="#2-5-Assertions" class="headerlink" title="2.5 Assertions"></a>2.5 Assertions</h3><p>Besides <code>require</code> , there is also <code>assert</code> .</p>
+<p><code>assert</code> also takes a condition and an optional message string as parameters.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = sqrt(y)</span><br><span class="line">assert(x &gt;= <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Like <code>require</code> , a failing assert will also throw an exception, but it’s a different one: <code>AssertionError</code> for <code>assert</code> , <code>IllegalArgumentException</code> for <code>require</code> .</p>
+<p>This reflects a difference in intent</p>
+<ul>
+<li><code>require</code> is used to <strong>enforce</strong> a precondition on the caller of a function.</li>
+<li><code>assert</code> is used as to <strong>check</strong> the code of the function itself.</li>
+</ul>
+<br>
+
+<hr>
+<h3 id="2-6-Constructors"><a href="#2-6-Constructors" class="headerlink" title="2.6 Constructors"></a>2.6 Constructors</h3><p>In Scala, a class implicitly introduces a <code>constructor</code>. This one is called <em>the primary constructor</em> of the class.</p>
+<p>The primary constructor</p>
+<ul>
+<li>takes the parameters of the class</li>
+<li>and executes all statements in the class body (such as the require a couple of slides back).</li>
+</ul>
+<br>
+
+<hr>
+<h3 id="2-7-Auxiliary-Constructors"><a href="#2-7-Auxiliary-Constructors" class="headerlink" title="2.7 Auxiliary Constructors"></a>2.7 Auxiliary Constructors</h3><p>Scala also allows the declaration of <em>auxiliary constructors</em>.</p>
+<p>These are methods named <code>this</code>.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">this</span></span>(x: <span class="type">Int</span>) = <span class="keyword">this</span>(x, <span class="number">1</span>)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">2</span>) <span class="comment">// =&gt; 2/1</span></span><br></pre></td></tr></table></figure>
+
+<br>
+<br>
+
+<hr>
+<h2 id="3-Evaluation-and-Operators"><a href="#3-Evaluation-and-Operators" class="headerlink" title="3. Evaluation and Operators"></a>3. Evaluation and Operators</h2><h3 id="3-1-Classes-and-Substitutions"><a href="#3-1-Classes-and-Substitutions" class="headerlink" title="3.1 Classes and Substitutions"></a>3.1 Classes and Substitutions</h3><p>We previously defined the meaning of a function application using a computation model based on substitution. Now we extend this model to classes and objects.</p>
+<p><strong>Question</strong>: How is an instantiation of the class new <code>C(e_1 ,..., e_m)</code> evaluted?</p>
+<p><strong>Answer</strong>: The expression arguments <code>e_1 ,..., e_m</code> are evaluated like the arguments of a normal function. That’s it.</p>
+<p>The resulting expresion, say, new <code>C(v_1 ,..., v_m)</code>, is already a value.</p>
+<p>Now suppose that we have a class definition,</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>(<span class="params">x_1 ,..., x_m</span>)</span>&#123; ... <span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(y_1 ,..., y_n) = b ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>where</p>
+<ul>
+<li>The formal parameters of the class are <code>x_1 ,..., x_m</code> .</li>
+<li>The class defines a method <code>f</code> with formal parameters <code>y_1 ,..., y_n</code> .</li>
+</ul>
+<p>(The list of function parameters can be absent. For simplicity, we have omitted the parameter types.)</p>
+<p><strong>Question</strong>: How is the following expression evaluated?</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="type">C</span>(v_1 ,..., v_m).f(w_1 ,..., w_n)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Answer</strong>: The expression <code>new C(v_1 ,..., v_m).f(w_1 ,..., w_n)</code> is rewritten to:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[w_1/y_1 ,..., w_n/y_n] [v_1/x_1 ,..., v_m/x_m] [<span class="keyword">new</span> <span class="type">C</span>(v_1 ,..., v_m)/<span class="keyword">this</span>] b</span><br></pre></td></tr></table></figure>
+
+<p>There are three substitutions at work here:</p>
+<ul>
+<li>the substitution of the formal parameters <code>y_1 ,..., y_n</code> of the function f by the arguments <code>w_1 ,..., w_n</code> ,</li>
+<li>the substitution of the formal parameters <code>x_1 ,..., x_m</code> of the class C by the class arguments <code>v_1 ,..., v_m</code> ,</li>
+<li>the substitution of the <em>self reference</em> this by the value of the object <code>new C(v_1 ,..., v_n)</code>.</li>
+</ul>
+<br>
+
+<hr>
+<h3 id="3-2-Object-Rewriting-Examples"><a href="#3-2-Object-Rewriting-Examples" class="headerlink" title="3.2 Object Rewriting Examples"></a>3.2 Object Rewriting Examples</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>).numer</span><br><span class="line">-&gt; [<span class="number">1</span>/x, <span class="number">2</span>/y] [] [<span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>)/<span class="keyword">this</span>] x</span><br><span class="line">= <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>).less(<span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">-&gt; [<span class="number">1</span>/x, <span class="number">2</span>/y] [<span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">2</span>, <span class="number">3</span>)/that] [<span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>)/<span class="keyword">this</span>]</span><br><span class="line">    <span class="keyword">this</span>.numer * that.denom &lt; that.numer * <span class="keyword">this</span>.denom</span><br><span class="line">= <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>).numer * <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">2</span>, <span class="number">3</span>).denom &lt;</span><br><span class="line">    <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">2</span>, <span class="number">3</span>).numer * <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>).denom</span><br><span class="line">-&gt;&gt; <span class="number">1</span> * <span class="number">3</span> &lt; <span class="number">2</span> * <span class="number">2</span></span><br><span class="line">-&gt;&gt; <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="3-3-Operators"><a href="#3-3-Operators" class="headerlink" title="3.3 Operators"></a>3.3 Operators</h3><p>In principle, the rational numbers defined by Rational are as natural as integers.</p>
+<p>But for the user of these abstractions, there is a noticeable difference:</p>
+<ul>
+<li>We write <code>x + y</code> , if <code>x</code> and <code>y</code> are integers, but</li>
+<li>We write <code>r.add(s)</code> if <code>r</code> and <code>s</code> are rational numbers.</li>
+</ul>
+<p>In Scala, we can eliminate this difference. We procede in two steps.<br><br></p>
+<h4 id="Step-1-Infix-Notation"><a href="#Step-1-Infix-Notation" class="headerlink" title="Step 1: Infix Notation"></a>Step 1: Infix Notation</h4><p>Any method with a parameter can be used like an infix operator.</p>
+<p>It is therefore possible to write</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r add s    <span class="comment">//  &lt;=&gt; r.add(s)    </span></span><br><span class="line">r less s   <span class="comment">//  &lt;=&gt; r.less(s)    </span></span><br><span class="line">r max s    <span class="comment">//  &lt;=&gt; r.max(s)</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h4 id="Step-2-Relaxed-Identifiers"><a href="#Step-2-Relaxed-Identifiers" class="headerlink" title="Step 2: Relaxed Identifiers"></a>Step 2: Relaxed Identifiers</h4><p>Operators can be used as identifiers.</p>
+<p>Thus, an identifier can be:</p>
+<ul>
+<li><strong>Alphanumeric</strong>: starting with a letter, followed by a sequence of letters or numbers</li>
+<li><strong>Symbolic</strong>: starting with an operator symbol, followed by other operator symbols.</li>
+<li>The underscore character ’<code>_</code>’ counts as a letter.</li>
+<li>Alphanumeric identifiers can also end in an underscore, followed by some operator symbols.</li>
+</ul>
+<p>Examples of identifiers:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x1    *    +?%$    vector_++    counter_=</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="3-4-Operators-for-Rationals"><a href="#3-4-Operators-for-Rationals" class="headerlink" title="3.4 Operators for Rationals"></a>3.4 Operators for Rationals</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> g = gcd(x, y)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">numer</span> </span>= x / g</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">denom</span> </span>= y / g</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">+</span> </span>(r: <span class="type">Rational</span>) =</span><br><span class="line">  <span class="keyword">new</span> <span class="type">Rational</span>(</span><br><span class="line">    numer * r.denom + r.numer * denom,</span><br><span class="line">    denom * r.denom)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">-</span> </span>(r: <span class="type">Rational</span>) = ...</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">*</span> </span>(r: <span class="type">Rational</span>) = ...</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Now rational numbers can be used like <code>Int</code> or <code>Double</code> :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">val</span> y = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">x * x + y * y    <span class="comment">// what is the priority? =&gt; (x * x) + (y * y)</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="3-5-Precedence-Rules"><a href="#3-5-Precedence-Rules" class="headerlink" title="3.5 Precedence Rules"></a>3.5 Precedence Rules</h3><p>The precedence of an operator is determined by its first character.</p>
+<p>The following table lists the characters in increasing order of priority precedence:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(all letters)</span><br><span class="line">|</span><br><span class="line">^</span><br><span class="line">&amp;</span><br><span class="line">&lt; &gt;</span><br><span class="line">= !</span><br><span class="line">:</span><br><span class="line">+ -</span><br><span class="line">* / %</span><br><span class="line">(all other special characters)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/20/scala_week2_notes_3/">
+    <time datetime="2014-05-20T03:56:29.000Z" class="entry-date">
+        2014-05-20
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" rel="prev"><span class="meta-nav">←</span> 《编写高质量代码：改善C++程序的150个建议》读书笔记(1)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2014/05/19/scala_week2_notes_2/" rel="next">Notes of Scala course on Coursera -- Week 2 (2) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

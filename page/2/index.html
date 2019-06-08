@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Yilin&#39;s Blog">
+<meta property="og:url" content="https://yilingui.xyz/page/2/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yilin&#39;s Blog">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main">
+  
+    <article id="post-ruby_quickstart_notes_2" class="post-ruby_quickstart_notes_2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/28/ruby_quickstart_notes_2/">Ruby Quick Start (2) -- Objects in Ruby</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjwn9kon3002uhabhrtcwuzqu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="noopener">《Ruby语言入门教程v1.0》</a>笔记（2）<br><br></p>
+<hr>
+<h2 id="第四章-Ruby面向对象初探"><a href="#第四章-Ruby面向对象初探" class="headerlink" title="第四章 Ruby面向对象初探"></a>第四章 Ruby面向对象初探</h2><h3 id="1-封装"><a href="#1-封装" class="headerlink" title="1. 封装"></a>1. 封装</h3><p>让我们来定义一个类， 类名是 <code>Person</code>， <strong>类名首字母要大写</strong>；   
+属性有姓名<code>@name</code>、年龄<code>@age</code>、国籍<code>@motherland</code>，实例变量用<code>@</code>开头；<br>方法有一个，叫 <code>talk</code>, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。</p>
+<figure class="highlight ruby"><figcaption><span>Person.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(name, age = <span class="number">18</span>)</span></span></span><br><span class="line">    @name = name</span><br><span class="line">    @age = age</span><br><span class="line">    @motherland = <span class="string">"China"</span></span><br><span class="line">  <span class="keyword">end</span>  <span class="comment"># 初始化方法结束</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"my name is "</span> + @name + <span class="string">", age is "</span> + @age.to_s</span><br><span class="line">    <span class="keyword">if</span> @motherland == <span class="string">"China"</span></span><br><span class="line">      puts <span class="string">"I am a Chinese."</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      puts <span class="string">"I am a foreigner."</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span>  <span class="comment"># talk方法结束</span></span><br><span class="line">  <span class="keyword">attr_writer</span> <span class="symbol">:motherland</span>  <span class="comment"># <span class="doctag">@motherland</span>的setter</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">p1 = Person.new(<span class="string">"Yilin"</span>, <span class="number">23</span>)</span><br><span class="line">p1.talk</span><br><span class="line"></span><br><span class="line">p2 = Person.new(<span class="string">"Ben"</span>)</span><br><span class="line">p2.motherland = <span class="string">"ABC"</span></span><br><span class="line">p2.talk</span><br></pre></td></tr></table></figure>
+
+<p><code>initialize</code> 是初始化方法，相当于构造函数。<br>参数 <code>age</code> 有一个缺省值 <code>18</code>，可以在任何方法内使用缺省参数,而不仅仅是 <code>initialize</code>。   
+如果有缺省参数， 参数表必须以有缺省值的参数结尾。</p>
+<p>注意我们定义了<code>@motherland</code>成员变量的setter：</p>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/28/ruby_quickstart_notes_2/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/28/ruby_quickstart_notes_2/">
+    <time datetime="2014-05-28T11:30:29.000Z" class="entry-date">
+        2014-05-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-ruby_quickstart_notes_1" class="post-ruby_quickstart_notes_1 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/26/ruby_quickstart_notes_1/">Ruby Quick Start (1) -- A Glimpse of Syntax</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="cjwn9komc001ohabho45uic14" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>学习Ruby时在网上找到了一本小册子<a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="noopener">《Ruby语言入门教程v1.0》</a>，虽然是07年的东西了，但是作为快速熟悉Ruby基本语法还是很有帮助的，做一下笔记。</p>
+<p>开始前先问下自己两个问题。</p>
+<p>(1) <em>我为什么要学习Ruby？</em></p>
+<p>为了Web开发。</p>
+<p>(2) <em>为什么选择Ruby，而不是Python，PHP？</em></p>
+<p>看了知乎上的<a href="http://www.zhihu.com/question/19573703/answer/12258814" target="_blank" rel="noopener">这个答案</a>：</p>
+<ul>
+<li>假如你想帮他尽快找个活儿， 赚到钱， 推荐 PHP</li>
+<li>假如你想让他成为一个高效工程师， 推荐 Python</li>
+<li>假如你想让他爱上他的工作， 推荐 Ruby </li>
+</ul>
+<p>无论如何，别人的答案只能作为参考，自己尝试过后才有资格评价，所以最好的方法就是亲自动手学习下Ruby。
+        
+          </p><p class="article-more-link">
+            <a href="/2014/05/26/ruby_quickstart_notes_1/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/26/ruby_quickstart_notes_1/">
+    <time datetime="2014-05-26T11:30:29.000Z" class="entry-date">
+        2014-05-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-150_tips_on_writing_high_quality_cpp_codes_2" class="post-150_tips_on_writing_high_quality_cpp_codes_2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/">《编写高质量代码：改善C++程序的150个建议》读书笔记(2)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwn9kon1002thabhp9r9iq2b" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><a href="http://insaneguy.me/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" target="_blank" rel="noopener">《编写高质量代码——改善C++程序的150个建议》读书笔记(1)</a></p>
+<br>
+
+<hr>
+<h2 id="第二部分-编码习惯和规范篇"><a href="#第二部分-编码习惯和规范篇" class="headerlink" title="第二部分 编码习惯和规范篇"></a>第二部分 编码习惯和规范篇</h2><h3 id="建议81：避免无意中的内部数据裸露"><a href="#建议81：避免无意中的内部数据裸露" class="headerlink" title="建议81：避免无意中的内部数据裸露"></a>建议81：避免无意中的内部数据裸露</h3><p>对于<code>const</code>成员函数，不要返回内部数据的句柄，因为它会<strong>破坏封装性</strong>，违反抽象性，造成内部数据无意中的裸露，这会出现很多“不可思议”的情形，比如<code>const</code>对象的非常量性。<br><br></p>
+<h3 id="建议82：积极使用const为函数保驾护航"><a href="#建议82：积极使用const为函数保驾护航" class="headerlink" title="建议82：积极使用const为函数保驾护航"></a>建议82：积极使用const为函数保驾护航</h3><p><code>const</code>的真正威力体现在几个方面：</p>
+<ol>
+<li>修饰函数形式的参数：<code>const</code>只能修饰输入参数，对于内置数据类型的输入参数，不要将“值传递”的方式改为“<code>const</code> 引用传递”；</li>
+<li>修饰函数返回值；</li>
+<li>修饰成员函数：用<code>const</code>修饰成员函数的目的是提高程序的健壮性。<code>const</code>成员函数不允许对数据成员进行任何修改。</li>
+</ol>
+<p>关于<code>const</code>成员函数，须遵循几个规则：</p>
+<ol>
+<li><code>const</code>对象只能访问<code>const</code>成员函数，而非<code>const</code>对象可以访问任意的成员函数；</li>
+<li><code>const</code>对象的成员是不可修改的，然而<code>const</code>对象通过指针维护的对象却是可以修改的；</li>
+<li><code>const</code>成员函数不可以修改对象的数据，不管对象是否具有<code>const</code>性质。<br>
+
+</li>
+</ol>
+<h3 id="建议83：不要返回局部变量的引用"><a href="#建议83：不要返回局部变量的引用" class="headerlink" title="建议83：不要返回局部变量的引用"></a>建议83：不要返回局部变量的引用</h3><p>局部变量的引用是一件不太靠谱的事儿，所以尽量避免让函数返回局部变量的引用。同时也不要返回<code>new</code>生成对象的引用，因为这样会让代码层次混乱，让使用者苦不堪言。<br><br></p>
+<h3 id="建议84：切忌过度使用传引用代替传对象"><a href="#建议84：切忌过度使用传引用代替传对象" class="headerlink" title="建议84：切忌过度使用传引用代替传对象"></a>建议84：切忌过度使用传引用代替传对象</h3><p>相较于传对象，传引用的优点：它减少了临时对象的构造与析构，所以更具效率。但须审慎地使用传引用替代传对象，必须传回内部对象时，就传对象，勿传引用。<br><br></p>
+<h3 id="建议85：了解指针参数传递内存中的玄机"><a href="#建议85：了解指针参数传递内存中的玄机" class="headerlink" title="建议85：了解指针参数传递内存中的玄机"></a>建议85：了解指针参数传递内存中的玄机</h3><p>用指针参数传回一块动态申请的内存，是很常见的一种需求。然而如果不甚小心，就很容易造成严重错误：程序崩溃+内存泄露，解决之道就是用指针的指针来传递，或者换种内存传递方式，用返回值来传递。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指针型变量在函数体中需要改变的写法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> *&amp;x)</span>    <span class="comment">// 使用指针变量的引用</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ++x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/">
+    <time datetime="2014-05-22T05:56:29.000Z" class="entry-date">
+        2014-05-22
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-150_tips_on_writing_high_quality_cpp_codes_1" class="post-150_tips_on_writing_high_quality_cpp_codes_1 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/">《编写高质量代码：改善C++程序的150个建议》读书笔记(1)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjwn9kono0030habhova53pve" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>前一段时间看了这本<a href="http://book.douban.com/subject/7059901/" target="_blank" rel="noopener">《编写高质量代码——改善C++程序的150个建议》</a>，感觉和<a href="http://book.douban.com/subject/6517498/" target="_blank" rel="noopener"><em>Effective C++</em></a>有点类似。看完还是有不少收获的，在此整理、记录一下。</p>
+<br>
+
+<hr>
+<h2 id="第一部分-语法篇"><a href="#第一部分-语法篇" class="headerlink" title="第一部分 语法篇"></a>第一部分 语法篇</h2><h3 id="建议1：区分0的4种面孔"><a href="#建议1：区分0的4种面孔" class="headerlink" title="建议1：区分0的4种面孔"></a>建议1：区分0的4种面孔</h3><ol>
+<li>整型0，32位（4个字节）；</li>
+<li>空指针<code>NULL</code>，指针与<code>int</code>类型所占空间是一样的，都是32位；</li>
+<li>字符串结束标志’\0’，8位，一个字节，与’0’有区别；</li>
+<li>逻辑<code>FALSE</code>/<code>false</code>，<code>FALSE</code>/<code>TRUE</code>是<code>int</code>类型，而<code>false</code>/<code>true</code>是<code>bool</code>类型。<br>
+
+</li>
+</ol>
+<h3 id="建议5：不要忘记指针变量的初始化"><a href="#建议5：不要忘记指针变量的初始化" class="headerlink" title="建议5：不要忘记指针变量的初始化"></a>建议5：不要忘记指针变量的初始化</h3><ol>
+<li>可以将其初始化为空指针<code>0</code>(<code>NULL</code>)；</li>
+<li>对于全局变量来说，在声明的同时，编译器会<strong>悄悄完成</strong>对变量的初始化。<br>
+
+</li>
+</ol>
+<h3 id="建议6：明晰逗号分隔表达式的奇怪之处"><a href="#建议6：明晰逗号分隔表达式的奇怪之处" class="headerlink" title="建议6：明晰逗号分隔表达式的奇怪之处"></a>建议6：明晰逗号分隔表达式的奇怪之处</h3><ol>
+<li>在使用逗号分隔表达式时，C++会确保每个表达式都被执行，而整个表达式的值则是<strong>最右边表达式的结果</strong>；</li>
+<li>在C++中，逗号分隔表达式<strong>既可以用作左值，也可以用作右值</strong>。<br>
+
+</li>
+</ol>
+<h3 id="建议9：防止重复包含头文件"><a href="#建议9：防止重复包含头文件" class="headerlink" title="建议9：防止重复包含头文件"></a>建议9：防止重复包含头文件</h3><p>注意在大型项目中的形式应类似下面：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _PROJECT_PATH_FILE_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _PROJECT_PATH_FILE_H</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="建议10：优化结构体中元素的布局"><a href="#建议10：优化结构体中元素的布局" class="headerlink" title="建议10：优化结构体中元素的布局"></a>建议10：优化结构体中元素的布局</h3><p>把结构体中的变量<strong>按照类型大小从小到大</strong>依次声明，尽量<strong>减少中间的填充字节</strong>。
+<br></p>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/">
+    <time datetime="2014-05-22T04:56:29.000Z" class="entry-date">
+        2014-05-22
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-scala_week2_notes_3" class="post-scala_week2_notes_3 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/20/scala_week2_notes_3/">Notes of Scala course on Coursera -- Week 2 (3)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjwn9koml0022habhro1w9mk8" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>.</p>
+<br>
+<br>
+
+<hr>
+<h2 id="1-Functions-and-Data"><a href="#1-Functions-and-Data" class="headerlink" title="1. Functions and Data"></a>1. Functions and Data</h2><h3 id="1-1-Classes"><a href="#1-1-Classes" class="headerlink" title="1.1 Classes"></a>1.1 Classes</h3><p>In Scala, a class ia defined like this:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">numer</span> </span>= x</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">denom</span> </span>= y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This definition introduces two entities:</p>
+<ul>
+<li>A new <em>type</em>, named <code>Rational</code> .</li>
+<li>A <em>constructor</em> <code>Rational</code> to create elements of this type.
+        
+          <p class="article-more-link">
+            <a href="/2014/05/20/scala_week2_notes_3/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </li></ul></div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/20/scala_week2_notes_3/">
+    <time datetime="2014-05-20T03:56:29.000Z" class="entry-date">
+        2014-05-20
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-scala_week2_notes_2" class="post-scala_week2_notes_2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/19/scala_week2_notes_2/">Notes of Scala course on Coursera -- Week 2 (2)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjwn9kokq0007habh3lj9s68o" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>.</p>
+<br>
+<br>
+
+<hr>
+<h2 id="4-Example-Finding-Fixed-Points"><a href="#4-Example-Finding-Fixed-Points" class="headerlink" title="4. Example: Finding Fixed Points"></a>4. Example: Finding Fixed Points</h2><h3 id="4-1-Finding-a-fixed-point-of-a-function"><a href="#4-1-Finding-a-fixed-point-of-a-function" class="headerlink" title="4.1 Finding a fixed point of a function"></a>4.1 Finding a fixed point of a function</h3><p>A number <em>x</em> is called a <em>fixed point</em> of a function f if</p>
+<img src="http://latex.codecogs.com/gif.latex?f(x)=x">
+
+<p>For some functions f we can locate the fixed points by starting with an initial estimate and then by applying f in a repetitive way.</p>
+<img src="http://latex.codecogs.com/gif.latex?x,f(x),f(f(x)),f(f(f(x))),...">
+
+<p>until the value does not vary anymore (or the change is sufficiently small).
+        
+          </p><p class="article-more-link">
+            <a href="/2014/05/19/scala_week2_notes_2/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/19/scala_week2_notes_2/">
+    <time datetime="2014-05-19T13:56:29.000Z" class="entry-date">
+        2014-05-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-scala_week2_notes_1" class="post-scala_week2_notes_1 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/19/scala_week2_notes_1/">Notes of Scala course on Coursera -- Week 2 (1)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwn9komh001whabhnchdmv28" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>. 
+<br><br><br></p>
+<hr>
+<h2 id="1-Recursion-and-Tail-Recursion"><a href="#1-Recursion-and-Tail-Recursion" class="headerlink" title="1. Recursion and Tail Recursion"></a>1. Recursion and Tail Recursion</h2><h3 id="1-1-Examples-of-Recursion"><a href="#1-1-Examples-of-Recursion" class="headerlink" title="1.1 Examples of Recursion"></a>1.1 Examples of Recursion</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Euclid's Algorithm */</span> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</span><br></pre></td></tr></table></figure>
+
+<p><code>gcd(14, 21)</code> is evaluated as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gcd(<span class="number">14</span>, <span class="number">21</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">21</span> == <span class="number">0</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="literal">false</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">14</span> == <span class="number">0</span>) <span class="number">21</span> <span class="keyword">else</span> gcd(<span class="number">14</span>, <span class="number">21</span> % <span class="number">14</span>)</span><br><span class="line">--&gt;&gt; gcd(<span class="number">14</span>, <span class="number">7</span>)</span><br><span class="line">--&gt;&gt; gcd(<span class="number">7</span>, <span class="number">0</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">0</span> == <span class="number">0</span>) <span class="number">7</span> <span class="keyword">else</span> gcd(<span class="number">0</span>, <span class="number">7</span> % <span class="number">0</span>)</span><br><span class="line">--&gt; <span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<p>Another example: </p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span></span>(n: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> n * factorial(n - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>factorial(4)</code> is evaluated as follows:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">factorial(<span class="number">4</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">4</span> == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> <span class="number">4</span> * factorial(<span class="number">4</span> - <span class="number">1</span>)</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * factorial(<span class="number">3</span>)</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * factorial(<span class="number">2</span>))</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * factorial(<span class="number">1</span>)))</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * factorial(<span class="number">0</span>)))) </span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * <span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="1-2-Tail-Recursion"><a href="#1-2-Tail-Recursion" class="headerlink" title="1.2 Tail Recursion"></a>1.2 Tail Recursion</h3><p><strong>Implementation Consideration:</strong></p>
+<p>If a function calls itself <strong>as its last action</strong>, the function’s <strong>stack frame</strong> can be <strong>reused</strong>. This is called <em>tail recursion</em>.</p>
+<p>Tail recursive functions are iterative processes.</p>
+<p>In general, if the last action of a function consists of calling a function (which may be the same), one stack frame would be sufficient for both functions. Such calls are called <strong>tail-calls</strong>.
+        
+          </p><p class="article-more-link">
+            <a href="/2014/05/19/scala_week2_notes_1/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/19/scala_week2_notes_1/">
+    <time datetime="2014-05-19T11:56:29.000Z" class="entry-date">
+        2014-05-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-scala_week1_notes" class="post-scala_week1_notes post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/19/scala_week1_notes/">Notes of Scala course on Coursera -- Week 1</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwn9komg001uhabhnz89f3gf" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 1’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>. </p>
+<h3 id="Evaluation-of-Programming"><a href="#Evaluation-of-Programming" class="headerlink" title="Evaluation of Programming"></a>Evaluation of Programming</h3><p>Every non-trivial programming language provides:</p>
+<ul>
+<li>primitive expressions representing the simplest elements</li>
+<li>ways to combine expressions</li>
+<li>ways to abstract expressions, which introduces a name for an expression by which it can be referred to</li>
+</ul>
+<p>A non-primitive expression is evaluated as follows:</p>
+<ol>
+<li>Take the leftmost operator</li>
+<li>Evaluate its operands (left before right)</li>
+<li>Apply the operator to the operands</li>
+</ol>
+<p>A name is evaluated by replacing it with the right hand side of its definition.</p>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">2</span> * pi) * radius</span><br><span class="line">(<span class="number">2</span> * <span class="number">3.14159</span>) * radius  </span><br><span class="line"><span class="number">6.28318</span> * radius</span><br><span class="line"><span class="number">6.28318</span> * <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Definition can have parameters:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span></span>(x: <span class="type">Double</span>) = x * x</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Parameter and Return Types:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">power</span></span>(x: <span class="type">Double</span>, y: <span class="type">Int</span>): <span class="type">Double</span> = ...</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Evaluation of Function Applications</p>
+<ol>
+<li>Evaluate all function arguments, from left to right.</li>
+<li>Replace the function application by the function’s right-hand side, and, at the same time,</li>
+<li>Replace the formal parameters of the function by the actual arguments.</li>
+</ol>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">square(<span class="number">3</span>) + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line"><span class="number">9</span> + <span class="number">16</span></span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="The-substitution-model"><a href="#The-substitution-model" class="headerlink" title="The substitution model"></a>The substitution model</h3><p>The scheme of expression evaluation is called the substitution model.</p>
+<p>The idea is that all evaluation dose is reduce an expression to a value.</p>
+<p>It can be applied to all expressions, as long as they have no side effects.</p>
+<p>The substitution model is formalized in the <strong>λ-calculus</strong>, which gives a<br>foundation for functional programming.
+        
+          </p><p class="article-more-link">
+            <a href="/2014/05/19/scala_week1_notes/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/19/scala_week1_notes/">
+    <time datetime="2014-05-19T05:56:29.000Z" class="entry-date">
+        2014-05-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-start_learning_scala" class="post-start_learning_scala post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/17/start_learning_scala/">Start Learning Scala</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjwn9komo0025habhtp5wgr12" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>还记得大三时候室友打印了一本厚厚的<a href="http://mitpress.mit.edu/sicp/" target="_blank" rel="noopener">SICP</a>来读，当时我还不以为意。不过读了<a href="http://en.wikipedia.org/wiki/Paul_Graham_(computer_programmer)" target="_blank" rel="noopener">Paul Graham</a>的<a href="http://book.douban.com/subject/6021440/" target="_blank" rel="noopener">《黑客与画家》</a>后我也想亲自尝试一下，领略下<a href="http://en.wikipedia.org/wiki/Functional_programming" target="_blank" rel="noopener">Functional Programming(函数式编程)</a>的威力。</p>
+<p>于是选了<a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>上的函数式编程课程<a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a>，老师是欧洲名校<a href="http://www.epfl.ch/" target="_blank" rel="noopener">EPFL(洛桑联邦理工学院)</a>的教授，Scala语言的发明人<a href="http://lampwww.epfl.ch/~odersky/" target="_blank" rel="noopener">Martin Odersky</a>。目前我刚刚完成前两周的课程，这里从第一周的第一个Lecture里摘选一点内容，简单介绍一下函数式编程。</p>
+<br>
+---
+
+<p>在说“函数式”之前，先要知道它是一种<code>编程范式(Programming paradigm)</code>。</p>
+<p><a href="http://zh.wikipedia.org/wiki/编程范式" target="_blank" rel="noopener">Wikipedia</a>上指出：</p>
+<blockquote>
+<p>编程范式是一类典型的编程风格，是指从事软件工程的一类典型的风格(可以对照方法学)。<br>编程范式提供了（同时决定了）程序员对程序执行的看法。</p>
+</blockquote>
+<p>常见的编程范式有：</p>
+<ul>
+<li>imperative programming(命令式编程)</li>
+<li>functional programming(函数式编程)</li>
+<li>logic programming(逻辑式编程)</li>
+<li>object-oriented programming(面向对象编程)<br>
+
+</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/17/start_learning_scala/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/17/start_learning_scala/">
+    <time datetime="2014-05-16T16:33:49.000Z" class="entry-date">
+        2014-05-17
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-hello_world" class="post-hello_world post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/16/hello_world/">Hello World</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjwn9kok10000habhfshq4btx" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>在知乎上的一个问题<a href="http://www.zhihu.com/question/20962496" target="_blank" rel="noopener">如何在github上写博客？</a>中看到<a href="http://zipperary.com/" target="_blank" rel="noopener">Zippera</a>的回答，参考他的系列博文<a href="http://zipperary.com/categories/hexo/" target="_blank" rel="noopener">hexo | Zippera’s blog</a>搭建了这个blog。
+        
+          </p><p class="article-more-link">
+            <a href="/2014/05/16/hello_world/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/16/hello_world/">
+    <time datetime="2014-05-16T01:30:29.000Z" class="entry-date">
+        2014-05-16
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Diary/">Diary</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+  
+    <nav id="pagination">
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      </nav>
+    </nav>
+  
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

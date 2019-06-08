@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="网上找到的一些课件讲义等资料有时候会是 PPT 多页打印而成的 PDF 文件，比如下图这种：
+
+有些人希望对 PDF 页面进行裁剪，将 PDF 还原为原 slides 那样一页一张演示文稿的形式。（其实我个人觉得没什么必要，因为不影响阅读，而且 PDF 格式读起来还不用频繁翻页了。）
+前几天，我在知乎上看到了有这样需求的一个问题。
+当时想到用 Python 和 OpenCV 来做这样的图像处理小任务应该很简单的吧。于是动手撸了段代码，简单的 “边缘检测+轮廓提取”，最后结果看起来还不错：
+
+下面给出 Python 代码并简单解释下。">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>使用 OpenCV 裁剪 PDF 页面 | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="网上找到的一些课件讲义等资料有时候会是 PPT 多页打印而成的 PDF 文件，比如下图这种：  有些人希望对 PDF 页面进行裁剪，将 PDF 还原为原 slides 那样一页一张演示文稿的形式。（其实我个人觉得没什么必要，因为不影响阅读，而且 PDF 格式读起来还不用频繁翻页了。） 前几天，我在知乎上看到了有这样需求的一个问题。 当时想到用 Python 和 OpenCV 来做这样的图像处理小任">
+<meta name="keywords" content="OpenCV,Image Processing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 OpenCV 裁剪 PDF 页面">
+<meta property="og:url" content="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="网上找到的一些课件讲义等资料有时候会是 PPT 多页打印而成的 PDF 文件，比如下图这种：  有些人希望对 PDF 页面进行裁剪，将 PDF 还原为原 slides 那样一页一张演示文稿的形式。（其实我个人觉得没什么必要，因为不影响阅读，而且 PDF 格式读起来还不用频繁翻页了。） 前几天，我在知乎上看到了有这样需求的一个问题。 当时想到用 Python 和 OpenCV 来做这样的图像处理小任">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20150402_crop_pdf_with_OpenCV/slides_in_pdf.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20150402_crop_pdf_with_OpenCV/pdf_cropped.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20150402_crop_pdf_with_OpenCV/edged_image.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/20150402_crop_pdf_with_OpenCV/contours.png">
+<meta property="og:updated_time" content="2019-06-08T08:32:10.904Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 OpenCV 裁剪 PDF 页面">
+<meta name="twitter:description" content="网上找到的一些课件讲义等资料有时候会是 PPT 多页打印而成的 PDF 文件，比如下图这种：  有些人希望对 PDF 页面进行裁剪，将 PDF 还原为原 slides 那样一页一张演示文稿的形式。（其实我个人觉得没什么必要，因为不影响阅读，而且 PDF 格式读起来还不用频繁翻页了。） 前几天，我在知乎上看到了有这样需求的一个问题。 当时想到用 Python 和 OpenCV 来做这样的图像处理小任">
+<meta name="twitter:image" content="https://yilingui.xyz/imgs/20150402_crop_pdf_with_OpenCV/slides_in_pdf.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-crop_pdf_with_OpenCV" class="post-crop_pdf_with_OpenCV post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      使用 OpenCV 裁剪 PDF 页面
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="cjwn9kok80002habh9lgmiqxo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>网上找到的一些课件讲义等资料有时候会是 PPT 多页打印而成的 PDF 文件，比如下图这种：</p>
+<p><img src="/imgs/20150402_crop_pdf_with_OpenCV/slides_in_pdf.png" alt="slides in pdf"></p>
+<p>有些人希望对 PDF 页面进行裁剪，将 PDF 还原为原 slides 那样一页一张演示文稿的形式。（其实我个人觉得没什么必要，因为不影响阅读，而且 PDF 格式读起来还不用频繁翻页了。）</p>
+<p>前几天，我在知乎上看到了有这样需求的<a href="http://www.zhihu.com/question/29065981" target="_blank" rel="noopener">一个问题</a>。
+当时想到用 Python 和 <a href="http://opencv.org/" target="_blank" rel="noopener">OpenCV</a> 来做这样的图像处理小任务应该很简单的吧。于是动手撸了段代码，简单的 <strong>“边缘检测+轮廓提取”</strong>，最后结果看起来还不错：</p>
+<p><img src="/imgs/20150402_crop_pdf_with_OpenCV/pdf_cropped.png" alt="pdf cropped results"></p>
+<p>下面给出 Python 代码并简单解释下。</p>
+<a id="more"></a>
+
+<br>
+
+<hr>
+<h2 id="1-边缘检测"><a href="#1-边缘检测" class="headerlink" title="1. 边缘检测"></a>1. 边缘检测</h2><p>新建一个文件 pdfcrop.py ，加入如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># construct the argument parse and parse the arguments</span></span><br><span class="line">ap = argparse.ArgumentParser()</span><br><span class="line">ap.add_argument(<span class="string">"-i"</span>, <span class="string">"--image"</span>, help=<span class="string">"path to the image file"</span>)</span><br><span class="line">args = vars(ap.parse_args())</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 读取图片，进行边缘检测</span></span><br><span class="line">image = cv2.imread(args[<span class="string">"image"</span>])</span><br><span class="line">gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)</span><br><span class="line">gray = cv2.GaussianBlur(gray, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>)</span><br><span class="line">edged = cv2.Canny(gray, <span class="number">75</span>, <span class="number">200</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 显示原图和边缘图像</span></span><br><span class="line">cv2.imshow(<span class="string">"Original Image"</span>, image)</span><br><span class="line">cv2.imshow(<span class="string">"Edged Image"</span>, edged)</span><br><span class="line">cv2.waitKey()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<p>假设你的图片文件为 test.png ，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pdfcrop.py -i test.png</span><br></pre></td></tr></table></figure>
+
+<p>边缘检测结果：</p>
+<p><img src="/imgs/20150402_crop_pdf_with_OpenCV/edged_image.png" alt="edged image"></p>
+<br>
+
+<hr>
+<h2 id="2-轮廓提取"><a href="#2-轮廓提取" class="headerlink" title="2. 轮廓提取"></a>2. 轮廓提取</h2><p>这里的思路很简单，我们要找的轮廓是矩形的（有四个顶点），而且应该是面积最大的前 N 个（上图N = 6）轮廓。使用 Python 和 OpenCV 实现起来也是非常简单，继续编辑 pdfcrop.py ：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 轮廓提取</span></span><br><span class="line">(cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_LIST,</span><br><span class="line">                             cv2.CHAIN_APPROX_SIMPLE)</span><br><span class="line">cnts = sorted(cnts, key=cv2.contourArea, reverse=<span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">poly_contours = []</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> cnts[<span class="number">0</span>:<span class="number">6</span>]:</span><br><span class="line">    peri = cv2.arcLength(c, <span class="literal">True</span>)</span><br><span class="line">    approx = cv2.approxPolyDP(c, <span class="number">0.02</span> * peri, <span class="literal">True</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> len(approx) == <span class="number">4</span>:</span><br><span class="line">        poly_contours.append(approx)</span><br><span class="line"> </span><br><span class="line">contours_image = image.copy()</span><br><span class="line"><span class="keyword">for</span> contours <span class="keyword">in</span> poly_contours:</span><br><span class="line">    cv2.drawContours(contours_image, [contours], <span class="number">-1</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 显示轮廓图像</span></span><br><span class="line">cv2.imshow(<span class="string">"Contours"</span>, contours_image)</span><br><span class="line">cv2.waitKey()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<p>轮廓提取的结果：</p>
+<p><img src="/imgs/20150402_crop_pdf_with_OpenCV/contours.png" alt="contours"></p>
+<br>
+
+<hr>
+<h2 id="3-获取轮廓内的图像"><a href="#3-获取轮廓内的图像" class="headerlink" title="3. 获取轮廓内的图像"></a>3. 获取轮廓内的图像</h2><p>最后只要保存上一步中检测到的矩形轮廓内部的图像就好了，在 pdfcrop.py 中加入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分别显示矩形轮廓内的图像</span></span><br><span class="line">index = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> contours <span class="keyword">in</span> poly_contours:</span><br><span class="line">    rect = cv2.boundingRect(contours)</span><br><span class="line">    cv2.imshow(<span class="string">"test"</span> + str(index),</span><br><span class="line">               image[rect[<span class="number">1</span>]:rect[<span class="number">1</span>]+rect[<span class="number">3</span>],</span><br><span class="line">                     rect[<span class="number">0</span>]:rect[<span class="number">0</span>]+rect[<span class="number">2</span>]])</span><br><span class="line">    index += <span class="number">1</span></span><br><span class="line"> </span><br><span class="line">cv2.waitKey()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<p>上面的代码只能对图片文件进行处理，不能直接处理 PDF ，想要使用的话可以考虑利用其他软件先将 PDF 批量转换成图片文件。(或者找一找 Python 处理 PDF 的库？)</p>
+<p>还有一个问题就是裁剪后 slides 的顺序，这里我没有处理，其实做起来也很简单，将提取出的矩形轮廓按照位置坐标进行排序就好了。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2015/04/02/crop_pdf_with_OpenCV/">
+    <time datetime="2015-04-02T11:56:29.000Z" class="entry-date">
+        2015-04-02
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image-Processing/">Image Processing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV/">OpenCV</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" rel="prev"><span class="meta-nav">←</span> 柴郡猫技术--C++中的PIMPL设计模式</a></span>
+    
+    
+        <span class="nav-next"><a href="/2015/03/30/lambda_expressions_in_cpp/" rel="next">C++ 中的 lambda 表达式 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

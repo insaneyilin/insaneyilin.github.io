@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="《Ruby语言入门教程v1.0》笔记（2）
+
+第四章 Ruby面向对象初探1. 封装让我们来定义一个类， 类名是 Person， 类名首字母要大写；   
+属性有姓名@name、年龄@age、国籍@motherland，实例变量用@开头；方法有一个，叫 talk, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。
+Person.rb1234567891011121314151617181920212223class Person  def initialize(name, age = 18)    @name = name    @age = age    @motherland = &#34;China&#34;  end  # 初始化方法结束  def talk    puts &#34;my name is &#34; + @name + &#34;, age is &#34; + @age.to_s    if @motherland == &#34;China&#34;      puts &#34;I am a Chinese.&#34;    else      puts &#34;I am a foreigner.&#34;    end  end  # talk方法结束  attr_writer :motherland  # @motherland的setterendp1 = Person.new(&#34;Yilin&#34;, 23)p1.talkp2 = Person.new(&#34;Ben&#34;)p2.motherland = &#34;ABC&#34;p2.talk
+
+initialize 是初始化方法，相当于构造函数。参数 age 有一个缺省值 18，可以在任何方法内使用缺省参数,而不仅仅是 initialize。   
+如果有缺省参数， 参数表必须以有缺省值的参数结尾。
+注意我们定义了@motherland成员变量的setter：">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Ruby Quick Start (2) -- Objects in Ruby | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="《Ruby语言入门教程v1.0》笔记（2）  第四章 Ruby面向对象初探1. 封装让我们来定义一个类， 类名是 Person， 类名首字母要大写；    属性有姓名@name、年龄@age、国籍@motherland，实例变量用@开头；方法有一个，叫 talk, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。 Person.rb1234567891011121314151617181">
+<meta name="keywords" content="Ruby">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ruby Quick Start (2) -- Objects in Ruby">
+<meta property="og:url" content="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="《Ruby语言入门教程v1.0》笔记（2）  第四章 Ruby面向对象初探1. 封装让我们来定义一个类， 类名是 Person， 类名首字母要大写；    属性有姓名@name、年龄@age、国籍@motherland，实例变量用@开头；方法有一个，叫 talk, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。 Person.rb1234567891011121314151617181">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-08T08:32:31.997Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ruby Quick Start (2) -- Objects in Ruby">
+<meta name="twitter:description" content="《Ruby语言入门教程v1.0》笔记（2）  第四章 Ruby面向对象初探1. 封装让我们来定义一个类， 类名是 Person， 类名首字母要大写；    属性有姓名@name、年龄@age、国籍@motherland，实例变量用@开头；方法有一个，叫 talk, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。 Person.rb1234567891011121314151617181">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-ruby_quickstart_notes_2" class="post-ruby_quickstart_notes_2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Ruby Quick Start (2) -- Objects in Ruby
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjwn9kon3002uhabhrtcwuzqu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="noopener">《Ruby语言入门教程v1.0》</a>笔记（2）<br><br></p>
+<hr>
+<h2 id="第四章-Ruby面向对象初探"><a href="#第四章-Ruby面向对象初探" class="headerlink" title="第四章 Ruby面向对象初探"></a>第四章 Ruby面向对象初探</h2><h3 id="1-封装"><a href="#1-封装" class="headerlink" title="1. 封装"></a>1. 封装</h3><p>让我们来定义一个类， 类名是 <code>Person</code>， <strong>类名首字母要大写</strong>；   
+属性有姓名<code>@name</code>、年龄<code>@age</code>、国籍<code>@motherland</code>，实例变量用<code>@</code>开头；<br>方法有一个，叫 <code>talk</code>, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。</p>
+<figure class="highlight ruby"><figcaption><span>Person.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(name, age = <span class="number">18</span>)</span></span></span><br><span class="line">    @name = name</span><br><span class="line">    @age = age</span><br><span class="line">    @motherland = <span class="string">"China"</span></span><br><span class="line">  <span class="keyword">end</span>  <span class="comment"># 初始化方法结束</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"my name is "</span> + @name + <span class="string">", age is "</span> + @age.to_s</span><br><span class="line">    <span class="keyword">if</span> @motherland == <span class="string">"China"</span></span><br><span class="line">      puts <span class="string">"I am a Chinese."</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      puts <span class="string">"I am a foreigner."</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span>  <span class="comment"># talk方法结束</span></span><br><span class="line">  <span class="keyword">attr_writer</span> <span class="symbol">:motherland</span>  <span class="comment"># <span class="doctag">@motherland</span>的setter</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">p1 = Person.new(<span class="string">"Yilin"</span>, <span class="number">23</span>)</span><br><span class="line">p1.talk</span><br><span class="line"></span><br><span class="line">p2 = Person.new(<span class="string">"Ben"</span>)</span><br><span class="line">p2.motherland = <span class="string">"ABC"</span></span><br><span class="line">p2.talk</span><br></pre></td></tr></table></figure>
+
+<p><code>initialize</code> 是初始化方法，相当于构造函数。<br>参数 <code>age</code> 有一个缺省值 <code>18</code>，可以在任何方法内使用缺省参数,而不仅仅是 <code>initialize</code>。   
+如果有缺省参数， 参数表必须以有缺省值的参数结尾。</p>
+<p>注意我们定义了<code>@motherland</code>成员变量的setter：</p>
+<a id="more"></a>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">attr_writer</span> <span class="symbol">:motherland</span></span><br></pre></td></tr></table></figure>
+
+<p>相当于</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">motherland=</span><span class="params">(value)</span></span></span><br><span class="line">  <span class="keyword">return</span> @motherland = value</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>类似的可以定义getter:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">attr_reader</span> <span class="symbol">:motherland</span></span><br></pre></td></tr></table></figure>
+
+<p>相当于</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">motherland</span></span></span><br><span class="line">  <span class="keyword">return</span> @motherland</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="2-继承"><a href="#2-继承" class="headerlink" title="2. 继承"></a>2. 继承</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> &lt; Person</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"I am a student. my name is "</span>+@name+<span class="string">", age is "</span>+@age.to_s</span><br><span class="line">  <span class="keyword">end</span>  <span class="comment"># talk 方法结束</span></span><br><span class="line"><span class="keyword">end</span>  <span class="comment"># Student 类结束</span></span><br><span class="line"></span><br><span class="line">p3 = Student.new(<span class="string">"Guy"</span>, <span class="number">23</span>); p3.talk</span><br><span class="line">p4 = Student.new(<span class="string">"Ben"</span>); p4.talk</span><br></pre></td></tr></table></figure>
+
+<p>用<code>&lt;</code>表示 <code>Student</code> 类是 <code>Person</code> 类的子类。<code>Person</code> 类的一切，<code>Student</code> 类都能继承。<br>但是 <code>Student</code> 类重写了 <code>talk</code> 方法，所以我们看到了不同的运行结果。<br>子类继承父类的时候， 除了重写方法也可以添加一些新的方法；<br>或是增强父类的方法(用关键字 <code>super</code> 指明)。</p>
+<p>现在说一说 <code>new</code> 方法。<br><code>Person</code> 类没有定义 <code>new</code> 方法，为什么生成 <code>Person</code> 类的具体实例要用 <code>new</code>？   
+<code>Ruby</code> 语言已经定义了一个类 <code>Object</code>，如果你在定义新类的时候，没有指明新类的父类，那么Ruby解释器认为，新类的父类是 <code>Object</code> 类。<br>类 <code>Object</code> 含有 <code>new</code> 方法、<code>initialize</code> 方法等等，只要你不重写这些方法，你就自然在使用类 <code>Object</code> 的方法。</p>
+<p>你写一个类的时候，是在创造一类事物的蓝图；当你 <code>new</code> 的时候，一个实例就按照蓝图生成了。</p>
+<p>蓝图早已设计好了，<code>new</code> 的时候就是出生的时刻，那么，何时消亡呢？<br>这里没有 C++ 的析构函数，也没有 Java 的 <code>finalize()</code> 方法，Ruby 语言内建了一个比 Java更灵巧的<strong>垃圾收集器</strong>， 当某个实例不再与其它代码交互了， 垃圾收集器就回收它占用的系统资源，这个实例自然也就不存在了。<br>垃圾收集器是一段代码，它作它的工作，自动地、不知疲倦地随着系统一同运作，并无自己的喜恶。</p>
+<br>
+
+<hr>
+<h3 id="3-多态"><a href="#3-多态" class="headerlink" title="3. 多态"></a>3. 多态</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Worker</span> &lt; Person</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"I am a worker. my name is "</span>+@name+<span class="string">", age is "</span>+@age.to_s</span><br><span class="line">  <span class="keyword">end</span>  <span class="comment"># talk 方法结束</span></span><br><span class="line"><span class="keyword">end</span>  <span class="comment"># Worker 类结束</span></span><br><span class="line"></span><br><span class="line">p5 = Worker.new(<span class="string">"InsaneGuy"</span>, <span class="number">23</span>); p5.talk</span><br><span class="line">p6 = Worker.new(<span class="string">"Ben"</span>); p6.talk</span><br></pre></td></tr></table></figure>
+
+<p>Ruby 语言，只有重写(override) ，没有其它语言具有的严格意义上的重载(overload)。</p>
+<p>Ruby 语言有自己的单例方法，还有模块插入(Mix-in)，后面会深入探讨 Ruby 语言的面向对象特征。</p>
+<br>
+<br>
+
+<hr>
+<h2 id="第五章-Why-Ruby"><a href="#第五章-Why-Ruby" class="headerlink" title="第五章 Why Ruby?"></a>第五章 Why Ruby?</h2><p>当你决定学习或使用一门语言的时候，首先要回答的问题就是：Why XXX? 而不是一开始就去比较语言的优劣。</p>
+<p>语言有优劣吗？有！肯定有！但是没有绝对的优劣，在不同的情景下选择合适的语言才是程序员应该关注的。</p>
+<p>XXX可以是C++，Java，Python，当然现在要讨论的是Ruby。</p>
+<p>Java是强静态语言，与软件的快速开发无缘。</p>
+<p>C++不仅兼容C，而且囊括了模板、范型等特性，包罗万象。无论是系统调用、网络开发、数据库操作都能显试身手，可是<strong>程序员很难掌握这些</strong>，即使想熟练应用其中某一方面也不容易。</p>
+<p>Ruby 灵巧，快速，但<strong>其实并不简单</strong>。</p>
+<p>Ruby中实现一个小功能，可以有 3 种甚至 4 种完全不同的思路与方法，因为Ruby在语法层次实现了冗余，但是这样一来：</p>
+<ol>
+<li>程序员深入掌握 Ruby 变得不很容易；</li>
+<li>程序员们相互读懂代码也很难；</li>
+<li>软件生产是一种大规模群体合作的行为。许多软件公司有自己的编码规范，促使员工编码风格统一，以便于:<ul>
+<li>程序解耦重构</li>
+<li>代码复用</li>
+<li>人员流动后项目如期推进。</li>
+</ul>
+</li>
+</ol>
+<p>Java 撇下 C++，成为软件工业的支柱语言，正是得力于此。</p>
+<p>Ruby 灵巧，快速，千变万化，没有统一风格，难于解耦，<strong>在目前，自然不适合工业生产</strong>。</p>
+<p>Ruby 的语法中有许多<strong>容易产生歧义</strong>的地方，假如没有较深的功力、良好的编码风格（比如空格的使用） ，很容易犯错。软件生产总是偏向于成熟方案、成熟工具的。</p>
+<p>Ruby语言具有动态特征，代码行为随时可以改变(比如可以重定义实例的方法)。</p>
+<p>编程语言的发展可以分两大类，一类<strong>函数式语言</strong>，一类<strong>命令式语言</strong>。</p>
+<p>命令式语言将操作数演化成现在我们熟悉的变量，将操作码演化成方法（或叫函数），对变量执行各种操作。</p>
+<p>面向对象编程又将基本变量和方法封装在一起， 成为一个更复杂的变量——对象。</p>
+<p>但是， 在一个类中仍然区分基本变量和方法。</p>
+<p>函数式语言则不同，一开始的函数式语言不区分变量和方法，一切都是表（list），表就是能够不断分解成单个元素的数学符号。</p>
+<p>表可以是变量，可以是方法。后来的有些函数式语言，吸取了命令式语言的语法，也区分变量和方法。</p>
+<p>变量有哪些特征呢？</p>
+<ol>
+<li>变量有名字；</li>
+<li>变量代表的那个事物应该有一个可以用数学度量的值；长度，面积，速度大小，磁场强度等</li>
+<li>为了区别事物，我们将事物分成几个基本类型。所以，代表不同类型的事物，变量也就有了不同的类型。</li>
+<li>事物总是有产生到消亡的一个过程，因此，代表事物的变量，也就有了生命期。在程序中，我们把变量的生命期，称之为变量的作用域。</li>
+</ol>
+<p>作为一个使用者，1. 2. 是必须的。至于类型、生命期，与我何干？某个变量，我使用一下就丢弃了。</p>
+<p>由编译内核（或解释内核）在运行时刻来判断变量类型的语言，叫动态类型语言。</p>
+<p>在运行中，变量能够随时代表不同的事物，而不管事物是什么类型，这种语言，叫弱类型语言。这里的“弱”，是指弱化了类型的概念，不理会类型的差异。</p>
+<p>Ruby 语言还是有基本类型。至于变量作用域，纯粹的函数式语言中是没有这个概念的。Ruby 中是有变量作用域概念的，还记得变量名前缀字符($表示全局变量，@表示实例变量，@@表示类变量)吗？实际应用中，有时会比较复杂，使用闭包时就知道了。</p>
+<p>Ruby 是动态类型语言，不用给任何变量指定数据类型，解释器会在你第一次赋值给变量时，在内部将数据类型记录下来。</p>
+<p>Ruby 语言中，一个变量被赋予了某个数据类型的值，在程序中你可以随时再赋予这个变量其它数据类型的值。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">5</span></span><br><span class="line">print <span class="string">"a = "</span>, a, <span class="string">" "</span>, a.<span class="keyword">class</span>, <span class="string">"\n"</span></span><br><span class="line">a = <span class="string">"hh"</span></span><br><span class="line">print <span class="string">"a = "</span>, a, <span class="string">" "</span>, a.<span class="keyword">class</span>, <span class="string">"\n"</span></span><br></pre></td></tr></table></figure>
+
+<p>Ruby 的动态类型特点是一把双刃剑，熟手游刃有余，生手常常伤着自己。</p>
+<p>在没有了编译器查错的日子里，又没有完全驾驭 Ruby 之前，如何避免常常出错呢？</p>
+<p>有一个下口之处，就是死盯住<strong>变量的命名</strong>。用一些有意义的名字，不必太长， 但是应该少用单字符， 除非是循环指针变量。</p>
+<p>你也许认为我自己能看懂就行了，这是十分有害的想法。<strong>在一个项目组中，程序员是要彼此相互沟通合作的。当坏习惯养成后，要改是很难的</strong>。</p>
+<p>Ruby是动态语言，你可以改变Ruby程序的结构，功能。</p>
+<p>在Ruby程序运行中，方法、属性可以被加入或去除，新的类或对象可以被建立，新的模块可以出现：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"Today is Saturday. "</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">p1 = Person.new</span><br><span class="line">p1.talk  <span class="comment"># Today is Saturday</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"Today is #@date. "</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">attr_accessor</span> <span class="symbol">:date</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">p1.date = <span class="string">"Sunday"</span>    </span><br><span class="line">p1.talk  <span class="comment"># Today is Sunday.</span></span><br></pre></td></tr></table></figure>
+
+<p>除了修改方法，添加方法，你还可以除去方法：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"Today is Saturday. "</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">p1 = Person.new</span><br><span class="line">p1.talk  <span class="comment"># Today is Saturday.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="keyword">undef</span> <span class="symbol">:talk</span>  <span class="comment"># undef关键字将talk方法定义为不可使用</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment"># p1.talk talk方法已经不存在</span></span><br></pre></td></tr></table></figure>
+
+<p>Ruby语言灵活，因为Ruby是动态语言；Ruby语言强大，因为Ruby是动态语言；Ruby语言初学者容易犯错误，也因为Ruby是动态语言。</p>
+<br>
+
+<hr>
+<h3 id="Ruby的一些编码建议"><a href="#Ruby的一些编码建议" class="headerlink" title="Ruby的一些编码建议"></a>Ruby的一些编码建议</h3><h4 id="一-命名"><a href="#一-命名" class="headerlink" title="一. 命名"></a>一. 命名</h4><p>常量全用大写的字母，用下划线分割单词。例如：<code>MAX</code>, <code>ARRAY_LENGTH</code>。  </p>
+<p>类名和模块名用大写字母开头的单词组合而成。例如：<code>MyClass</code>, <code>Person</code>。</p>
+<p>方法名全用小写的字母，用下划线分割单词。例如：<code>talk</code>, <code>is_prime?</code>。</p>
+<p>在Ruby里,有时将<code>!</code>和<code>?</code>附于某些方法名后面。</p>
+<p>惊叹号<code>!</code>暗示这个方法具有破坏性, 有可能会改变传入的参数。</p>
+<p>问号<code>?</code>表示这个方法是一个布尔方法，只会返回 <code>true</code> 或 <code>false</code> 。</p>
+<p>变量和参数用小写字母开头的单词组合而成。例如：<code>name</code>, <code>currentValue</code>。</p>
+<p>类名、模块名、变量名、参数名最好使用“名词”或者“形容词＋名词”。</p>
+<p>方法名最好使用“动词”或者“动词＋名词”。例如：<code>aStudent.talk</code></p>
+<br>
+
+<hr>
+<h4 id="二-空格和圆括号"><a href="#二-空格和圆括号" class="headerlink" title="二. 空格和圆括号"></a>二. 空格和圆括号</h4><p>关键字之后要留空格。</p>
+<p>逗号<code>,</code>、分号<code>;</code>之后要留空格。</p>
+<p>赋值操作符、 比较操作符、 算术操作符、 逻辑操作符， 如<code>=</code>、<code>+=</code>、<code>&gt;=</code>、<code>&lt;=</code>、<code>+</code>、<code>*</code>、<code>%</code>、<code>&amp;&amp;</code>、<code>||</code>等二元操作符的前后应当加空格。</p>
+<p>一元操作符如<code>!</code>、<code>~</code>等之后不加空格。</p>
+<p>像<code>[]</code>、<code>.</code>、<code>::</code>这类操作符前后不加空格。</p>
+<p>函数名之后不要留空格，紧跟左圆括号<code>(</code>，以与关键字区别。</p>
+<p>左圆括号<code>(</code>向后紧跟，右圆括号<code>)</code>向前紧跟，紧跟处不留空格。</p>
+<p>Ruby中圆括号常常被省略：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">talk</span> <span class="title">name</span></span></span><br><span class="line">  <span class="string">"Hi! "</span> + name</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">puts talk <span class="string">"Yilin"</span> 	</span><br><span class="line">puts talk(<span class="string">"Yilin"</span>) 	</span><br><span class="line">puts (talk <span class="string">"Yilin"</span>) </span><br><span class="line">puts (talk(<span class="string">"Yilin"</span>))</span><br></pre></td></tr></table></figure>
+
+<p>优先规则会自动确定哪个参数被哪个方法使用。但是，生活并不总是美好的，事情经常变得复杂。<br>所以建议除了极简单的情况，还是使用圆括号为好。</p>
+<p>圆括号还可以把几个语句约束成一个语句集合：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">3</span></span><br><span class="line">b = <span class="number">1</span>; a += b <span class="keyword">if</span> <span class="number">3</span> &gt; <span class="number">5</span></span><br><span class="line">print <span class="string">"a = "</span>, a, <span class="string">"\n"</span> <span class="comment"># a = 3</span></span><br><span class="line">print <span class="string">"b = "</span>, b, <span class="string">"\n"</span> <span class="comment"># b = 1</span></span><br><span class="line">c = <span class="number">3</span></span><br><span class="line">(d = <span class="number">1</span>; c += d) <span class="keyword">if</span> <span class="number">3</span> &gt; <span class="number">5</span></span><br><span class="line">print <span class="string">"c = "</span>, c, <span class="string">"\n"</span> <span class="comment"># c = 3</span></span><br><span class="line">print <span class="string">"d = "</span>, d, <span class="string">"\n"</span> <span class="comment"># d = nil</span></span><br><span class="line"><span class="comment"># 条件为假，语句集合里的变量d 没有被赋值</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h4 id="三-使用-return"><a href="#三-使用-return" class="headerlink" title="三. 使用 return"></a>三. 使用 return</h4><p>你在定义方法的时候，在最后一行可以显式地 <code>return</code> 某个值或几个值，但却不是必须的。</p>
+<p>Ruby 方法的最后一行语句如果是表达式，表达式的值会被自动返回；最后一行语句如果不是表达式，就什么也不返回。</p>
+<p><code>return</code> 并不仅仅用在方法的最后一行。</p>
+<p>使用 <code>break</code> 你能够跳出本层循环，如果要从多重循环体中跳出，可以使用 <code>return</code> ，结束这个方法； <code>return</code> 还能够从方法的某个执行点立即退出，而不理会方法的其余代码。</p>
+<br>
+
+<hr>
+<h4 id="四-注释"><a href="#四-注释" class="headerlink" title="四. 注释"></a>四. 注释</h4><p>养成写注释的习惯吧！你见过没有路标的高速公路吗？</p>
+<p>注释表明了一段代码块的功能、意图或是代码块的解释，应该简洁明了，错误的注释不如没有注释。</p>
+<p>一般地，注释的位置应与被描述的代码相邻，可以放在代码的上方或右方，不要放在代码的下方。</p>
+<br>
+<br>
+
+<hr>
+<h2 id="第六章-深入Ruby面向对象"><a href="#第六章-深入Ruby面向对象" class="headerlink" title="第六章 深入Ruby面向对象"></a>第六章 深入Ruby面向对象</h2><h3 id="1-重载与重写"><a href="#1-重载与重写" class="headerlink" title="1. 重载与重写"></a>1. 重载与重写</h3><p>在 Java 中，重载(overload)和重写(override)是用来表现多态性的两种重要方式。</p>
+<p>override 也有译作“覆盖”、“覆写”。Java 中称作“覆写”比较恰当。</p>
+<p>重载方法是指一个类中，<strong>方法名相同、参数列表不同</strong>的几个方法，调用时根据不同的参数调用不同的方法。方法重载与返回类型无关。</p>
+<p>覆写方法是指子类有一个方法，<strong>方法名、参数列表、返回类型</strong>与父类的某个方法<strong>完全一致</strong>。 调用时会调用子类的方法， 而屏蔽掉父类的同名方法。 </p>
+<p>需要注意的是，子类覆写的方法，其可访问性一定要强于或等同于，父类被覆写的同名方法。</p>
+<p>覆写发生在子类和父类之间， 当然也可以是子类和父类的父类之间。 </p>
+<p>重载不仅仅是发生在子类和父类之间，大多数时候，发生在同一个类中。</p>
+<p>“ Ruby 语言， 只有重写， 没有其它语言具有的严格意义上的重载。 ”</p>
+<p>由于 Ruby 同时支持缺省参数和可变参数，所以 Ruby 不支持重载。</p>
+<p>如果在同一个类中写两个同名方法，总是写在后面的方法被执行。</p>
+<p><strong>在 Ruby 中，我们说覆写是指重写，我们说重载也是指重写</strong>。</p>
+<p>Ruby 是动态语言，可以随时改变类的属性、方法，所以覆写和重载的重要性就降低了。仔细体会一下，一者是增大可选择性，一者是随时修改。</p>
+<br>
+
+<hr>
+<h3 id="2-增强父类方法"><a href="#2-增强父类方法" class="headerlink" title="2. 增强父类方法"></a>2. 增强父类方法</h3><p>如果我们只是想增强父类的方法，而不是完全地替代它,就可以用关键字 <code>super</code> 指明。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span><span class="params">(name)</span></span></span><br><span class="line">    print <span class="string">"my name is <span class="subst">#&#123;name&#125;</span>."</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> &lt; Person</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span><span class="params">(name)</span></span></span><br><span class="line">    <span class="keyword">super</span></span><br><span class="line">    print <span class="string">"and I'm a student.\n"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">aPerson = Person.new</span><br><span class="line">aPerson.talk(<span class="string">"Yilin"</span>) <span class="comment"># my name is Yilin.</span></span><br><span class="line">print <span class="string">"\n\n"</span></span><br><span class="line">aStudent = Student.new</span><br><span class="line">aStudent.talk(<span class="string">"Yilin"</span>) <span class="comment"># my name is Yilin.and I'm a student.</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="3-实例变量、类变量、类方法"><a href="#3-实例变量、类变量、类方法" class="headerlink" title="3. 实例变量、类变量、类方法"></a>3. 实例变量、类变量、类方法</h3><p>如果一个变量，只能被某个实例对象使用，这样的变量称之为实例变量；如果一个变量，能被某个类的所有实例对象共享，这样的变量称之为类变量。</p>
+<p>Ruby的常量可以定义在类和模块中，不能定义在方法中。</p>
+<p>如果在外部访问类或模块中的常量，要使用 域作用符<code>::</code>。</p>
+<p>全局变量用<code>$</code>开头。</p>
+<p>实例变量，变量名用<code>@</code>开头；类变量，变量名用<code>@@</code>开头。</p>
+<p>Ruby 中所说的局部变量，可以是存在于类中、方法中、模块中、一个循环中、一个过程对象中。<strong>局部变量名用小写字母开头</strong>。</p>
+<p>如果我们希望一类事物共享某个变量，类变量能够很好地实现这个需求。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentClass</span></span></span><br><span class="line">  @@count = <span class="number">0</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">( name )</span></span></span><br><span class="line">    @name = name</span><br><span class="line">    @@count += <span class="number">1</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"I am #@name, This class have #@@count students."</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">p1 = StudentClass.new(<span class="string">"Student 1 "</span>)</span><br><span class="line">p2 = StudentClass.new(<span class="string">"Student 2 "</span>)</span><br><span class="line">p3 = StudentClass.new(<span class="string">"Student 3 "</span>)</span><br><span class="line">p4 = StudentClass.new(<span class="string">"Student 4 "</span>)</span><br><span class="line">p3.talk  <span class="comment"># I am Student 3 , This class have 4 students.</span></span><br><span class="line">p4.talk  <span class="comment"># I am Student 4 , This class have 4 students.</span></span><br></pre></td></tr></table></figure>
+
+<p>与全局变量和实例变量不同，<strong>类变量在使用前必须要初始化</strong>；全局变量和实例变量如果没有初始化，其值为 <code>nil</code> 。</p>
+<p>类方法——不依赖于任何特定实例对象的方法。类方法与实例方法的定义方式不同， 定义类方法要在方法名前加上类名和一个点号<code>.</code>。</p>
+<p>类方法的主要作用是为了<strong>访问类变量</strong>。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentClass</span></span></span><br><span class="line">  @@count = <span class="number">0</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span></span></span><br><span class="line">    @@count += <span class="number">1</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">StudentClass</span>.<span class="title">student_count</span></span></span><br><span class="line">    puts <span class="string">"This class have #@@count students."</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">p1 = StudentClass.new</span><br><span class="line">p2 = StudentClass.new</span><br><span class="line">StudentClass.student_count  <span class="comment"># This class have 2 students.</span></span><br><span class="line">p3 = StudentClass.new</span><br><span class="line">p4 = StudentClass.new</span><br><span class="line">StudentClass.student_count  <span class="comment"># This class have 4 students.</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="4-单例方法"><a href="#4-单例方法" class="headerlink" title="4. 单例方法"></a>4. 单例方法</h3><p>同一份设计蓝图（类），不同的实例对象，可以表现出不同的行为特征，这种（不牵涉继承的） 多态性在 Java 这样的静态语言里， 通过方法重载得到具体实现。</p>
+<p>前面我们分析知道了 Ruby 中的重载是指重写， Ruby 如何来反映不同实例对象的不同行为特征呢？</p>
+<p>在 Ruby 里，可以给具体的实例对象添加实例方法，这个方法只属于这个实例对象，我们把这样的方法称之为单例方法。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"Hi! "</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">p1 = Person.new</span><br><span class="line">p2 = Person.new</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">p2</span>.<span class="title">talk</span>  <span class="comment"># 定义单例方法 p2.talk</span></span></span><br><span class="line">  puts <span class="string">"Here is p2. "</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">p2</span>.<span class="title">laugh</span>  <span class="comment"># 定义单例方法 p2. laugh</span></span></span><br><span class="line">  puts <span class="string">"ha,ha,ha... "</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">p1.talk  <span class="comment"># Hello!</span></span><br><span class="line">p2.talk  <span class="comment"># Here is p2.</span></span><br><span class="line">p2.laugh  <span class="comment"># ha,ha,ha...</span></span><br></pre></td></tr></table></figure>
+
+<p>实例方法，属于类的每个实例对象。单例方法只出现在单个实例对象中。</p>
+<p>用单例方法可以极大地丰富多态性在 Ruby 中的表现力。</p>
+<br>
+
+<hr>
+<h3 id="5-Ruby中的访问控制"><a href="#5-Ruby中的访问控制" class="headerlink" title="5. Ruby中的访问控制"></a>5. Ruby中的访问控制</h3><p>在 Ruby 里，要读取，或是改变对象的属性，唯一的途径是调用对象的方法。</p>
+<p>控制了对方法的访问，也就控制了对对象属性的访问。</p>
+<table border="1"> <tr> <th>访问控制</th> <th>意义</th> </tr> <tr> <th>public</th> <th>可以被任何实例对象调用，不存在访问控制；</th> </tr> <tr> <th>protected</th> <th>可以被定义它的类和其子类访问，可以在类中或子类中指定给实例对象；</th> </tr> <tr> <th>private</th> <th>可以被定义它的类和其子类访问，不能被实例对象调用。</th> </tr> </table>
+
+<br>
+
+<p>方法默认都是公有的（ <code>initialize</code> 方法除外，它永远是私有的）。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">" public :talk, 将调用 speak"</span></span><br><span class="line">    speak</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">speak</span></span></span><br><span class="line">    puts <span class="string">"protected :speak,将调用 laugh"</span></span><br><span class="line">    laugh</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">laugh</span></span></span><br><span class="line">    puts <span class="string">" private:laugh"</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  protected <span class="symbol">:speak</span></span><br><span class="line">  private <span class="symbol">:laugh</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">p1 = Person.new</span><br><span class="line">p1.talk</span><br><span class="line"><span class="comment"># p1.speak 实例对象不能访问 protected 方法</span></span><br><span class="line"><span class="comment"># p1.laugh 实例对象不能访问 private 方法</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>public 方法，可以被定义它的类和其子类访问，可以被类和子类的实例对象调用；</li>
+<li>protected 方法， 可以被定义它的类和其子类访问， 不能被类和子类的实例对象直接调用，但是可以在类和子类中指定给实例对象；</li>
+<li>private 方法，可以被定义它的类和其子类访问，私有方法不能指定对象。（即不能用a.method这种方式访问）</li>
+</ul>
+<p>可以根据自己的需要，在程序的不同位置，改变某个方法的访问控制级别，让程序更加富于变化。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  private  <span class="comment"># 后面的方法设定为 private</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">" already talk "</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">p1 = Person.new</span><br><span class="line"><span class="comment"># p1.talk private 方法不能访问</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  public <span class="symbol">:talk</span>  <span class="comment"># 动态声明talk为public</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">p1.talk 	<span class="comment"># already talk</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/28/ruby_quickstart_notes_2/">
+    <time datetime="2014-05-28T11:30:29.000Z" class="entry-date">
+        2014-05-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2014/05/28/scala_week3_notes/" rel="prev"><span class="meta-nav">←</span> Notes of Scala course on Coursera -- Week 3</a></span>
+    
+    
+        <span class="nav-next"><a href="/2014/05/26/ruby_quickstart_notes_1/" rel="next">Ruby Quick Start (1) -- A Glimpse of Syntax <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

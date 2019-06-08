@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="Here are my notes for the week 3’s lecture of Functional Programming Principles in Scala on Coursera.
+
+
+
+
+1. Class Hierarchies1.1 Abstract ClassesConsider the task of writing a class for sets of integers with the following operations.
+12345678910111213141516171819202122232425262728293031323334353637383940abstract class IntSet &amp;#123;  def incl(x: Int): IntSet  def contains(x: Int): Boolean&amp;#125;``` `IntSet` is an *abstract* class.Abstract classes can contain members which are *missing an implementation* (in our case, `incl` and `contains` ).Consequently, **no instances** of an abstract class can be created with the operator `new`.&amp;lt;br/&amp;gt;---### 1.2 Class ExtensionsLet’s consider implementing sets as *binary trees*.There are two types of possible trees: a tree for the empty set, and a tree consisting of an integer and two sub-trees.Here are their implementations:```scalaclass Empty extends IntSet &amp;#123;  def contains(x: Int): Boolean = false  def incl(x: Int): IntSet = new NonEmpty(x, new Empty, new Empty)&amp;#125;class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet &amp;#123;  def contains(x: Int): Boolean =    if (x &amp;lt; elem) left contains x    else if (x &amp;gt; elem) right contains x    else true  def incl(x: Int): IntSet =    if (x &amp;lt; elem) new NonEmpty(elem, left incl x, right)    else if (x &amp;gt; elem) new NonEmpty(elem, left, right incl x)    else this&amp;#125;
+
+Empty and NonEmpty both extend the class IntSet .
+This implies that the types Empty and NonEmpty conform to the type IntSet
+
+an object of type Empty or NonEmpty can be used wherever an object of type IntSet is required.">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Notes of Scala course on Coursera -- Week 3 | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Here are my notes for the week 3’s lecture of Functional Programming Principles in Scala on Coursera.     1. Class Hierarchies1.1 Abstract ClassesConsider the task of writing a class for sets of integ">
+<meta name="keywords" content="Scala,fp,coursera,notes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes of Scala course on Coursera -- Week 3">
+<meta property="og:url" content="https://yilingui.xyz/2014/05/28/scala_week3_notes/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="Here are my notes for the week 3’s lecture of Functional Programming Principles in Scala on Coursera.     1. Class Hierarchies1.1 Abstract ClassesConsider the task of writing a class for sets of integ">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://yilingui.xyz/imgs/scalaclasshierarchy.png">
+<meta property="og:image" content="https://yilingui.xyz/imgs/toptypes.png">
+<meta property="og:updated_time" content="2019-06-08T08:32:54.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Notes of Scala course on Coursera -- Week 3">
+<meta name="twitter:description" content="Here are my notes for the week 3’s lecture of Functional Programming Principles in Scala on Coursera.     1. Class Hierarchies1.1 Abstract ClassesConsider the task of writing a class for sets of integ">
+<meta name="twitter:image" content="https://yilingui.xyz/imgs/scalaclasshierarchy.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-scala_week3_notes" class="post-scala_week3_notes post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Notes of Scala course on Coursera -- Week 3
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/scala_week3_notes/" data-id="cjwn9komj001zhabh62anf1vo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 3’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>.</p>
+<br>
+<br>
+
+<hr>
+<h2 id="1-Class-Hierarchies"><a href="#1-Class-Hierarchies" class="headerlink" title="1. Class Hierarchies"></a>1. Class Hierarchies</h2><h3 id="1-1-Abstract-Classes"><a href="#1-1-Abstract-Classes" class="headerlink" title="1.1 Abstract Classes"></a>1.1 Abstract Classes</h3><p>Consider the task of writing <em>a class for sets of integers</em> with the following operations.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">IntSet</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">incl</span></span>(x: <span class="type">Int</span>): <span class="type">IntSet</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">contains</span></span>(x: <span class="type">Int</span>): <span class="type">Boolean</span></span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">`<span class="type">IntSet</span>` is an *<span class="keyword">abstract</span>* <span class="class"><span class="keyword">class</span>.</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">Abstract</span> <span class="title">classes</span> <span class="title">can</span> <span class="title">contain</span> <span class="title">members</span> <span class="title">which</span> <span class="title">are</span> <span class="title">*missing</span> <span class="title">an</span> <span class="title">implementation*</span> (<span class="params">in our case, `incl` and `contains` </span>).</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">Consequently</span>, <span class="title">**no</span> <span class="title">instances**</span> <span class="title">of</span> <span class="title">an</span> <span class="title">abstract</span> <span class="title">class</span> <span class="title">can</span> <span class="title">be</span> <span class="title">created</span> <span class="keyword">with</span> <span class="title">the</span> <span class="title">operator</span> `<span class="title">new</span>`.</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">&lt;br/&gt;</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">---</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">###</span> 1.2 <span class="title">Class</span> <span class="title">Extensions</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">Let’s</span> <span class="title">consider</span> <span class="title">implementing</span> <span class="title">sets</span> <span class="title">as</span> <span class="title">*binary</span> <span class="title">trees*</span>.</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">There</span> <span class="title">are</span> <span class="title">two</span> <span class="title">types</span> <span class="title">of</span> <span class="title">possible</span> <span class="title">trees</span></span>: a tree <span class="keyword">for</span> the empty set, and a tree consisting of an integer and two sub-trees.</span><br><span class="line"></span><br><span class="line"><span class="type">Here</span> are their implementations:</span><br><span class="line"></span><br><span class="line">```scala</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empty</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">contains</span></span>(x: <span class="type">Int</span>): <span class="type">Boolean</span> = <span class="literal">false</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">incl</span></span>(x: <span class="type">Int</span>): <span class="type">IntSet</span> = <span class="keyword">new</span> <span class="type">NonEmpty</span>(x, <span class="keyword">new</span> <span class="type">Empty</span>, <span class="keyword">new</span> <span class="type">Empty</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NonEmpty</span>(<span class="params">elem: <span class="type">Int</span>, left: <span class="type">IntSet</span>, right: <span class="type">IntSet</span></span>) <span class="keyword">extends</span> <span class="title">IntSet</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">contains</span></span>(x: <span class="type">Int</span>): <span class="type">Boolean</span> =</span><br><span class="line">    <span class="keyword">if</span> (x &lt; elem) left contains x</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) right contains x</span><br><span class="line">    <span class="keyword">else</span> <span class="literal">true</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">incl</span></span>(x: <span class="type">Int</span>): <span class="type">IntSet</span> =</span><br><span class="line">    <span class="keyword">if</span> (x &lt; elem) <span class="keyword">new</span> <span class="type">NonEmpty</span>(elem, left incl x, right)</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) <span class="keyword">new</span> <span class="type">NonEmpty</span>(elem, left, right incl x)</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Empty and NonEmpty both <em>extend</em> the class <code>IntSet</code> .</p>
+<p>This implies that the types <code>Empty</code> and <code>NonEmpty</code> <em>conform</em> to the type <code>IntSet</code></p>
+<ul>
+<li>an object of type <code>Empty</code> or <code>NonEmpty</code> can be used wherever an object of type <code>IntSet</code> is required.</li>
+</ul>
+<br>
+
+<hr>
+<a id="more"></a>
+<h3 id="1-3-Base-Classes-and-Subclasses"><a href="#1-3-Base-Classes-and-Subclasses" class="headerlink" title="1.3 Base Classes and Subclasses"></a>1.3 Base Classes and Subclasses</h3><p><code>IntSet</code> is called the <em>superclass</em> of <code>Empty</code> and <code>NonEmpty</code> .</p>
+<p><code>Empty</code> and <code>NonEmpty</code> are <em>subclasses</em> of <code>IntSet</code> .</p>
+<p>In Scala, any user-defined class extends another class.</p>
+<p>If no superclass is given, the standard class <code>Object</code> in the Java package <code>java.lang</code> is assumed.</p>
+<p>The direct or indirect superclasses of a class C are called <em>base classes</em> of C .</p>
+<p>So, the base classes of <code>NonEmpty</code> are <code>IntSet</code> and <code>Object</code>.</p>
+<br>
+
+<hr>
+<h3 id="1-4-Implementation-and-Overriding"><a href="#1-4-Implementation-and-Overriding" class="headerlink" title="1.4 Implementation and Overriding"></a>1.4 Implementation and Overriding</h3><p>The definitions of <code>contains</code> and <code>incl</code> in the classes <code>Empty</code> and <code>NonEmpty</code> implement the abstract functions in the base trait <code>IntSet</code> .</p>
+<p>It is also possible to <em>redefine an existing, non-abstract definition</em> in a subclass by using <code>override</code></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">foo</span> </span>= <span class="number">1</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">bar</span></span>: <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">extends</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">foo</span> </span>= <span class="number">2</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">bar</span> </span>= <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">&lt;br/&gt;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### <span class="number">1.5</span> <span class="type">Object</span> <span class="type">Definitions</span></span><br><span class="line"></span><br><span class="line">```scala</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Empty</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">contains</span></span>(x: <span class="type">Int</span>): <span class="type">Boolean</span> = <span class="literal">false</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">incl</span></span>(x: <span class="type">Int</span>): <span class="type">IntSet</span> = <span class="keyword">new</span> <span class="type">NonEmpty</span>(x, <span class="type">Empty</span>, <span class="type">Empty</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This defines a <strong>singleton object</strong> named <code>Empty</code> .</p>
+<p>No other <code>Empty</code> instances can be (or need to be) created.</p>
+<p>Singleton objects are <em>values</em>, so Empty evaluates to itself.</p>
+<br>
+
+<p>Run Scala Application Program in command line:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Hello.scala</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) = println(<span class="string">"hello, world!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In command line:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; scala Hello</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><p>Write a method <code>union</code> for forming the union of two sets. You should implement the following abstract class.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">IntSet</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">incl</span></span>(x: <span class="type">Int</span>): <span class="type">IntSet</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">contains</span></span>(x: <span class="type">Int</span>): <span class="type">Boolean</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">union</span></span>(other: <span class="type">IntSet</span>): <span class="type">IntSet</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Answer:</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empty</span> <span class="keyword">extends</span> <span class="title">IntSet</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">contains</span></span>(x: <span class="type">Int</span>): <span class="type">Boolean</span> = <span class="literal">false</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">incl</span></span>(x: <span class="type">Int</span>): <span class="type">IntSet</span> = <span class="keyword">new</span> <span class="type">NonEmpty</span>(x, <span class="keyword">new</span> <span class="type">Empty</span>, <span class="keyword">new</span> <span class="type">Empty</span>)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">union</span></span>(other: <span class="type">IntSet</span>): <span class="type">IntSet</span> = other  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NonEmpty</span>(<span class="params">elem: <span class="type">Int</span>, left: <span class="type">IntSet</span>, right: <span class="type">IntSet</span></span>) <span class="keyword">extends</span> <span class="title">IntSet</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">contains</span></span>(x: <span class="type">Int</span>): <span class="type">Boolean</span> =</span><br><span class="line">    <span class="keyword">if</span> (x &lt; elem) left contains x</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) right contains x</span><br><span class="line">    <span class="keyword">else</span> <span class="literal">true</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">incl</span></span>(x: <span class="type">Int</span>): <span class="type">IntSet</span> =</span><br><span class="line">    <span class="keyword">if</span> (x &lt; elem) <span class="keyword">new</span> <span class="type">NonEmpty</span>(elem, left incl x, right)</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) <span class="keyword">new</span> <span class="type">NonEmpty</span>(elem, left, right incl x)</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">this</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">union</span></span>(other: <span class="type">IntSet</span>): <span class="type">IntSet</span> = </span><br><span class="line">    ((left union right) union other) incl elem</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="1-6-Dynamic-Binding"><a href="#1-6-Dynamic-Binding" class="headerlink" title="1.6 Dynamic Binding"></a>1.6 Dynamic Binding</h3><p>Object-oriented languages (including Scala) implement <strong>dynamic method dispatch</strong>.</p>
+<p>This means that the code invoked by a method call depends on the <em>runtime type</em> of the object that contains the method.</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Empty</span> contains <span class="number">1</span></span><br><span class="line">-&gt; [<span class="number">1</span>/x] [<span class="type">Empty</span>/<span class="keyword">this</span>] <span class="literal">false</span></span><br><span class="line">= <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>Another evaluation using <code>NonEmpty</code> :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">new</span> <span class="type">NonEmpty</span>(<span class="number">7</span>, <span class="type">Empty</span>, <span class="type">Empty</span>)) contains <span class="number">7</span></span><br><span class="line">→ [<span class="number">7</span>/elem] [<span class="number">7</span>/x] [<span class="keyword">new</span> <span class="type">NonEmpty</span>(<span class="number">7</span>, <span class="type">Empty</span>, <span class="type">Empty</span>)/<span class="keyword">this</span>]</span><br><span class="line">    <span class="keyword">if</span> (x &lt; elem) <span class="keyword">this</span>.left contains x</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; elem) <span class="keyword">this</span>.right contains x <span class="keyword">else</span> <span class="literal">true</span></span><br><span class="line">= <span class="keyword">if</span> (<span class="number">7</span> &lt; <span class="number">7</span>) <span class="keyword">new</span> <span class="type">NonEmpty</span>(<span class="number">7</span>, <span class="type">Empty</span>, <span class="type">Empty</span>).left contains <span class="number">7</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">7</span> &gt; <span class="number">7</span>) <span class="keyword">new</span> <span class="type">NonEmpty</span>(<span class="number">7</span>, <span class="type">Empty</span>, <span class="type">Empty</span>).right</span><br><span class="line">      contains <span class="number">7</span> <span class="keyword">else</span> <span class="literal">true</span></span><br><span class="line">→ <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<br>
+<br>
+
+<hr>
+<h2 id="2-How-Classes-are-Organized"><a href="#2-How-Classes-are-Organized" class="headerlink" title="2. How Classes are Organized"></a>2. How Classes are Organized</h2><h3 id="2-1-Packages"><a href="#2-1-Packages" class="headerlink" title="2.1 Packages"></a>2.1 Packages</h3><p>Classes and objects are organized in packages.</p>
+<p>To place a class or object inside a package, use a <code>package</code> clause at the top of your source file.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> progfun.examples</span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Hello</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>This would place <code>Hello</code> in the package <code>progfun.examples</code> .</p>
+<p>You can then refer to <code>Hello</code> by its fully qualified name <code>progfun.examples.Hello</code> . For instance, to run the Hello program:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; scala progfun.examples.<span class="type">Hello</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<h3 id="2-2-Import"><a href="#2-2-Import" class="headerlink" title="2.2 Import"></a>2.2 Import</h3><p>Say we have a class <code>Rational</code> in package <code>week3</code> .</p>
+<p>You can use the class using its fully qualified name:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> r = <span class="keyword">new</span> week3.<span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Alternatively, you can use an <code>import</code> :</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> week3.<span class="type">Rational</span></span><br><span class="line"><span class="keyword">val</span> r = <span class="keyword">new</span> <span class="type">Rational</span>(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Imports come in several forms:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> week3.<span class="type">Rational</span> <span class="comment">// imports just Rational</span></span><br><span class="line"><span class="keyword">import</span> week3.&#123;<span class="type">Rational</span>, <span class="type">Hello</span>&#125; <span class="comment">// imports both Rational and Hello</span></span><br><span class="line"><span class="keyword">import</span> week3._ <span class="comment">// imports everything in package week3</span></span><br></pre></td></tr></table></figure>
+
+<p>The first two forms are called <em>named imports</em>.</p>
+<p>The last form is called a <em>wildcard import</em>.</p>
+<p>You can import from either a package or an object.</p>
+<br>
+
+<h4 id="Automatic-Imports"><a href="#Automatic-Imports" class="headerlink" title="Automatic Imports"></a>Automatic Imports</h4><p>Some entities are automatically imported in any Scala program.</p>
+<p>These are:</p>
+<ul>
+<li>All members of package scala</li>
+<li>All members of package java.lang</li>
+<li>All members of the singleton object scala.Predef</li>
+</ul>
+<br>
+
+<hr>
+<h3 id="2-3-Traits"><a href="#2-3-Traits" class="headerlink" title="2.3 Traits"></a>2.3 Traits</h3><p>In Java, as well as in Scala, a class can only have one superclass.</p>
+<p>But what if a class has several natural supertypes to which it conforms or from which it wants to inherit code?</p>
+<p>Here, you could use <code>trait</code> s.</p>
+<p>A trait is declared like an abstract class, just with trait instead of abstract class</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Planar</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">height</span></span>: <span class="type">Int</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">width</span></span>: <span class="type">Int</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">surface</span> </span>= height * width</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Classes, objects and traits can inherit from at most one class but arbitrary many traits.</p>
+<p>Example:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Shape</span> <span class="keyword">with</span> <span class="title">Planar</span> <span class="keyword">with</span> <span class="title">Movable</span> ...</span></span><br></pre></td></tr></table></figure>
+
+<p>Traits resemble interfaces in Java, but are more powerful because they can contains fields and concrete methods.</p>
+<p>On the other hand, traits <em>cannot have (value) parameters</em>, only classes can.</p>
+<br>
+
+<hr>
+<h3 id="2-4-Scala’s-Class-Hierarchy"><a href="#2-4-Scala’s-Class-Hierarchy" class="headerlink" title="2.4 Scala’s Class Hierarchy"></a>2.4 Scala’s Class Hierarchy</h3><p><img src="/imgs/scalaclasshierarchy.png" alt="Scala&#39;s Class Hierarchy"></p>
+<br>
+
+<p><img src="/imgs/toptypes.png" alt="Top Types"></p>
+<br>
+
+<hr>
+<h3 id="2-5-The-Nothing-Type"><a href="#2-5-The-Nothing-Type" class="headerlink" title="2.5 The Nothing Type"></a>2.5 The Nothing Type</h3><p><code>Nothing</code> is at the bottom of Scala’s type hierarchy. It is a subtype of every other type.</p>
+<p>There is <em>no value</em> of type <code>Nothing</code> .</p>
+<p>Why is that useful?</p>
+<ul>
+<li>To signal abnormal termination</li>
+<li>As an element type of empty collections (see next session)</li>
+</ul>
+<br>
+
+<hr>
+<h3 id="2-6-Exceptions"><a href="#2-6-Exceptions" class="headerlink" title="2.6 Exceptions"></a>2.6 Exceptions</h3><p>Scala’s exception handling is similar to Java’s.</p>
+<p>The expression</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="type">Exc</span></span><br></pre></td></tr></table></figure>
+
+<p>aborts evaluation with the exception <code>Exc</code> .<br>The type of this expression is <code>Nothing</code> .</p>
+<br>
+
+<hr>
+<h3 id="2-7-The-Null-Type"><a href="#2-7-The-Null-Type" class="headerlink" title="2.7 The Null Type"></a>2.7 The Null Type</h3><p>Every reference class type also has <code>null</code> as a value. </p>
+<p>The type of <code>null</code> is <code>Null</code> .</p>
+<p><code>Null</code> is a subtype of every class that inherits from <code>Object</code> ; it is incompatible with subtypes of <code>AnyVal</code> .</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="literal">null</span> <span class="comment">// x: Null</span></span><br><span class="line"><span class="keyword">val</span> y: <span class="type">String</span> = <span class="literal">null</span> <span class="comment">// y: String</span></span><br><span class="line"><span class="keyword">val</span> z: <span class="type">Int</span> = <span class="literal">null</span> <span class="comment">// error: type mismatch</span></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">&lt;br/&gt;</span><br><span class="line">&lt;br/&gt;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">## <span class="number">3.</span> <span class="type">Polymorphism</span></span><br><span class="line"></span><br><span class="line">### <span class="number">3.1</span> <span class="type">Cons</span>-<span class="type">Lists</span></span><br><span class="line"></span><br><span class="line"><span class="type">A</span> fundamental data structure in many functional languages is the immutable linked list.</span><br><span class="line"></span><br><span class="line"><span class="type">It</span> is constructed form two building blocks:</span><br><span class="line"></span><br><span class="line">- `<span class="type">Nil</span>`, the empty list</span><br><span class="line">- `<span class="type">Cons</span>`, a cell containing an element and the remainder of the list.</span><br><span class="line"></span><br><span class="line">&lt;br/&gt;</span><br><span class="line"></span><br><span class="line">#### <span class="type">Examples</span> <span class="keyword">for</span> <span class="type">Cons</span>-<span class="type">Lists</span></span><br><span class="line"></span><br><span class="line">![<span class="type">Examples</span> <span class="keyword">for</span> <span class="type">Cons</span>-<span class="type">Lists</span>][<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">&lt;br/&gt;</span><br><span class="line"></span><br><span class="line">### <span class="number">3.2</span> <span class="type">Cons</span>-<span class="type">Lists</span> in <span class="type">Scala</span></span><br><span class="line"></span><br><span class="line"><span class="type">Here</span><span class="symbol">'s</span> an outline of a <span class="class"><span class="keyword">class</span> <span class="title">hierarchy</span> <span class="title">that</span> <span class="title">represents</span> <span class="title">lists</span> <span class="title">of</span> <span class="title">integers</span> <span class="title">in</span> <span class="title">this</span> <span class="title">fashion</span></span>:</span><br><span class="line"></span><br><span class="line">```scala</span><br><span class="line"><span class="keyword">package</span> week4</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">IntList</span> ...</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Cons</span>(<span class="params">val head: <span class="type">Int</span>, val tail: <span class="type">IntList</span></span>) <span class="keyword">extends</span> <span class="title">IntList</span> ...</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Nil</span> <span class="keyword">extends</span> <span class="title">IntList</span> ...</span></span><br></pre></td></tr></table></figure>
+
+<p>A list is either</p>
+<ul>
+<li>an empty list <code>new Nil</code>, or</li>
+<li>a list <code>new Cons(x, xs)</code> consisting of a head element <code>x</code> and a list <code>xs</code> .</li>
+</ul>
+<br>
+
+<h4 id="Value-Parameters"><a href="#Value-Parameters" class="headerlink" title="Value Parameters"></a>Value Parameters</h4><p>Note the abbreviation <code>(val head: Int, val tail: IntList)</code> in the definition of <code>Cons</code> .</p>
+<p>This defines at the same time parameters and fields of a class.</p>
+<p>It is equivalent to:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cons</span>(<span class="params">_head: <span class="type">Int</span>, _tail: <span class="type">IntList</span></span>) <span class="keyword">extends</span> <span class="title">IntList</span> </span>&#123;</span><br><span class="line">  <span class="keyword">val</span> head = _head</span><br><span class="line">  <span class="keyword">val</span> tail = _tail</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>where <code>_head</code> and <code>_tail</code> are otherwise unused names.</p>
+<br>
+
+<h4 id="Type-Parameters"><a href="#Type-Parameters" class="headerlink" title="Type Parameters"></a>Type Parameters</h4><p>It seems too narrow to define only lists with <code>Int</code> elements.</p>
+<p>We’d need another class hierarchy for Double list, and so on, one for each possible element type.</p>
+<p>We can generalize the definition using a typing parameter:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> week4</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">List</span>[<span class="type">T</span>]</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Cons</span>[<span class="type">T</span>](<span class="params">val head: <span class="type">T</span>, val tail: <span class="type">List</span>[<span class="type">T</span>]</span>) <span class="keyword">extends</span> <span class="title">List</span>[<span class="type">T</span>]</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Nil</span>[<span class="type">T</span>] <span class="keyword">extends</span> <span class="title">List</span>[<span class="type">T</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>Type parameters are written in square brackets, e.g. [T].</p>
+<br>
+
+<h4 id="Complete-Definition-of-List"><a href="#Complete-Definition-of-List" class="headerlink" title="Complete Definition of List"></a>Complete Definition of List</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">List</span>[<span class="type">T</span>] </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span></span>: <span class="type">Boolean</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">head</span></span>: <span class="type">T</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">tail</span></span>: <span class="type">List</span>[<span class="type">T</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cons</span>[<span class="type">T</span>](<span class="params">val head: <span class="type">T</span>, val tail: <span class="type">List</span>[<span class="type">T</span>]</span>) <span class="keyword">extends</span> <span class="title">List</span>[<span class="type">T</span>] </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span> </span>= <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Nil</span>[<span class="type">T</span>] <span class="keyword">extends</span> <span class="title">List</span>[<span class="type">T</span>] </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span> </span>= <span class="literal">true</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">head</span> </span>= <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">NoSuchElementException</span>(<span class="string">"Nil.head"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">tail</span> </span>= <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">NoSuchElementException</span>(<span class="string">"Nil.tail"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h4 id="Generic-Functions"><a href="#Generic-Functions" class="headerlink" title="Generic Functions"></a>Generic Functions</h4><p>Like classes, functions can have type parameters.</p>
+<p>For instance, here is a function that creates a list consisting of a single element.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">singleton</span></span>[<span class="type">T</span>](elem: <span class="type">T</span>) = <span class="keyword">new</span> <span class="type">Cons</span>[<span class="type">T</span>](elem, <span class="keyword">new</span> <span class="type">Nil</span>[<span class="type">T</span>])</span><br></pre></td></tr></table></figure>
+
+<p>We can then write:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">singleton[<span class="type">Int</span>](<span class="number">1</span>)</span><br><span class="line">singleton[<span class="type">Boolean</span>](<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>In fact, the Scala compiler can usually deduce the correct type parameters from the value arguments of a function call.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">singleton(<span class="number">1</span>)</span><br><span class="line">singleton(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h4 id="Types-and-Evaluation"><a href="#Types-and-Evaluation" class="headerlink" title="Types and Evaluation"></a>Types and Evaluation</h4><p>Type parameters do not affect evaluation in Scala.</p>
+<p>We can assume that all type parameters and type arguments are removed before evaluating the program.</p>
+<p>This is also called type erasure.</p>
+<p>Languages that use type erasure include Java, Scala, Haskell, ML, OCaml.</p>
+<p>Some other languages keeps the type parameters around at run time, these include C++, C#, F#.</p>
+<br>
+
+<h4 id="Polymorphism"><a href="#Polymorphism" class="headerlink" title="Polymorphism"></a>Polymorphism</h4><p>Polymorphism means that a function type comes “in many forms”.</p>
+<p>In programming it means that</p>
+<ul>
+<li>the function can be applied to arguments of many types, or</li>
+<li>the type can have instances of many types</li>
+</ul>
+<p>We have seen two principal forms of polymorphism:</p>
+<ul>
+<li><strong>subtyping</strong>: instances of a subclass can be passed to a base class</li>
+<li><strong>generics</strong>: instances of a function or class are created by type parameterization.</li>
+</ul>
+<br>
+
+<hr>
+<h4 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise"></a>Exercise</h4><p>Wirte a function <code>nth</code> that takes an integer n and a list and selects the n’th element of the list.</p>
+<p>Elements are numbered from 0.</p>
+<p>If index is outside the range from 0 up the length of the list minus one, a <code>IndexOutOfBoundsException</code> should be thrown.</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> week4</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">List</span>[<span class="type">T</span>] </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span></span>: <span class="type">Boolean</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">head</span></span>: <span class="type">T</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">tail</span></span>: <span class="type">List</span>[<span class="type">T</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cons</span>[<span class="type">T</span>](<span class="params">val head: <span class="type">T</span>, val tail: <span class="type">List</span>[<span class="type">T</span>]</span>) <span class="keyword">extends</span> <span class="title">List</span>[<span class="type">T</span>] </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span> </span>= <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Nil</span>[<span class="type">T</span>] <span class="keyword">extends</span> <span class="title">List</span>[<span class="type">T</span>] </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span> </span>= <span class="literal">true</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">head</span> </span>= <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">NoSuchElementException</span>(<span class="string">"Nil.head"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">tail</span> </span>= <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">NoSuchElementException</span>(<span class="string">"Nil.tail"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> week4._</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nth</span></span>[<span class="type">T</span>](n: <span class="type">Int</span>, xs: <span class="type">List</span>[<span class="type">T</span>]): <span class="type">T</span> =</span><br><span class="line">  <span class="keyword">if</span> (xs.isEmpty) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">IndexOutOfBoundsException</span> </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">0</span>) xs.head</span><br><span class="line">  <span class="keyword">else</span> nth(n - <span class="number">1</span>, xs.tail)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> list = <span class="keyword">new</span> <span class="type">Cons</span>(<span class="number">1</span>, <span class="keyword">new</span> <span class="type">Cons</span>(<span class="number">2</span>, <span class="keyword">new</span> <span class="type">Cons</span>(<span class="number">3</span>, <span class="keyword">new</span> <span class="type">Nil</span>)))</span><br><span class="line"></span><br><span class="line">nth(<span class="number">2</span>, list)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/28/scala_week3_notes/">
+    <time datetime="2014-05-28T13:56:29.000Z" class="entry-date">
+        2014-05-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2014/05/29/ruby_quickstart_notes_3/" rel="prev"><span class="meta-nav">←</span> Ruby Quick Start (3) -- Module, Mix-in</a></span>
+    
+    
+        <span class="nav-next"><a href="/2014/05/28/ruby_quickstart_notes_2/" rel="next">Ruby Quick Start (2) -- Objects in Ruby <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value name="s" id="s">
+        <input type="submit" id="searchsubmit" value="搜索">
+    </div>
+</form></aside>
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
