@@ -4,27 +4,7 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera. 
-
-
-1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&#39;s Algorithm */ def gcd(a: Int, b: Int): Int =   if (b == 0) a else gcd(b, a % b)
-
-gcd(14, 21) is evaluated as follows:
-12345678910gcd(14, 21)--&amp;gt; if (21 == 0) 14 else gcd(21, 14 % 21)--&amp;gt; if (false) 14 else gcd(21, 14 % 21)--&amp;gt; gcd(21, 14 % 21)--&amp;gt; gcd(21, 14)--&amp;gt; if (14 == 0) 21 else gcd(14, 21 % 14)--&amp;gt;&amp;gt; gcd(14, 7)--&amp;gt;&amp;gt; gcd(7, 0)--&amp;gt; if (0 == 0) 7 else gcd(0, 7 % 0)--&amp;gt; 7
-
-Another example: 
-12def factorial(n: Int): Int =   if (n == 0) 1 else n * factorial(n - 1)
-
-factorial(4) is evaluated as follows:
-1234567factorial(4)--&amp;gt; if (4 == 0) 1 else 4 * factorial(4 - 1)--&amp;gt;&amp;gt; 4 * factorial(3)--&amp;gt;&amp;gt; 4 * (3 * factorial(2))--&amp;gt;&amp;gt; 4 * (3 * (2 * factorial(1)))--&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * factorial(0)))) --&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * 1)))
-
-
-
-
-1.2 Tail RecursionImplementation Consideration:
-If a function calls itself as its last action, the function’s stack frame can be reused. This is called tail recursion.
-Tail recursive functions are iterative processes.
-In general, if the last action of a function consists of calling a function (which may be the same), one stack frame would be sufficient for both functions. Such calls are called tail-calls.">
+  <meta name="description" content="WRYYYYY!">
   
 
   
@@ -83,6 +63,8 @@ In general, if the last action of a function consists of calling a function (whi
                 
                     <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
                 
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about">About</a></li>
+                
                 </ul>
             </div>
     </nav>
@@ -104,7 +86,7 @@ In general, if the last action of a function consists of calling a function (whi
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwnale1a001u27bhrrpmw2h9" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwnd22u1001rtrbh82xr96im" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -447,6 +429,35 @@ In general, if the last action of a function consists of calling a function (whi
 
 
 <script src="/js/script.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 <script src="/js/navigation.js"></script>
 
