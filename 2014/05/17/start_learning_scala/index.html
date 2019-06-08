@@ -103,7 +103,7 @@ object-oriented programming(面向对象编程)">
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjwngkbh000239jbhgw999gzb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjwnhxpcl0022uqbhzzz4wqhd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -159,8 +159,9 @@ object-oriented programming(面向对象编程)">
 
 <p>关于多项式的theory中，两个多项式的和可以定义为<code>(a*x + b) + (c*x + d) = (a+c)*x + (b+d)</code>，但是没有定义在多项式本身不变的情况下改变多项式的系数。</p>
 <p>这里我们应该注意到后者<code>在命令式编程中随处可见</code>，比如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Polynomial &#123;double[] coefficient; &#125;</span><br><span class="line">Polynomial p = ...;</span><br><span class="line">p.coefficient[<span class="number">0</span>] = <span class="number">42</span>;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="python">class Polynomial {double[] coefficient; }
+Polynomial p = ...;
+p.coefficient[0] = 42;</code></pre>
 <p>另一个关于string的例子：<br>定义字符串连接操作(concatenation operator)为<code>++</code>，则在理论上有<code>(a ++ b) ++ c = a ++ (b ++ c)</code>。</p>
 <p>但是理论没有定义改变一个序列元素时，仍保持其不变(大部分命令式语言中string使用数组表示)。这里提到了一个例外，Java’s strings are immutable.</p>
 <p>用惯了命令式编程的人会觉得mutation理所应当，那么<code>为什么理论中不允许其存在呢</code>？Martin指出：</p>
@@ -199,8 +200,10 @@ object-oriented programming(面向对象编程)">
 <p>Martin还给出了他在OSCON 2011上的talk(youtube):<a href="http://www.youtube.com/watch?v=3jg1AheF4n0" target="_blank" rel="noopener">Working Hard to Keep it Simple</a>。搜了一下发现youku上也有：<a href="http://v.youku.com/v_show/id_XNjEzOTEwODI0.html" target="_blank" rel="noopener">Martin’s talk at OSCON 2011</a>。</p>
 <p>视频里Martin提出了Scala在处理传统编程范式不擅长处理的<code>并行(Parallel)</code>和<code>并发(Concurrent)</code>方面的优势。</p>
 <p>他首先指出并发线程<code>对可变状态进行操作</code>可能会造成<code>不确定性</code>，进而带来问题，如：</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">0</span></span><br><span class="line">async &#123;x = x + <span class="number">1</span>&#125;</span><br><span class="line">async &#123;x = x * <span class="number">2</span>&#125;</span><br><span class="line"><span class="comment">// can give 0, 1, 2</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">var x = 0
+async {x = x + 1}
+async {x = x * 2}
+// can give 0, 1, 2</code></pre>
 <p>为了得到确定性的处理结果，最好的方法就是<strong>禁止可变状态(avoid mutable state)</strong>！</p>
 <p>如同上面讨论过的，<code>禁止可变状态 --&gt; 函数式编程</code>！
 <br></p>
@@ -214,16 +217,27 @@ object-oriented programming(面向对象编程)">
 <p>非常适合用来快速开发第一产品，之后可以进行扩展。(Fast to first product, scalable afterwards.)</p>
 <p>接着是通过具体例子比较Scala和Java。</p>
 <h2 id="首先是语法上"><a href="#首先是语法上" class="headerlink" title="首先是语法上"></a>首先是语法上</h2><p>in Java:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line">...</span><br><span class="line">Person[] people;</span><br><span class="line">Person[] minors;</span><br><span class="line">Person[] adults;</span><br><span class="line">&#123;  ArrayList&lt;Person&gt; minorsList = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</span><br><span class="line">   ArrayList&lt;Person&gt; adultsList = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; people.length; ++i)</span><br><span class="line">       (people[i].age &lt; <span class="number">18</span> ? minorsList : adultsList)</span><br><span class="line">            .add(people[i]);</span><br><span class="line">   minors = minorsList.toArray(people);</span><br><span class="line">   adults = adultsList.toArray(people);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">import java.util.ArrayList;
+...
+Person[] people;
+Person[] minors;
+Person[] adults;
+{  ArrayList&lt;Person&gt; minorsList = new ArrayList&lt;Person&gt;();
+   ArrayList&lt;Person&gt; adultsList = new ArrayList&lt;Person&gt;();
+   for (int i = 0; i &lt; people.length; ++i)
+       (people[i].age &lt; 18 ? minorsList : adultsList)
+            .add(people[i]);
+   minors = minorsList.toArray(people);
+   adults = adultsList.toArray(people);
+} </code></pre>
 <p>in Scala:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> people: <span class="type">Array</span>[<span class="type">Person</span>]</span><br><span class="line"><span class="keyword">var</span> (minors, adults) = people.par partition (_.age &lt; <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">var people: Array[Person]
+var (minors, adults) = people.par partition (_.age &lt; 18)</code></pre>
 <p>Scala的简洁显而易见。</p>
 <h2 id="接着是处理并行-Going-Parallel"><a href="#接着是处理并行-Going-Parallel" class="headerlink" title="接着是处理并行(Going Parallel)"></a>接着是处理并行(Going Parallel)</h2><p>in Java: ???</p>
 <p>in Scala:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> people: <span class="type">Array</span>[<span class="type">Person</span>]</span><br><span class="line"><span class="keyword">var</span> (minors, adults) = people.par partition (_.age &lt; <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">var people: Array[Person]
+var (minors, adults) = people.par partition (_.age &lt; 18)</code></pre>
 <h2 id="It’s-so-cool"><a href="#It’s-so-cool" class="headerlink" title="It’s so cool!"></a>It’s so cool!</h2><p>Martin后面还举了其他的几个例子，不列举了。</p>
 <p>总之，作为一种函数式编程语言，Scala很有用也很酷。下面这些事实可能会让你更有动机来学习一门函数式编程语言：</p>
 <ul>
@@ -356,7 +370,18 @@ object-oriented programming(面向对象编程)">
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

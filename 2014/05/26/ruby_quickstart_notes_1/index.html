@@ -96,7 +96,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="cjwngkbgi001k9jbh75ursqem" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="cjwnhxpc9001luqbhy7h9fgeh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -125,26 +125,81 @@
 <hr>
 <h2 id="第三章-语法快览"><a href="#第三章-语法快览" class="headerlink" title="第三章 语法快览"></a>第三章 语法快览</h2><h3 id="注释与分行"><a href="#注释与分行" class="headerlink" title="注释与分行"></a>注释与分行</h3><p>单行注释用 <code>#</code>；</p>
 <p>多行注释用</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">=begin</span></span><br><span class="line"><span class="comment">这里是注释，=begin和=end前面不能有空格</span></span><br><span class="line"><span class="comment">=end</span></span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">分号 `</span>;<span class="string">` 表示一个语句的结束；</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;br/&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">---</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### 标识名</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Ruby的标识名**区分大小写**；</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Ruby使用一个约定来帮助它区别一个名字的用法：**名字前面的第一个字符**表明这个名字的**用法**。</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">1. **局部变量**、 **方法参数**和**方法名称**应该用一个`</span>小写字母<span class="string">`开头或者用一个`</span>下划线<span class="number">_</span><span class="string">`开头；</span></span><br><span class="line"><span class="string">2. **全局变量**用美元符作为前缀 `</span>$` ；</span><br><span class="line"><span class="number">3</span>. **实例变量**用 <span class="string">`@`</span> 开头；</span><br><span class="line"><span class="number">4</span>. **类变量**用 <span class="string">`@@`</span> 开头；</span><br><span class="line"><span class="number">5</span>. **类名**、**模块名**和**常量**应该用<span class="string">`大写字母`</span>开头。</span><br><span class="line"></span><br><span class="line">&lt;br/&gt;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"><span class="comment">### 类库 </span></span><br><span class="line"></span><br><span class="line">Ruby 像 C++ 一样，有许多类库可以供你使用，其中的 I/O 库很完善。如<span class="string">`print`</span>, <span class="string">`puts`</span>等可以直接使用。</span><br><span class="line"></span><br><span class="line">I/O 是 输入/输出，这是 Ruby 语言 <span class="string">`Kernel`</span> 模块的方法，Mix-<span class="keyword">in</span> 在根类 <span class="string">`Object`</span> 中的。</span><br><span class="line"></span><br><span class="line"><span class="string">`puts`</span> 把它的所有参数写出来，每一个参数结束都加入一个**换行符**， <span class="string">`print`</span> 也写出它的参数，不过没有换行。你可以指明输出到一个文件，不说明，则一般输出到显示器。</span><br><span class="line"></span><br><span class="line">还有一个常用的输出方法是 <span class="string">`printf`</span>，它按格式输出参数。</span><br><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">`ruby</span></span><br><span class="line"><span class="string">printf "Number: %4.3f, String: %s", 7.8, "hi!"</span></span><br></pre></td></tr></table></figure>
+<pre><code class="ruby">=begin
+这里是注释，=begin和=end前面不能有空格
+=end</code></pre>
+<p>分号 <code>;</code> 表示一个语句的结束；</p>
+<br>
 
+<hr>
+<h3 id="标识名"><a href="#标识名" class="headerlink" title="标识名"></a>标识名</h3><p>Ruby的标识名<strong>区分大小写</strong>；</p>
+<p>Ruby使用一个约定来帮助它区别一个名字的用法：<strong>名字前面的第一个字符</strong>表明这个名字的<strong>用法</strong>。</p>
+<ol>
+<li><strong>局部变量</strong>、 <strong>方法参数</strong>和<strong>方法名称</strong>应该用一个<code>小写字母</code>开头或者用一个<code>下划线_</code>开头；</li>
+<li><strong>全局变量</strong>用美元符作为前缀 <code>$</code> ；</li>
+<li><strong>实例变量</strong>用 <code>@</code> 开头；</li>
+<li><strong>类变量</strong>用 <code>@@</code> 开头；</li>
+<li><strong>类名</strong>、<strong>模块名</strong>和<strong>常量</strong>应该用<code>大写字母</code>开头。</li>
+</ol>
+<br>
+
+<hr>
+<h3 id="类库"><a href="#类库" class="headerlink" title="类库"></a>类库</h3><p>Ruby 像 C++ 一样，有许多类库可以供你使用，其中的 I/O 库很完善。如<code>print</code>, <code>puts</code>等可以直接使用。</p>
+<p>I/O 是 输入/输出，这是 Ruby 语言 <code>Kernel</code> 模块的方法，Mix-in 在根类 <code>Object</code> 中的。</p>
+<p><code>puts</code> 把它的所有参数写出来，每一个参数结束都加入一个<strong>换行符</strong>， <code>print</code> 也写出它的参数，不过没有换行。你可以指明输出到一个文件，不说明，则一般输出到显示器。</p>
+<p>还有一个常用的输出方法是 <code>printf</code>，它按格式输出参数。</p>
+<pre><code class="ruby">printf &quot;Number: %4.3f, String: %s&quot;, 7.8, &quot;hi!&quot;</code></pre>
 <p><code>printf</code> 和 <code>print</code> 一样，不主动换行，换行可以用“<code>\n</code>”。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printf <span class="string">"Number: %4.3f, String: %s\n"</span>, <span class="number">7.8</span>, <span class="string">"hi!"</span></span><br><span class="line">print <span class="string">"hello\n"</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">printf &quot;Number: %4.3f, String: %s\n&quot;, 7.8, &quot;hi!&quot;
+print &quot;hello\n&quot;</code></pre>
 <p>介绍了三个输出方法，再介绍一个输入方法：<code>gets</code> ，它从你的程序的标准输入流中返回一行。一般用来从键盘或文件读入一行数据。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str = gets</span><br><span class="line">puts <span class="string">"You input <span class="subst">#&#123;str&#125;</span>"</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">str = gets
+puts &quot;You input #{str}&quot;</code></pre>
 <br>
 
 <hr>
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>Ruby 数据类型有数字，字符串，数组，哈希表，区间，正则表达式。</p>
 <p>(1) 字符串是在<code>&#39;&#39;</code>（单引号） 、 <code>&quot;&quot;</code>（双引号）之间的代码。</p>
 <p>(2) 数组的下标从0开始。Ruby的数组和其它语言不同，数组的每个元素可以是不同的类型：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="number">2.4</span>, <span class="number">99</span>, <span class="string">"thank you"</span>, [ a, b ,c ], <span class="number">78</span> ]</span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">[ 2.4, 99, &quot;thank you&quot;, [ a, b ,c ], 78 ]</code></pre>
 <p>(3) 区间：<br><code>1..5</code> 表示1, 2, 3, 4, 5 (闭区间)<br><code>1...5</code>表示1, 2, 3, 4 (左闭右开)</p>
 <p>(4) hash表，看下面的snippets：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">new_hash1 = &#123;&#125;		<span class="comment"># 创建空hash表</span></span><br><span class="line">new_hash1[<span class="symbol">:key_a</span>] = <span class="string">'contents1'</span>		<span class="comment"># 使用Symbol作为key，Symbol通过前面加冒号:定义</span></span><br><span class="line">new_hash1[<span class="symbol">:key_b</span>] = <span class="string">'contents2'</span></span><br><span class="line">puts new_hash1[<span class="symbol">:key_a</span>]</span><br><span class="line">puts new_hash1		<span class="comment"># 打印整个hash表</span></span><br><span class="line">new_hash2 = &#123;<span class="symbol">:key_a=&gt;<span class="string">'contents1'</span></span>, <span class="symbol">:key_b=&gt;<span class="string">'contents2'</span></span>&#125;		<span class="comment"># hash表赋值</span></span><br><span class="line">puts new_hash2[<span class="symbol">:key_b</span>]</span><br><span class="line"></span><br><span class="line">my_hash=&#123;&#125;</span><br><span class="line">my_hash[<span class="string">"key_a"</span>]=<span class="number">123456</span>		<span class="comment"># 使用string作为key</span></span><br><span class="line">puts my_hash[<span class="string">"key_a"</span>]</span><br><span class="line">puts my_hash</span><br><span class="line"></span><br><span class="line"><span class="comment"># hash表的一些方法</span></span><br><span class="line">person = &#123;<span class="symbol">:name</span> =&gt; <span class="string">"lxee"</span>, <span class="symbol">:age</span> =&gt; <span class="number">25</span>, <span class="symbol">:sex</span> =&gt; <span class="string">"male"</span>&#125;</span><br><span class="line">p person.keys</span><br><span class="line">p person.values</span><br><span class="line">puts person.<span class="keyword">include</span>?(<span class="symbol">:sex</span>)		<span class="comment"># 判断是否包含key为:sex的元素</span></span><br><span class="line">puts person.<span class="keyword">include</span>?(<span class="string">"sex"</span>)		<span class="comment"># 判断是否包含key为"sex"的元素</span></span><br><span class="line">person.delete(<span class="symbol">:sex</span>)				<span class="comment"># 删除key为:sex的元素</span></span><br><span class="line">puts person.has_key?(<span class="symbol">:sex</span>)      <span class="comment"># 判断是否包含key为:sex的元素</span></span><br><span class="line">puts person.length.to_s         <span class="comment"># 输出Hash对象长度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 上面hash表的遍历</span></span><br><span class="line">person.each <span class="keyword">do</span> <span class="params">|key, value|</span>				<span class="comment"># each迭代器迭代输出Hash对象里全部元素</span></span><br><span class="line">	puts key.to_s+<span class="string">" : "</span>+value.to_s</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">person.each_pair <span class="keyword">do</span> <span class="params">|key, value|</span>		<span class="comment"># each_pair迭代器迭代输出Hash对象里所有key-value对</span></span><br><span class="line">	puts key.to_s+<span class="string">" : "</span>+value.to_s</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">person.each_key <span class="keyword">do</span> <span class="params">|key|</span>                <span class="comment"># each_key迭代器迭代输出Hash对象里所有key</span></span><br><span class="line">	puts key.to_s</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">person.each_value <span class="keyword">do</span> <span class="params">|value|</span>            <span class="comment"># each_value迭代器迭代输出Hash对象里所有value</span></span><br><span class="line">	puts value.to_s</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<pre><code class="ruby">new_hash1 = {}        # 创建空hash表
+new_hash1[:key_a] = &#39;contents1&#39;        # 使用Symbol作为key，Symbol通过前面加冒号:定义
+new_hash1[:key_b] = &#39;contents2&#39;
+puts new_hash1[:key_a]
+puts new_hash1        # 打印整个hash表
+new_hash2 = {:key_a=&gt;&#39;contents1&#39;, :key_b=&gt;&#39;contents2&#39;}        # hash表赋值
+puts new_hash2[:key_b]
 
+my_hash={}
+my_hash[&quot;key_a&quot;]=123456        # 使用string作为key
+puts my_hash[&quot;key_a&quot;]
+puts my_hash
+
+# hash表的一些方法
+person = {:name =&gt; &quot;lxee&quot;, :age =&gt; 25, :sex =&gt; &quot;male&quot;}
+p person.keys
+p person.values
+puts person.include?(:sex)        # 判断是否包含key为:sex的元素
+puts person.include?(&quot;sex&quot;)        # 判断是否包含key为&quot;sex&quot;的元素
+person.delete(:sex)                # 删除key为:sex的元素
+puts person.has_key?(:sex)      # 判断是否包含key为:sex的元素
+puts person.length.to_s         # 输出Hash对象长度
+
+# 上面hash表的遍历
+person.each do |key, value|                # each迭代器迭代输出Hash对象里全部元素
+    puts key.to_s+&quot; : &quot;+value.to_s
+end
+person.each_pair do |key, value|        # each_pair迭代器迭代输出Hash对象里所有key-value对
+    puts key.to_s+&quot; : &quot;+value.to_s
+end
+person.each_key do |key|                # each_key迭代器迭代输出Hash对象里所有key
+    puts key.to_s
+end
+person.each_value do |value|            # each_value迭代器迭代输出Hash对象里所有value
+    puts value.to_s
+end</code></pre>
 <p>注意上面关于hash表的代码片我们分别使用了<code>symbol</code>和<code>string</code>来作为hash表的<code>key</code>。</p>
 <p>在 Ruby 中 <code>Symbol</code> 表示“名字”，比如字符串的名字，标识符的名字。创建一个 <code>Symbol</code> 对象的方法是在名字或者字符串前面加上冒号<code>:</code> 。</p>
 <p>在 Ruby 中字符串也是一种对象，即 <code>String</code> 对象。无论其结构还是操作和 <code>Symbol</code> 对象都是<strong>不同</strong>的。</p>
@@ -154,26 +209,27 @@
 <br>
 
 <hr>
-<h3 id="赋值与条件运算符"><a href="#赋值与条件运算符" class="headerlink" title="赋值与条件运算符"></a>赋值与条件运算符</h3><h4 id="Ruby赋值"><a href="#Ruby赋值" class="headerlink" title="Ruby赋值"></a>Ruby赋值</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>; b = <span class="number">2</span> + <span class="number">3</span> 		<span class="comment"># a = 1, b = 5</span></span><br><span class="line">a, b = b, a 			<span class="comment"># a = 5, b = 1</span></span><br><span class="line">a = b = <span class="number">1</span> + <span class="number">2</span> + <span class="number">3</span> 		<span class="comment"># a = 6, b = 6</span></span><br><span class="line">a = (b = <span class="number">1</span> + <span class="number">2</span>) + <span class="number">3</span> 	<span class="comment"># a = 6, b = 3</span></span><br><span class="line">x = <span class="number">0</span> 					<span class="comment"># x = 0</span></span><br><span class="line">a, b, c = x, (x+<span class="number">1</span>), (x+<span class="number">2</span>) <span class="comment"># a = 0, b = 1, c = 2</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="赋值与条件运算符"><a href="#赋值与条件运算符" class="headerlink" title="赋值与条件运算符"></a>赋值与条件运算符</h3><h4 id="Ruby赋值"><a href="#Ruby赋值" class="headerlink" title="Ruby赋值"></a>Ruby赋值</h4><pre><code class="ruby">a = 1; b = 2 + 3         # a = 1, b = 5
+a, b = b, a             # a = 5, b = 1
+a = b = 1 + 2 + 3         # a = 6, b = 6
+a = (b = 1 + 2) + 3     # a = 6, b = 3
+x = 0                     # x = 0
+a, b, c = x, (x+1), (x+2) # a = 0, b = 1, c = 2</code></pre>
 <hr>
 <h4 id="Ruby条件运算符"><a href="#Ruby条件运算符" class="headerlink" title="Ruby条件运算符"></a>Ruby条件运算符</h4><p><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>：比较两个对象的值的大小</p>
 <p><code>==</code>, <code>!=</code>：比较两个对象的值是否相等</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>; b = <span class="number">1.0</span>; a == b  <span class="comment"># true</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">a = 1; b = 1.0; a == b  # true</code></pre>
 <p><code>eql?</code>：比较两个对象的值、类型是否相等</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span>; b = <span class="number">1.0</span>; a.eql?(b)  <span class="comment"># flase （a为整数型，b为浮点型）</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">a = 1; b = 1.0; a.eql?(b)  # flase （a为整数型，b为浮点型）</code></pre>
 <p><code>equal?</code>：比较两个对象在内存中地址是否相同</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1.0</span>; b = <span class="number">1.0</span>; a.equal?(b)  <span class="comment"># false</span></span><br><span class="line">a = <span class="number">1.0</span>; b = a; a.equal?(b)    <span class="comment"># true, 注意这里可以看出"b = a"是传引用而不是传值</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">a = 1.0; b = 1.0; a.equal?(b)  # false
+a = 1.0; b = a; a.equal?(b)    # true, 注意这里可以看出&quot;b = a&quot;是传引用而不是传值</code></pre>
 <p><code>&lt;=&gt;</code>：比较两个对象的大小，大于、等于、小于 分别返回1, 0, -1</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"aab"</span> &lt;=&gt; <span class="string">"acb"</span>    <span class="comment"># -1 （第二个 a 的 ASCII 码小于 c）</span></span><br><span class="line">[<span class="number">5</span>] &lt;=&gt; [<span class="number">4</span>,<span class="number">9</span>]      <span class="comment"># 1 （第一个元素 5 &gt; 4）</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">&quot;aab&quot; &lt;=&gt; &quot;acb&quot;    # -1 （第二个 a 的 ASCII 码小于 c）
+[5] &lt;=&gt; [4,9]      # 1 （第一个元素 5 &gt; 4）</code></pre>
 <p><code>===</code>：右边的对象是否在左边区间之内,返回 true, flase</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">puts (0..9) === 3.14 		# true</span><br><span class="line">puts (&apos;a&apos;..&apos;f&apos;) === &apos;c&apos; 	# true</span><br></pre></td></tr></table></figure>
-
-<p><code>=~</code> (匹配)：用来比较是否符合一个正则表达式,返回模式在字符串中被匹配到的位置，否则返回 nil(Ruby中nil和false为假，它们的区别有待研究)</p>
+<pre><code>puts (0..9) === 3.14         # true
+puts (&#39;a&#39;..&#39;f&#39;) === &#39;c&#39;     # true</code></pre><p><code>=~</code> (匹配)：用来比较是否符合一个正则表达式,返回模式在字符串中被匹配到的位置，否则返回 nil(Ruby中nil和false为假，它们的区别有待研究)</p>
 <p><code>!~</code> (不匹配)：断言不符合一个正则表达式,返回 true, false</p>
 <hr>
 <h4 id="Ruby条件判断语句"><a href="#Ruby条件判断语句" class="headerlink" title="Ruby条件判断语句"></a>Ruby条件判断语句</h4><p>(1) 单行 <code>if</code> 语句</p>
@@ -183,34 +239,51 @@
 <li><code>(语句1; 语句2; ... 语句n) if 条件</code></li>
 </ol>
 <p>(2) 多行 <code>if</code> 语句</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> 条件</span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line"><span class="keyword">elsif</span> 条件</span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">if 条件
+  语句1; 语句2; ... 语句n
+elsif 条件
+  语句1; 语句2; ... 语句n
+else
+  语句1; 语句2; ... 语句n
+end</code></pre>
 <p>(3) <code>unless</code>(除非)条件语句：</p>
 <p><code>unless 条件 = if not (条件)</code></p>
 <p>(4) <code>case</code>分支条件语句</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> 对象</span><br><span class="line"><span class="keyword">when</span> 可能性<span class="number">1</span></span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line"><span class="keyword">when</span> 可能性<span class="number">2</span></span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line">...</span><br><span class="line"><span class="keyword">when</span> 可能性n</span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">case 对象
+when 可能性1
+  语句1; 语句2; ... 语句n
+when 可能性2
+  语句1; 语句2; ... 语句n
+...
+when 可能性n
+  语句1; 语句2; ... 语句n
+else
+  语句1; 语句2; ... 语句n
+end</code></pre>
 <br>
 
 <hr>
 <h3 id="条件判断与循环"><a href="#条件判断与循环" class="headerlink" title="条件判断与循环"></a>条件判断与循环</h3><h4 id="Ruby循环语句"><a href="#Ruby循环语句" class="headerlink" title="Ruby循环语句"></a>Ruby循环语句</h4><p>(1) <code>while</code> 循环</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 条件</span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">while 条件
+  语句1; 语句2; ... 语句n
+end</code></pre>
 <p>(2) 单行 <code>while</code> 循环</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n) <span class="keyword">while</span> 条件</span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">(语句1; 语句2; ... 语句n) while 条件 </code></pre>
 <p>(3) <code>until</code> 循环</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">until</span> (条件) = <span class="keyword">while</span> <span class="keyword">not</span> (条件)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">until (条件) = while not (条件)</code></pre>
 <p>(4 )<code>for ... in ...</code> 循环</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 变量 <span class="keyword">in</span> 对象</span><br><span class="line">  语句<span class="number">1</span>; 语句<span class="number">2</span>; ... 语句n</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">for 变量 in 对象
+  语句1; 语句2; ... 语句n
+end</code></pre>
 <p>对象可以是数组，区间，集合等</p>
 <p>(5) <code>break</code>, <code>next</code>, <code>redo</code>, <code>retry</code></p>
 <p>在循环体内，如果遇到：<br><code>break</code>    跳出当层循环；<br><code>next</code>    忽略本次循环的剩余部分，开始下一次的循环；<br><code>redo</code>    重新开始循环，还是从这一次开始；<br><code>retry</code>    重头开始这个循环体。  </p>
 <p>(6) <code>times</code>, <code>upto</code>, <code>downto</code>, <code>each</code>, <code>step</code></p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span>.times &#123; print <span class="string">"Hi!"</span> &#125; 			<span class="comment"># Hi!Hi!Hi!</span></span><br><span class="line"><span class="number">1</span>.upto(<span class="number">9</span>) &#123;<span class="params">|i|</span> print i <span class="keyword">if</span> i&lt;<span class="number">7</span> &#125; 	<span class="comment"># 123456</span></span><br><span class="line"><span class="number">9</span>.downto(<span class="number">1</span>)&#123;<span class="params">|i|</span> print i <span class="keyword">if</span> i&lt;<span class="number">7</span> &#125; 	<span class="comment"># 654321</span></span><br><span class="line">(<span class="number">1</span>..<span class="number">9</span>).each &#123;<span class="params">|i|</span> print i <span class="keyword">if</span> i&lt;<span class="number">7</span>&#125; 	<span class="comment"># 123456</span></span><br><span class="line"><span class="number">0</span>.step(<span class="number">11</span>,<span class="number">3</span>) &#123;<span class="params">|i|</span> print i &#125; 		<span class="comment"># 0369</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">3.times { print &quot;Hi!&quot; }             # Hi!Hi!Hi!
+1.upto(9) {|i| print i if i&lt;7 }     # 123456
+9.downto(1){|i| print i if i&lt;7 }     # 654321
+(1..9).each {|i| print i if i&lt;7}     # 123456
+0.step(11,3) {|i| print i }         # 0369</code></pre>
 <p>注意<code>step</code>第一个参数是limit，第二个参数是步长</p>
 
       
@@ -325,7 +398,18 @@
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

@@ -6,13 +6,25 @@
   
   <meta name="description" content="《Ruby语言入门教程v1.0》笔记（4）
 
-第八章 Ruby中的数组、字符串、闭包1. Ruby中的数组1.1 建立数组123456arr1 = []arr2 = Array.newarr3 = [&#39;4 &#39;, &#39;5 &#39;, &#39;6 &#39;]print arr1, &#34;\n&#34;print arr2, &#34;\n&#34;print arr3, &#34;\n&#34;
+第八章 Ruby中的数组、字符串、闭包1. Ruby中的数组1.1 建立数组arr1 = []
+arr2 = Array.new
+arr3 = [&amp;#39;4 &amp;#39;, &amp;#39;5 &amp;#39;, &amp;#39;6 &amp;#39;]
+print arr1, &amp;quot;\n&amp;quot;
+print arr2, &amp;quot;\n&amp;quot;
+print arr3, &amp;quot;\n&amp;quot;
 
 
 
-
-1.2 访问数组元素12345678910arr = [3, 4, 5, 6, 7, 8, 9]puts arr[0]    # 3puts arr.first    # 3puts arr[arr.length-1]    # 9puts arr[arr.size-1]    # 9puts arr.last    # 9puts arr[-1]    # 9puts arr[-2]    # 8print arr[1..3] ,&#34;\n&#34;    # 456print arr[-3, 2] ,&#34;\n&#34;    # 78
-
+1.2 访问数组元素arr = [3, 4, 5, 6, 7, 8, 9]
+puts arr[0]    # 3
+puts arr.first    # 3
+puts arr[arr.length-1]    # 9
+puts arr[arr.size-1]    # 9
+puts arr.last    # 9
+puts arr[-1]    # 9
+puts arr[-2]    # 8
+print arr[1..3] ,&amp;quot;\n&amp;quot;    # 456
+print arr[-3, 2] ,&amp;quot;\n&amp;quot;    # 78
 数组的索引从 0 开始，一直到数组的长度减去 1；
 负数表示从数组末尾开始的索引；
 用一对数字来索引数组，第一个数字表示开始位置，第二数字表示从开始位置起的元素数目。
@@ -30,18 +42,18 @@
   
   <title>Ruby Quick Start (4) -- Array, String, Closure | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="《Ruby语言入门教程v1.0》笔记（4）  第八章 Ruby中的数组、字符串、闭包1. Ruby中的数组1.1 建立数组123456arr1 = []arr2 = Array.newarr3 = [&apos;4 &apos;, &apos;5 &apos;, &apos;6 &apos;]print arr1, &quot;\n&quot;print arr2, &quot;\n&quot;print arr3, &quot;\n&quot;     1.2 访问数组元素12345678910arr = [3,">
+  <meta name="description" content="《Ruby语言入门教程v1.0》笔记（4）  第八章 Ruby中的数组、字符串、闭包1. Ruby中的数组1.1 建立数组arr1 = [] arr2 = Array.new arr3 = [&amp;#39;4 &amp;#39;, &amp;#39;5 &amp;#39;, &amp;#39;6 &amp;#39;] print arr1, &amp;quot;\n&amp;quot; print arr2, &amp;quot;\n&amp;quot; print ar">
 <meta name="keywords" content="Ruby">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ruby Quick Start (4) -- Array, String, Closure">
 <meta property="og:url" content="https://yilingui.xyz/2014/06/03/ruby_quickstart_notes_4/index.html">
 <meta property="og:site_name" content="Yilin&#39;s Blog">
-<meta property="og:description" content="《Ruby语言入门教程v1.0》笔记（4）  第八章 Ruby中的数组、字符串、闭包1. Ruby中的数组1.1 建立数组123456arr1 = []arr2 = Array.newarr3 = [&apos;4 &apos;, &apos;5 &apos;, &apos;6 &apos;]print arr1, &quot;\n&quot;print arr2, &quot;\n&quot;print arr3, &quot;\n&quot;     1.2 访问数组元素12345678910arr = [3,">
+<meta property="og:description" content="《Ruby语言入门教程v1.0》笔记（4）  第八章 Ruby中的数组、字符串、闭包1. Ruby中的数组1.1 建立数组arr1 = [] arr2 = Array.new arr3 = [&amp;#39;4 &amp;#39;, &amp;#39;5 &amp;#39;, &amp;#39;6 &amp;#39;] print arr1, &amp;quot;\n&amp;quot; print arr2, &amp;quot;\n&amp;quot; print ar">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-06-08T08:32:38.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ruby Quick Start (4) -- Array, String, Closure">
-<meta name="twitter:description" content="《Ruby语言入门教程v1.0》笔记（4）  第八章 Ruby中的数组、字符串、闭包1. Ruby中的数组1.1 建立数组123456arr1 = []arr2 = Array.newarr3 = [&apos;4 &apos;, &apos;5 &apos;, &apos;6 &apos;]print arr1, &quot;\n&quot;print arr2, &quot;\n&quot;print arr3, &quot;\n&quot;     1.2 访问数组元素12345678910arr = [3,">
+<meta name="twitter:description" content="《Ruby语言入门教程v1.0》笔记（4）  第八章 Ruby中的数组、字符串、闭包1. Ruby中的数组1.1 建立数组arr1 = [] arr2 = Array.new arr3 = [&amp;#39;4 &amp;#39;, &amp;#39;5 &amp;#39;, &amp;#39;6 &amp;#39;] print arr1, &amp;quot;\n&amp;quot; print arr2, &amp;quot;\n&amp;quot; print ar">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -100,7 +112,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/06/03/ruby_quickstart_notes_4/" data-id="cjwngkbgl001o9jbh1xkzxzk1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/06/03/ruby_quickstart_notes_4/" data-id="cjwnhxpcc001ruqbhliitc6yp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -108,13 +120,25 @@
       
         <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="noopener">《Ruby语言入门教程v1.0》</a>笔记（4）<br><br></p>
 <hr>
-<h2 id="第八章-Ruby中的数组、字符串、闭包"><a href="#第八章-Ruby中的数组、字符串、闭包" class="headerlink" title="第八章 Ruby中的数组、字符串、闭包"></a>第八章 Ruby中的数组、字符串、闭包</h2><h3 id="1-Ruby中的数组"><a href="#1-Ruby中的数组" class="headerlink" title="1. Ruby中的数组"></a>1. Ruby中的数组</h3><h4 id="1-1-建立数组"><a href="#1-1-建立数组" class="headerlink" title="1.1 建立数组"></a>1.1 建立数组</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">arr1 = []</span><br><span class="line">arr2 = Array.new</span><br><span class="line">arr3 = [<span class="string">'4 '</span>, <span class="string">'5 '</span>, <span class="string">'6 '</span>]</span><br><span class="line">print arr1, <span class="string">"\n"</span></span><br><span class="line">print arr2, <span class="string">"\n"</span></span><br><span class="line">print arr3, <span class="string">"\n"</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="第八章-Ruby中的数组、字符串、闭包"><a href="#第八章-Ruby中的数组、字符串、闭包" class="headerlink" title="第八章 Ruby中的数组、字符串、闭包"></a>第八章 Ruby中的数组、字符串、闭包</h2><h3 id="1-Ruby中的数组"><a href="#1-Ruby中的数组" class="headerlink" title="1. Ruby中的数组"></a>1. Ruby中的数组</h3><h4 id="1-1-建立数组"><a href="#1-1-建立数组" class="headerlink" title="1.1 建立数组"></a>1.1 建立数组</h4><pre><code class="ruby">arr1 = []
+arr2 = Array.new
+arr3 = [&#39;4 &#39;, &#39;5 &#39;, &#39;6 &#39;]
+print arr1, &quot;\n&quot;
+print arr2, &quot;\n&quot;
+print arr3, &quot;\n&quot;</code></pre>
 <br>
 
 <hr>
-<h4 id="1-2-访问数组元素"><a href="#1-2-访问数组元素" class="headerlink" title="1.2 访问数组元素"></a>1.2 访问数组元素</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">arr = [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">puts arr[<span class="number">0</span>]    <span class="comment"># 3</span></span><br><span class="line">puts arr.first    <span class="comment"># 3</span></span><br><span class="line">puts arr[arr.length-<span class="number">1</span>]    <span class="comment"># 9</span></span><br><span class="line">puts arr[arr.size-<span class="number">1</span>]    <span class="comment"># 9</span></span><br><span class="line">puts arr.last    <span class="comment"># 9</span></span><br><span class="line">puts arr[-<span class="number">1</span>]    <span class="comment"># 9</span></span><br><span class="line">puts arr[-<span class="number">2</span>]    <span class="comment"># 8</span></span><br><span class="line">print arr[<span class="number">1</span>..<span class="number">3</span>] ,<span class="string">"\n"</span>    <span class="comment"># 456</span></span><br><span class="line">print arr[-<span class="number">3</span>, <span class="number">2</span>] ,<span class="string">"\n"</span>    <span class="comment"># 78</span></span><br></pre></td></tr></table></figure>
-
+<h4 id="1-2-访问数组元素"><a href="#1-2-访问数组元素" class="headerlink" title="1.2 访问数组元素"></a>1.2 访问数组元素</h4><pre><code class="ruby">arr = [3, 4, 5, 6, 7, 8, 9]
+puts arr[0]    # 3
+puts arr.first    # 3
+puts arr[arr.length-1]    # 9
+puts arr[arr.size-1]    # 9
+puts arr.last    # 9
+puts arr[-1]    # 9
+puts arr[-2]    # 8
+print arr[1..3] ,&quot;\n&quot;    # 456
+print arr[-3, 2] ,&quot;\n&quot;    # 78</code></pre>
 <p>数组的索引从 <code>0</code> 开始，一直到数组的长度减去 <code>1</code>；</p>
 <p>负数表示从数组末尾开始的索引；</p>
 <p>用一对数字来索引数组，第一个数字表示开始位置，第二数字表示从开始位置起的元素数目。</p>
@@ -124,20 +148,67 @@
 <h4 id="1-3-增加、删除数组元素"><a href="#1-3-增加、删除数组元素" class="headerlink" title="1.3 增加、删除数组元素"></a>1.3 增加、删除数组元素</h4><p>Ruby 的数组大小是动态的，你能够随时增加、删除数组元素。</p>
 <a id="more"></a>
 <p><code>print arr.join(&quot;, &quot;), &quot;\n&quot;</code>  意思是：将数组 <code>arr</code> 转换成字符串输出，用”<code>,</code>“隔开每个元素，并且换行。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">arr = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 4, 5, 6</span></span><br><span class="line">arr[<span class="number">4</span>] = <span class="string">"m"</span>        <span class="comment"># 把 4 号索引位置元素赋值为"m"</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 4, 5, 6, , m</span></span><br><span class="line">print arr[<span class="number">3</span>], <span class="string">"\n"</span>    <span class="comment"># 打印 3 号索引位置元素 #nil</span></span><br><span class="line">arr.delete_at(<span class="number">3</span>)    <span class="comment"># 删除 3 号索引位置元素</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 4, 5, 6, m</span></span><br><span class="line">arr[<span class="number">2</span>] = [<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"c"</span>]        <span class="comment"># 把 2 号索引位置元素赋值为["a","b","c"]</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 4, 5, a, b, c, m</span></span><br><span class="line">print arr[<span class="number">2</span>], <span class="string">"\n"</span>        <span class="comment"># 打印 2 号索引位置元素 #abc</span></span><br><span class="line">arr[<span class="number">0</span>..<span class="number">1</span>] = [<span class="number">7</span>, <span class="string">"h"</span>, <span class="string">"b"</span>]        <span class="comment"># 把 0..1 号元素替换为 7, "h", "b"</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>        <span class="comment"># 7, h, b, a, b, c, m</span></span><br><span class="line">arr.push(<span class="string">"b"</span> )        <span class="comment"># 加入元素"b"</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>        <span class="comment"># 7, h, b, a, b, c, m, b</span></span><br><span class="line">arr.delete([<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>])        <span class="comment"># 删除元素["a","b","c"]</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>        <span class="comment"># 7, h, b, m, b</span></span><br><span class="line">arr.delete(<span class="string">"b"</span>)            <span class="comment"># 删除所有元素"b"</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 7, h, m</span></span><br><span class="line">arr.insert(<span class="number">3</span>, <span class="string">"d"</span>)        <span class="comment"># 在 3 号索引位置插入元素"d"</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>        <span class="comment"># 7, h, m, d</span></span><br><span class="line">arr &lt;&lt; <span class="string">"f"</span> &lt;&lt; <span class="number">2</span>            <span class="comment"># 加入元素"f"；加入元素 2</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 7, h, m, d, f, 2</span></span><br><span class="line">arr.pop            <span class="comment"># 删除尾元素</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># 7, h, m, d, f</span></span><br><span class="line">arr.shift            <span class="comment"># 删除首元素</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment"># h, m, d, f</span></span><br><span class="line">arr.clear            <span class="comment"># 清空数组 arr</span></span><br><span class="line">print arr.join(<span class="string">", "</span>), <span class="string">"\n"</span>    <span class="comment">#</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">arr = [4, 5, 6]
+print arr.join(&quot;, &quot;), &quot;\n&quot;    # 4, 5, 6
+arr[4] = &quot;m&quot;        # 把 4 号索引位置元素赋值为&quot;m&quot;
+print arr.join(&quot;, &quot;), &quot;\n&quot;    # 4, 5, 6, , m
+print arr[3], &quot;\n&quot;    # 打印 3 号索引位置元素 #nil
+arr.delete_at(3)    # 删除 3 号索引位置元素
+print arr.join(&quot;, &quot;), &quot;\n&quot;    # 4, 5, 6, m
+arr[2] = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]        # 把 2 号索引位置元素赋值为[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]
+print arr.join(&quot;, &quot;), &quot;\n&quot;    # 4, 5, a, b, c, m
+print arr[2], &quot;\n&quot;        # 打印 2 号索引位置元素 #abc
+arr[0..1] = [7, &quot;h&quot;, &quot;b&quot;]        # 把 0..1 号元素替换为 7, &quot;h&quot;, &quot;b&quot;
+print arr.join(&quot;, &quot;), &quot;\n&quot;        # 7, h, b, a, b, c, m
+arr.push(&quot;b&quot; )        # 加入元素&quot;b&quot;
+print arr.join(&quot;, &quot;), &quot;\n&quot;        # 7, h, b, a, b, c, m, b
+arr.delete([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;])        # 删除元素[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]
+print arr.join(&quot;, &quot;), &quot;\n&quot;        # 7, h, b, m, b
+arr.delete(&quot;b&quot;)            # 删除所有元素&quot;b&quot;
+print arr.join(&quot;, &quot;), &quot;\n&quot;    # 7, h, m
+arr.insert(3, &quot;d&quot;)        # 在 3 号索引位置插入元素&quot;d&quot;
+print arr.join(&quot;, &quot;), &quot;\n&quot;        # 7, h, m, d
+arr &lt;&lt; &quot;f&quot; &lt;&lt; 2            # 加入元素&quot;f&quot;；加入元素 2
+print arr.join(&quot;, &quot;), &quot;\n&quot;    # 7, h, m, d, f, 2
+arr.pop            # 删除尾元素
+print arr.join(&quot;, &quot;), &quot;\n&quot;    # 7, h, m, d, f
+arr.shift            # 删除首元素
+print arr.join(&quot;, &quot;), &quot;\n&quot;    # h, m, d, f
+arr.clear            # 清空数组 arr
+print arr.join(&quot;, &quot;), &quot;\n&quot;    #</code></pre>
 <br>
 
 <hr>
-<h4 id="1-4-数组运算"><a href="#1-4-数组运算" class="headerlink" title="1.4 数组运算"></a>1.4 数组运算</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">aaaa = [<span class="string">" aa "</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="string">" bb "</span>]</span><br><span class="line">bbbb = [<span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>]</span><br><span class="line">print aaaa + bbbb, <span class="string">"\n"</span>    <span class="comment">#  aa 45 bb 41325</span></span><br><span class="line">print aaaa * <span class="number">2</span>, <span class="string">"\n"</span>        <span class="comment">#  aa 45 bb aa 45 bb</span></span><br><span class="line">print bbbb - aaaa, <span class="string">"\n"</span>    <span class="comment"># 132</span></span><br><span class="line"><span class="comment"># 并运算；交运算</span></span><br><span class="line">print aaaa <span class="params">| bbbb, "\n"    #  aa 45 bb 132</span></span><br><span class="line"><span class="params">print aaaa &amp; bbbb, "\n"    # 45</span></span><br><span class="line"><span class="params"># 排序；倒置</span></span><br><span class="line"><span class="params">print bbbb.sort, "\n"        # 12345</span></span><br><span class="line"><span class="params">print aaaa.reverse, "\n"        #  bb 54 aa</span></span><br></pre></td></tr></table></figure>
-
+<h4 id="1-4-数组运算"><a href="#1-4-数组运算" class="headerlink" title="1.4 数组运算"></a>1.4 数组运算</h4><pre><code class="ruby">aaaa = [&quot; aa &quot;, 4, 5, &quot; bb &quot;]
+bbbb = [4, 1, 3, 2, 5]
+print aaaa + bbbb, &quot;\n&quot;    #  aa 45 bb 41325
+print aaaa * 2, &quot;\n&quot;        #  aa 45 bb aa 45 bb
+print bbbb - aaaa, &quot;\n&quot;    # 132
+# 并运算；交运算
+print aaaa | bbbb, &quot;\n&quot;    #  aa 45 bb 132
+print aaaa &amp; bbbb, &quot;\n&quot;    # 45
+# 排序；倒置
+print bbbb.sort, &quot;\n&quot;        # 12345
+print aaaa.reverse, &quot;\n&quot;        #  bb 54 aa</code></pre>
 <br>
 <br>
 
 <hr>
 <h3 id="2-Ruby中的字符串"><a href="#2-Ruby中的字符串" class="headerlink" title="2. Ruby中的字符串"></a>2. Ruby中的字符串</h3><h4 id="2-1-字符串的创建"><a href="#2-1-字符串的创建" class="headerlink" title="2.1 字符串的创建"></a>2.1 字符串的创建</h4><p>字符串是 <code>String</code> 类的对象，一般使用字面值来创建。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">str1 = <span class="string">'this is str1'</span></span><br><span class="line">str2 = <span class="string">"this is str2"</span></span><br><span class="line">str3 = <span class="string">%q/this is str3/</span></span><br><span class="line">str4 = <span class="string">%Q/this is str4/</span></span><br><span class="line">str5 = &lt;&lt; OK_str</span><br><span class="line">    Here is string document, str5</span><br><span class="line">        line one;</span><br><span class="line">        line two;</span><br><span class="line">        line three.</span><br><span class="line">    OK</span><br><span class="line">OK_str</span><br><span class="line">puts str3</span><br><span class="line">puts str4</span><br><span class="line">puts str5</span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">str1 = &#39;this is str1&#39;
+str2 = &quot;this is str2&quot;
+str3 = %q/this is str3/
+str4 = %Q/this is str4/
+str5 = &lt;&lt; OK_str
+    Here is string document, str5
+        line one;
+        line two;
+        line three.
+    OK
+OK_str
+puts str3
+puts str4
+puts str5</code></pre>
 <p>输出结果：</p>
 <blockquote><p>this is str3<br>this is str4<br>    Here is string document, str5<br>        line one;<br>        line two;<br>        line three.<br>    OK</p>
 </blockquote>
@@ -149,21 +220,34 @@
 
 <hr>
 <h4 id="2-2-字符串操作"><a href="#2-2-字符串操作" class="headerlink" title="2.2 字符串操作"></a>2.2 字符串操作</h4><p>字符串既然是 <code>String</code> 类的对象， <code>String</code> 类的方法你都可以使用在字符串变量上，<code>String</code> 类的方法非常多，下面略举几例。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">str = <span class="string">' this'</span> + <span class="string">" is"</span></span><br><span class="line">str += <span class="string">" you"</span></span><br><span class="line">str &lt;&lt; <span class="string">" string"</span> &lt;&lt; <span class="string">" ."</span></span><br><span class="line">puts str*<span class="number">2</span>    <span class="comment"># this is you string . this is you string .</span></span><br><span class="line">puts str[-<span class="number">12</span>, <span class="number">12</span>]    <span class="comment"># you string .</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">str = &#39; this&#39; + &quot; is&quot;
+str += &quot; you&quot;
+str &lt;&lt; &quot; string&quot; &lt;&lt; &quot; .&quot;
+puts str*2    # this is you string . this is you string .
+puts str[-12, 12]    # you string .</code></pre>
 <br>
 
 <hr>
 <h4 id="2-3-字符串转义"><a href="#2-3-字符串转义" class="headerlink" title="2.3 字符串转义"></a>2.3 字符串转义</h4><p>双引号括起来的字符串会有转义，例如：”<code>\n</code>“ 表示换行。还有一些其它的转义符号，比如制表符之类。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">str = <span class="string">" this is you string ."</span></span><br><span class="line">puts str * <span class="number">2</span>        <span class="comment"># this is you string . this is you string .</span></span><br><span class="line">str = <span class="string">" this is you string .\n"</span></span><br><span class="line">puts str*<span class="number">2</span>        <span class="comment"># this is you string .</span></span><br><span class="line">this is you string .</span><br><span class="line">str = <span class="string">" \tthis is you string ."</span></span><br><span class="line">puts str        <span class="comment"># this is you string .</span></span><br><span class="line">str = <span class="string">' this\'s you string .\n'</span></span><br><span class="line">puts str        <span class="comment"># this's you string .\n</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">str = &quot; this is you string .&quot;
+puts str * 2        # this is you string . this is you string .
+str = &quot; this is you string .\n&quot;
+puts str*2        # this is you string .
+this is you string .
+str = &quot; \tthis is you string .&quot;
+puts str        # this is you string .
+str = &#39; this\&#39;s you string .\n&#39;
+puts str        # this&#39;s you string .\n</code></pre>
 <p>单引号括起来的字符串并不会对字符串作任何解释，你看到的是什么便是什么，有一个例外：单引号字符串里的 <code>单引号</code> 需要转义。</p>
 <br>
 
 <hr>
 <h4 id="2-4-字符串内嵌表达式"><a href="#2-4-字符串内嵌表达式" class="headerlink" title="2.4 字符串内嵌表达式"></a>2.4 字符串内嵌表达式</h4><p>在双引号扩起来的字符串中， 不仅可以使用各种转义符， 而且可以放置任意的Ruby 表达式在 <code>#{ }</code> 之中，这些表达式在使用这个字符串的时候被计算出值，然后放入字符串。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(name)</span></span></span><br><span class="line">  <span class="string">" Welcome, <span class="subst">#&#123;name&#125;</span> !"</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">puts hello(<span class="string">"Yilin"</span>)    <span class="comment"># Welcome, Yilin !</span></span><br><span class="line">puts hello(<span class="string">"Ben"</span>)        <span class="comment"># Welcome, Ben !</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">def hello(name)
+  &quot; Welcome, #{name} !&quot;
+end
+puts hello(&quot;Yilin&quot;)    # Welcome, Yilin !
+puts hello(&quot;Ben&quot;)        # Welcome, Ben !</code></pre>
 <p>字符串内嵌表达式，使得你能够更加灵活地组织代码，表现出更强、更多的动态特性。</p>
 <br>
 
@@ -173,22 +257,31 @@
 <br>
 
 <hr>
-<h3 id="4-迭代器、代码块、闭包"><a href="#4-迭代器、代码块、闭包" class="headerlink" title="4. 迭代器、代码块、闭包"></a>4. 迭代器、代码块、闭包</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>..<span class="number">9</span>).each &#123;<span class="params">|i|</span> print i <span class="keyword">if</span> i &lt; <span class="number">7</span>&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="4-迭代器、代码块、闭包"><a href="#4-迭代器、代码块、闭包" class="headerlink" title="4. 迭代器、代码块、闭包"></a>4. 迭代器、代码块、闭包</h3><pre><code class="ruby">(1..9).each {|i| print i if i &lt; 7}</code></pre>
 <p>迭代器 <code>each</code> 是数组类的一个方法；大括号<code>{ }</code>里的代码是代码块，简称<strong>块</strong>。</p>
 <p>你可以用大括号<code>{ }</code>将代码组织成块，也可以用 <code>do...end</code> 将代码组织成块。</p>
 <p>大括号<code>{ }</code>的优先级高于 <code>do...end</code>。</p>
 <p>我们来写一个最简单的块：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">one_block</span></span></span><br><span class="line">  <span class="keyword">yield</span></span><br><span class="line">  <span class="keyword">yield</span></span><br><span class="line">  <span class="keyword">yield</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">one_block &#123; puts <span class="string">"This is a block. "</span> &#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">def one_block
+  yield
+  yield
+  yield
+end
+one_block { puts &quot;This is a block. &quot; }</code></pre>
 <p>输出结果：</p>
 <blockquote><p>This is a block.<br>This is a block.<br>This is a block.</p>
 </blockquote>
 
 <p>从上面的程序可以看到调用一个块要用关键字 <code>yield</code>。每一次 <code>yield</code>，块就被调用一次。</p>
 <p><code>yield</code> 还可以带参数调用块：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">one_block</span></span></span><br><span class="line">  <span class="keyword">for</span> num <span class="keyword">in</span> <span class="number">1</span>..<span class="number">3</span></span><br><span class="line">    <span class="keyword">yield</span>(num)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">one_block <span class="keyword">do</span> <span class="params">|i|</span></span><br><span class="line">  puts <span class="string">"This is block <span class="subst">#&#123;i&#125;</span>. "</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">def one_block
+  for num in 1..3
+    yield(num)
+  end
+end
+one_block do |i|
+  puts &quot;This is block #{i}. &quot;
+end</code></pre>
 <p>输出结果：</p>
 <blockquote><p>This is block 1.<br>This is block 2.<br>This is block 3.</p>
 </blockquote>
@@ -196,28 +289,53 @@
 <p>一个块可以接收 <code>yield</code> 传来的参数，还可以将结果返回给调用它的方法。</p>
 <p>到目前为止，实在看不出使用代码块的优势，可以把块里的代码直接写在方法中。</p>
 <p>如果我们还没有决定块里写什么代码， 又或者块里的代码会随着不同的情形而变化， 那么就看出代码块的灵活性了。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_something</span></span></span><br><span class="line">  <span class="keyword">yield</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">do_something <span class="keyword">do</span></span><br><span class="line">  (<span class="number">1</span>..<span class="number">9</span>).each &#123;<span class="params">|i|</span> print i <span class="keyword">if</span> i&lt;<span class="number">5</span>&#125;</span><br><span class="line">  puts</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">do_something <span class="keyword">do</span></span><br><span class="line">  <span class="number">3</span>.times &#123; print <span class="string">"Hi!"</span> &#125;</span><br><span class="line">  puts</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">def do_something
+  yield
+end
+do_something do
+  (1..9).each {|i| print i if i&lt;5}
+  puts
+end
+do_something do
+  3.times { print &quot;Hi!&quot; }
+  puts
+end</code></pre>
 <p>输出结果：</p>
 <blockquote><p>1234<br>Hi!Hi!Hi!</p>
 </blockquote>
 
 <p>其中的技巧：先写出方法的大致框架，调用方法的时候才告诉方法要做什么。</p>
 <p>虽然与代码块有关联的方法不都是迭代器，但是， 迭代器确实是一个与代码块有关联的方法。让我们为数组类增加一个迭代器 <code>one_by_one</code>：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Array</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">one_by_one</span></span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>...size</span><br><span class="line">      <span class="keyword">yield</span>(<span class="keyword">self</span>[i])</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    puts</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</span><br><span class="line">arr.one_by_one &#123;<span class="params">|k|</span> print k, <span class="string">", "</span>&#125;    <span class="comment"># 1, 3, 5, 7, 9,</span></span><br><span class="line">arr.one_by_one &#123;<span class="params">|h|</span> print h * h, <span class="string">", "</span>&#125;    <span class="comment"># 1, 9, 25, 49, 81,</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">class Array
+  def one_by_one
+    for i in 0...size
+      yield(self[i])
+    end
+    puts
+  end
+end
+arr = [1, 3, 5, 7, 9]
+arr.one_by_one {|k| print k, &quot;, &quot;}    # 1, 3, 5, 7, 9,
+arr.one_by_one {|h| print h * h, &quot;, &quot;}    # 1, 9, 25, 49, 81,</code></pre>
 <p>代码块是一段代码，相当于一个<strong>匿名方法</strong>，被调用它的方法所调用。</p>
 <p>如果我们不仅仅想调用代码块，还想<strong>把代码块作为参数传递给其它方法</strong>，就要使用<strong>闭包</strong>了。</p>
 <p>闭包也是一段代码，一个代码块，而且<strong>能够共享其它方法的局部变量</strong>。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">method</span><span class="params">(pr)</span></span></span><br><span class="line">  puts pr.call(<span class="number">7</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">oneProc = proc&#123;<span class="params">|k|</span> k *= <span class="number">3</span> &#125;</span><br><span class="line">method(oneProc)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">def method(pr)
+  puts pr.call(7)
+end
+oneProc = proc{|k| k *= 3 }
+method(oneProc)</code></pre>
 <p>输出结果：</p>
 <blockquote><p>21</p>
 </blockquote>
 
 <p>来看一个闭包共享其它方法局部变量的例子：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">method</span><span class="params">(n)</span></span></span><br><span class="line">  <span class="keyword">return</span> proc&#123;<span class="params">|i|</span> n += i &#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">oneProc = method(<span class="number">3</span>)</span><br><span class="line">puts oneProc.call(<span class="number">9</span>)    <span class="comment"># 12</span></span><br><span class="line">puts oneProc.call(<span class="number">5</span>)    <span class="comment"># 17, 注意不是8！</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="ruby">def method(n)
+  return proc{|i| n += i }
+end
+oneProc = method(3)
+puts oneProc.call(9)    # 12
+puts oneProc.call(5)    # 17, 注意不是8！</code></pre>
 <p>方法 <code>method</code> 返回一个 <code>Proc</code> 对象，这个对象引用了这个函数的参数：<code>n</code> 。即使 <code>n</code> 这个参数在闭包被调用时已经不在自己的作用域里了，这个闭包还是可以访问 <code>n</code> 这个参数，并且和方法 <code>method</code> 共同拥有变量 <code>n</code> 。开始的时候，方法 <code>method</code> 的变量 <code>n</code> 是 <code>3</code>；<code>oneProc.call(9)</code>的时候，<code>oneProc</code> 更新了变量 <code>n</code>，把 <code>n=12</code> 传回给方法 <code>method</code>；<code>oneProc.call(5)</code>的时候，<code>oneProc</code> 取出方法 <code>method</code> 的变量 <code>n=12</code>，更新为 <code>n=17</code>，传回给方法 <code>method</code> 的同时，也把 <code>n=17</code> 作为自己的返回值输出。</p>
 
       
@@ -332,7 +450,18 @@
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

@@ -19,16 +19,16 @@ Apply the operator to the operands
 
 A name is evaluated by replacing it with the right hand side of its definition.
 Example:
-1234(2 * pi) * radius(2 * 3.14159) * radius  6.28318 * radius6.28318 * 10
-
+(2 * pi) * radius
+(2 * 3.14159) * radius  
+6.28318 * radius
+6.28318 * 10
 
 Definition can have parameters:
-1def square(x: Double) = x * x
-
+def square(x: Double) = x * x
 
 Parameter and Return Types:
-1def power(x: Double, y: Int): Double = ...
-
+def power(x: Double, y: Int): Double = ...
 
 Evaluation of Function Applications
 
@@ -37,8 +37,14 @@ Replace the function application by the function’s right-hand side, and, at th
 Replace the formal parameters of the function by the actual arguments.
 
 Example:
-12345678sumOfSquares(3, 2+2)sumOfSquares(3, 4)square(3) + square(4)3 * 3 + square(4)9 + square(4)9 + 4 * 49 + 1625
-
+sumOfSquares(3, 2+2)
+sumOfSquares(3, 4)
+square(3) + square(4)
+3 * 3 + square(4)
+9 + square(4)
+9 + 4 * 4
+9 + 16
+25
 
 The substitution modelThe scheme of expression evaluation is called the substitution model.
 The idea is that all evaluation dose is reduce an expression to a value.
@@ -131,7 +137,7 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwngkbgn001s9jbhddmf18bz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwnhxpcb001ouqbhio24fzu4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -152,16 +158,16 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
 </ol>
 <p>A name is evaluated by replacing it with the right hand side of its definition.</p>
 <p>Example:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">2</span> * pi) * radius</span><br><span class="line">(<span class="number">2</span> * <span class="number">3.14159</span>) * radius  </span><br><span class="line"><span class="number">6.28318</span> * radius</span><br><span class="line"><span class="number">6.28318</span> * <span class="number">10</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">(2 * pi) * radius
+(2 * 3.14159) * radius  
+6.28318 * radius
+6.28318 * 10</code></pre>
 <hr>
 <p>Definition can have parameters:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span></span>(x: <span class="type">Double</span>) = x * x</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def square(x: Double) = x * x</code></pre>
 <hr>
 <p>Parameter and Return Types:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">power</span></span>(x: <span class="type">Double</span>, y: <span class="type">Int</span>): <span class="type">Double</span> = ...</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def power(x: Double, y: Int): Double = ...</code></pre>
 <hr>
 <p>Evaluation of Function Applications</p>
 <ol>
@@ -170,8 +176,14 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
 <li>Replace the formal parameters of the function by the actual arguments.</li>
 </ol>
 <p>Example:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">square(<span class="number">3</span>) + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line"><span class="number">9</span> + <span class="number">16</span></span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">sumOfSquares(3, 2+2)
+sumOfSquares(3, 4)
+square(3) + square(4)
+3 * 3 + square(4)
+9 + square(4)
+9 + 4 * 4
+9 + 16
+25</code></pre>
 <hr>
 <h3 id="The-substitution-model"><a href="#The-substitution-model" class="headerlink" title="The substitution model"></a>The substitution model</h3><p>The scheme of expression evaluation is called the substitution model.</p>
 <p>The idea is that all evaluation dose is reduce an expression to a value.</p>
@@ -186,13 +198,23 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
 <p>Call-by-value has the advantage that <strong>it evaluates every function<br>argument only once</strong>.</p>
 <p>Call-by-name has the advantage that <strong>a function argument is not<br>evaluated if the corresponding parameter is unused in the evaluation<br>of the function body</strong>.</p>
 <p>An Example of CBV:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">square(<span class="number">3</span>) + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line"><span class="number">9</span> + <span class="number">16</span></span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">sumOfSquares(3, 2+2)
+sumOfSquares(3, 4)
+square(3) + square(4)
+3 * 3 + square(4)
+9 + square(4)
+9 + 4 * 4
+9 + 16
+25</code></pre>
 <p>An Example of CBN:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">square(<span class="number">3</span>) + square(<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">9</span> + square(<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">9</span> + (<span class="number">2</span>+<span class="number">2</span>) * (<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * (<span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">sumOfSquares(3, 2+2)
+square(3) + square(2+2)
+3 * 3 + square(2+2)
+9 + square(2+2)
+9 + (2+2) * (2+2)
+9 + 4 * (2+2)
+9 + 4 * 4
+25</code></pre>
 <p>CBV vs CBN:</p>
 <p><img src="/imgs/cbv_vs_cbn.png" alt="Call By Value v.s. Call By Name"></p>
 <ul>
@@ -200,9 +222,8 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
 <li>The other direction is <strong>not true.</strong></li>
 </ul>
 <p>Let’s define</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">first</span></span>(x: <span class="type">Int</span>, y: <span class="type">Int</span>) = x</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop</span></span>: <span class="type">Int</span> = loop</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">def first(x: Int, y: Int) = x
+def loop: Int = loop</code></pre>
 <p>and consider the expression <code>first(1, loop)</code>.</p>
 <p>Under CBN, it will terminate.</p>
 <p>Under CBV, it <strong>won’t</strong>.</p>
@@ -214,12 +235,10 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
 </ul>
 <p><strong>But if the type of a function parameter starts with <code>=&gt;</code> it uses call-by-name.</strong></p>
 <p>Example:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">constOne</span></span>(x: <span class="type">Int</span>, y: =&gt; <span class="type">Int</span>) = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">def constOne(x: Int, y: =&gt; Int) = 1</code></pre>
 <p>Let’s trace the evaluations of </p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">constOne(<span class="number">1</span>+<span class="number">2</span>, loop)</span><br><span class="line">constOne(loop, <span class="number">1</span>+<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">constOne(1+2, loop)
+constOne(loop, 1+2)</code></pre>
 <p><img src="/imgs/cbn.png" alt="CBN"></p>
 <p><img src="/imgs/cbv.png" alt="CBV"></p>
 <br>
@@ -228,57 +247,59 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
 <hr>
 <h3 id="Conditional-Expressions"><a href="#Conditional-Expressions" class="headerlink" title="Conditional Expressions"></a>Conditional Expressions</h3><p>It looks like a if-else in Java, but is used for <em>expressions</em>, not <em>statements</em>.</p>
 <p>Example:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">abs</span></span>(x: <span class="type">Int</span>) = <span class="keyword">if</span> (x &gt;= <span class="number">0</span>) x <span class="keyword">else</span> -x</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">def abs(x: Int) = if (x &gt;= 0) x else -x</code></pre>
 <br>
 <br>
 
 <hr>
 <h3 id="Value-Definitions"><a href="#Value-Definitions" class="headerlink" title="Value Definitions"></a>Value Definitions</h3><p><code>def</code>: “by-name”, its right hand side is evaluated on each<br>use.</p>
 <p><code>var</code>: “by-value”, Example:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="number">2</span></span><br><span class="line"><span class="keyword">val</span> y = square(x) <span class="comment">// y refers to 4 , not square(2)</span></span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">val x = 2
+val y = square(x) // y refers to 4 , not square(2) </code></pre>
 <h4 id="Value-Definitions-and-Termination"><a href="#Value-Definitions-and-Termination" class="headerlink" title="Value Definitions and Termination"></a>Value Definitions and Termination</h4><p>A definition</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">x</span> </span>= loop</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">def x = loop</code></pre>
 <p>is OK, but a definition</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = loop</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">val x = loop</code></pre>
 <p>will lead to an infinite loop. </p>
 <br>
 
 <hr>
 <h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><p>Write functions and and or such that for all argument expressions x<br>and y :</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">and(x, y) == x &amp;&amp; y</span><br><span class="line">or(x, y) == x || y</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">and(x, y) == x &amp;&amp; y
+or(x, y) == x || y</code></pre>
 <p>(do not use || and &amp;&amp; in your implementation)</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">and</span></span>(x: <span class="type">Boolean</span>, y: <span class="type">Boolean</span>) = </span><br><span class="line">  <span class="keyword">if</span> (x) y <span class="keyword">else</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">or</span></span>(x: <span class="type">Boolean</span>, y: <span class="type">Boolean</span>) = </span><br><span class="line">  <span class="keyword">if</span> (x) <span class="literal">true</span> <span class="keyword">else</span> y</span><br></pre></td></tr></table></figure>
+<pre><code class="scala">def and(x: Boolean, y: Boolean) = 
+  if (x) y else false
 
+def or(x: Boolean, y: Boolean) = 
+  if (x) true else y    </code></pre>
 <p>It seems OK, but what if</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and(<span class="literal">false</span> loop)</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">and(false loop)</code></pre>
 <p>OOPS! What’ wrong? <code>y: Boolean</code> is a <strong>call-by-value</strong> form, let’s change it to call-by-name form:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">and</span></span>(x: <span class="type">Boolean</span>, y: =&gt; <span class="type">Boolean</span>)</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">def and(x: Boolean, y: =&gt; Boolean)    </code></pre>
 <p>Try <code>and(false loop)</code> again, it’s OK!</p>
 <br>
 <br>
 
 <hr>
-<h3 id="Example-–-square-roots-with-Newton’s-method"><a href="#Example-–-square-roots-with-Newton’s-method" class="headerlink" title="Example – square roots with Newton’s method"></a>Example – square roots with Newton’s method</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Calculates the square root of parameter x */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sqrt</span></span>(x: <span class="type">Double</span>): <span class="type">Double</span> = ...</span><br></pre></td></tr></table></figure>
-
-
+<h3 id="Example-–-square-roots-with-Newton’s-method"><a href="#Example-–-square-roots-with-Newton’s-method" class="headerlink" title="Example – square roots with Newton’s method"></a>Example – square roots with Newton’s method</h3><pre><code class="scala">/** Calculates the square root of parameter x */
+def sqrt(x: Double): Double = ...</code></pre>
 <p><img src="/imgs/sqrtnewton.png" alt="Square roots with Newton’s method"></p>
-<h4 id="Implementation-in-Scala"><a href="#Implementation-in-Scala" class="headerlink" title="Implementation in Scala"></a>Implementation in Scala</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sqrt</span></span>(x: <span class="type">Double</span>): <span class="type">Double</span> = &#123; </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sqrtIter</span></span>(guess: <span class="type">Double</span>, x: <span class="type">Double</span>): <span class="type">Double</span> = </span><br><span class="line">	<span class="keyword">if</span> (isGoodEnough(guess, x)) guess </span><br><span class="line">	<span class="keyword">else</span> sqrtIter(improve(guess, x), x)</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">improve</span></span>(guess: <span class="type">Double</span>, x: <span class="type">Double</span>) = </span><br><span class="line">	(guess + x / guess) / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isGoodEnough</span></span>(guess: <span class="type">Double</span>, x: <span class="type">Double</span>) = </span><br><span class="line">	abs(guess * guess - x) / x &lt; <span class="number">0.0001</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">abs</span></span>(x: <span class="type">Double</span>) = <span class="keyword">if</span> (x &lt; <span class="number">0</span>) -x <span class="keyword">else</span> x </span><br><span class="line"></span><br><span class="line">  sqrtIter(<span class="number">1</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Implementation-in-Scala"><a href="#Implementation-in-Scala" class="headerlink" title="Implementation in Scala"></a>Implementation in Scala</h4><pre><code class="scala">def sqrt(x: Double): Double = { 
+  def sqrtIter(guess: Double, x: Double): Double = 
+    if (isGoodEnough(guess, x)) guess 
+    else sqrtIter(improve(guess, x), x)
 
+  def improve(guess: Double, x: Double) = 
+    (guess + x / guess) / 2
 
+  def isGoodEnough(guess: Double, x: Double) = 
+    abs(guess * guess - x) / x &lt; 0.0001
+
+  def abs(x: Double) = if (x &lt; 0) -x else x 
+
+  sqrtIter(1) 
+}</code></pre>
 <br>
 <br>
 
@@ -294,8 +315,12 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
 <li>This return expression can be preceded by auxiliary definitions.</li>
 <li>Blocks are themselves expressions; a block may appear everywhere an expression can. </li>
 </ul>
-<h4 id="Blocks-and-Visibility"><a href="#Blocks-and-Visibility" class="headerlink" title="Blocks and Visibility"></a>Blocks and Visibility</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(y: <span class="type">Int</span>) = y + <span class="number">1</span></span><br><span class="line"><span class="keyword">val</span> result = &#123;</span><br><span class="line">  <span class="keyword">val</span> x = f(<span class="number">3</span>)</span><br><span class="line">  x * x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h4 id="Blocks-and-Visibility"><a href="#Blocks-and-Visibility" class="headerlink" title="Blocks and Visibility"></a>Blocks and Visibility</h4><pre><code class="scala">val x = 0
+def f(y: Int) = y + 1
+val result = {
+  val x = f(3)
+  x * x
+}</code></pre>
 <ul>
 <li>The definitions inside a block are only visible from within the block.</li>
 <li>The definitions inside a block shadow definitions of the same names outside the block.</li>
@@ -303,28 +328,32 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
 <p><img src="/imgs/scoping.png" alt="Scope Rules"></p>
 <h4 id="Lexical-Scoping"><a href="#Lexical-Scoping" class="headerlink" title="Lexical Scoping"></a>Lexical Scoping</h4><p>Definitions of outer blocks are <strong>visible</strong> inside a block unless they are<br>shadowed.</p>
 <p>Therefore, we can simplify sqrt by <strong>eliminating redundant<br>occurrences of the x parameter</strong>, which means everywhere the same<br>thing:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sqrt</span></span>(x: <span class="type">Double</span>) = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sqrtIter</span></span>(guess: <span class="type">Double</span>): <span class="type">Double</span> =</span><br><span class="line">	<span class="keyword">if</span> (isGoodEnough(guess)) guess</span><br><span class="line">	<span class="keyword">else</span> sqrtIter(improve(guess))</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">improve</span></span>(guess: <span class="type">Double</span>) =</span><br><span class="line">	(guess + x / guess) / <span class="number">2</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">isGoodEnough</span></span>(guess: <span class="type">Double</span>) =</span><br><span class="line">	abs(square(guess) - x) &lt; <span class="number">0.001</span></span><br><span class="line">  sqrtIter(<span class="number">1.0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">def sqrt(x: Double) = {
+  def sqrtIter(guess: Double): Double =
+    if (isGoodEnough(guess)) guess
+    else sqrtIter(improve(guess))
+  def improve(guess: Double) =
+    (guess + x / guess) / 2
+  def isGoodEnough(guess: Double) =
+    abs(square(guess) - x) &lt; 0.001
+  sqrtIter(1.0)
+}</code></pre>
 <h4 id="Semicolons"><a href="#Semicolons" class="headerlink" title="Semicolons"></a>Semicolons</h4><p>In Scala, semicolons at the end of lines are in most cases optional.<br>You could write</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> x = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">val x = 1;</code></pre>
 <p>but most people would omit the semicolon.<br>On the other hand, if there are more than one statements on a line,<br>they need to be separated by semicolons:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> y = x + <span class="number">1</span>; y * y</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="scala">val y = x + 1; y * y</code></pre>
 <h4 id="Semicolons-and-infix-operators"><a href="#Semicolons-and-infix-operators" class="headerlink" title="Semicolons and infix operators"></a>Semicolons and infix operators</h4><p>One issue with Scala’s semicolon convention is how to write<br>expressions that span several lines. For instance</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">someLongExpression</span><br><span class="line">+ someOtherExpression</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">someLongExpression
++ someOtherExpression</code></pre>
 <p>would be interpreted as two expressions:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">someLongExpression;</span><br><span class="line">+ someOtherExpression</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">someLongExpression;
++ someOtherExpression</code></pre>
 <p>There are two ways to overcome this problem.<br>You could write the multi-line expression in parentheses, because<br>semicolons are never inserted inside (…) :</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(someLongExpression</span><br><span class="line">+ someOtherExpression)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">(someLongExpression
++ someOtherExpression)</code></pre>
 <p>Or you could <strong>write the operator on the first line</strong>, because this tells<br>the Scala compiler that the expression is not yet finished:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">someLongExpression +</span><br><span class="line">someOtherExpression</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">someLongExpression +
+someOtherExpression</code></pre>
 <hr>
 
       
@@ -439,7 +468,18 @@ The substitution model is formalized in the λ-calculus, which gives afoundation
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

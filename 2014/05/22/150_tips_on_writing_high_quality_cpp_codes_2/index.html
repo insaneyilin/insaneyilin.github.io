@@ -26,7 +26,11 @@ const成员函数不可以修改对象的数据，不管对象是否具有const�
 建议83：不要返回局部变量的引用局部变量的引用是一件不太靠谱的事儿，所以尽量避免让函数返回局部变量的引用。同时也不要返回new生成对象的引用，因为这样会让代码层次混乱，让使用者苦不堪言。
 建议84：切忌过度使用传引用代替传对象相较于传对象，传引用的优点：它减少了临时对象的构造与析构，所以更具效率。但须审慎地使用传引用替代传对象，必须传回内部对象时，就传对象，勿传引用。
 建议85：了解指针参数传递内存中的玄机用指针参数传回一块动态申请的内存，是很常见的一种需求。然而如果不甚小心，就很容易造成严重错误：程序崩溃+内存泄露，解决之道就是用指针的指针来传递，或者换种内存传递方式，用返回值来传递。
-12345// 指针型变量在函数体中需要改变的写法void f(int *&amp;amp;x)    // 使用指针变量的引用&amp;#123;    ++x;&amp;#125;">
+// 指针型变量在函数体中需要改变的写法
+void f(int *&amp;amp;x)    // 使用指针变量的引用
+{
+    ++x;
+}">
   
 
   
@@ -107,7 +111,7 @@ const成员函数不可以修改对象的数据，不管对象是否具有const�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwngkbhb002r9jbhwn9vl1h6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwnhxpd1002quqbh2qsu07uw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -135,8 +139,11 @@ const成员函数不可以修改对象的数据，不管对象是否具有const�
 <h3 id="建议83：不要返回局部变量的引用"><a href="#建议83：不要返回局部变量的引用" class="headerlink" title="建议83：不要返回局部变量的引用"></a>建议83：不要返回局部变量的引用</h3><p>局部变量的引用是一件不太靠谱的事儿，所以尽量避免让函数返回局部变量的引用。同时也不要返回<code>new</code>生成对象的引用，因为这样会让代码层次混乱，让使用者苦不堪言。<br><br></p>
 <h3 id="建议84：切忌过度使用传引用代替传对象"><a href="#建议84：切忌过度使用传引用代替传对象" class="headerlink" title="建议84：切忌过度使用传引用代替传对象"></a>建议84：切忌过度使用传引用代替传对象</h3><p>相较于传对象，传引用的优点：它减少了临时对象的构造与析构，所以更具效率。但须审慎地使用传引用替代传对象，必须传回内部对象时，就传对象，勿传引用。<br><br></p>
 <h3 id="建议85：了解指针参数传递内存中的玄机"><a href="#建议85：了解指针参数传递内存中的玄机" class="headerlink" title="建议85：了解指针参数传递内存中的玄机"></a>建议85：了解指针参数传递内存中的玄机</h3><p>用指针参数传回一块动态申请的内存，是很常见的一种需求。然而如果不甚小心，就很容易造成严重错误：程序崩溃+内存泄露，解决之道就是用指针的指针来传递，或者换种内存传递方式，用返回值来传递。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指针型变量在函数体中需要改变的写法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> *&amp;x)</span>    <span class="comment">// 使用指针变量的引用</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ++x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">// 指针型变量在函数体中需要改变的写法
+void f(int *&amp;x)    // 使用指针变量的引用
+{
+    ++x;
+}</code></pre>
 <br>
 <a id="more"></a>
 ### 建议86：不要将函数参数作为工作变量
@@ -147,8 +154,12 @@ const成员函数不可以修改对象的数据，不管对象是否具有const�
 <li>浮点数不存在绝对0值，所以浮点零值比较需特殊处理；</li>
 <li>区分比较操作符<code>==</code>与赋值操作符<code>=</code>，切忌混淆。</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">float</span> FLOAT_ZERO = <span class="number">0.00000001f</span>;</span><br><span class="line"><span class="keyword">float</span> f = <span class="number">1.33f</span>;</span><br><span class="line"><span class="keyword">if</span> (f &gt; FLOAT_ZERO)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">const float FLOAT_ZERO = 0.00000001f;
+float f = 1.33f;
+if (f &gt; FLOAT_ZERO)
+{
+    // ......
+}</code></pre>
 <br>
 
 <h3 id="建议88：不要用reinterpret-cast去迷惑编译器"><a href="#建议88：不要用reinterpret-cast去迷惑编译器" class="headerlink" title="建议88：不要用reinterpret_cast去迷惑编译器"></a>建议88：不要用reinterpret_cast去迷惑编译器</h3><p><code>reinterpret_cast</code>，简单地说就是<strong>保持二进制位不变，用另一种格式来重新解释</strong>，它就是C/C++中<strong>最为暴力的类型转换</strong>，所实现的是一个类型到一个毫不相关、完全不同类型的映射。</p>
@@ -215,8 +226,17 @@ const成员函数不可以修改对象的数据，不管对象是否具有const�
 <p>关于“柴郡猫(Cheshire Cat Idiom)技术”，即PImpl，Private Implementaion。<strong>主类中只定义接口，将私有数据成员封装在一个实现类中</strong>。
 <br></p>
 <h3 id="建议118：不用在头文件中使用using"><a href="#建议118：不用在头文件中使用using" class="headerlink" title="建议118：不用在头文件中使用using"></a>建议118：不用在头文件中使用using</h3><p>名空间是C++提供的一种机制，可以有效地避免函数名污染。然而在应用时要十分注意：<strong>任何情况下都不应在头文件中使用“<code>using namespace XXX</code>”这样的语句</strong>，而应该<strong>在定义时直接用全称</strong>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A.h</span></span><br><span class="line"><span class="comment">// 头文件中绝不使用using !</span></span><br><span class="line"><span class="comment">// using namespace std;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    A()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"hello"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  <span class="comment">// 使用名空间全称</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">// A.h
+// 头文件中绝不使用using !
+// using namespace std;
+class A
+{
+public:
+    A()
+    {
+        std::cout &lt;&lt; &quot;hello&quot; &lt;&lt; std::endl;  // 使用名空间全称
+    }
+}</code></pre>
 <br>
 
 <h3 id="建议119：划分全局名空间避免名污染"><a href="#建议119：划分全局名空间避免名污染" class="headerlink" title="建议119：划分全局名空间避免名污染"></a>建议119：划分全局名空间避免名污染</h3><p>使用自己的名空间将全局名空间合理划分，会有效地减少名污染问题，<strong>不要简单地将所有的符号和名称统统扔进全局名空间里</strong>。
@@ -267,8 +287,23 @@ const成员函数不可以修改对象的数据，不管对象是否具有const�
 <li>基类中的一个虚拟公有成员函数，则表示这是一个接口，不推荐，建议用<code>protected virtual</code>来替换。</li>
 </ol>
 <p>经典设计模式：Template Method</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CBaseTemplate</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Step_1</span><span class="params">()</span> </span>&#123;...&#125;           <span class="comment">// 不可被派生类修改</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Step_2</span><span class="params">()</span> </span>&#123;...&#125;   <span class="comment">// 可以被派生类修改</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Step_3</span><span class="params">()</span> </span>= <span class="number">0</span>;    <span class="comment">// 必须被派生类修改</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Function</span><span class="params">()</span>    <span class="comment">// 算法骨架函数</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Step_1();</span><br><span class="line">        Step_2();</span><br><span class="line">        Step_3();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">class CBaseTemplate
+{
+private:
+    void Step_1() {...}           // 不可被派生类修改
+    virtual void Step_2() {...}   // 可以被派生类修改
 
+protected:
+    virtual void Step_3() = 0;    // 必须被派生类修改
+
+public:
+    void Function()    // 算法骨架函数
+    {
+        Step_1();
+        Step_2();
+        Step_3();
+    }
+};</code></pre>
 <br>
 
 <h3 id="建议127：谨慎恰当地使用友元机制"><a href="#建议127：谨慎恰当地使用友元机制" class="headerlink" title="建议127：谨慎恰当地使用友元机制"></a>建议127：谨慎恰当地使用友元机制</h3><p>通常说来，类中的私有成员一般是不允许外面访问的。但是友元可以超脱这条禁令，它可以访问该类的私有成员。所带来的最大好处就是避免了类成员函数的频繁调用，节约了处理器的开销，提高了程序的效率。但是，通常，大家认为“友元破坏了类的封装性”。采用友元机制，一般是基于这样的需求：一个类的部分成员需要对个别其他类公开。<br><br></p>
@@ -296,8 +331,18 @@ const成员函数不可以修改对象的数据，不管对象是否具有const�
 <h3 id="建议133：将RAII作为一种习惯"><a href="#建议133：将RAII作为一种习惯" class="headerlink" title="建议133：将RAII作为一种习惯"></a>建议133：将RAII作为一种习惯</h3><p>RAII(ResourceAcquisition Is Initialization)，资源获取即初始化，RAII是C++语言的一种管理资源、避免泄露的惯用方法。RAII的做法是使用一个对象，在其构造时获取资源，在对象生命周期中控制对象资源的访问，使之始终保持有效，最后再对象析构时释放资源。实现这种功能的类即采用了RAII方式，这样的类被称为封装类。<br><br></p>
 <h3 id="建议134：学习使用设计模式"><a href="#建议134：学习使用设计模式" class="headerlink" title="建议134：学习使用设计模式"></a>建议134：学习使用设计模式</h3><p>设计模式是用来<strong>“封装变化、降低耦合”</strong>的工具，它是面向对象设计时代的产物，其本质就是充分运用面向对象的三个特性(即：封装、继承和多态)，并进行灵活的组合。<br><br></p>
 <h3 id="建议135：在接口继承和实现继承中做谨慎选择"><a href="#建议135：在接口继承和实现继承中做谨慎选择" class="headerlink" title="建议135：在接口继承和实现继承中做谨慎选择"></a>建议135：在接口继承和实现继承中做谨慎选择</h3><p>在接口继承和实现继承之间进行选择时，需要考虑的一个因素就是：基类的默认版本。对于那些无法提供默认版本的函数接口我们选择函数接口继承；而对于那些能够提供默认版本的，函数实现继承就是最佳选择。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CShape</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Draw</span><span class="params">()</span> </span>= <span class="number">0</span>;   <span class="comment">// 用于接口继承</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SetColor</span><span class="params">(<span class="keyword">const</span> COLOR &amp;color)</span></span>;    <span class="comment">// 用于实现继承</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    COLOR m_color;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CCircle</span> :</span> <span class="keyword">public</span> CShape &#123;...&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CRectangle</span> :</span> <span class="keyword">public</span> CShape &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="cpp">class CShape
+{
+public:
+    virtual void Draw() = 0;   // 用于接口继承
+    virtual void SetColor(const COLOR &amp;color);    // 用于实现继承
 
+private:
+    COLOR m_color;
+}
+
+class CCircle : public CShape {...}
+class CRectangle : public CShape {...}</code></pre>
 <br>
 
 <h3 id="建议136：遵循类设计的五项基本原则"><a href="#建议136：遵循类设计的五项基本原则" class="headerlink" title="建议136：遵循类设计的五项基本原则"></a>建议136：遵循类设计的五项基本原则</h3><ol>
@@ -311,8 +356,13 @@ const成员函数不可以修改对象的数据，不管对象是否具有const�
 </ol>
 <h3 id="建议137：用表驱动取代冗长的逻辑选择"><a href="#建议137：用表驱动取代冗长的逻辑选择" class="headerlink" title="建议137：用表驱动取代冗长的逻辑选择"></a>建议137：用表驱动取代冗长的逻辑选择</h3><p>表驱动法(Table drivenmethod)，是一种不必用很多的逻辑语句(<code>if</code>或<code>case</code>)就可以把表中信息找出来的方法。它是一种设计模式，可用来代替复杂的<code>if</code>/<code>else</code>或<code>switch</code>-<code>case</code>逻辑判断。</p>
 <p>一个简单的例子：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> s_nMonthDays[<span class="number">12</span>] = </span><br><span class="line">              &#123;<span class="number">31</span>, <span class="number">28</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">31</span>&#125;;</span><br><span class="line"><span class="comment">// 使用表驱动可以代替冗长的逻辑选择</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetMonthDays</span><span class="params">(<span class="keyword">int</span> iMonth)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s_nMonthDays[iMonth - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">static int s_nMonthDays[12] = 
+              {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+// 使用表驱动可以代替冗长的逻辑选择
+int GetMonthDays(int iMonth)
+{
+    return s_nMonthDays[iMonth - 1];
+}</code></pre>
 <p>MFC中的消息映射机制也使用了表驱动。</p>
 <p>表驱动的好处在于将冗长的逻辑选择改为维护表，符合”元编程思想”。<br><br></p>
 <h3 id="建议139：编码之前需三思"><a href="#建议139：编码之前需三思" class="headerlink" title="建议139：编码之前需三思"></a>建议139：编码之前需三思</h3><blockquote>
@@ -445,7 +495,18 @@ Think first, program later.<br>你开始编码的时间越早，项目持续的�
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

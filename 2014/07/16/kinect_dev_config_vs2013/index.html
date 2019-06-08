@@ -96,7 +96,7 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjwngkbfb00029jbhpo05vrfz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjwnhxpb80007uqbh8eq6nl7d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -142,8 +142,113 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
 <p><img src="/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_vcpp_dir.jpg" alt="VC++ Directories"></p>
 <p><img src="/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_linker.jpg" alt="Linker"></p>
 <hr>
-<h2 id="四-测试用Kinect读取深度图像并用OpenCV显示"><a href="#四-测试用Kinect读取深度图像并用OpenCV显示" class="headerlink" title="四. 测试用Kinect读取深度图像并用OpenCV显示"></a>四. 测试用Kinect读取深度图像并用OpenCV显示</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/************************************************</span></span><br><span class="line"><span class="comment">代码原作者：zouxy09</span></span><br><span class="line"><span class="comment">来自：http://blog.csdn.net/zouxy09/article/details/8146266</span></span><br><span class="line"><span class="comment">Kinect for Windows SDK + OpenCV2读取并显示深度图像</span></span><br><span class="line"><span class="comment">************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;NuiApi.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image;</span><br><span class="line">    <span class="comment">// 这里我们用灰度图来表述深度数据，越远的数据越暗</span></span><br><span class="line">    image.create(<span class="number">240</span>, <span class="number">320</span>, CV_8UC1);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 初始化NUI，注意这里传入的参数有变化，为DEPTH</span></span><br><span class="line">    HRESULT hr = NuiInitialize(NUI_INITIALIZE_FLAG_USES_DEPTH);</span><br><span class="line">    <span class="keyword">if</span> (FAILED(hr))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"NuiInitialize failed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> hr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 定义事件句柄</span></span><br><span class="line">    <span class="comment">// 创建读取下一帧的信号事件句柄，控制Kinect是否可以开始读取下一帧数据</span></span><br><span class="line">    HANDLE nextColorFrameEvent = CreateEvent(<span class="literal">NULL</span>, TRUE, FALSE, <span class="literal">NULL</span>);</span><br><span class="line">    HANDLE depthStreamHandle = <span class="literal">NULL</span>;  <span class="comment">// 保存图像数据流的句柄，用以提取数据</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 打开Kinect设备的深度图信息通道，并用depthStreamHandle保存该流的句柄，以便以后读取</span></span><br><span class="line">    hr = NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH, NUI_IMAGE_RESOLUTION_320x240,</span><br><span class="line">        <span class="number">0</span>, <span class="number">2</span>, nextColorFrameEvent, &amp;depthStreamHandle);</span><br><span class="line">    <span class="keyword">if</span> (FAILED(hr))  <span class="comment">// 判断读取是否正确</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Could not open color image stream video"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        NuiShutdown();</span><br><span class="line">        <span class="keyword">return</span> hr;</span><br><span class="line">    &#125;</span><br><span class="line">    namedWindow(<span class="string">"depthImage"</span>, CV_WINDOW_AUTOSIZE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 开始读取深度数据</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> NUI_IMAGE_FRAME * pImageFrame = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.1 无限等待新的数据，等到后返回</span></span><br><span class="line">        <span class="keyword">if</span> (WaitForSingleObject(nextColorFrameEvent, INFINITE) == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 4.2 从刚才打开数据流的流句柄中得到该帧数据，读取到的数据地址存于pImageFrame</span></span><br><span class="line">            hr = NuiImageStreamGetNextFrame(depthStreamHandle, <span class="number">0</span>, &amp;pImageFrame);</span><br><span class="line">            <span class="keyword">if</span> (FAILED(hr))  <span class="comment">// 判断读取是否正确</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"Could not get depth image"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                NuiShutdown();</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            INuiFrameTexture * pTexture = pImageFrame-&gt;pFrameTexture;</span><br><span class="line">            NUI_LOCKED_RECT LockedRect;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 4.3 提取数据帧到LockedRect，它包括两个数据对象：Pitch每行字节数，pBits第一个字节地址</span></span><br><span class="line">            <span class="comment">// 并锁定数据，这样当我们读取数据时，Kinect就不会去修改它</span></span><br><span class="line">            pTexture-&gt;LockRect(<span class="number">0</span>, &amp;LockedRect, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 4.4 确定获得的数据是否有效</span></span><br><span class="line">            <span class="keyword">if</span> (LockedRect.Pitch != <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 4.5 将数据转换为OpenCV的Mat格式</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; image.rows; ++i)</span><br><span class="line">                &#123;</span><br><span class="line">                    uchar *ptr = image.ptr&lt;uchar&gt;(i);  <span class="comment">// 第i行的指针</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 深度图像数据含有两种格式，这里像素的低12位表示一个深度值，高4位未使用</span></span><br><span class="line">                    <span class="comment">// 注意这里需要进行转换，因为每个数据是2个字节，存储的同上面获取的颜色信息不一样</span></span><br><span class="line">                    uchar *pBufferRun = (uchar*)(LockedRect.pBits) + i * LockedRect.Pitch;</span><br><span class="line">                    USHORT *pBuffer = (USHORT*)pBufferRun;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; image.cols; ++j)</span><br><span class="line">                    &#123;</span><br><span class="line">                        ptr[j] = <span class="number">255</span> - (uchar)(<span class="number">256</span> * pBuffer[j] / <span class="number">0x0fff</span>);  <span class="comment">// 直接将数据归一化处理</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                imshow(<span class="string">"depthImage"</span>, image);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"Buffer length of received texture is bogus\r\n"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 5. 这一帧已经处理完了，所以将其解锁</span></span><br><span class="line">            pTexture-&gt;UnlockRect(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 6. 释放本帧数据，准备迎接下一帧</span></span><br><span class="line">            NuiImageStreamReleaseFrame(depthStreamHandle, pImageFrame);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cvWaitKey(<span class="number">20</span>) == <span class="number">27</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7. 关闭NUI链接</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四-测试用Kinect读取深度图像并用OpenCV显示"><a href="#四-测试用Kinect读取深度图像并用OpenCV显示" class="headerlink" title="四. 测试用Kinect读取深度图像并用OpenCV显示"></a>四. 测试用Kinect读取深度图像并用OpenCV显示</h2><pre><code class="cpp">/************************************************
+代码原作者：zouxy09
+来自：http://blog.csdn.net/zouxy09/article/details/8146266
+Kinect for Windows SDK + OpenCV2读取并显示深度图像
+************************************************/
 
+#include &lt;windows.h&gt;
+#include &lt;iostream&gt;
+#include &lt;NuiApi.h&gt;
+#include &lt;opencv2/opencv.hpp&gt;
+
+using namespace std;
+using namespace cv;
+
+int main(int argc, char *argv[])
+{
+    Mat image;
+    // 这里我们用灰度图来表述深度数据，越远的数据越暗
+    image.create(240, 320, CV_8UC1);
+
+    // 1. 初始化NUI，注意这里传入的参数有变化，为DEPTH
+    HRESULT hr = NuiInitialize(NUI_INITIALIZE_FLAG_USES_DEPTH);
+    if (FAILED(hr))
+    {
+        cout &lt;&lt; &quot;NuiInitialize failed&quot; &lt;&lt; endl;
+        return hr;
+    }
+
+    // 2. 定义事件句柄
+    // 创建读取下一帧的信号事件句柄，控制Kinect是否可以开始读取下一帧数据
+    HANDLE nextColorFrameEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+    HANDLE depthStreamHandle = NULL;  // 保存图像数据流的句柄，用以提取数据
+
+    // 3. 打开Kinect设备的深度图信息通道，并用depthStreamHandle保存该流的句柄，以便以后读取
+    hr = NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH, NUI_IMAGE_RESOLUTION_320x240,
+        0, 2, nextColorFrameEvent, &amp;depthStreamHandle);
+    if (FAILED(hr))  // 判断读取是否正确
+    {
+        cout &lt;&lt; &quot;Could not open color image stream video&quot; &lt;&lt; endl;
+        NuiShutdown();
+        return hr;
+    }
+    namedWindow(&quot;depthImage&quot;, CV_WINDOW_AUTOSIZE);
+
+    // 4. 开始读取深度数据
+    while (true)
+    {
+        const NUI_IMAGE_FRAME * pImageFrame = NULL;
+
+        // 4.1 无限等待新的数据，等到后返回
+        if (WaitForSingleObject(nextColorFrameEvent, INFINITE) == 0)
+        {
+            // 4.2 从刚才打开数据流的流句柄中得到该帧数据，读取到的数据地址存于pImageFrame
+            hr = NuiImageStreamGetNextFrame(depthStreamHandle, 0, &amp;pImageFrame);
+            if (FAILED(hr))  // 判断读取是否正确
+            {
+                cout &lt;&lt; &quot;Could not get depth image&quot; &lt;&lt; endl;
+                NuiShutdown();
+                return -1;
+            }
+
+            INuiFrameTexture * pTexture = pImageFrame-&gt;pFrameTexture;
+            NUI_LOCKED_RECT LockedRect;
+
+            // 4.3 提取数据帧到LockedRect，它包括两个数据对象：Pitch每行字节数，pBits第一个字节地址
+            // 并锁定数据，这样当我们读取数据时，Kinect就不会去修改它
+            pTexture-&gt;LockRect(0, &amp;LockedRect, NULL, 0);
+
+            // 4.4 确定获得的数据是否有效
+            if (LockedRect.Pitch != 0)
+            {
+                // 4.5 将数据转换为OpenCV的Mat格式
+                for (int i = 0; i &lt; image.rows; ++i)
+                {
+                    uchar *ptr = image.ptr&lt;uchar&gt;(i);  // 第i行的指针
+
+                    // 深度图像数据含有两种格式，这里像素的低12位表示一个深度值，高4位未使用
+                    // 注意这里需要进行转换，因为每个数据是2个字节，存储的同上面获取的颜色信息不一样
+                    uchar *pBufferRun = (uchar*)(LockedRect.pBits) + i * LockedRect.Pitch;
+                    USHORT *pBuffer = (USHORT*)pBufferRun;
+                    for (int j = 0; j &lt; image.cols; ++j)
+                    {
+                        ptr[j] = 255 - (uchar)(256 * pBuffer[j] / 0x0fff);  // 直接将数据归一化处理
+                    }
+                }
+                imshow(&quot;depthImage&quot;, image);
+            }
+            else
+            {
+                cout &lt;&lt; &quot;Buffer length of received texture is bogus\r\n&quot; &lt;&lt; endl;
+            }
+
+            // 5. 这一帧已经处理完了，所以将其解锁
+            pTexture-&gt;UnlockRect(0);
+
+            // 6. 释放本帧数据，准备迎接下一帧
+            NuiImageStreamReleaseFrame(depthStreamHandle, pImageFrame);
+        }
+        if (cvWaitKey(20) == 27)
+        {
+            break;
+        }
+    }
+
+    // 7. 关闭NUI链接
+    return 0;
+}</code></pre>
 <br>
 
 <p>程序运行效果：</p>
@@ -263,7 +368,18 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

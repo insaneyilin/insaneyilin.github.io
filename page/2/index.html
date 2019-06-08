@@ -80,7 +80,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjwngkbhc002s9jbh495ty1a2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjwnhxpd2002ruqbh9zlholev" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -90,8 +90,29 @@
 <hr>
 <h2 id="第四章-Ruby面向对象初探"><a href="#第四章-Ruby面向对象初探" class="headerlink" title="第四章 Ruby面向对象初探"></a>第四章 Ruby面向对象初探</h2><h3 id="1-封装"><a href="#1-封装" class="headerlink" title="1. 封装"></a>1. 封装</h3><p>让我们来定义一个类， 类名是 <code>Person</code>， <strong>类名首字母要大写</strong>；   
 属性有姓名<code>@name</code>、年龄<code>@age</code>、国籍<code>@motherland</code>，实例变量用<code>@</code>开头；<br>方法有一个，叫 <code>talk</code>, 方法名和参数名应该用一个小写字母开头或者用一个下划线开头。</p>
-<figure class="highlight ruby"><figcaption><span>Person.rb</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(name, age = <span class="number">18</span>)</span></span></span><br><span class="line">    @name = name</span><br><span class="line">    @age = age</span><br><span class="line">    @motherland = <span class="string">"China"</span></span><br><span class="line">  <span class="keyword">end</span>  <span class="comment"># 初始化方法结束</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">talk</span></span></span><br><span class="line">    puts <span class="string">"my name is "</span> + @name + <span class="string">", age is "</span> + @age.to_s</span><br><span class="line">    <span class="keyword">if</span> @motherland == <span class="string">"China"</span></span><br><span class="line">      puts <span class="string">"I am a Chinese."</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      puts <span class="string">"I am a foreigner."</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span>  <span class="comment"># talk方法结束</span></span><br><span class="line">  <span class="keyword">attr_writer</span> <span class="symbol">:motherland</span>  <span class="comment"># <span class="doctag">@motherland</span>的setter</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">p1 = Person.new(<span class="string">"Yilin"</span>, <span class="number">23</span>)</span><br><span class="line">p1.talk</span><br><span class="line"></span><br><span class="line">p2 = Person.new(<span class="string">"Ben"</span>)</span><br><span class="line">p2.motherland = <span class="string">"ABC"</span></span><br><span class="line">p2.talk</span><br></pre></td></tr></table></figure>
+<pre><code class="ruby">class Person
+  def initialize(name, age = 18)
+    @name = name
+    @age = age
+    @motherland = &quot;China&quot;
+  end  # 初始化方法结束
+  def talk
+    puts &quot;my name is &quot; + @name + &quot;, age is &quot; + @age.to_s
+    if @motherland == &quot;China&quot;
+      puts &quot;I am a Chinese.&quot;
+    else
+      puts &quot;I am a foreigner.&quot;
+    end
+  end  # talk方法结束
+  attr_writer :motherland  # @motherland的setter
+end
 
+p1 = Person.new(&quot;Yilin&quot;, 23)
+p1.talk
+
+p2 = Person.new(&quot;Ben&quot;)
+p2.motherland = &quot;ABC&quot;
+p2.talk</code></pre>
 <p><code>initialize</code> 是初始化方法，相当于构造函数。<br>参数 <code>age</code> 有一个缺省值 <code>18</code>，可以在任何方法内使用缺省参数,而不仅仅是 <code>initialize</code>。   
 如果有缺省参数， 参数表必须以有缺省值的参数结尾。</p>
 <p>注意我们定义了<code>@motherland</code>成员变量的setter：</p>
@@ -143,7 +164,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="cjwngkbgi001k9jbh75ursqem" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="cjwnhxpc9001luqbhy7h9fgeh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -209,7 +230,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwngkbhb002r9jbhwn9vl1h6" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwnhxpd1002quqbh2qsu07uw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -237,8 +258,11 @@
 <h3 id="建议83：不要返回局部变量的引用"><a href="#建议83：不要返回局部变量的引用" class="headerlink" title="建议83：不要返回局部变量的引用"></a>建议83：不要返回局部变量的引用</h3><p>局部变量的引用是一件不太靠谱的事儿，所以尽量避免让函数返回局部变量的引用。同时也不要返回<code>new</code>生成对象的引用，因为这样会让代码层次混乱，让使用者苦不堪言。<br><br></p>
 <h3 id="建议84：切忌过度使用传引用代替传对象"><a href="#建议84：切忌过度使用传引用代替传对象" class="headerlink" title="建议84：切忌过度使用传引用代替传对象"></a>建议84：切忌过度使用传引用代替传对象</h3><p>相较于传对象，传引用的优点：它减少了临时对象的构造与析构，所以更具效率。但须审慎地使用传引用替代传对象，必须传回内部对象时，就传对象，勿传引用。<br><br></p>
 <h3 id="建议85：了解指针参数传递内存中的玄机"><a href="#建议85：了解指针参数传递内存中的玄机" class="headerlink" title="建议85：了解指针参数传递内存中的玄机"></a>建议85：了解指针参数传递内存中的玄机</h3><p>用指针参数传回一块动态申请的内存，是很常见的一种需求。然而如果不甚小心，就很容易造成严重错误：程序崩溃+内存泄露，解决之道就是用指针的指针来传递，或者换种内存传递方式，用返回值来传递。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指针型变量在函数体中需要改变的写法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> *&amp;x)</span>    <span class="comment">// 使用指针变量的引用</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ++x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">// 指针型变量在函数体中需要改变的写法
+void f(int *&amp;x)    // 使用指针变量的引用
+{
+    ++x;
+}</code></pre>
 <br>
         
           <p class="article-more-link">
@@ -288,7 +312,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjwngkbhn002y9jbhyehbu7nq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjwnhxpd9002xuqbh13c1ekv0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -319,8 +343,10 @@
 </li>
 </ol>
 <h3 id="建议9：防止重复包含头文件"><a href="#建议9：防止重复包含头文件" class="headerlink" title="建议9：防止重复包含头文件"></a>建议9：防止重复包含头文件</h3><p>注意在大型项目中的形式应类似下面：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _PROJECT_PATH_FILE_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _PROJECT_PATH_FILE_H</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">#ifndef _PROJECT_PATH_FILE_H
+#define _PROJECT_PATH_FILE_H
+// ...
+#endif</code></pre>
 <br>
 
 <h3 id="建议10：优化结构体中元素的布局"><a href="#建议10：优化结构体中元素的布局" class="headerlink" title="建议10：优化结构体中元素的布局"></a>建议10：优化结构体中元素的布局</h3><p>把结构体中的变量<strong>按照类型大小从小到大</strong>依次声明，尽量<strong>减少中间的填充字节</strong>。
@@ -373,7 +399,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjwngkbgv001x9jbh8n4kiv5l" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjwnhxpcf001wuqbhb34vj5sw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -385,8 +411,10 @@
 
 <hr>
 <h2 id="1-Functions-and-Data"><a href="#1-Functions-and-Data" class="headerlink" title="1. Functions and Data"></a>1. Functions and Data</h2><h3 id="1-1-Classes"><a href="#1-1-Classes" class="headerlink" title="1.1 Classes"></a>1.1 Classes</h3><p>In Scala, a class ia defined like this:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rational</span>(<span class="params">x: <span class="type">Int</span>, y: <span class="type">Int</span></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">numer</span> </span>= x</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">denom</span> </span>= y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">class Rational(x: Int, y: Int) {
+  def numer = x
+  def denom = y
+}</code></pre>
 <p>This definition introduces two entities:</p>
 <ul>
 <li>A new <em>type</em>, named <code>Rational</code> .</li>
@@ -439,7 +467,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjwngkbfo000b9jbhkieslev3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjwnhxpbf000buqbhv7juk0uc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -505,7 +533,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwngkbgu001v9jbhtonbetdz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwnhxpce001tuqbhmuqg0yck" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -514,17 +542,31 @@
         <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>. 
 <br><br><br></p>
 <hr>
-<h2 id="1-Recursion-and-Tail-Recursion"><a href="#1-Recursion-and-Tail-Recursion" class="headerlink" title="1. Recursion and Tail Recursion"></a>1. Recursion and Tail Recursion</h2><h3 id="1-1-Examples-of-Recursion"><a href="#1-1-Examples-of-Recursion" class="headerlink" title="1.1 Examples of Recursion"></a>1.1 Examples of Recursion</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Euclid's Algorithm */</span> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</span><br></pre></td></tr></table></figure>
-
+<h2 id="1-Recursion-and-Tail-Recursion"><a href="#1-Recursion-and-Tail-Recursion" class="headerlink" title="1. Recursion and Tail Recursion"></a>1. Recursion and Tail Recursion</h2><h3 id="1-1-Examples-of-Recursion"><a href="#1-1-Examples-of-Recursion" class="headerlink" title="1.1 Examples of Recursion"></a>1.1 Examples of Recursion</h3><pre><code class="scala">/* Euclid&#39;s Algorithm */ 
+def gcd(a: Int, b: Int): Int = 
+  if (b == 0) a else gcd(b, a % b)</code></pre>
 <p><code>gcd(14, 21)</code> is evaluated as follows:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gcd(<span class="number">14</span>, <span class="number">21</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">21</span> == <span class="number">0</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="literal">false</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">14</span> == <span class="number">0</span>) <span class="number">21</span> <span class="keyword">else</span> gcd(<span class="number">14</span>, <span class="number">21</span> % <span class="number">14</span>)</span><br><span class="line">--&gt;&gt; gcd(<span class="number">14</span>, <span class="number">7</span>)</span><br><span class="line">--&gt;&gt; gcd(<span class="number">7</span>, <span class="number">0</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">0</span> == <span class="number">0</span>) <span class="number">7</span> <span class="keyword">else</span> gcd(<span class="number">0</span>, <span class="number">7</span> % <span class="number">0</span>)</span><br><span class="line">--&gt; <span class="number">7</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">gcd(14, 21)
+--&gt; if (21 == 0) 14 else gcd(21, 14 % 21)
+--&gt; if (false) 14 else gcd(21, 14 % 21)
+--&gt; gcd(21, 14 % 21)
+--&gt; gcd(21, 14)
+--&gt; if (14 == 0) 21 else gcd(14, 21 % 14)
+--&gt;&gt; gcd(14, 7)
+--&gt;&gt; gcd(7, 0)
+--&gt; if (0 == 0) 7 else gcd(0, 7 % 0)
+--&gt; 7</code></pre>
 <p>Another example: </p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span></span>(n: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> n * factorial(n - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def factorial(n: Int): Int = 
+  if (n == 0) 1 else n * factorial(n - 1)</code></pre>
 <p><code>factorial(4)</code> is evaluated as follows:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">factorial(<span class="number">4</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">4</span> == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> <span class="number">4</span> * factorial(<span class="number">4</span> - <span class="number">1</span>)</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * factorial(<span class="number">3</span>)</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * factorial(<span class="number">2</span>))</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * factorial(<span class="number">1</span>)))</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * factorial(<span class="number">0</span>)))) </span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * <span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">factorial(4)
+--&gt; if (4 == 0) 1 else 4 * factorial(4 - 1)
+--&gt;&gt; 4 * factorial(3)
+--&gt;&gt; 4 * (3 * factorial(2))
+--&gt;&gt; 4 * (3 * (2 * factorial(1)))
+--&gt;&gt; 4 * (3 * (2 * (1 * factorial(0)))) 
+--&gt;&gt; 4 * (3 * (2 * (1 * 1)))</code></pre>
 <br>
 
 <hr>
@@ -580,7 +622,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwngkbgn001s9jbhddmf18bz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwnhxpcb001ouqbhio24fzu4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -601,16 +643,16 @@
 </ol>
 <p>A name is evaluated by replacing it with the right hand side of its definition.</p>
 <p>Example:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">2</span> * pi) * radius</span><br><span class="line">(<span class="number">2</span> * <span class="number">3.14159</span>) * radius  </span><br><span class="line"><span class="number">6.28318</span> * radius</span><br><span class="line"><span class="number">6.28318</span> * <span class="number">10</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">(2 * pi) * radius
+(2 * 3.14159) * radius  
+6.28318 * radius
+6.28318 * 10</code></pre>
 <hr>
 <p>Definition can have parameters:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span></span>(x: <span class="type">Double</span>) = x * x</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def square(x: Double) = x * x</code></pre>
 <hr>
 <p>Parameter and Return Types:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">power</span></span>(x: <span class="type">Double</span>, y: <span class="type">Int</span>): <span class="type">Double</span> = ...</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def power(x: Double, y: Int): Double = ...</code></pre>
 <hr>
 <p>Evaluation of Function Applications</p>
 <ol>
@@ -619,8 +661,14 @@
 <li>Replace the formal parameters of the function by the actual arguments.</li>
 </ol>
 <p>Example:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">2</span>+<span class="number">2</span>)</span><br><span class="line">sumOfSquares(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">square(<span class="number">3</span>) + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">3</span> * <span class="number">3</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + square(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span> + <span class="number">4</span> * <span class="number">4</span></span><br><span class="line"><span class="number">9</span> + <span class="number">16</span></span><br><span class="line"><span class="number">25</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">sumOfSquares(3, 2+2)
+sumOfSquares(3, 4)
+square(3) + square(4)
+3 * 3 + square(4)
+9 + square(4)
+9 + 4 * 4
+9 + 16
+25</code></pre>
 <hr>
 <h3 id="The-substitution-model"><a href="#The-substitution-model" class="headerlink" title="The substitution model"></a>The substitution model</h3><p>The scheme of expression evaluation is called the substitution model.</p>
 <p>The idea is that all evaluation dose is reduce an expression to a value.</p>
@@ -674,7 +722,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjwngkbh000239jbhgw999gzb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjwnhxpcl0022uqbhzzz4wqhd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -747,7 +795,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjwngkbfg00059jbh31buceur" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjwnhxpaz0002uqbho93hm07x" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -867,7 +915,18 @@
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

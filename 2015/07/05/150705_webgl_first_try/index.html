@@ -99,7 +99,7 @@ WebGL 使用 JavaScript 作为编程语言，尽管有一些问题和局限性�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjwngkbfh00069jbh2wycnonz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjwnhxpb50005uqbho0v2x1cc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -159,19 +159,101 @@ WebGL 使用 JavaScript 作为编程语言，尽管有一些问题和局限性�
 </li>
 </ul>
 <p>先来看一看 HTML 文件(myTriangle.html)：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">id</span>=<span class="string">"vertex-shader"</span> <span class="attr">type</span>=<span class="string">"x-shader/x-vertex"</span>&gt;</span></span><br><span class="line">attribute vec4 vPosition;</span><br><span class="line">void main() &#123;</span><br><span class="line">  gl_Position = vPosition;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">id</span>=<span class="string">"fragment-shader"</span> <span class="attr">type</span>=<span class="string">"x-shader/x-fragment"</span>&gt;</span></span><br><span class="line">precision mediump float;</span><br><span class="line">void main() &#123;</span><br><span class="line">  gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"../Common/webgl-utils.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"../Common/initShaders.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"myTriangle.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"gl-canvas"</span> <span class="attr">width</span>=<span class="string">"512"</span> <span class="attr">height</span>=<span class="string">"512"</span>&gt;</span></span><br><span class="line">Oops ... your browser doesn't support the HTML5 canvas element</span><br><span class="line"><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script id=&quot;vertex-shader&quot; type=&quot;x-shader/x-vertex&quot;&gt;
+attribute vec4 vPosition;
+void main() {
+  gl_Position = vPosition;
+}
+&lt;/script&gt;
 
+&lt;script id=&quot;fragment-shader&quot; type=&quot;x-shader/x-fragment&quot;&gt;
+precision mediump float;
+void main() {
+  gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
+}
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;../Common/webgl-utils.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;../Common/initShaders.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;myTriangle.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;canvas id=&quot;gl-canvas&quot; width=&quot;512&quot; height=&quot;512&quot;&gt;
+Oops ... your browser doesn&#39;t support the HTML5 canvas element
+&lt;/canvas&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
 <p>上面代码的底部是如下 HTML 代码：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"gl-canvas"</span> <span class="attr">width</span>=<span class="string">"512"</span> <span class="attr">height</span>=<span class="string">"512"</span>&gt;</span></span><br><span class="line">Oops ... your browser doesn't support the HTML5 canvas element</span><br><span class="line"><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="html">&lt;body&gt;
+&lt;canvas id=&quot;gl-canvas&quot; width=&quot;512&quot; height=&quot;512&quot;&gt;
+Oops ... your browser doesn&#39;t support the HTML5 canvas element
+&lt;/canvas&gt;
+&lt;/body&gt;</code></pre>
 <p>整个文件只有这一段是页面的body部分代码，其余都是 js 代码。<code>&lt;canvas&gt;</code> 标签就是要显示图形的部分，这里设置了其 id 和宽高，在之后的 js 文件中会用到。</p>
 <p>上面 HTML 文件中的 <code>&lt;head&gt;</code> 标签中定义了顶点着色器和片段着色器：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">id</span>=<span class="string">"vertex-shader"</span> <span class="attr">type</span>=<span class="string">"x-shader/x-vertex"</span>&gt;</span></span><br><span class="line">attribute vec4 vPosition;</span><br><span class="line">void main() &#123;</span><br><span class="line">  gl_Position = vPosition;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">id</span>=<span class="string">"fragment-shader"</span> <span class="attr">type</span>=<span class="string">"x-shader/x-fragment"</span>&gt;</span></span><br><span class="line">precision mediump float;</span><br><span class="line">void main() &#123;</span><br><span class="line">  gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;script id=&quot;vertex-shader&quot; type=&quot;x-shader/x-vertex&quot;&gt;
+attribute vec4 vPosition;
+void main() {
+  gl_Position = vPosition;
+}
+&lt;/script&gt;
 
+&lt;script id=&quot;fragment-shader&quot; type=&quot;x-shader/x-fragment&quot;&gt;
+precision mediump float;
+void main() {
+  gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
+}
+&lt;/script&gt;</code></pre>
 <p>这里顶点着色器通过 vPosition 属性获取每个顶点的位置；片段着色器第一行声明浮点数精度，然后通过RGBA的四元向量设置片段着色器的输出颜色。</p>
 <p>下面看一下 JS 文件(myTriangle.js)：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> gl;</span><br><span class="line"><span class="keyword">var</span> points;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">"gl-canvas"</span>);</span><br><span class="line">	gl = WebGLUtils.setupWebGL(canvas);</span><br><span class="line">	<span class="keyword">if</span> (!gl) &#123;</span><br><span class="line">		alert(<span class="string">"WebGL isn't available"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> vertices = <span class="keyword">new</span> <span class="built_in">Float32Array</span>([<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">-1</span>]);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// configure WebGL</span></span><br><span class="line">	gl.viewport(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br><span class="line">	gl.clearColor(<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// load shaders and initialize attribute buffers</span></span><br><span class="line">	<span class="keyword">var</span> program = initShaders(gl, <span class="string">"vertex-shader"</span>, <span class="string">"fragment-shader"</span>);</span><br><span class="line">	gl.useProgram(program);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// load the data into the GPU</span></span><br><span class="line">	<span class="keyword">var</span> bufferId = gl.createBuffer();</span><br><span class="line">	gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);</span><br><span class="line">	gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// associate our shader variables with our data buffer</span></span><br><span class="line">	<span class="keyword">var</span> vPosition = gl.getAttribLocation(program, <span class="string">"vPosition"</span>);</span><br><span class="line">	gl.vertexAttribPointer(vPosition, <span class="number">2</span>, gl.FLOAT, <span class="literal">false</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	gl.enableVertexAttribArray(vPosition);</span><br><span class="line">	</span><br><span class="line">	render();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	gl.clear(gl.COLOR_BUFFER_BIT);</span><br><span class="line">	gl.drawArrays(gl.TRIANGLES, <span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">&quot;use strict&quot;;
 
+var gl;
+var points;
+
+window.onload = function init() {
+    var canvas = document.getElementById(&quot;gl-canvas&quot;);
+    gl = WebGLUtils.setupWebGL(canvas);
+    if (!gl) {
+        alert(&quot;WebGL isn&#39;t available&quot;);
+    }
+
+    var vertices = new Float32Array([-1, -1, 0, 1, 1, -1]);
+
+    // configure WebGL
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.clearColor(0.0, 1.0, 1.0, 1.0);
+
+    // load shaders and initialize attribute buffers
+    var program = initShaders(gl, &quot;vertex-shader&quot;, &quot;fragment-shader&quot;);
+    gl.useProgram(program);
+
+    // load the data into the GPU
+    var bufferId = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+    // associate our shader variables with our data buffer
+    var vPosition = gl.getAttribLocation(program, &quot;vPosition&quot;);
+    gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vPosition);
+
+    render();
+};
+
+function render() {
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+}</code></pre>
 <p>首先通过 <code>document.getElementById</code> 找到 HTML 中的 canvas 元素；然后创建并设置 WebGL 上下文，加载着色器，创建数据缓冲；接着将数据载入 GPU，将着色器与顶点缓冲进行关联，完成绘制。</p>
 <p>注意 <code>gl.vertexAttribPointer</code> 方法，该方法指示 WebGL 刚刚绑定在 gl.ARRAY_BUFFER 上的缓冲数据是如何组织的。该方法各个参数的意义如下：</p>
 <ul>
@@ -299,7 +381,18 @@ WebGL 使用 JavaScript 作为编程语言，尽管有一些问题和局限性�
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

@@ -7,17 +7,31 @@
   <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera. 
 
 
-1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&#39;s Algorithm */ def gcd(a: Int, b: Int): Int =   if (b == 0) a else gcd(b, a % b)
-
+1. Recursion and Tail Recursion1.1 Examples of Recursion/* Euclid&amp;#39;s Algorithm */ 
+def gcd(a: Int, b: Int): Int = 
+  if (b == 0) a else gcd(b, a % b)
 gcd(14, 21) is evaluated as follows:
-12345678910gcd(14, 21)--&amp;gt; if (21 == 0) 14 else gcd(21, 14 % 21)--&amp;gt; if (false) 14 else gcd(21, 14 % 21)--&amp;gt; gcd(21, 14 % 21)--&amp;gt; gcd(21, 14)--&amp;gt; if (14 == 0) 21 else gcd(14, 21 % 14)--&amp;gt;&amp;gt; gcd(14, 7)--&amp;gt;&amp;gt; gcd(7, 0)--&amp;gt; if (0 == 0) 7 else gcd(0, 7 % 0)--&amp;gt; 7
-
+gcd(14, 21)
+--&amp;gt; if (21 == 0) 14 else gcd(21, 14 % 21)
+--&amp;gt; if (false) 14 else gcd(21, 14 % 21)
+--&amp;gt; gcd(21, 14 % 21)
+--&amp;gt; gcd(21, 14)
+--&amp;gt; if (14 == 0) 21 else gcd(14, 21 % 14)
+--&amp;gt;&amp;gt; gcd(14, 7)
+--&amp;gt;&amp;gt; gcd(7, 0)
+--&amp;gt; if (0 == 0) 7 else gcd(0, 7 % 0)
+--&amp;gt; 7
 Another example: 
-12def factorial(n: Int): Int =   if (n == 0) 1 else n * factorial(n - 1)
-
+def factorial(n: Int): Int = 
+  if (n == 0) 1 else n * factorial(n - 1)
 factorial(4) is evaluated as follows:
-1234567factorial(4)--&amp;gt; if (4 == 0) 1 else 4 * factorial(4 - 1)--&amp;gt;&amp;gt; 4 * factorial(3)--&amp;gt;&amp;gt; 4 * (3 * factorial(2))--&amp;gt;&amp;gt; 4 * (3 * (2 * factorial(1)))--&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * factorial(0)))) --&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * 1)))
-
+factorial(4)
+--&amp;gt; if (4 == 0) 1 else 4 * factorial(4 - 1)
+--&amp;gt;&amp;gt; 4 * factorial(3)
+--&amp;gt;&amp;gt; 4 * (3 * factorial(2))
+--&amp;gt;&amp;gt; 4 * (3 * (2 * factorial(1)))
+--&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * factorial(0)))) 
+--&amp;gt;&amp;gt; 4 * (3 * (2 * (1 * 1)))
 
 
 
@@ -35,19 +49,19 @@ In general, if the last action of a function consists of calling a function (whi
   
   <title>Notes of Scala course on Coursera -- Week 2 (1) | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&apos;s Algorithm */ def gcd(a:">
+  <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion/* Euclid&amp;#39;s Algorithm */  def gcd(a">
 <meta name="keywords" content="coursera,Scala,fp,notes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Notes of Scala course on Coursera -- Week 2 (1)">
 <meta property="og:url" content="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/index.html">
 <meta property="og:site_name" content="Yilin&#39;s Blog">
-<meta property="og:description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&apos;s Algorithm */ def gcd(a:">
+<meta property="og:description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion/* Euclid&amp;#39;s Algorithm */  def gcd(a">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?\sum_{n=a}^{b}f(n)">
 <meta property="og:updated_time" content="2019-06-08T08:32:45.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Notes of Scala course on Coursera -- Week 2 (1)">
-<meta name="twitter:description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion123/* Euclid&apos;s Algorithm */ def gcd(a:">
+<meta name="twitter:description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera.    1. Recursion and Tail Recursion1.1 Examples of Recursion/* Euclid&amp;#39;s Algorithm */  def gcd(a">
 <meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?\sum_{n=a}^{b}f(n)">
   
   
@@ -107,7 +121,7 @@ In general, if the last action of a function consists of calling a function (whi
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwngkbgu001v9jbhtonbetdz" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwnhxpce001tuqbhmuqg0yck" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -116,17 +130,31 @@ In general, if the last action of a function consists of calling a function (whi
         <p>Here are my notes for the week 2’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>. 
 <br><br><br></p>
 <hr>
-<h2 id="1-Recursion-and-Tail-Recursion"><a href="#1-Recursion-and-Tail-Recursion" class="headerlink" title="1. Recursion and Tail Recursion"></a>1. Recursion and Tail Recursion</h2><h3 id="1-1-Examples-of-Recursion"><a href="#1-1-Examples-of-Recursion" class="headerlink" title="1.1 Examples of Recursion"></a>1.1 Examples of Recursion</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Euclid's Algorithm */</span> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (b == <span class="number">0</span>) a <span class="keyword">else</span> gcd(b, a % b)</span><br></pre></td></tr></table></figure>
-
+<h2 id="1-Recursion-and-Tail-Recursion"><a href="#1-Recursion-and-Tail-Recursion" class="headerlink" title="1. Recursion and Tail Recursion"></a>1. Recursion and Tail Recursion</h2><h3 id="1-1-Examples-of-Recursion"><a href="#1-1-Examples-of-Recursion" class="headerlink" title="1.1 Examples of Recursion"></a>1.1 Examples of Recursion</h3><pre><code class="scala">/* Euclid&#39;s Algorithm */ 
+def gcd(a: Int, b: Int): Int = 
+  if (b == 0) a else gcd(b, a % b)</code></pre>
 <p><code>gcd(14, 21)</code> is evaluated as follows:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gcd(<span class="number">14</span>, <span class="number">21</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">21</span> == <span class="number">0</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="literal">false</span>) <span class="number">14</span> <span class="keyword">else</span> gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span> % <span class="number">21</span>)</span><br><span class="line">--&gt; gcd(<span class="number">21</span>, <span class="number">14</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">14</span> == <span class="number">0</span>) <span class="number">21</span> <span class="keyword">else</span> gcd(<span class="number">14</span>, <span class="number">21</span> % <span class="number">14</span>)</span><br><span class="line">--&gt;&gt; gcd(<span class="number">14</span>, <span class="number">7</span>)</span><br><span class="line">--&gt;&gt; gcd(<span class="number">7</span>, <span class="number">0</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">0</span> == <span class="number">0</span>) <span class="number">7</span> <span class="keyword">else</span> gcd(<span class="number">0</span>, <span class="number">7</span> % <span class="number">0</span>)</span><br><span class="line">--&gt; <span class="number">7</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">gcd(14, 21)
+--&gt; if (21 == 0) 14 else gcd(21, 14 % 21)
+--&gt; if (false) 14 else gcd(21, 14 % 21)
+--&gt; gcd(21, 14 % 21)
+--&gt; gcd(21, 14)
+--&gt; if (14 == 0) 21 else gcd(14, 21 % 14)
+--&gt;&gt; gcd(14, 7)
+--&gt;&gt; gcd(7, 0)
+--&gt; if (0 == 0) 7 else gcd(0, 7 % 0)
+--&gt; 7</code></pre>
 <p>Another example: </p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span></span>(n: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> n * factorial(n - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def factorial(n: Int): Int = 
+  if (n == 0) 1 else n * factorial(n - 1)</code></pre>
 <p><code>factorial(4)</code> is evaluated as follows:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">factorial(<span class="number">4</span>)</span><br><span class="line">--&gt; <span class="keyword">if</span> (<span class="number">4</span> == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> <span class="number">4</span> * factorial(<span class="number">4</span> - <span class="number">1</span>)</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * factorial(<span class="number">3</span>)</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * factorial(<span class="number">2</span>))</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * factorial(<span class="number">1</span>)))</span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * factorial(<span class="number">0</span>)))) </span><br><span class="line">--&gt;&gt; <span class="number">4</span> * (<span class="number">3</span> * (<span class="number">2</span> * (<span class="number">1</span> * <span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">factorial(4)
+--&gt; if (4 == 0) 1 else 4 * factorial(4 - 1)
+--&gt;&gt; 4 * factorial(3)
+--&gt;&gt; 4 * (3 * factorial(2))
+--&gt;&gt; 4 * (3 * (2 * factorial(1)))
+--&gt;&gt; 4 * (3 * (2 * (1 * factorial(0)))) 
+--&gt;&gt; 4 * (3 * (2 * (1 * 1)))</code></pre>
 <br>
 
 <hr>
@@ -136,15 +164,19 @@ In general, if the last action of a function consists of calling a function (whi
 <p>In general, if the last action of a function consists of calling a function (which may be the same), one stack frame would be sufficient for both functions. Such calls are called <strong>tail-calls</strong>. <a id="more"></a></p>
 <h3 id="1-3-Tail-Recursion-in-Scala"><a href="#1-3-Tail-Recursion-in-Scala" class="headerlink" title="1.3 Tail Recursion in Scala"></a>1.3 Tail Recursion in Scala</h3><p>In Scala, only directly recursive calls to the current function are optimized.</p>
 <p>One can require that a function is tail-recursive using a @tailrec annotation:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@tailrec</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = ...</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">@tailrec
+def gcd(a: Int, b: Int): Int = ...</code></pre>
 <p>If the annotation is given, and the implementation of gcd were not tail recursive, an <strong>error</strong> would be issued.</p>
 <br>
 
 <hr>
 <h4 id="Exercise-Tail-recursion"><a href="#Exercise-Tail-recursion" class="headerlink" title="Exercise: Tail recursion"></a>Exercise: Tail recursion</h4><p>Design a tail recursive version of factorial.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span></span>(n: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">loop</span></span>(acc: <span class="type">Int</span>, n: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) acc <span class="keyword">else</span> loop(acc * n, n - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  loop(<span class="number">1</span>, n) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="scala">def factorial(n: Int): Int = {
+  def loop(acc: Int, n: Int): Int = 
+    if (n == 0) acc else loop(acc * n, n - 1)
 
+  loop(1, n) 
+}</code></pre>
 <br>
 <br>
 
@@ -154,14 +186,16 @@ In general, if the last action of a function consists of calling a function (whi
 <p>This provides a flexible way to compose programs.</p>
 <p><strong>Functions that take other functions as parameters or that return functions as results are called higher order functions.</strong></p>
 <h3 id="2-1-Begin-with-an-Example"><a href="#2-1-Begin-with-an-Example" class="headerlink" title="2.1 Begin with an Example:"></a>2.1 Begin with an Example:</h3><p>Take the sum of the integers between a and b:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> a + sumInts(a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sumInts(a: Int, b: Int): Int = 
+  if (a &gt; b) 0 else a + sumInts(a + 1, b)</code></pre>
 <p>Take the sum of the cubes of all the integers between a and b :</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cube</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = x * x * x</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> cube(a) + sumCubes(a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
+<pre><code class="scala">def cube(x: Int): Int = x * x * x
 
+def sumCubes(a: Int, b: Int): Int =
+  if (a &gt; b) 0 else cube(a) + sumCubes(a + 1, b)</code></pre>
 <p>Take the sum of the factorials of all the integers between a and b :</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumFactorials</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> fact(a) + sumFactorials(a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sumFactorials(a: Int, b: Int): Int =
+  if (a &gt; b) 0 else fact(a) + sumFactorials(a + 1, b)</code></pre>
 <p>All above are special cases of</p>
 <img src="http://latex.codecogs.com/gif.latex?\sum_{n=a}^{b}f(n)">
 
@@ -171,15 +205,17 @@ In general, if the last action of a function consists of calling a function (whi
 
 <hr>
 <h3 id="2-2-Summing-with-Higher-Order-Functions"><a href="#2-2-Summing-with-Higher-Order-Functions" class="headerlink" title="2.2 Summing with Higher-Order Functions"></a>2.2 Summing with Higher-Order Functions</h3><p>Let’s define:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>, a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> f(a) + sum(f, a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sum(f: Int =&gt; Int, a: Int, b: Int): Int = 
+  if (a &gt; b) 0 else f(a) + sum(f, a + 1, b)</code></pre>
 <p>We can then write:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(id, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(cube, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumFactorials</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(fact, a, b)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sumInts(a: Int, b: Int) = sum(id, a, b)
+def sumCubes(a: Int, b: Int) = sum(cube, a, b)
+def sumFactorials(a: Int, b: Int) = sum(fact, a, b)</code></pre>
 <p>where</p>
 <p>We can then write:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">id</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = x</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cube</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = x * x * x</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fact</span></span>(x: <span class="type">Int</span>): <span class="type">Int</span> = <span class="keyword">if</span> (x == <span class="number">0</span>) <span class="number">1</span> <span class="keyword">else</span> x * fact(x - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def id(x: Int): Int = x
+def cube(x: Int): Int = x * x * x
+def fact(x: Int): Int = if (x == 0) 1 else x * fact(x - 1)</code></pre>
 <br>
 
 <hr>
@@ -197,43 +233,49 @@ In general, if the last action of a function consists of calling a function (whi
 <br>
 
 <hr>
-<h4 id="Example-A-function-that-raises-its-argument-to-a-cube"><a href="#Example-A-function-that-raises-its-argument-to-a-cube" class="headerlink" title="Example: A function that raises its argument to a cube:"></a>Example: A function that raises its argument to a cube:</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x: <span class="type">Int</span>) =&gt; x * x * x</span><br></pre></td></tr></table></figure>
-
+<h4 id="Example-A-function-that-raises-its-argument-to-a-cube"><a href="#Example-A-function-that-raises-its-argument-to-a-cube" class="headerlink" title="Example: A function that raises its argument to a cube:"></a>Example: A function that raises its argument to a cube:</h4><pre><code class="scala">(x: Int) =&gt; x * x * x</code></pre>
 <p>Here, (x: Int) is the <strong>parameter</strong> of the function, and x * x * x is its <strong>body</strong>.</p>
 <ul>
 <li>The type of the parameter can be omitted if it can be inferred by the compiler from the context.</li>
 </ul>
 <p>If there are several parameters, they are separated by commas:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x: <span class="type">Int</span>, y: <span class="type">Int</span>) =&gt; x + y</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">(x: Int, y: Int) =&gt; x + y</code></pre>
 <br>
 
 <hr>
 <h4 id="Anonymous-Functions-are-Syntactic-Sugar"><a href="#Anonymous-Functions-are-Syntactic-Sugar" class="headerlink" title="Anonymous Functions are Syntactic Sugar"></a>Anonymous Functions are Syntactic Sugar</h4><p>An anonymous function <code>(x1 : T1, ..., xn : Tn) =&gt; E</code> can always be expressed using <code>def</code> as follows:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(x1: <span class="type">T1</span>, ..., xn: <span class="type">Tn</span>) = <span class="type">E</span>; f</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def f(x1: T1, ..., xn: Tn) = E; f</code></pre>
 <p>where <code>f</code> is an arbitrary, fresh name (that’s not yet used in the program).</p>
 <ul>
 <li>One can therefore say that anonymous functions are syntactic sugar.</li>
 </ul>
 <p>Using anonymous functions, we can write sums in a shorter way:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(x =&gt; x, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(x =&gt; x * x * x, a, b)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sumInts(a: Int, b: Int) = sum(x =&gt; x, a, b)
+def sumCubes(a: Int, b: Int) = sum(x =&gt; x * x * x, a, b)</code></pre>
 <br>
 
 <hr>
 <h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><p>The <code>sum</code> function uses linear recursion. Write a tail-recursion version by replacing the <code>???</code>s</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">loop</span></span>(a: <span class="type">Int</span>, acc: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">    <span class="keyword">if</span> (???) ???</span><br><span class="line">    <span class="keyword">else</span> loop(???, ???)</span><br><span class="line">  loop(???, ???)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sum(f: Int =&gt; Int)(a: Int, b: Int): Int = {
+  def loop(a: Int, acc: Int): Int =
+    if (???) ???
+    else loop(???, ???)
+  loop(???, ???)
+}</code></pre>
 <p><strong>Answer:</strong></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">loop</span></span>(a: <span class="type">Int</span>, acc: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">    <span class="keyword">if</span> (a &gt; b) acc</span><br><span class="line">    <span class="keyword">else</span> loop(a + <span class="number">1</span>, f(a) + acc)</span><br><span class="line">  loop(a, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sum(f: Int =&gt; Int)(a: Int, b: Int): Int = {
+  def loop(a: Int, acc: Int): Int = 
+    if (a &gt; b) acc
+    else loop(a + 1, f(a) + acc)
+  loop(a, 0)
+}</code></pre>
 <br>
 <br>
 
 <hr>
-<h2 id="3-Currying"><a href="#3-Currying" class="headerlink" title="3. Currying"></a>3. Currying</h2><h3 id="3-1-Motivation"><a href="#3-1-Motivation" class="headerlink" title="3.1 Motivation"></a>3.1 Motivation</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(x =&gt; x, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(x =&gt; x * x * x, a, b)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumFactorials</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) = sum(fact, a, b)</span><br></pre></td></tr></table></figure>
-
+<h2 id="3-Currying"><a href="#3-Currying" class="headerlink" title="3. Currying"></a>3. Currying</h2><h3 id="3-1-Motivation"><a href="#3-1-Motivation" class="headerlink" title="3.1 Motivation"></a>3.1 Motivation</h3><pre><code class="scala">def sumInts(a: Int, b: Int) = sum(x =&gt; x, a, b)
+def sumCubes(a: Int, b: Int) = sum(x =&gt; x * x * x, a, b)
+def sumFactorials(a: Int, b: Int) = sum(fact, a, b)</code></pre>
 <br>
 
 <h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><p>Note that <code>a</code> and <code>b</code> get passed unchanged from <code>sumInts</code> and <code>sumCubes</code> into <code>sum</code> .</p>
@@ -242,74 +284,68 @@ In general, if the last action of a function consists of calling a function (whi
 
 <hr>
 <h3 id="3-2-Functions-Returning-Functions"><a href="#3-2-Functions-Returning-Functions" class="headerlink" title="3.2 Functions Returning Functions"></a>3.2 Functions Returning Functions</h3><p>Let’s rewrite sum as follows.</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>): (<span class="type">Int</span>, <span class="type">Int</span>) =&gt; <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">sumF</span></span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">    <span class="keyword">if</span> (a &gt; b) <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span> f(a) + sumF(a + <span class="number">1</span>, b)</span><br><span class="line">  sumF</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sum(f: Int =&gt; Int): (Int, Int) =&gt; Int = {
+  def sumF(a: Int, b: Int): Int = 
+    if (a &gt; b) 0
+    else f(a) + sumF(a + 1, b)
+  sumF
+}</code></pre>
 <p><code>sum</code> is now a function that <strong>returns another function</strong>.</p>
 <p>The returned function <code>sumF</code> applies the given function parameter <code>f</code> and sums the results.</p>
 <br>
 
 <hr>
 <h3 id="3-3-Stepwise-Applications"><a href="#3-3-Stepwise-Applications" class="headerlink" title="3.3 Stepwise Applications"></a>3.3 Stepwise Applications</h3><p>We can define:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumInts</span> </span>= sum(x =&gt; x)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumCubes</span> </span>= sum(x =&gt; x * x * x)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sumFactorials</span> </span>= sum(fact)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sumInts = sum(x =&gt; x)
+def sumCubes = sum(x =&gt; x * x * x)
+def sumFactorials = sum(fact)</code></pre>
 <br>
 
 <hr>
 <h3 id="3-4-Consecutive-Stepwise-Applications"><a href="#3-4-Consecutive-Stepwise-Applications" class="headerlink" title="3.4 Consecutive Stepwise Applications"></a>3.4 Consecutive Stepwise Applications</h3><p>Can we avoid these <em>middlemen</em> : <code>sumInts</code> , <code>sumCubes</code> , … ?</p>
 <p>Of course we can:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(cube)(<span class="number">1</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">sum(cube)(1, 10)</code></pre>
 <ul>
 <li><code>sum(cube)</code> applies <code>sum</code> to <code>cube</code> and returns the sum of cubes function.</li>
 <li><code>sum(cube)</code> is therefore equivalent to <code>sumCubes</code> .</li>
 <li>This function is next applied to the arguments <code>(1, 10)</code> .</li>
 </ul>
 <p>Generally, function application <strong>associates to the left</strong>:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum(cube)(<span class="number">1</span>, <span class="number">10</span>) == (sum(cube))(<span class="number">1</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">sum(cube)(1, 10) == (sum(cube))(1, 10)</code></pre>
 <br>
 
 <hr>
 <h3 id="3-5-Multiple-Parameter-Lists"><a href="#3-5-Multiple-Parameter-Lists" class="headerlink" title="3.5 Multiple Parameter Lists"></a>3.5 Multiple Parameter Lists</h3><p>The definition of <em>functions that return functions</em> is so useful in functional programming that there is a <em>special syntax</em> for it in Scala.</p>
 <p>For example, the following definition of <code>sum</code> is equivalent to the one with the nested <code>sumF</code> function, but shorter:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">0</span> <span class="keyword">else</span> f(a) + sum(f)(a + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sum(f: Int =&gt; Int)(a: Int, b: Int): Int =
+  if (a &gt; b) 0 else f(a) + sum(f)(a + 1, b)</code></pre>
 <br>
 
 <hr>
 <h3 id="3-6-Expansion-of-Multiple-Parameter-Lists"><a href="#3-6-Expansion-of-Multiple-Parameter-Lists" class="headerlink" title="3.6 Expansion of Multiple Parameter Lists"></a>3.6 Expansion of Multiple Parameter Lists</h3><p>In general, a definition of a function with multiple parameter lists</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(args_1)...(args_n) = <span class="type">E</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def f(args_1)...(args_n) = E</code></pre>
 <p>where <code>n &gt; 1</code>, is equivalent to</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(args_1)...(args_[n<span class="number">-1</span>]) = &#123;<span class="function"><span class="keyword">def</span> <span class="title">g</span></span>(args_n) = <span class="type">E</span>; g&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def f(args_1)...(args_[n-1]) = {def g(args_n) = E; g}</code></pre>
 <p>where <code>g</code> is a fresh identifier. Or for short:</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(args_1)...(args_[n<span class="number">-1</span>]) = (args_n =&gt; <span class="type">E</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def f(args_1)...(args_[n-1]) = (args_n =&gt; E)</code></pre>
 <p>By repeating the process <em>n</em> times</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span></span>(args_1)...(args_n) = <span class="type">E</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def f(args_1)...(args_n) = E</code></pre>
 <p>is shown to be equivalent to</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span> </span>= (args_1 =&gt; (args_2 =&gt; ...(args_n =&gt; <span class="type">E</span>)...))</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def f = (args_1 =&gt; (args_2 =&gt; ...(args_n =&gt; E)...))</code></pre>
 <p>This style of definition and function application is called <a href="http://en.wikipedia.org/wiki/Currying" target="_blank" rel="noopener">currying</a>, named for its instigator, <a href="http://en.wikipedia.org/wiki/Haskell_Curry" target="_blank" rel="noopener">Haskell Brooks Curry</a> (1900-1982), a twentieth century logician.</p>
 <p>In fact, the idea goes back even further to <a href="http://en.wikipedia.org/wiki/Moses_Sch?nfinkel" target="_blank" rel="noopener">Sch?nfinkel</a> and <a href="http://en.wikipedia.org/wiki/Gottlob_Frege" target="_blank" rel="noopener">Frege</a>, but the term “currying” has stuck.</p>
 <br>
 
 <hr>
 <h3 id="3-7-More-Function-Types"><a href="#3-7-More-Function-Types" class="headerlink" title="3.7 More Function Types"></a>3.7 More Function Types</h3><p>Question: Given</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = ...</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">def sum(f: Int =&gt; Int)(a: Int, b: Int): Int = ...</code></pre>
 <p>What is the type of <code>sum</code> ?</p>
 <p><strong>Answer:</strong></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="type">Int</span> =&gt; <span class="type">Int</span>) =&gt; (<span class="type">Int</span>, <span class="type">Int</span>) =&gt; <span class="type">Int</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">(Int =&gt; Int) =&gt; (Int, Int) =&gt; Int</code></pre>
 <p>Note that functional types <strong>associate to the right</strong>. That is to say that</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Int</span> =&gt; <span class="type">Int</span> =&gt; <span class="type">Int</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">Int =&gt; Int =&gt; Int</code></pre>
 <p>is equivalent to</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Int</span> =&gt; (<span class="type">Int</span> =&gt; <span class="type">Int</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code class="scala">Int =&gt; (Int =&gt; Int)</code></pre>
 <br>
 
 <hr>
@@ -318,10 +354,24 @@ In general, if the last action of a function consists of calling a function (whi
 <li>Write factorial in terms of <code>product</code>.</li>
 <li>Can you write a more general function, which generalizes both <code>sum</code> and <code>product</code>?</li>
 </ol>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Ex1 &amp; Ex2*/</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">product</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = </span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) <span class="number">1</span></span><br><span class="line">  <span class="keyword">else</span> f(a) * product(f)(a + <span class="number">1</span>, b)</span><br><span class="line"></span><br><span class="line">product(x =&gt; x * x)(<span class="number">3</span>, <span class="number">4</span>)    <span class="comment">// squares product, (3 * 3) * (4 * 4)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fact</span></span>(n: <span class="type">Int</span>) = product(x =&gt; x)(<span class="number">1</span>, n)</span><br><span class="line"></span><br><span class="line">fact(<span class="number">5</span>)     <span class="comment">// product(x =&gt; x)(1, 5)</span></span><br></pre></td></tr></table></figure>
+<pre><code class="scala">/* Ex1 &amp; Ex2*/
+def product(f: Int =&gt; Int)(a: Int, b: Int): Int = 
+  if (a &gt; b) 1
+  else f(a) * product(f)(a + 1, b)
 
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Ex3 */</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mapReduce</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>, combine: (<span class="type">Int</span>, <span class="type">Int</span>) =&gt; <span class="type">Int</span>, zero: <span class="type">Int</span>): <span class="type">Int</span> =</span><br><span class="line">  <span class="keyword">if</span> (a &gt; b) zero</span><br><span class="line">  <span class="keyword">else</span> combine(f(a), mapReduce(f, combine, zero)(a + <span class="number">1</span>, b))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">product</span></span>(f: <span class="type">Int</span> =&gt; <span class="type">Int</span>)(a: <span class="type">Int</span>, b: <span class="type">Int</span>): <span class="type">Int</span> = mapReduce(f, (x, y) =&gt; x * y, <span class="number">1</span>)(a, b)</span><br><span class="line"></span><br><span class="line">product(x =&gt; x * x)(<span class="number">3</span>, <span class="number">4</span>)    <span class="comment">// mapReduce(x =&gt; x * x, (x, y) =&gt; x * y, 1)(3, 4)</span></span><br></pre></td></tr></table></figure>
+product(x =&gt; x * x)(3, 4)    // squares product, (3 * 3) * (4 * 4)
 
+def fact(n: Int) = product(x =&gt; x)(1, n)
+
+fact(5)     // product(x =&gt; x)(1, 5)</code></pre>
+<pre><code class="scala">/* Ex3 */
+def mapReduce(f: Int =&gt; Int, combine: (Int, Int) =&gt; Int, zero: Int): Int =
+  if (a &gt; b) zero
+  else combine(f(a), mapReduce(f, combine, zero)(a + 1, b))
+
+def product(f: Int =&gt; Int)(a: Int, b: Int): Int = mapReduce(f, (x, y) =&gt; x * y, 1)(a, b)
+
+product(x =&gt; x * x)(3, 4)    // mapReduce(x =&gt; x * x, (x, y) =&gt; x * y, 1)(3, 4)</code></pre>
 
       
     </div><!-- .entry-content -->
@@ -435,7 +485,18 @@ In general, if the last action of a function consists of calling a function (whi
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>

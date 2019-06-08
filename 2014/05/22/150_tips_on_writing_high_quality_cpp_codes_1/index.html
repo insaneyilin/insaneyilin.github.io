@@ -29,8 +29,10 @@
 
 
 建议9：防止重复包含头文件注意在大型项目中的形式应类似下面：
-1234#ifndef _PROJECT_PATH_FILE_H#define _PROJECT_PATH_FILE_H// ...#endif
-
+#ifndef _PROJECT_PATH_FILE_H
+#define _PROJECT_PATH_FILE_H
+// ...
+#endif
 
 
 建议10：优化结构体中元素的布局把结构体中的变量按照类型大小从小到大依次声明，尽量减少中间的填充字节。">
@@ -116,7 +118,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjwngkbhn002y9jbhyehbu7nq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjwnhxpd9002xuqbh13c1ekv0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -147,8 +149,10 @@
 </li>
 </ol>
 <h3 id="建议9：防止重复包含头文件"><a href="#建议9：防止重复包含头文件" class="headerlink" title="建议9：防止重复包含头文件"></a>建议9：防止重复包含头文件</h3><p>注意在大型项目中的形式应类似下面：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _PROJECT_PATH_FILE_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _PROJECT_PATH_FILE_H</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">#ifndef _PROJECT_PATH_FILE_H
+#define _PROJECT_PATH_FILE_H
+// ...
+#endif</code></pre>
 <br>
 
 <h3 id="建议10：优化结构体中元素的布局"><a href="#建议10：优化结构体中元素的布局" class="headerlink" title="建议10：优化结构体中元素的布局"></a>建议10：优化结构体中元素的布局</h3><p>把结构体中的变量<strong>按照类型大小从小到大</strong>依次声明，尽量<strong>减少中间的填充字节</strong>。
@@ -163,8 +167,9 @@
 </li>
 </ol>
 <h3 id="建议12：优先使用前缀操作符"><a href="#建议12：优先使用前缀操作符" class="headerlink" title="建议12：优先使用前缀操作符"></a>建议12：优先使用前缀操作符</h3><p>对于整型和长整型的操作，前缀操作和后缀操作的性能区别通常是可以忽略的。<br>对于用户自定义类型，优先使用前缀操作符。因为与后缀操作符相比，<strong>前缀操作符因为无须构造临时对象而更具性能优势</strong>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>;</span> <span class="comment">// 类名为A</span></span><br><span class="line">A A::<span class="keyword">operator</span> ++ ();    <span class="comment">// 前缀操作符</span></span><br><span class="line">A A::<span class="keyword">operator</span> ++ (A);  <span class="comment">// 后缀操作符，有函数参数</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">class A; // 类名为A
+A A::operator ++ ();    // 前缀操作符
+A A::operator ++ (A);  // 后缀操作符，有函数参数</code></pre>
 <br>
 
 <h3 id="建议13：掌握变量定义的位置与时机"><a href="#建议13：掌握变量定义的位置与时机" class="headerlink" title="建议13：掌握变量定义的位置与时机"></a>建议13：掌握变量定义的位置与时机</h3><p>在定义变量时，要三思而后行，掌握变量定义的时机与位置，在合适的时机于合适的位置上定义变量。</p>
@@ -200,14 +205,11 @@
 </li>
 </ol>
 <h3 id="建议22：灵活地使用不同风格的注释"><a href="#建议22：灵活地使用不同风格的注释" class="headerlink" title="建议22：灵活地使用不同风格的注释"></a>建议22：灵活地使用不同风格的注释</h3><p>版权、版本声明：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ... */</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">/* ... */</code></pre>
 <p>内部注释：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">//</code></pre>
 <p>宏定义尾端注释：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ... */</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">/* ... */</code></pre>
 <br>
 
 <h3 id="建议23：尽量使用C-标准的iostream"><a href="#建议23：尽量使用C-标准的iostream" class="headerlink" title="建议23：尽量使用C++标准的iostream"></a>建议23：尽量使用C++标准的iostream</h3><p>除了防止OJ中的TLE，一般推荐用C++的<code>iostream</code>。
@@ -345,8 +347,8 @@
 <h3 id="建议49：有些运算符应该成对实现"><a href="#建议49：有些运算符应该成对实现" class="headerlink" title="建议49：有些运算符应该成对实现"></a>建议49：有些运算符应该成对实现</h3><p>很多运算符重载时最好成对实现，比如==与!=、&lt;与&gt;、&lt;=与&gt;=、+与+=、-与-=、<em>与</em>=、/与/=。<br><br></p>
 <h3 id="建议50：特殊的自增自减运算符重载"><a href="#建议50：特殊的自增自减运算符重载" class="headerlink" title="建议50：特殊的自增自减运算符重载"></a>建议50：特殊的自增自减运算符重载</h3><p>(1). 后缀形式的参数并没有被用到，它只是语法上的要求，为了区分而已；</p>
 <p>(2). <strong>后缀形式应该返回一个<code>const</code>对象</strong>；这样做是大有深意的。 我们知道操作符重载本质上是一个函数而已，它应该和操作符原来意义、使用习惯相似，而对于int内置类型来说的话，i++++是有语法错误的，故为了保持一致，重载之后的后缀形式也应该是这样的。假如返回的不是const类型，那么对于</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">MyInt <span class="title">t</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line">t++++;   <span class="comment">// t.operator++(0).operator++(0)</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">MyInt t(1);
+t++++;   // t.operator++(0).operator++(0)</code></pre>
 <p>这样的形式将是正确的，这显然不是我们期望的。另外，只要看上面的后缀形式的定义即可知道，这样写t只是增加了1而不是我们期望的2，为什么呢？因为第二次的调用是用第一次返回的对象来进行的，而不是用t，它违反了程序员的直觉。因此，为了阻止这些行为，我们返回const对象。</p>
 <p>(3). 我们应该尽可能调用前缀形式；为什么呢？看看后缀形式的定义就可以知道，我们定义了一个临时对象，临时对象的创建、析构还是很费时间的。而前缀形式则不一样，它的效率相对好一些。</p>
 <p>(以上出自<a href="http://hi.baidu.com/bytechen/item/62c3aa79f6d37f3a714423f9" target="_blank" rel="noopener">百度空间中的一篇文章</a>)
@@ -425,38 +427,65 @@
 </ol>
 <p>模板是实现代码复用的一种工具，它可以实现类型参数化，达到让代码真正复用的目的。</p>
 <p>宏：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> min(a, b)  ( (a) &lt; (b) ? (a) : (b) )</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">#define min(a, b)  ( (a) &lt; (b) ? (a) : (b) )</code></pre>
 <p>用模板函数替换上面的宏：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">const</span> T <span class="title">min</span><span class="params">(<span class="keyword">const</span> T &amp;t1, <span class="keyword">const</span> T &amp;t2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> t1 &gt; t2 ? t2 : t1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">template &lt;typename T&gt;
+const T min(const T &amp;t1, const T &amp;t2)
+{
+    return t1 &gt; t2 ? t2 : t1;
+}</code></pre>
 <br>
 
 <h3 id="建议63：区分函数模板与模板函数、类模板与模板类"><a href="#建议63：区分函数模板与模板函数、类模板与模板类" class="headerlink" title="建议63：区分函数模板与模板函数、类模板与模板类"></a>建议63：区分函数模板与模板函数、类模板与模板类</h3><p>函数模板的重点在于“模板”两个字，前面的“函数”只是一个修饰词。其表示的是一个专门用来生产函数的模板。而模板函数重点在“函数”，表示的是用模板所生成的函数。</p>
 <p>函数模板生成模板函数。</p>
 <p>函数模板：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func</span><span class="params">(<span class="keyword">const</span> T &amp;a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">template &lt;typename T&gt;
+void Func(const T &amp;a)
+{
+    // ......
+}</code></pre>
 <p>使用其生成的模板函数：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Func&lt;<span class="keyword">int</span>&gt;(a);</span><br><span class="line">Func&lt;<span class="keyword">float</span>&gt;(a);</span><br><span class="line"><span class="comment">// ......</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">Func&lt;int&gt;(a);
+Func&lt;float&gt;(a);
+// ......</code></pre>
 <p>类模板：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">List_item</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    T m_val;</span><br><span class="line">    <span class="comment">// ......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">template &lt;class T&gt;
+class List_item
+{
+public:
+    T m_val;
+    // ......
+}</code></pre>
 <p>使用其生成的模板类：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List_item&lt;<span class="keyword">int</span>&gt; list1;</span><br><span class="line">List_item&lt;<span class="keyword">float</span>&gt; list2;</span><br><span class="line"><span class="comment">// ......</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">List_item&lt;int&gt; list1;
+List_item&lt;float&gt; list2;
+// ......</code></pre>
 <br>
 
 <h3 id="建议64：区分继承与模板"><a href="#建议64：区分继承与模板" class="headerlink" title="建议64：区分继承与模板"></a>建议64：区分继承与模板</h3><p>模板的长处在于处理不同类型间“千篇一律”的操作。<br><br></p>
 <h3 id="建议66：传值throw异常，传引用catch异常"><a href="#建议66：传值throw异常，传引用catch异常" class="headerlink" title="建议66：传值throw异常，传引用catch异常"></a>建议66：传值throw异常，传引用catch异常</h3><p>异常处理标准形式：throw byvalue, catch by reference</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">throw</span> exception;    <span class="comment">// throw a value</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(<span class="keyword">const</span> exception &amp;e)    <span class="comment">// by const reference</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">try
+{
+    // ...
+    throw exception;    // throw a value
+}
+catch(const exception &amp;e)    // by const reference
+{
+    // ...
+}</code></pre>
 <br>
 
 <h3 id="建议67：用”throw-”来重新抛出异常"><a href="#建议67：用”throw-”来重新抛出异常" class="headerlink" title="建议67：用”throw ;”来重新抛出异常"></a>建议67：用”throw ;”来重新抛出异常</h3><p>对于异常的重新抛出，需要注意：(1)重新抛出的异常对象只能出现在catch块或catch调用的函数中；(2)如果在处理代码不执行时碰到”throw ;”语句，将会调用terminate函数。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">throw</span> exception;    <span class="comment">// throw a value</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(<span class="keyword">const</span> exception &amp;e)    <span class="comment">// by const reference</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">throw</span> ;    <span class="comment">// 重新抛出异常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">try
+{
+    // ...
+    throw exception;    // throw a value
+}
+catch(const exception &amp;e)    // by const reference
+{
+    // ...
+    throw ;    // 重新抛出异常
+}</code></pre>
 <br>
 
 <h3 id="建议68：了解异常捕获与函数参数传递之间的差异"><a href="#建议68：了解异常捕获与函数参数传递之间的差异" class="headerlink" title="建议68：了解异常捕获与函数参数传递之间的差异"></a>建议68：了解异常捕获与函数参数传递之间的差异</h3><p>异常与函数参数的传递之间差异：(1)控制权；(2)对象拷贝的次数；(3)异常类型转换；(4)异常类型匹配。<br><br></p>
@@ -484,8 +513,19 @@
 </ol>
 <p>字符串、容器、算法、迭代器四部分采用了模板技术，一般被统称为STL(Standard Template Library,即标准模板库)。</p>
 <p>在C++标准中，STL被组织成了13个头文件：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;algorithm&gt;</span><br><span class="line">&lt;<span class="built_in">deque</span>&gt;</span><br><span class="line">&lt;functional&gt;</span><br><span class="line">&lt;iterator&gt;</span><br><span class="line">&lt;<span class="built_in">vector</span>&gt;</span><br><span class="line">&lt;<span class="built_in">list</span>&gt;</span><br><span class="line">&lt;<span class="built_in">map</span>&gt;</span><br><span class="line">&lt;memory&gt;</span><br><span class="line">&lt;numeric&gt;</span><br><span class="line">&lt;<span class="built_in">queue</span>&gt;</span><br><span class="line">&lt;<span class="built_in">set</span>&gt;</span><br><span class="line">&lt;<span class="built_in">stack</span>&gt;</span><br><span class="line">&lt;utility&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">&lt;algorithm&gt;
+&lt;deque&gt;
+&lt;functional&gt;
+&lt;iterator&gt;
+&lt;vector&gt;
+&lt;list&gt;
+&lt;map&gt;
+&lt;memory&gt;
+&lt;numeric&gt;
+&lt;queue&gt;
+&lt;set&gt;
+&lt;stack&gt;
+&lt;utility&gt;</code></pre>
 <br>
 
 <h3 id="建议72：熟悉STL中的有关术语"><a href="#建议72：熟悉STL中的有关术语" class="headerlink" title="建议72：熟悉STL中的有关术语"></a>建议72：熟悉STL中的有关术语</h3><ol>
@@ -536,8 +576,10 @@
 </li>
 </ol>
 <h3 id="建议79：掌握vector和string与C语言API的通信方式"><a href="#建议79：掌握vector和string与C语言API的通信方式" class="headerlink" title="建议79：掌握vector和string与C语言API的通信方式"></a>建议79：掌握vector和string与C语言API的通信方式</h3><p>使用<code>vector::operator[]</code>和<code>string::c_str</code>是实现STL容器与C语言API通信的最佳方式。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intContainer;</span><br><span class="line">......</span><br><span class="line"><span class="keyword">int</span> *pData = <span class="literal">NULL</span>;</span><br><span class="line">pData = &amp;(intContainer[<span class="number">0</span>]);    <span class="comment">// 因为vector的存储区连续</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">vector&lt;int&gt; intContainer;
+......
+int *pData = NULL;
+pData = &amp;(intContainer[0]);    // 因为vector的存储区连续</code></pre>
 <br>
 
 <h3 id="建议80：多用算法调用，少用手写循环"><a href="#建议80：多用算法调用，少用手写循环" class="headerlink" title="建议80：多用算法调用，少用手写循环"></a>建议80：多用算法调用，少用手写循环</h3><p>用算法调用代替手工编写的循环，具有几方面的优点：</p>
@@ -546,8 +588,13 @@
 <li>不易出错；</li>
 <li>可维护性更好。</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用循环</span></span><br><span class="line"><span class="keyword">for</span> (iter = Container.begin(); iter != Container.end(); )</span><br><span class="line">&#123;</span><br><span class="line">    iter-&gt;DoSomething();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用算法</span></span><br><span class="line">for_each(Container.begin(), Container.end(), mem_fun_ref(&amp;ContainerElement::DoSomething));</span><br></pre></td></tr></table></figure>
-
+<pre><code class="cpp">// 使用循环
+for (iter = Container.begin(); iter != Container.end(); )
+{
+    iter-&gt;DoSomething();
+}
+// 使用算法
+for_each(Container.begin(), Container.end(), mem_fun_ref(&amp;ContainerElement::DoSomething));</code></pre>
 <br>
 
 <br>
@@ -667,7 +714,18 @@
   
 </div>
       </div>
-      <footer id="colophon" role="contentinfo">
+      
+<!-- Highlight.js -->
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/rainbow.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js">
+</script>
+<script type="text/javascript" src="/js/highlightjs-line-numbers.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+<footer id="colophon" role="contentinfo">
     <p>&copy; 2019 Yilin Gui
     All rights reserved.</p>
     <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
