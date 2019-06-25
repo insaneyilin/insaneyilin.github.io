@@ -67,6 +67,170 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-ruby_quickstart_notes_3" class="post-ruby_quickstart_notes_3 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/29/ruby_quickstart_notes_3/" data-id="cjxc1tvi0000bvubh20vz8gbd" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="noopener">《Ruby语言入门教程v1.0》</a>笔记（3）</p>
+<br>
+
+<hr>
+<h2 id="第六章-模块、命名空间、Mix-in"><a href="#第六章-模块、命名空间、Mix-in" class="headerlink" title="第六章 模块、命名空间、Mix-in"></a>第六章 模块、命名空间、Mix-in</h2><h3 id="1-Ruby中的模块"><a href="#1-Ruby中的模块" class="headerlink" title="1. Ruby中的模块"></a>1. Ruby中的模块</h3><p>在程序中，相关的、不相关的代码的组合，叫作模块。一般情况下，我们总是把功能相关的代码放在一个模块里。</p>
+<p>把功能相关的程序代码放在一个模块里， 体现了模块的第一个作用： 可以被其它程序代码重复使用。</p>
+<p>数学中常用的函数， Ruby 中的 <code>Math</code> 模块都提供了。 每个使用 <code>Math</code> 模块的程序员无须再重复编写这些常用的函数与常数。</p>
+<pre><code class="ruby">puts Math.sqrt(2)    # 1.4142135623731
+puts Math::PI    # 3.14159265358979</code></pre>
+<p>定义模块用 <code>module...end</code> 。</p>
+<p>模块与类非常相似，但是：</p>
+<ul>
+<li>模块不可以有实例对象；</li>
+<li>模块不可以有子类。
+        
+          <p class="article-more-link">
+            <a href="/2014/05/29/ruby_quickstart_notes_3/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </li></ul></div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/29/ruby_quickstart_notes_3/">
+    <time datetime="2014-05-29T14:30:29.000Z" class="entry-date">
+        2014-05-29
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-scala_week3_notes" class="post-scala_week3_notes post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/scala_week3_notes/" data-id="cjxc1tvj70026vubhd3ei4bl0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 3’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>.</p>
+<br>
+<br>
+
+<hr>
+<h2 id="1-Class-Hierarchies"><a href="#1-Class-Hierarchies" class="headerlink" title="1. Class Hierarchies"></a>1. Class Hierarchies</h2><h3 id="1-1-Abstract-Classes"><a href="#1-1-Abstract-Classes" class="headerlink" title="1.1 Abstract Classes"></a>1.1 Abstract Classes</h3><p>Consider the task of writing <em>a class for sets of integers</em> with the following operations.</p>
+<pre><code class="scala">abstract class IntSet {
+  def incl(x: Int): IntSet
+  def contains(x: Int): Boolean
+}</code></pre>
+<p><code>IntSet</code> is an <em>abstract</em> class.</p>
+<p>Abstract classes can contain members which are <em>missing an implementation</em> (in our case, <code>incl</code> and <code>contains</code> ).</p>
+<p>Consequently, <strong>no instances</strong> of an abstract class can be created with the operator <code>new</code>.</p>
+<br>
+
+<hr>
+<h3 id="1-2-Class-Extensions"><a href="#1-2-Class-Extensions" class="headerlink" title="1.2 Class Extensions"></a>1.2 Class Extensions</h3><p>Let’s consider implementing sets as <em>binary trees</em>.</p>
+<p>There are two types of possible trees: a tree for the empty set, and a tree consisting of an integer and two sub-trees.</p>
+<p>Here are their implementations:</p>
+<pre><code class="scala">class Empty extends IntSet {
+  def contains(x: Int): Boolean = false
+  def incl(x: Int): IntSet = new NonEmpty(x, new Empty, new Empty)
+}
+
+class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
+  def contains(x: Int): Boolean =
+    if (x &lt; elem) left contains x
+    else if (x &gt; elem) right contains x
+    else true
+  def incl(x: Int): IntSet =
+    if (x &lt; elem) new NonEmpty(elem, left incl x, right)
+    else if (x &gt; elem) new NonEmpty(elem, left, right incl x)
+    else this
+}</code></pre>
+<p>Empty and NonEmpty both <em>extend</em> the class <code>IntSet</code> .</p>
+<p>This implies that the types <code>Empty</code> and <code>NonEmpty</code> <em>conform</em> to the type <code>IntSet</code></p>
+<ul>
+<li>an object of type <code>Empty</code> or <code>NonEmpty</code> can be used wherever an object of type <code>IntSet</code> is required.</li>
+</ul>
+<br>
+
+<hr>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/28/scala_week3_notes/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/28/scala_week3_notes/">
+    <time datetime="2014-05-28T13:56:29.000Z" class="entry-date">
+        2014-05-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-ruby_quickstart_notes_2" class="post-ruby_quickstart_notes_2 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -82,7 +246,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjwnkzdfr002sxdbhxg862uon" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjxc1tvjz002yvubh0mi5deyt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -127,8 +291,6 @@ p2.talk</code></pre>
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="cjwnkzdfr002sxdbhxg862uon" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/05/28/ruby_quickstart_notes_2/">
     <time datetime="2014-05-28T11:30:29.000Z" class="entry-date">
         2014-05-28
@@ -168,7 +330,7 @@ p2.talk</code></pre>
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="cjwnkzdf5001mxdbhvnllgurg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="cjxc1tviw001svubh7j94qvww" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -195,8 +357,6 @@ p2.talk</code></pre>
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="cjwnkzdf5001mxdbhvnllgurg" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/05/26/ruby_quickstart_notes_1/">
     <time datetime="2014-05-26T11:30:29.000Z" class="entry-date">
         2014-05-26
@@ -236,7 +396,7 @@ p2.talk</code></pre>
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwnkzdfr002rxdbhs4bncnxh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjxc1tvjx002xvubhfrag2qib" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -279,8 +439,6 @@ void f(int *&amp;x)    // 使用指针变量的引用
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjwnkzdfr002rxdbhs4bncnxh" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/">
     <time datetime="2014-05-22T05:56:29.000Z" class="entry-date">
         2014-05-22
@@ -320,7 +478,7 @@ void f(int *&amp;x)    // 使用指针变量的引用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjwnkzdg2002yxdbh7d1td3m5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjxc1tvkn0034vubhzbrwc5o9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -368,8 +526,6 @@ void f(int *&amp;x)    // 使用指针变量的引用
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjwnkzdg2002yxdbh7d1td3m5" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/">
     <time datetime="2014-05-22T04:56:29.000Z" class="entry-date">
         2014-05-22
@@ -409,7 +565,7 @@ void f(int *&amp;x)    // 使用指针变量的引用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjwnkzdfa001xxdbhr5s1ax8b" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjxc1tvj30023vubhgzmvmwud" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -438,8 +594,6 @@ void f(int *&amp;x)    // 使用指针变量的引用
     </li></ul></div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjwnkzdfa001xxdbhr5s1ax8b" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/05/20/scala_week2_notes_3/">
     <time datetime="2014-05-20T03:56:29.000Z" class="entry-date">
         2014-05-20
@@ -479,7 +633,7 @@ void f(int *&amp;x)    // 使用指针变量的引用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjwnkzdea000bxdbhuqnrfsj3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjxc1tvi4000fvubhrlwqszp2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -506,8 +660,6 @@ void f(int *&amp;x)    // 使用指针变量的引用
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjwnkzdea000bxdbhuqnrfsj3" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/05/19/scala_week2_notes_2/">
     <time datetime="2014-05-19T13:56:29.000Z" class="entry-date">
         2014-05-19
@@ -547,7 +699,7 @@ void f(int *&amp;x)    // 使用指针变量的引用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwnkzdf9001uxdbhrqc8a1yb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjxc1tvj10020vubh5ip0dnwp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -597,8 +749,6 @@ def gcd(a: Int, b: Int): Int =
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjwnkzdf9001uxdbhrqc8a1yb" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/05/19/scala_week2_notes_1/">
     <time datetime="2014-05-19T11:56:29.000Z" class="entry-date">
         2014-05-19
@@ -638,7 +788,7 @@ def gcd(a: Int, b: Int): Int =
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwnkzdf7001sxdbhlsjckxwe" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjxc1tviz001yvubh6lm1cwr1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -699,8 +849,6 @@ square(3) + square(4)
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjwnkzdf7001sxdbhlsjckxwe" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/05/19/scala_week1_notes/">
     <time datetime="2014-05-19T05:56:29.000Z" class="entry-date">
         2014-05-19
@@ -725,142 +873,10 @@ square(3) + square(4)
 
 
   
-    <article id="post-start_learning_scala" class="post-start_learning_scala post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/05/17/start_learning_scala/">Start Learning Scala</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjwnkzdfd0023xdbhip8mb5kb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>还记得大三时候室友打印了一本厚厚的<a href="http://mitpress.mit.edu/sicp/" target="_blank" rel="noopener">SICP</a>来读，当时我还不以为意。不过读了<a href="http://en.wikipedia.org/wiki/Paul_Graham_(computer_programmer)" target="_blank" rel="noopener">Paul Graham</a>的<a href="http://book.douban.com/subject/6021440/" target="_blank" rel="noopener">《黑客与画家》</a>后我也想亲自尝试一下，领略下<a href="http://en.wikipedia.org/wiki/Functional_programming" target="_blank" rel="noopener">Functional Programming(函数式编程)</a>的威力。</p>
-<p>于是选了<a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>上的函数式编程课程<a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a>，老师是欧洲名校<a href="http://www.epfl.ch/" target="_blank" rel="noopener">EPFL(洛桑联邦理工学院)</a>的教授，Scala语言的发明人<a href="http://lampwww.epfl.ch/~odersky/" target="_blank" rel="noopener">Martin Odersky</a>。目前我刚刚完成前两周的课程，这里从第一周的第一个Lecture里摘选一点内容，简单介绍一下函数式编程。</p>
-<br>
----
-
-<p>在说“函数式”之前，先要知道它是一种<code>编程范式(Programming paradigm)</code>。</p>
-<p><a href="http://zh.wikipedia.org/wiki/编程范式" target="_blank" rel="noopener">Wikipedia</a>上指出：</p>
-<blockquote>
-<p>编程范式是一类典型的编程风格，是指从事软件工程的一类典型的风格(可以对照方法学)。<br>编程范式提供了（同时决定了）程序员对程序执行的看法。</p>
-</blockquote>
-<p>常见的编程范式有：</p>
-<ul>
-<li>imperative programming(命令式编程)</li>
-<li>functional programming(函数式编程)</li>
-<li>logic programming(逻辑式编程)</li>
-<li>object-oriented programming(面向对象编程)<br>
-
-</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2014/05/17/start_learning_scala/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjwnkzdfd0023xdbhip8mb5kb" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-    <a href="/2014/05/17/start_learning_scala/">
-    <time datetime="2014-05-16T16:33:49.000Z" class="entry-date">
-        2014-05-17
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Programming/">Programming</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-hello_world" class="post-hello_world post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/05/16/hello_world/">Hello World</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjwnkzddz0006xdbhxaioed1v" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>在知乎上的一个问题<a href="http://www.zhihu.com/question/20962496" target="_blank" rel="noopener">如何在github上写博客？</a>中看到<a href="http://zipperary.com/" target="_blank" rel="noopener">Zippera</a>的回答，参考他的系列博文<a href="http://zipperary.com/categories/hexo/" target="_blank" rel="noopener">hexo | Zippera’s blog</a>搭建了这个blog。
-        
-          </p><p class="article-more-link">
-            <a href="/2014/05/16/hello_world/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjwnkzddz0006xdbhxaioed1v" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-    <a href="/2014/05/16/hello_world/">
-    <time datetime="2014-05-16T01:30:29.000Z" class="entry-date">
-        2014-05-16
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Diary/">Diary</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -881,7 +897,7 @@ square(3) + square(4)
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">19</span></li></ul>
     </div>
   </aside>
 
@@ -891,6 +907,14 @@ square(3) + square(4)
     <h3 class="widget-title">Recents</h3>
     <div class="widget-content">
       <ul>
+        
+          <li>
+            <a href="/2018/04/25/180425_shared_ptr_with_vector/">std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/">C++ 更新动态库后强制转换基类指针遇到的坑</a>
+          </li>
         
           <li>
             <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
@@ -904,14 +928,6 @@ square(3) + square(4)
             <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
           </li>
         
-          <li>
-            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -921,7 +937,7 @@ square(3) + square(4)
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -930,7 +946,7 @@ square(3) + square(4)
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+      <a href="/tags/C/" style="font-size: 17.5px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12.5px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
     </div>
   </aside>
 

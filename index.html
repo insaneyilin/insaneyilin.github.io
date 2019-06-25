@@ -67,6 +67,125 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-180425_shared_ptr_with_vector" class="post-180425_shared_ptr_with_vector post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/04/25/180425_shared_ptr_with_vector/">std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="cjxc2adwi000044bhuj1j87nx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误：</p>
+<pre><code class="cpp">std::vector&lt;std::shared_ptr&lt;A&gt; &gt; a_vec(n, std::make_shared&lt;A&gt;());</code></pre>
+<p>本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，实际上这个数组里所有元素都指向了同一个实例。看一下 C++ 文档上的参数说明：</p>
+<blockquote>
+<p>val<br>    Value to fill the container with. Each of the n elements in the container will <em>be initialized to a copy of this value</em>.
+    Member type value_type is the type of the elements in the container, defined in vector as an alias of its first template parameter (T).</p>
+</blockquote>
+<p><code>vector</code> 所有成员用 <code>val</code> 的拷贝来初始化，智能指针的拷贝嘛，还是指向同一个实例。</p>
+<p>正确的初始化方式：</p>
+<pre><code class="cpp">std::vector&lt;std::shared_ptr&lt;A&gt; &gt; a_vec(n);
+std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &amp;ptr) {
+  ptr = std::make_shared&lt;A&gt;();
+});</code></pre>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/04/25/180425_shared_ptr_with_vector/">
+    <time datetime="2018-04-25T14:00:00.000Z" class="entry-date">
+        2018-04-25
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-171204_shared_lib_and_dynamic_cast" class="post-171204_shared_lib_and_dynamic_cast post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/04/171204_shared_lib_and_dynamic_cast/">C++ 更新动态库后强制转换基类指针遇到的坑</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="cjxc1tvhj0002vubh4iqyfpo8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。</p>
+<p>直接看下面的例子吧=<em>=</em></p>
+        
+          <p class="article-more-link">
+            <a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/">
+    <time datetime="2017-12-04T14:00:00.000Z" class="entry-date">
+        2017-12-04
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-spatial_data_structure" class="post-spatial_data_structure post type-post status-publish format-standard hentry">
     <!---->
 
@@ -82,7 +201,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="cjwnkzdee000fxdbh0jqjd67h" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="cjxc1tvi6000ivubhl7r4kbjr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -98,8 +217,6 @@
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="cjwnkzdee000fxdbh0jqjd67h" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2016/05/03/spatial_data_structure/">
     <time datetime="2016-05-03T11:30:29.000Z" class="entry-date">
         2016-05-03
@@ -139,7 +256,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjwnkzddn0000xdbhhnbtg678" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjxc1tvhc0000vubh2he1ywnh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -170,8 +287,6 @@
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjwnkzddn0000xdbhhnbtg678" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2015/07/05/150705_webgl_first_try/">
     <time datetime="2015-07-05T09:56:29.000Z" class="entry-date">
         2015-07-05
@@ -211,7 +326,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="cjwnkzdds0002xdbh5e1mc5lt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="cjxc1tvhp0005vubhibhaemsj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -229,8 +344,6 @@
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="cjwnkzdds0002xdbh5e1mc5lt" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">
     <time datetime="2015-04-05T11:56:29.000Z" class="entry-date">
         2015-04-05
@@ -270,7 +383,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="cjwnkzddx0005xdbh6k8j9khv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="cjxc1tvhr0006vubhovsfz6ty" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -292,8 +405,6 @@
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="cjwnkzddx0005xdbh6k8j9khv" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2015/04/02/crop_pdf_with_OpenCV/">
     <time datetime="2015-04-02T11:56:29.000Z" class="entry-date">
         2015-04-02
@@ -333,7 +444,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="cjwnkzdf1001jxdbhaogkexnq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="cjxc1tvis001pvubhezt5t2dc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -354,8 +465,6 @@
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="cjwnkzdf1001jxdbhaogkexnq" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2015/03/30/lambda_expressions_in_cpp/">
     <time datetime="2015-03-30T14:56:29.000Z" class="entry-date">
         2015-03-30
@@ -395,7 +504,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="cjwnkzdf3001kxdbh0druw7qa" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="cjxc1tviu001qvubhc41p2su5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -412,8 +521,6 @@
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="cjwnkzdf3001kxdbh0druw7qa" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2015/03/25/rotation_matrix_and_quaternions/">
     <time datetime="2015-03-25T13:56:29.000Z" class="entry-date">
         2015-03-25
@@ -453,7 +560,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjwnkzde10007xdbhfd2n7oqi" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjxc1tvhy000avubhgllk1j6z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -472,8 +579,6 @@
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjwnkzde10007xdbhfd2n7oqi" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/07/16/kinect_dev_config_vs2013/">
     <time datetime="2014-07-16T14:15:19.000Z" class="entry-date">
         2014-07-16
@@ -513,7 +618,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/06/03/ruby_quickstart_notes_4/" data-id="cjwnkzdf6001pxdbhbt5rriki" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/06/03/ruby_quickstart_notes_4/" data-id="cjxc1tvix001vvubhkr5jvdjv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -556,8 +661,6 @@ print arr[-3, 2] ,&quot;\n&quot;    # 78</code></pre>
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/06/03/ruby_quickstart_notes_4/" data-id="cjwnkzdf6001pxdbhbt5rriki" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <a href="/2014/06/03/ruby_quickstart_notes_4/">
     <time datetime="2014-06-03T14:30:29.000Z" class="entry-date">
         2014-06-03
@@ -582,178 +685,10 @@ print arr[-3, 2] ,&quot;\n&quot;    # 78</code></pre>
 
 
   
-    <article id="post-ruby_quickstart_notes_3" class="post-ruby_quickstart_notes_3 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/05/29/ruby_quickstart_notes_3/">Ruby Quick Start (3) -- Module, Mix-in</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/29/ruby_quickstart_notes_3/" data-id="cjwnkzde5000axdbh7f5yrup8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="noopener">《Ruby语言入门教程v1.0》</a>笔记（3）</p>
-<br>
-
-<hr>
-<h2 id="第六章-模块、命名空间、Mix-in"><a href="#第六章-模块、命名空间、Mix-in" class="headerlink" title="第六章 模块、命名空间、Mix-in"></a>第六章 模块、命名空间、Mix-in</h2><h3 id="1-Ruby中的模块"><a href="#1-Ruby中的模块" class="headerlink" title="1. Ruby中的模块"></a>1. Ruby中的模块</h3><p>在程序中，相关的、不相关的代码的组合，叫作模块。一般情况下，我们总是把功能相关的代码放在一个模块里。</p>
-<p>把功能相关的程序代码放在一个模块里， 体现了模块的第一个作用： 可以被其它程序代码重复使用。</p>
-<p>数学中常用的函数， Ruby 中的 <code>Math</code> 模块都提供了。 每个使用 <code>Math</code> 模块的程序员无须再重复编写这些常用的函数与常数。</p>
-<pre><code class="ruby">puts Math.sqrt(2)    # 1.4142135623731
-puts Math::PI    # 3.14159265358979</code></pre>
-<p>定义模块用 <code>module...end</code> 。</p>
-<p>模块与类非常相似，但是：</p>
-<ul>
-<li>模块不可以有实例对象；</li>
-<li>模块不可以有子类。
-        
-          <p class="article-more-link">
-            <a href="/2014/05/29/ruby_quickstart_notes_3/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </li></ul></div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/29/ruby_quickstart_notes_3/" data-id="cjwnkzde5000axdbh7f5yrup8" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-    <a href="/2014/05/29/ruby_quickstart_notes_3/">
-    <time datetime="2014-05-29T14:30:29.000Z" class="entry-date">
-        2014-05-29
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Programming/">Programming</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-  
-    <article id="post-scala_week3_notes" class="post-scala_week3_notes post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/scala_week3_notes/" data-id="cjwnkzdfc0020xdbhe1ld419c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>Here are my notes for the week 3’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>.</p>
-<br>
-<br>
-
-<hr>
-<h2 id="1-Class-Hierarchies"><a href="#1-Class-Hierarchies" class="headerlink" title="1. Class Hierarchies"></a>1. Class Hierarchies</h2><h3 id="1-1-Abstract-Classes"><a href="#1-1-Abstract-Classes" class="headerlink" title="1.1 Abstract Classes"></a>1.1 Abstract Classes</h3><p>Consider the task of writing <em>a class for sets of integers</em> with the following operations.</p>
-<pre><code class="scala">abstract class IntSet {
-  def incl(x: Int): IntSet
-  def contains(x: Int): Boolean
-}</code></pre>
-<p><code>IntSet</code> is an <em>abstract</em> class.</p>
-<p>Abstract classes can contain members which are <em>missing an implementation</em> (in our case, <code>incl</code> and <code>contains</code> ).</p>
-<p>Consequently, <strong>no instances</strong> of an abstract class can be created with the operator <code>new</code>.</p>
-<br>
-
-<hr>
-<h3 id="1-2-Class-Extensions"><a href="#1-2-Class-Extensions" class="headerlink" title="1.2 Class Extensions"></a>1.2 Class Extensions</h3><p>Let’s consider implementing sets as <em>binary trees</em>.</p>
-<p>There are two types of possible trees: a tree for the empty set, and a tree consisting of an integer and two sub-trees.</p>
-<p>Here are their implementations:</p>
-<pre><code class="scala">class Empty extends IntSet {
-  def contains(x: Int): Boolean = false
-  def incl(x: Int): IntSet = new NonEmpty(x, new Empty, new Empty)
-}
-
-class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
-  def contains(x: Int): Boolean =
-    if (x &lt; elem) left contains x
-    else if (x &gt; elem) right contains x
-    else true
-  def incl(x: Int): IntSet =
-    if (x &lt; elem) new NonEmpty(elem, left incl x, right)
-    else if (x &gt; elem) new NonEmpty(elem, left, right incl x)
-    else this
-}</code></pre>
-<p>Empty and NonEmpty both <em>extend</em> the class <code>IntSet</code> .</p>
-<p>This implies that the types <code>Empty</code> and <code>NonEmpty</code> <em>conform</em> to the type <code>IntSet</code></p>
-<ul>
-<li>an object of type <code>Empty</code> or <code>NonEmpty</code> can be used wherever an object of type <code>IntSet</code> is required.</li>
-</ul>
-<br>
-
-<hr>
-        
-          <p class="article-more-link">
-            <a href="/2014/05/28/scala_week3_notes/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a data-url="https://yilingui.xyz/2014/05/28/scala_week3_notes/" data-id="cjwnkzdfc0020xdbhe1ld419c" class="article-share-link bdsharebuttonbox" data-cmd="more">分享</a>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-    <a href="/2014/05/28/scala_week3_notes/">
-    <time datetime="2014-05-28T13:56:29.000Z" class="entry-date">
-        2014-05-28
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Programming/">Programming</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -774,7 +709,7 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">17</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a><span class="category-list-count">19</span></li></ul>
     </div>
   </aside>
 
@@ -784,6 +719,14 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
     <h3 class="widget-title">Recents</h3>
     <div class="widget-content">
       <ul>
+        
+          <li>
+            <a href="/2018/04/25/180425_shared_ptr_with_vector/">std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/">C++ 更新动态库后强制转换基类指针遇到的坑</a>
+          </li>
         
           <li>
             <a href="/2016/05/03/spatial_data_structure/">BSP树、四叉树、八叉树与 KD 树</a>
@@ -797,14 +740,6 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
             <a href="/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/">柴郡猫技术--C++中的PIMPL设计模式</a>
           </li>
         
-          <li>
-            <a href="/2015/04/02/crop_pdf_with_OpenCV/">使用 OpenCV 裁剪 PDF 页面</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -814,7 +749,7 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -823,7 +758,7 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
+      <a href="/tags/C/" style="font-size: 17.5px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12.5px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a>
     </div>
   </aside>
 
