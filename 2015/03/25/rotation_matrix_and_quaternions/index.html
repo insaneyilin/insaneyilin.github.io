@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   
   <meta name="description" content="在计算机图形学的学习中，几何变换（Transformations）是一块重要的内容，我们使用齐次坐标（Homogeneous coordinates）描述点和向量，使用变换矩阵描述平移、旋转等变换。
@@ -46,10 +46,10 @@
 
   
   <!-- baidu webmaster push -->
-  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+  <script src="//push.zhanzhang.baidu.com/push.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head></html>
 <body class="home blog custom-background custom-font-enabled single-author">
-  <div id="page" class="hfeed site">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
       <header id="masthead" class="site-header" role="banner">
     <hgroup>
       <h1 class="site-title">
@@ -103,7 +103,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="cjxoyv1he002g2mbhmrnu767u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="cjxqj46kh002cfqbh3rbom6j9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -125,32 +125,32 @@
 <p>点绕坐标轴旋转可以考虑点在相应坐标平面上投影的旋转。比如绕 Y 轴旋转，那么考虑点 $P$ 在 X-Z 平面上的投影的旋转，如下图所示：</p>
 <p><img src="/imgs/20150325_rotation_matrix_and_quaternions/rotate_3_dimension_y.jpg" alt="绕Y轴旋转"></p>
 <p>假设点 $P$ 在 X-Z 平面上的投影点与坐标原点连成的向量长度为 L ，那么根据简单的平面几何知识，我们可以得到：</p>
-<p>\begin{equation}<br>\begin{bmatrix}<br>x1 \<br>z1<br>\end{bmatrix}<br>=
-\begin{bmatrix}<br>cos\beta &amp; sin\beta \<br>-sin\beta &amp; cos\beta<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>z 
+<p>\begin{equation}<br>\begin{bmatrix}<br>x1 \\<br>z1<br>\end{bmatrix}<br>=
+\begin{bmatrix}<br>cos\beta &amp; sin\beta \\<br>-sin\beta &amp; cos\beta<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>z 
 \end{bmatrix}<br>\end{equation}</p>
 <p>用齐次坐标表示绕Y轴的旋转为：</p>
-<p>\begin{equation}<br>\begin{bmatrix}<br>x1 \<br>y1 \<br>z1 \<br>w1<br>\end{bmatrix}<br>=
-\begin{bmatrix}<br>cos\beta &amp; 0 &amp; sin\beta &amp; 0 \<br>0 &amp; 1 &amp; 0 &amp; 0 \<br>-sin\beta &amp; 0 &amp; cos\beta &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y \<br>z \<br>w 
+<p>\begin{equation}<br>\begin{bmatrix}<br>x1 \\<br>y1 \\<br>z1 \\<br>w1<br>\end{bmatrix}<br>=
+\begin{bmatrix}<br>cos\beta &amp; 0 &amp; sin\beta &amp; 0 \\<br>0 &amp; 1 &amp; 0 &amp; 0 \\<br>-sin\beta &amp; 0 &amp; cos\beta &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y \\<br>z \\<br>w 
 \end{bmatrix}<br>\end{equation}</p>
 <p>同理可分别得到绕X轴与绕Y轴的情况。</p>
 <p>绕X轴旋转：</p>
-<p>\begin{equation}<br>\begin{bmatrix}<br>x2 \<br>y2 \<br>z2 \<br>w2<br>\end{bmatrix}<br>=
-\begin{bmatrix}<br>1 &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; cos\alpha &amp; -sin\alpha &amp; 0 \<br>0 &amp; sin\alpha &amp; cos\alpha &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y \<br>z \<br>w 
+<p>\begin{equation}<br>\begin{bmatrix}<br>x2 \\<br>y2 \\<br>z2 \\<br>w2<br>\end{bmatrix}<br>=
+\begin{bmatrix}<br>1 &amp; 0 &amp; 0 &amp; 0 \\<br>0 &amp; cos\alpha &amp; -sin\alpha &amp; 0 \\<br>0 &amp; sin\alpha &amp; cos\alpha &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y \\<br>z \\<br>w 
 \end{bmatrix}<br>\end{equation}</p>
 <p>绕Z轴旋转：</p>
-<p>\begin{equation}<br>\begin{bmatrix}<br>x3 \<br>y3 \<br>z3 \<br>w3<br>\end{bmatrix}<br>=
-\begin{bmatrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y \<br>z \<br>w 
+<p>\begin{equation}<br>\begin{bmatrix}<br>x3 \\<br>y3 \\<br>z3 \\<br>w3<br>\end{bmatrix}<br>=
+\begin{bmatrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \\<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \\<br>0 &amp; 0 &amp; 1 &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \\<br>y \\<br>z \\<br>w 
 \end{bmatrix}<br>\end{equation}</p>
 <p>我们可以将绕X、Y和Z坐标轴的旋转矩阵分别记为 $R_x(\alpha), R_y(\beta), R_z(\theta)$，则有：</p>
-<p>\begin{equation}<br>R_x(\alpha) =<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; cos\alpha &amp; -sin\alpha &amp; 0 \<br>0 &amp; sin\alpha &amp; cos\alpha &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
-<p>\begin{equation}<br>R_y(\beta) =<br>\begin{bmatrix}<br>cos\beta &amp; 0 &amp; sin\beta &amp; 0 \<br>0 &amp; 1 &amp; 0 &amp; 0 \<br>-sin\beta &amp; 0 &amp; cos\beta &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
-<p>\begin{equation}<br>R_z(\theta) =<br>\begin{bmatrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0 \<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
+<p>\begin{equation}<br>R_x(\alpha) =<br>\begin{bmatrix}<br>1 &amp; 0 &amp; 0 &amp; 0 \\<br>0 &amp; cos\alpha &amp; -sin\alpha &amp; 0 \\<br>0 &amp; sin\alpha &amp; cos\alpha &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
+<p>\begin{equation}<br>R_y(\beta) =<br>\begin{bmatrix}<br>cos\beta &amp; 0 &amp; sin\beta &amp; 0 \\<br>0 &amp; 1 &amp; 0 &amp; 0 \\<br>-sin\beta &amp; 0 &amp; cos\beta &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
+<p>\begin{equation}<br>R_z(\theta) =<br>\begin{bmatrix}<br>cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \\<br>sin\theta &amp; cos\theta &amp; 0 &amp; 0 \\<br>0 &amp; 0 &amp; 1 &amp; 0 \\<br>0 &amp; 0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>\end{equation}</p>
 <p>旋转矩阵可以通过其他旋转矩阵复合得到（矩阵乘法）。</p>
 <br>
 
 <hr>
 <h2 id="欧拉角"><a href="#欧拉角" class="headerlink" title="欧拉角"></a>欧拉角</h2><p>上面讨论了绕三条坐标轴旋转的旋转矩阵，旋转矩阵的一般形式（这里没有用齐次坐标）为：</p>
-<p>$$<br>C =<br>        \begin{bmatrix}<br>        c11 &amp; c12 &amp; c13 \<br>        c21 &amp; c22 &amp; c23 \<br>        c31 &amp; c32 &amp; c33<br>        \end{bmatrix}<br>$$</p>
+<p>$$<br>C =<br>        \begin{bmatrix}<br>        c11 &amp; c12 &amp; c13 \\<br>        c21 &amp; c22 &amp; c23 \\<br>        c31 &amp; c32 &amp; c33<br>        \end{bmatrix}<br>$$</p>
 <p>物体在三维空间中的旋转可以从坐标系的旋转来考虑（三维空间中坐标轴，即三维线性空间中基的变换）。那么矩阵 $C$ 的三个列向量实际对应着原坐标系三个坐标轴方向的单位向量在旋转后的新坐标系下的坐标。</p>
 <p>我们知道直角坐标系的三个坐标轴方向的单位向量实际上是一组标准正交基，于是矩阵 $C$ 是一个正交矩阵。所以旋转矩阵表面上看起来依赖于 9 个参数，实际上只有三个是独立的。</p>
 <p>为了更直接地指出这三个独立参数，欧拉（Euler）证明了如下事实：任何一个旋转都可以由连续施行的三次绕轴旋转来实现，这三次绕轴旋转的旋转角就是三个独立参数，称为欧拉角。</p>
@@ -163,7 +163,7 @@
 <p>侧偏(Roll)：</p>
 <p><img src="/imgs/20150325_rotation_matrix_and_quaternions/roll.gif" alt="airplane Roll"></p>
 <p>设 Yaw 、Pitch 、Roll 三个角度分别为 $\theta, \varphi, \psi$，那么利用欧拉角进行旋转对应的旋转变换矩阵为：</p>
-<p>$$<br>        \begin{bmatrix}<br>        cos\psi \ cos\theta - sin\psi \ cos\varphi \ sin\theta &amp; -sin\psi \ cos\theta - cos\psi \ cos\varphi \ sin\theta &amp; sin\varphi \ sin\theta \<br>        cos\psi \ sin\theta + sin\psi \ cos\varphi \ cos\theta &amp; -sin\psi \ sin\theta + cos\psi \ cos\varphi \ cos\theta &amp; -sin\varphi \ cos\theta \<br>        sin\psi \ sin\varphi &amp; cos\psi \ sin\varphi &amp; cos\varphi<br>        \end{bmatrix}<br>$$</p>
+<p>$$<br>        \begin{bmatrix}<br>        cos\psi  cos\theta - sin\psi  cos\varphi  sin\theta &amp; -sin\psi  cos\theta - cos\psi  cos\varphi  sin\theta &amp; sin\varphi  sin\theta \\<br>        cos\psi  sin\theta + sin\psi  cos\varphi  cos\theta &amp; -sin\psi  sin\theta + cos\psi  cos\varphi  cos\theta &amp; -sin\varphi  cos\theta \\<br>        sin\psi  sin\varphi &amp; cos\psi  sin\varphi &amp; cos\varphi<br>        \end{bmatrix}<br>$$</p>
 <p>实际上 Yaw 、Pitch 、Roll 的旋转就分别对应着前面我们给出的旋转矩阵 $R_x(\theta), R_y(\varphi), R_z(\psi)$，上面的矩阵就是这三个矩阵的复合。</p>
 <p>欧拉角的好处是简单、容易理解，但使用它作为旋转的工具有严重的缺陷–万向节死锁（Gimbal Lock）。</p>
 <p>万向节死锁是指物体的两个旋转轴指向同一个方向。实际上，当两个旋转轴平行时，我们就说万向节锁现象发生了，换句话说，绕一个轴旋转可能会覆盖住另一个轴的旋转，从而失去一维自由度。</p>
@@ -175,14 +175,17 @@
 <h2 id="四元数"><a href="#四元数" class="headerlink" title="四元数"></a>四元数</h2><p>从前面的讨论我们发现三角度系统（three-angle system）无法很好地处理旋转的插值。下面介绍四元数（Quaternions）以及如何利用四元数描述旋转。</p>
 <br>
 
-<h3 id="四元数的定义"><a href="#四元数的定义" class="headerlink" title="四元数的定义"></a>四元数的定义</h3><p>四元数是由数学家 William Rowan Hamilton 于1843年所发明的数学概念，是复数的推广，可以说是“三维的复数”，形式为 $ w + x \ \mathbf{i} + y \ \mathbf{j} + z \ \mathbf{k} $ ，其中 $\mathbf{i}, \mathbf{j}, \mathbf{k}$ 的关系如下：</p>
-<p>$$<br>    \mathbf{i}^2 = \mathbf{j}^2 = \mathbf{k}^2 = -1 \<br>    \mathbf{i} \cdot \mathbf{j} = -\mathbf{j} \cdot \mathbf{i} = \mathbf{k} \<br>    \mathbf{i} \cdot \mathbf{k} = -\mathbf{k} \cdot \mathbf{i} = \mathbf{j} \<br>    \mathbf{j} \cdot \mathbf{k} = -\mathbf{k} \cdot \mathbf{j} = \mathbf{i}<br>$$</p>
+<h3 id="四元数的定义"><a href="#四元数的定义" class="headerlink" title="四元数的定义"></a>四元数的定义</h3><p>四元数是由数学家 William Rowan Hamilton 于1843年所发明的数学概念，是复数的推广，可以说是“三维的复数”，形式为 $ w + x  \mathbf{i} + y  \mathbf{j} + z  \mathbf{k} $ ，其中 $\mathbf{i}, \mathbf{j}, \mathbf{k}$ 的关系如下：</p>
+<p>$$<br>    \mathbf{i}^2 = \mathbf{j}^2 = \mathbf{k}^2 = -1 \\<br>    \mathbf{i} \cdot \mathbf{j} = -\mathbf{j} \cdot \mathbf{i} = \mathbf{k} \\<br>    \mathbf{i} \cdot \mathbf{k} = -\mathbf{k} \cdot \mathbf{i} = \mathbf{j} \\<br>    \mathbf{j} \cdot \mathbf{k} = -\mathbf{k} \cdot \mathbf{j} = \mathbf{i}<br>$$</p>
 <p>假设有两个四元数：</p>
-<p>$$<br>q_1 = w_1 + x_1 \ i + y_1 \ j + z_1 \ k \<br>q_2 = w_2 + x_2 \ i + y_2 \ j + z_2 \ k<br>$$</p>
+<p>$$<br>q_1 = w_1 + x_1  i + y_1  j + z_1  k \\<br>q_2 = w_2 + x_2  i + y_2  j + z_2  k 
+$$</p>
 <p>四元数的加法定义如下：</p>
-<p>$$<br>q_1 + q_2 = (w_1 + w_2) + (x_1 + x_2) \ i + (y_1 + y_2) \ j + (z_1 + z_2) \ k<br>$$</p>
+<p>$$<br>q_1 + q_2 = (w_1 + w_2) + (x_1 + x_2)  i + (y_1 + y_2)  j + (z_1 + z_2)  k
+$$</p>
 <p>四元数的乘法定义，利用简单的分配律定义如下：</p>
-<p>$$<br>q_1 \cdot q_2 =<br>(w_1 \cdot w_2 - x_1 \cdot x_2 - y_1 \cdot y_2 - z_1 \cdot z_2) + \<br>(w_1 \cdot x_2 + x_1 \cdot w_2 + y_1 \cdot z_2 - z_1 \cdot y_2) \ i + \<br>(w_1 \cdot y_2 - x_1 \cdot z_2 + y_1 \cdot w_2 + z_1 \cdot x_1) \ j + \<br>(w_1 \cdot z_2 + x_1 \cdot y_2 - y_1 \cdot x_2 + z_1 \cdot w_2) \ k<br>$$</p>
+<p>$$<br>q_1 \cdot q_2 =<br>(w_1 \cdot w_2 - x_1 \cdot x_2 - y_1 \cdot y_2 - z_1 \cdot z_2) + \\<br>(w_1 \cdot x_2 + x_1 \cdot w_2 + y_1 \cdot z_2 - z_1 \cdot y_2)  i + \\<br>(w_1 \cdot y_2 - x_1 \cdot z_2 + y_1 \cdot w_2 + z_1 \cdot x_1)  j + \\<br>(w_1 \cdot z_2 + x_1 \cdot y_2 - y_1 \cdot x_2 + z_1 \cdot w_2)  k
+$$</p>
 <p>为了方便表示，我们将四元数记为：</p>
 <p>$$<br>\mathbf{q} = (x, y, z, w) = (\vec{v}, w)<br>$$</p>
 <blockquote>
@@ -204,10 +207,10 @@
 <br>
 
 <h3 id="四元数与旋转"><a href="#四元数与旋转" class="headerlink" title="四元数与旋转"></a>四元数与旋转</h3><p>这里直接给出结论：如果把单位四元数表示为：</p>
-<p>$$<br>\mathbf{q} = (\vec{n} \cdot sin \frac{\theta}{2}, \ cos \frac{\theta}{2})<br>$$</p>
+<p>$$<br>\mathbf{q} = (\vec{n} \cdot sin \frac{\theta}{2},  cos \frac{\theta}{2})<br>$$</p>
 <p>的形式，那么该单位四元数可以表示绕轴 $\vec{n}$<br> 进行 $\theta$ 角的旋转。</p>
 <p>该单位四元数对应的旋转矩阵为</p>
-<p>$$<br>R(\mathbf{q}) =<br>        \begin{bmatrix}<br>        1-2(y^2 + z^2) &amp; 2(xy - zw) &amp; 2(xz + yw) \<br>        2(xy + zw) &amp; 1-2(x^2 + z^2) &amp; 2(yz - xw) \<br>        2(xz - yw) &amp; 2(yz + xw) &amp; 1-2(x^2 + y^2)<br>        \end{bmatrix}<br>$$</p>
+<p>$$<br>R(\mathbf{q}) =<br>        \begin{bmatrix}<br>        1-2(y^2 + z^2) &amp; 2(xy - zw) &amp; 2(xz + yw) \\<br>        2(xy + zw) &amp; 1-2(x^2 + z^2) &amp; 2(yz - xw) \\<br>        2(xz - yw) &amp; 2(yz + xw) &amp; 1-2(x^2 + y^2)<br>        \end{bmatrix}<br>$$</p>
 <p>这里的推导用到了轴-角旋转表示中的<a href="http://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula" target="_blank" rel="noopener">Rodrigues’ rotation formula</a>，具体证明这里不展开了，有兴趣的可以查阅相关资料。</p>
 <p>我们发现用四元数描述旋转需要的存储空间很小，更为关键的是可以使用被称为<em>球面线性插值</em>（<a href="http://en.wikipedia.org/wiki/Slerp" target="_blank" rel="noopener">Slerp Algorithm</a>）的方法对四元数进行插值运算，从而解决了平滑旋转的插值问题。</p>
 <p>在 OpenGL 或者 DirectX 中我们通常使用模型视图矩阵来进行几何变换，当我们希望实现光滑旋转、对旋转进行插值时，就可以利用四元数这一工具。处理过程为：</p>
@@ -355,36 +358,22 @@
 </footer>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
 
-<!--
 <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            processEscapes: true
-        }
-    });
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      <!--$表示行内元素，$$表示块状元素 -->
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-    });
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
--->
 
 <script src="/js/jquery-3.3.1.min.js"></script>
 
@@ -408,6 +397,6 @@ $(window).on('load', function(){
 
 <div id="bg"></div>
 
-  </div>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

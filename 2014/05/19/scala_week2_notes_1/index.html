@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   
   <meta name="description" content="Here are my notes for the week 2’s lecture of Functional Programming Principles in Scala on Coursera. 
@@ -74,10 +74,10 @@ In general, if the last action of a function consists of calling a function (whi
 
   
   <!-- baidu webmaster push -->
-  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+  <script src="//push.zhanzhang.baidu.com/push.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head></html>
 <body class="home blog custom-background custom-font-enabled single-author">
-  <div id="page" class="hfeed site">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
       <header id="masthead" class="site-header" role="banner">
     <hgroup>
       <h1 class="site-title">
@@ -131,7 +131,7 @@ In general, if the last action of a function consists of calling a function (whi
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjxoyv1hk002j2mbht0a5dda4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjxqj46kp002mfqbh6yejf58u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -244,7 +244,7 @@ def fact(x: Int): Int = if (x == 0) 1 else x * fact(x - 1)</code></pre>
 
 <hr>
 <h4 id="Example-A-function-that-raises-its-argument-to-a-cube"><a href="#Example-A-function-that-raises-its-argument-to-a-cube" class="headerlink" title="Example: A function that raises its argument to a cube:"></a>Example: A function that raises its argument to a cube:</h4><pre><code class="scala">(x: Int) =&gt; x * x * x</code></pre>
-<p>Here, (x: Int) is the <strong>parameter</strong> of the function, and x * x * x is its <strong>body</strong>.</p>
+<p>Here, (x: Int) is the <strong>parameter</strong> of the function, and x <em> x </em> x is its <strong>body</strong>.</p>
 <ul>
 <li>The type of the parameter can be omitted if it can be inferred by the compiler from the context.</li>
 </ul>
@@ -521,36 +521,22 @@ product(x =&gt; x * x)(3, 4)    // mapReduce(x =&gt; x * x, (x, y) =&gt; x * y, 
 </footer>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
 
-<!--
 <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            processEscapes: true
-        }
-    });
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      <!--$表示行内元素，$$表示块状元素 -->
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-    });
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
--->
 
 <script src="/js/jquery-3.3.1.min.js"></script>
 
@@ -574,6 +560,6 @@ $(window).on('load', function(){
 
 <div id="bg"></div>
 
-  </div>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

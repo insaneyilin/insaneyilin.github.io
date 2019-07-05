@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   
   <meta name="description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。
-直接看下面的例子吧==">
+直接看下面的例子吧=_=_">
   
 
   
@@ -16,18 +16,18 @@
   
   <title>C++ 更新动态库后强制转换基类指针遇到的坑 | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。 直接看下面的例子吧==">
+  <meta name="description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。 直接看下面的例子吧=_=_">
 <meta name="keywords" content="C++,Debugging Sucks">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++ 更新动态库后强制转换基类指针遇到的坑">
 <meta property="og:url" content="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/index.html">
 <meta property="og:site_name" content="Yilin&#39;s Blog">
-<meta property="og:description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。 直接看下面的例子吧==">
+<meta property="og:description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。 直接看下面的例子吧=_=_">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-06-25T16:52:54.572Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++ 更新动态库后强制转换基类指针遇到的坑">
-<meta name="twitter:description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。 直接看下面的例子吧==">
+<meta name="twitter:description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。 直接看下面的例子吧=_=_">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -39,10 +39,10 @@
 
   
   <!-- baidu webmaster push -->
-  <script src="//push.zhanzhang.baidu.com/push.js"></script>
+  <script src="//push.zhanzhang.baidu.com/push.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head></html>
 <body class="home blog custom-background custom-font-enabled single-author">
-  <div id="page" class="hfeed site">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
       <header id="masthead" class="site-header" role="banner">
     <hgroup>
       <h1 class="site-title">
@@ -96,14 +96,14 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="cjxoyv1fv00082mbhk7zm1dpz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="cjxqj46iv0008fqbhj4pa4m8l" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
         <p>这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。</p>
-<p>直接看下面的例子吧=<em>=</em></p>
+<p>直接看下面的例子吧=_=_</p>
 <a id="more"></a>
 
 <p>假设下面是老版本的库实现(注意老版本没有定义 <code>b</code> 这个成员)：</p>
@@ -356,36 +356,22 @@ target_link_libraries(main a)</code></pre><p>好了，我们先用老版本编�
 </footer>
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
 
-<!--
 <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            processEscapes: true
-        }
-    });
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      <!--$表示行内元素，$$表示块状元素 -->
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-    });
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
--->
 
 <script src="/js/jquery-3.3.1.min.js"></script>
 
@@ -409,6 +395,6 @@ $(window).on('load', function(){
 
 <div id="bg"></div>
 
-  </div>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
