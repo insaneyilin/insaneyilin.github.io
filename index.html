@@ -90,7 +90,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="cjxxjkm7f000jm9bhhwaetqxk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="cjxxlcc95000khbbh960fdu6s" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -106,7 +106,7 @@
 <li>池子空了的时候支持扩容</li>
 </ul>
 <p>实现起来也不难，用一个队列维护所有对象，用的时候从队列中取，回收了 push 回队列即可。不过显式的 <strong>回收</strong> 操作用起来不是很方便，忘记回收会造成资源浪费。可以考虑利用 C++ 智能指针(smart pointer)自定义删除器(deleter)来实现自动回收。</p>
-<h2 id="自定义智能指针的删除器"><a href="#自定义智能指针的删除器" class="headerlink" title="自定义智能指针的删除器"></a>自定义智能指针的删除器</h2><p>先看一个例子：</p>
+<h2 id="自定义智能指针的删除器"><a href="#自定义智能指针的删除器" class="headerlink" title="自定义智能指针的删除器"></a>自定义智能指针的删除器</h2><p>先看一个例子(这是一个错误使用智能指针的例子，只是为了展示 deleter 做了什么)：</p>
 <pre><code class="cpp">int main(int argc, char **argv) {
   Object *obj1 = new Object;
 
@@ -124,7 +124,7 @@
 malloc: *** error for object 0x7f845f400340: pointer being freed was not allocated
 *** set a breakpoint in malloc_error_break to debug
 Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指针。这是因为 <code>std::shared_ptr</code> 默认的 deleter 就是 <code>delete</code>，当两个 <code>shared_ptr</code> 实例出作用域时，执行了两次 <code>delete obj1</code>，所以出错。</p>
-<p>我们不用默认的 deleter ，自己定义一个 deleter 就可以解决这个问题：</p>
+<p>我们不用默认的 deleter ，试试自己定义一个 deleter 来避免第二次 <code>delete</code> （再强调下，这个例子只是为了展示 deleter ，实际工作中没人会这么写的）：</p>
         
           <p class="article-more-link">
             <a href="/2019/07/10/190710_cpp_shared_object_pool/#more" class="more-link">More <span class="meta-nav">→</span></a>
@@ -200,7 +200,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="cjxxjkm7b000em9bh571z9zq7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="cjxxlcc92000ghbbhavlgnq6b" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -283,7 +283,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="cjxxjkm720006m9bhvfanmp6k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="cjxxlcc8z000fhbbhb0mizhlk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -384,7 +384,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="cjxxjkm77000am9bhrfx6yiap" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="cjxxlcc8p0006hbbhnleyvll5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -474,7 +474,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="cjxxjkm740008m9bh6liw0s7c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="cjxxlcc8r0008hbbhac6qjxbm" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -557,7 +557,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="cjxxjkm7d000fm9bhufoau8q5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="cjxxlcc8t000ahbbhk7ad2w2l" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -650,7 +650,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="cjxxjkm7t0016m9bhf3krzu5k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="cjxxlcc9l0015hbbhnt96qfve" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -732,7 +732,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjxxjkm6p0000m9bhv9zpex5r" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cjxxlcc8i0002hbbhlw81lbf7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -829,7 +829,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="cjxxjkm7h000mm9bhrgbyuvjc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="cjxxlcc97000lhbbhar0disvs" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -913,7 +913,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="cjxxjkm7k000rm9bhsftvgdil" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="cjxxlcc9c000rhbbhdq2qd2ni" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

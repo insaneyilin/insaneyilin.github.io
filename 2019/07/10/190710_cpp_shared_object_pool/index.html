@@ -14,7 +14,7 @@
 池子空了的时候支持扩容
 
 实现起来也不难，用一个队列维护所有对象，用的时候从队列中取，回收了 push 回队列即可。不过显式的 回收 操作用起来不是很方便，忘记回收会造成资源浪费。可以考虑利用 C++ 智能指针(smart pointer)自定义删除器(deleter)来实现自动回收。
-自定义智能指针的删除器先看一个例子：
+自定义智能指针的删除器先看一个例子(这是一个错误使用智能指针的例子，只是为了展示 deleter 做了什么)：
 int main(int argc, char **argv) {
   Object *obj1 = new Object;
 
@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 malloc: *** error for object 0x7f845f400340: pointer being freed was not allocated
 *** set a breakpoint in malloc_error_break to debug
 Abort trap: 6报错了，提示说释放了一个未分配的指针。这是因为 std::shared_ptr 默认的 deleter 就是 delete，当两个 shared_ptr 实例出作用域时，执行了两次 delete obj1，所以出错。
-我们不用默认的 deleter ，自己定义一个 deleter 就可以解决这个问题：">
+我们不用默认的 deleter ，试试自己定义一个 deleter 来避免第二次 delete （再强调下，这个例子只是为了展示 deleter ，实际工作中没人会这么写的）：">
   
 
   
@@ -51,7 +51,7 @@ Abort trap: 6报错了，提示说释放了一个未分配的指针。这是因�
 <meta property="og:site_name" content="Yilin&#39;s Blog">
 <meta property="og:description" content="对象池前一段时间的工作中，有一项任务是检查线上代码中的动态内存分配与释放，能预先分配的统一预先分配，减少线上运行时动态分配、释放造成的性能开销。对于一些大对象来说，频繁的分配、释放会影响性能，我们可以使用对象池技术(Object Pool)来进行优化。 对象池，说白了就是一个池子，预先分配了一堆对象，原先的 new 改成从池子里取对象，delete 改成把对象放回池子。也就是池子中的对象是可以重复">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-10T16:06:05.199Z">
+<meta property="og:updated_time" content="2019-07-10T18:42:02.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个简单的 C++ 对象池实现">
 <meta name="twitter:description" content="对象池前一段时间的工作中，有一项任务是检查线上代码中的动态内存分配与释放，能预先分配的统一预先分配，减少线上运行时动态分配、释放造成的性能开销。对于一些大对象来说，频繁的分配、释放会影响性能，我们可以使用对象池技术(Object Pool)来进行优化。 对象池，说白了就是一个池子，预先分配了一堆对象，原先的 new 改成从池子里取对象，delete 改成把对象放回池子。也就是池子中的对象是可以重复">
@@ -123,7 +123,7 @@ Abort trap: 6报错了，提示说释放了一个未分配的指针。这是因�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="cjxxjkm7f000jm9bhhwaetqxk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="cjxxlcc95000khbbh960fdu6s" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -139,7 +139,7 @@ Abort trap: 6报错了，提示说释放了一个未分配的指针。这是因�
 <li>池子空了的时候支持扩容</li>
 </ul>
 <p>实现起来也不难，用一个队列维护所有对象，用的时候从队列中取，回收了 push 回队列即可。不过显式的 <strong>回收</strong> 操作用起来不是很方便，忘记回收会造成资源浪费。可以考虑利用 C++ 智能指针(smart pointer)自定义删除器(deleter)来实现自动回收。</p>
-<h2 id="自定义智能指针的删除器"><a href="#自定义智能指针的删除器" class="headerlink" title="自定义智能指针的删除器"></a>自定义智能指针的删除器</h2><p>先看一个例子：</p>
+<h2 id="自定义智能指针的删除器"><a href="#自定义智能指针的删除器" class="headerlink" title="自定义智能指针的删除器"></a>自定义智能指针的删除器</h2><p>先看一个例子(这是一个错误使用智能指针的例子，只是为了展示 deleter 做了什么)：</p>
 <pre><code class="cpp">int main(int argc, char **argv) {
   Object *obj1 = new Object;
 
@@ -157,7 +157,7 @@ Abort trap: 6报错了，提示说释放了一个未分配的指针。这是因�
 malloc: *** error for object 0x7f845f400340: pointer being freed was not allocated
 *** set a breakpoint in malloc_error_break to debug
 Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指针。这是因为 <code>std::shared_ptr</code> 默认的 deleter 就是 <code>delete</code>，当两个 <code>shared_ptr</code> 实例出作用域时，执行了两次 <code>delete obj1</code>，所以出错。</p>
-<p>我们不用默认的 deleter ，自己定义一个 deleter 就可以解决这个问题：</p>
+<p>我们不用默认的 deleter ，试试自己定义一个 deleter 来避免第二次 <code>delete</code> （再强调下，这个例子只是为了展示 deleter ，实际工作中没人会这么写的）：</p>
 <a id="more"></a>
 
 <pre><code class="cpp">int main(int argc, char **argv) {
