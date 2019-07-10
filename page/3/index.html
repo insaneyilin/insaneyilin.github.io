@@ -75,6 +75,120 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-150_tips_on_writing_high_quality_cpp_codes_1" class="post-150_tips_on_writing_high_quality_cpp_codes_1 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/">《编写高质量代码：改善C++程序的150个建议》读书笔记(1)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjxxjkmaf003xm9bhfgtjz5hy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>前一段时间看了这本<a href="http://book.douban.com/subject/7059901/" target="_blank" rel="noopener">《编写高质量代码——改善C++程序的150个建议》</a>，感觉和<a href="http://book.douban.com/subject/6517498/" target="_blank" rel="noopener"><em>Effective C++</em></a>有点类似。看完还是有不少收获的，在此整理、记录一下。</p>
+<br>
+
+<hr>
+<h2 id="第一部分-语法篇"><a href="#第一部分-语法篇" class="headerlink" title="第一部分 语法篇"></a>第一部分 语法篇</h2><h3 id="建议1：区分0的4种面孔"><a href="#建议1：区分0的4种面孔" class="headerlink" title="建议1：区分0的4种面孔"></a>建议1：区分0的4种面孔</h3><ol>
+<li>整型0，32位（4个字节）；</li>
+<li>空指针<code>NULL</code>，指针与<code>int</code>类型所占空间是一样的，都是32位；</li>
+<li>字符串结束标志’\0’，8位，一个字节，与’0’有区别；</li>
+<li>逻辑<code>FALSE</code>/<code>false</code>，<code>FALSE</code>/<code>TRUE</code>是<code>int</code>类型，而<code>false</code>/<code>true</code>是<code>bool</code>类型。<br>
+
+</li>
+</ol>
+<h3 id="建议5：不要忘记指针变量的初始化"><a href="#建议5：不要忘记指针变量的初始化" class="headerlink" title="建议5：不要忘记指针变量的初始化"></a>建议5：不要忘记指针变量的初始化</h3><ol>
+<li>可以将其初始化为空指针<code>0</code>(<code>NULL</code>)；</li>
+<li>对于全局变量来说，在声明的同时，编译器会<strong>悄悄完成</strong>对变量的初始化。<br>
+
+</li>
+</ol>
+<h3 id="建议6：明晰逗号分隔表达式的奇怪之处"><a href="#建议6：明晰逗号分隔表达式的奇怪之处" class="headerlink" title="建议6：明晰逗号分隔表达式的奇怪之处"></a>建议6：明晰逗号分隔表达式的奇怪之处</h3><ol>
+<li>在使用逗号分隔表达式时，C++会确保每个表达式都被执行，而整个表达式的值则是<strong>最右边表达式的结果</strong>；</li>
+<li>在C++中，逗号分隔表达式<strong>既可以用作左值，也可以用作右值</strong>。<br>
+
+</li>
+</ol>
+<h3 id="建议9：防止重复包含头文件"><a href="#建议9：防止重复包含头文件" class="headerlink" title="建议9：防止重复包含头文件"></a>建议9：防止重复包含头文件</h3><p>注意在大型项目中的形式应类似下面：</p>
+<pre><code class="c++">#ifndef _PROJECT_PATH_FILE_H
+#define _PROJECT_PATH_FILE_H
+// ...
+#endif</code></pre>
+<br>
+
+<h3 id="建议10：优化结构体中元素的布局"><a href="#建议10：优化结构体中元素的布局" class="headerlink" title="建议10：优化结构体中元素的布局"></a>建议10：优化结构体中元素的布局</h3><p>把结构体中的变量<strong>按照类型大小从小到大</strong>依次声明，尽量<strong>减少中间的填充字节</strong>。
+<br></p>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/">
+    <time datetime="2014-05-22T04:56:29.000Z" class="entry-date">
+        2014-05-22
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ReadingNotes/">ReadingNotes</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
+
+
+  
     <article id="post-scala_week2_notes_3" class="post-scala_week2_notes_3 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -90,7 +204,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjxxfjrfj002th6bh7nv0ldrr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjxxjkm9b002xm9bh7ks7pzgl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -185,7 +299,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjxxfjre0000zh6bhvup971j6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjxxjkm7s0013m9bh25ur322u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -278,7 +392,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjxxfjrfa002nh6bhr50hfdk1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjxxjkm97002um9bhh7eg570r" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -394,7 +508,7 @@ def gcd(a: Int, b: Int): Int =
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjxxfjrf8002kh6bhfz5ckwnq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjxxjkm93002qm9bh8kwah5n8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -521,7 +635,7 @@ square(3) + square(4)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjxxfjrfp0030h6bhc2z694wb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjxxjkm9h0032m9bhmrp0ukyp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -621,7 +735,7 @@ square(3) + square(4)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjxxfjrdt000sh6bhsbczvi02" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjxxjkm7o000ym9bh64a9dafk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -723,15 +837,15 @@ square(3) + square(4)
           </li>
         
           <li>
+            <a href="/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/">夏虫不可语冰，井蛙不可语海</a>
+          </li>
+        
+          <li>
             <a href="/2018/04/25/180425_shared_ptr_with_vector/">std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑</a>
           </li>
         
           <li>
             <a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/">C++ 更新动态库后强制转换基类指针遇到的坑</a>
-          </li>
-        
-          <li>
-            <a href="/2017/11/23/171123_visa_to_usa/">美签小记</a>
           </li>
         
       </ul>
@@ -743,7 +857,7 @@ square(3) + square(4)
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -752,7 +866,7 @@ square(3) + square(4)
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12.5px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12.5px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
     </div>
   </aside>
 
