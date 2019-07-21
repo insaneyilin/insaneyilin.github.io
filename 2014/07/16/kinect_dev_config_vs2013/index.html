@@ -19,7 +19,7 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
   <title>Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86) | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。 一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit： KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口） KinectDeveloperToolkit-v1.8.0-Set">
-<meta name="keywords" content="Kinect,OpenCV">
+<meta name="keywords" content="OpenCV,Kinect">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)">
 <meta property="og:url" content="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/index.html">
@@ -79,6 +79,8 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
                 
                     <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/photos">Photos</a></li>
                 
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/daily_thoughts">Daily Thoughts</a></li>
+                
                     <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://yilingui.xyz/wiki/">Wiki</a></li>
                 
                     <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/insaneyilin">Github</a></li>
@@ -106,7 +108,7 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjxxlcc9a000phbbhhnw5tga7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjy1bnj79000wgkbhuqgb1gyl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -442,11 +444,32 @@ $(window).on('load', function(){
 });
 </script>
 
+<!--Mermaid流程图-->
+<script src="https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
 <!--引入不蒜子访问统计-->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>
