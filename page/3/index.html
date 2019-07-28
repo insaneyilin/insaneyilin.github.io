@@ -77,6 +77,115 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-150_tips_on_writing_high_quality_cpp_codes_2" class="post-150_tips_on_writing_high_quality_cpp_codes_2 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/">《编写高质量代码：改善C++程序的150个建议》读书笔记(2)</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="cjyn2f4ax003talbhe6lvva3s" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><a href="http://insaneguy.me/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" target="_blank" rel="noopener">《编写高质量代码——改善C++程序的150个建议》读书笔记(1)</a></p>
+<br>
+
+<hr>
+<h2 id="第二部分-编码习惯和规范篇"><a href="#第二部分-编码习惯和规范篇" class="headerlink" title="第二部分 编码习惯和规范篇"></a>第二部分 编码习惯和规范篇</h2><h3 id="建议81：避免无意中的内部数据裸露"><a href="#建议81：避免无意中的内部数据裸露" class="headerlink" title="建议81：避免无意中的内部数据裸露"></a>建议81：避免无意中的内部数据裸露</h3><p>对于<code>const</code>成员函数，不要返回内部数据的句柄，因为它会<strong>破坏封装性</strong>，违反抽象性，造成内部数据无意中的裸露，这会出现很多“不可思议”的情形，比如<code>const</code>对象的非常量性。<br><br></p>
+<h3 id="建议82：积极使用const为函数保驾护航"><a href="#建议82：积极使用const为函数保驾护航" class="headerlink" title="建议82：积极使用const为函数保驾护航"></a>建议82：积极使用const为函数保驾护航</h3><p><code>const</code>的真正威力体现在几个方面：</p>
+<ol>
+<li>修饰函数形式的参数：<code>const</code>只能修饰输入参数，对于内置数据类型的输入参数，不要将“值传递”的方式改为“<code>const</code> 引用传递”；</li>
+<li>修饰函数返回值；</li>
+<li>修饰成员函数：用<code>const</code>修饰成员函数的目的是提高程序的健壮性。<code>const</code>成员函数不允许对数据成员进行任何修改。</li>
+</ol>
+<p>关于<code>const</code>成员函数，须遵循几个规则：</p>
+<ol>
+<li><code>const</code>对象只能访问<code>const</code>成员函数，而非<code>const</code>对象可以访问任意的成员函数；</li>
+<li><code>const</code>对象的成员是不可修改的，然而<code>const</code>对象通过指针维护的对象却是可以修改的；</li>
+<li><code>const</code>成员函数不可以修改对象的数据，不管对象是否具有<code>const</code>性质。<br>
+
+</li>
+</ol>
+<h3 id="建议83：不要返回局部变量的引用"><a href="#建议83：不要返回局部变量的引用" class="headerlink" title="建议83：不要返回局部变量的引用"></a>建议83：不要返回局部变量的引用</h3><p>局部变量的引用是一件不太靠谱的事儿，所以尽量避免让函数返回局部变量的引用。同时也不要返回<code>new</code>生成对象的引用，因为这样会让代码层次混乱，让使用者苦不堪言。<br><br></p>
+<h3 id="建议84：切忌过度使用传引用代替传对象"><a href="#建议84：切忌过度使用传引用代替传对象" class="headerlink" title="建议84：切忌过度使用传引用代替传对象"></a>建议84：切忌过度使用传引用代替传对象</h3><p>相较于传对象，传引用的优点：它减少了临时对象的构造与析构，所以更具效率。但须审慎地使用传引用替代传对象，必须传回内部对象时，就传对象，勿传引用。<br><br></p>
+<h3 id="建议85：了解指针参数传递内存中的玄机"><a href="#建议85：了解指针参数传递内存中的玄机" class="headerlink" title="建议85：了解指针参数传递内存中的玄机"></a>建议85：了解指针参数传递内存中的玄机</h3><p>用指针参数传回一块动态申请的内存，是很常见的一种需求。然而如果不甚小心，就很容易造成严重错误：程序崩溃+内存泄露，解决之道就是用指针的指针来传递，或者换种内存传递方式，用返回值来传递。</p>
+<pre><code class="cpp">// 指针型变量在函数体中需要改变的写法
+void f(int *&amp;x)    // 使用指针变量的引用
+{
+    ++x;
+}</code></pre>
+<br>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/">
+    <time datetime="2014-05-22T05:56:29.000Z" class="entry-date">
+        2014-05-22
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ReadingNotes/">ReadingNotes</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
+
+
+  
     <article id="post-150_tips_on_writing_high_quality_cpp_codes_1" class="post-150_tips_on_writing_high_quality_cpp_codes_1 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -92,7 +201,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjyiuzewg003zg7bhhjp7bhkg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="cjyn2f4bj0040albhv5x5yvcp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -206,7 +315,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjyiuzevj002wg7bh7qqerq58" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="cjyn2f4ab0030albh5gy4asm1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -301,7 +410,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjyiuzeus0014g7bhaw6pur19" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="cjyn2f48p0017albhfkoqca1g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -394,7 +503,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjyiuzevk002zg7bhdgtx67eu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="cjyn2f4a9002xalbhc2nnpkkr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -510,7 +619,7 @@ def gcd(a: Int, b: Int): Int =
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjyiuzevi002sg7bh5zj8b7f5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="cjyn2f4a8002talbhpcxh7iev" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -637,7 +746,7 @@ square(3) + square(4)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjyiuzevn0034g7bhvox811sb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="cjyn2f4ah0035albh98ktcn3j" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -737,7 +846,7 @@ square(3) + square(4)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjyiuzeuo000yg7bh68pw6o1h" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="cjyn2f48k0010albh4hkrlmix" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -818,7 +927,7 @@ square(3) + square(4)
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReadingNotes/">ReadingNotes</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReadingNotes/">ReadingNotes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/casual-writing/">casual writing</a></li></ul>
     </div>
   </div>
 
@@ -829,6 +938,10 @@ square(3) + square(4)
     <h3 class="widget-title">Recents</h3>
     <div class="widget-content">
       <ul>
+        
+          <li>
+            <a href="/2019/07/21/190728_when_cyber_violence_comes_into_reality/">当网络暴力成为现实</a>
+          </li>
         
           <li>
             <a href="/2019/07/10/190710_cpp_shared_object_pool/">一个简单的 C++ 对象池实现</a>
@@ -844,10 +957,6 @@ square(3) + square(4)
         
           <li>
             <a href="/2018/04/25/180425_shared_ptr_with_vector/">std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/">C++ 更新动态库后强制转换基类指针遇到的坑</a>
           </li>
         
       </ul>
