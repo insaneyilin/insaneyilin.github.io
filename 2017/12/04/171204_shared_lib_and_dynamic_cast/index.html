@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="Yilin&#39;s Blog">
 <meta property="og:description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。 直接看下面的例子吧=_=_">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-25T16:52:54.572Z">
+<meta property="og:updated_time" content="2019-08-08T17:17:18.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++ 更新动态库后强制转换基类指针遇到的坑">
 <meta name="twitter:description" content="这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。 直接看下面的例子吧=_=_">
@@ -100,7 +100,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="cjz2w4s0m0008m7bh5m0tn1dx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="cjz2xmt980009h3bhicq8ggum" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

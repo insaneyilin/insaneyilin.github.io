@@ -25,7 +25,7 @@ std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_
 <meta property="og:site_name" content="Yilin&#39;s Blog">
 <meta property="og:description" content="现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误： std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_shared&amp;lt;A&amp;gt;()); 本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，实际上这个数组里所有元素都指向了同一个实例。看一下 C++ 文档上的参数说明：  val    Va">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-25T17:07:25.658Z">
+<meta property="og:updated_time" content="2019-08-08T17:17:14.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑">
 <meta name="twitter:description" content="现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误： std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_shared&amp;lt;A&amp;gt;()); 本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，实际上这个数组里所有元素都指向了同一个实例。看一下 C++ 文档上的参数说明：  val    Va">
@@ -101,7 +101,7 @@ std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="cjz2w4s0q000dm7bh8kmdecp2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="cjz2xmt9c000bh3bhm8gtvurz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
