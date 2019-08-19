@@ -4,10 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   
-  <meta name="description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。
-一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit：
-KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口）
-KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的工具，包括Kinect Studio和多种编程语言的开发例程等）">
+  <meta name="description" content>
   
 
   
@@ -16,28 +13,34 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
   
   
   
-  <title>Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86) | Yilin&#39;s Blog</title>
+  <title>2018年11月_美国_旧金山/圣何塞 | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。 一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit： KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口） KinectDeveloperToolkit-v1.8.0-Set">
-<meta name="keywords" content="OpenCV,Kinect">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)">
-<meta property="og:url" content="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="2018年11月_美国_旧金山&#x2F;圣何塞">
+<meta property="og:url" content="https://yilingui.xyz/photos/1810_usa.html">
 <meta property="og:site_name" content="Yilin&#39;s Blog">
-<meta property="og:description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。 一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit： KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口） KinectDeveloperToolkit-v1.8.0-Set">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/KinectDrivers.jpg">
-<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/KinectDevBrower.jpg">
-<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/KinectDepthDemo.jpg">
-<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_props.jpg">
-<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_vcpp_dir.jpg">
-<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_linker.jpg">
-<meta property="og:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/kinect_opencv_depthImage.jpg">
-<meta property="og:updated_time" content="2019-06-08T08:32:16.944Z">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/9jtMaIe18YyRDSc.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/PkoRmYUrpJLjVd2.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/scMXBYIJqb5GRNC.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/EbUOvWQ9IM7mgnX.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/kFnfY9ACilGyorx.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/DuYZHbhI1rJGapX.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/vyidoFe2Uf6EHaG.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/AEqyUKJYvGtoIp3.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/wth4IOomkyDLCBr.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/iAgoHm7xSQKBVbN.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/WFKt4EzaUCIxuyO.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/BJikMD7YAap8XFU.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/HTmSKMy6vJFCcps.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/lgi4VfjD8KLBwZ1.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/nCtxD5FPi9eSEyz.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/bH1QVIFci2gpaZk.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/08/19/RyVDgCLEJ3ahw1I.jpg">
+<meta property="og:updated_time" content="2019-08-19T15:51:28.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)">
-<meta name="twitter:description" content="OS为Windows 8 32位，VS2013已安装并可以正常使用。 一. 安装和配置Kinect for Windows SDK v1.8在官方网站下载Kinect for Windows SDK和Developer Toolkit： KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口） KinectDeveloperToolkit-v1.8.0-Set">
-<meta name="twitter:image" content="https://yilingui.xyz/imgs/20140716_kinect_dev_config_vs2013/KinectDrivers.jpg">
+<meta name="twitter:title" content="2018年11月_美国_旧金山&#x2F;圣何塞">
+<meta name="twitter:image" content="https://i.loli.net/2019/08/19/9jtMaIe18YyRDSc.jpg">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -95,7 +98,7 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
 </header>
 
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-kinect_dev_config_vs2013" class="post-kinect_dev_config_vs2013 post type-post status-publish format-standard hentry">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-" class="page- post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -103,206 +106,37 @@ KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的�
         
   
     <h1 class="entry-title article-title">
-      Kinect开发环境配置：Kinect for Windows SDK + OpenCV2.4.9 + VS2013 + Win8(x86)
+      2018年11月_美国_旧金山/圣何塞
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="cjzijzkm60010b9bhlmwoipxu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/photos/1810_usa.html" data-id="cjzijzkkv0009b9bhbsm3ndv4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>OS为Windows 8 32位，VS2013已安装并可以正常使用。</p>
-<h2 id="一-安装和配置Kinect-for-Windows-SDK-v1-8"><a href="#一-安装和配置Kinect-for-Windows-SDK-v1-8" class="headerlink" title="一. 安装和配置Kinect for Windows SDK v1.8"></a>一. 安装和配置Kinect for Windows SDK v1.8</h2><p>在<a href="http://www.microsoft.com/en-us/kinectforwindowsdev/Start.aspx" target="_blank" rel="noopener">官方网站</a>下载<strong>Kinect for Windows SDK</strong>和<strong>Developer Toolkit</strong>：</p>
-<p>KinectSDK-v1.8-Setup.exe （主要提供Kinect的驱动和设备访问接口）</p>
-<p>KinectDeveloperToolkit-v1.8.0-Setup.exe （主要提供一些有助于开发的工具，包括Kinect Studio和多种编程语言的开发例程等）</p>
-<a id="more"></a>
-<p>按照默认选项安装完成后，接入Kinect，系统将会自动的搜索驱动进行安装。打开设备管理器查看驱动是否安装成功：</p>
-<p><img src="/imgs/20140716_kinect_dev_config_vs2013/KinectDrivers.jpg" alt="Kinect Drivers"></p>
-<p>再打开Developer Toolkit Browser v1.8.0 (Kinect for Windows)：</p>
-<p><img src="/imgs/20140716_kinect_dev_config_vs2013/KinectDevBrower.jpg" alt="Developer Toolkit Browser"></p>
-<p>测试读取深度图像的例子：</p>
-<p><img src="/imgs/20140716_kinect_dev_config_vs2013/KinectDepthDemo.jpg" alt="Depth Basics Demo"></p>
-<hr>
-<h2 id="二-安装OpenCV2-4-9"><a href="#二-安装OpenCV2-4-9" class="headerlink" title="二. 安装OpenCV2.4.9"></a>二. 安装OpenCV2.4.9</h2><p>OpenCV主页：<a href="opencv.org">opencv.org</a></p>
-<p>下载<a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-win/2.4.9/opencv-2.4.9.exe/download" target="_blank" rel="noopener">OpenCV for Windows</a></p>
-<p>安装很简单，不用自己编译。假设安装在E盘 <code>E:\opencv</code> 。</p>
-<hr>
-<h2 id="三-VS2013配置"><a href="#三-VS2013配置" class="headerlink" title="三. VS2013配置"></a>三. VS2013配置</h2><p>打开VS2013，新建project，命名为<code>KinectDepthData</code>。打开<code>VIEW</code>中的<code>Property Manager</code>，打开<code>Debug | Win32</code>下的<code>Microsoft.Cpp.Win32.user</code>:</p>
-<p><img src="/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_props.jpg" alt="Property Manager"></p>
-<p>分别配置OpenCV和Kinect的项目属性：</p>
-<h3 id="OpenCV"><a href="#OpenCV" class="headerlink" title="OpenCV"></a>OpenCV</h3><ol>
-<li><p>Include files加入E:\opencv\build\include；</p>
-</li>
-<li><p>Library files加入E:\opencv\build\x86\vc10\lib；</p>
-</li>
-<li><p>在Linker的Input中，添加Additional Dependencies(根据需要添加)：</p>
-<p> opencv_core249d.lib<br> opencv_highgui249d.lib<br> opencv_video249d.lib<br> opencv_imgproc249d.lib<br> opencv_features2d249d.lib<br> opencv_nonfree249d.lib<br> opencv_legacy249d.lib<br> opencv_calib3d249d.lib</p>
-</li>
-</ol>
-<h3 id="Kinect"><a href="#Kinect" class="headerlink" title="Kinect"></a>Kinect</h3><ol>
-<li><p>Include files加入C:\Program Files\Microsoft SDKs\Kinect\v1.8\inc；</p>
-</li>
-<li><p>Library files加入C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\x86；</p>
-</li>
-<li><p>在Linker的Input中，添加Additional Dependencies：</p>
-<p> Kinect10.lib</p>
-</li>
-</ol>
-<p><img src="/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_vcpp_dir.jpg" alt="VC++ Directories"></p>
-<p><img src="/imgs/20140716_kinect_dev_config_vs2013/VS2013_opencv_linker.jpg" alt="Linker"></p>
-<hr>
-<h2 id="四-测试用Kinect读取深度图像并用OpenCV显示"><a href="#四-测试用Kinect读取深度图像并用OpenCV显示" class="headerlink" title="四. 测试用Kinect读取深度图像并用OpenCV显示"></a>四. 测试用Kinect读取深度图像并用OpenCV显示</h2><pre><code class="cpp">/************************************************
-代码原作者：zouxy09
-来自：http://blog.csdn.net/zouxy09/article/details/8146266
-Kinect for Windows SDK + OpenCV2读取并显示深度图像
-************************************************/
-
-#include &lt;windows.h&gt;
-#include &lt;iostream&gt;
-#include &lt;NuiApi.h&gt;
-#include &lt;opencv2/opencv.hpp&gt;
-
-using namespace std;
-using namespace cv;
-
-int main(int argc, char *argv[])
-{
-    Mat image;
-    // 这里我们用灰度图来表述深度数据，越远的数据越暗
-    image.create(240, 320, CV_8UC1);
-
-    // 1. 初始化NUI，注意这里传入的参数有变化，为DEPTH
-    HRESULT hr = NuiInitialize(NUI_INITIALIZE_FLAG_USES_DEPTH);
-    if (FAILED(hr))
-    {
-        cout &lt;&lt; &quot;NuiInitialize failed&quot; &lt;&lt; endl;
-        return hr;
-    }
-
-    // 2. 定义事件句柄
-    // 创建读取下一帧的信号事件句柄，控制Kinect是否可以开始读取下一帧数据
-    HANDLE nextColorFrameEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-    HANDLE depthStreamHandle = NULL;  // 保存图像数据流的句柄，用以提取数据
-
-    // 3. 打开Kinect设备的深度图信息通道，并用depthStreamHandle保存该流的句柄，以便以后读取
-    hr = NuiImageStreamOpen(NUI_IMAGE_TYPE_DEPTH, NUI_IMAGE_RESOLUTION_320x240,
-        0, 2, nextColorFrameEvent, &amp;depthStreamHandle);
-    if (FAILED(hr))  // 判断读取是否正确
-    {
-        cout &lt;&lt; &quot;Could not open color image stream video&quot; &lt;&lt; endl;
-        NuiShutdown();
-        return hr;
-    }
-    namedWindow(&quot;depthImage&quot;, CV_WINDOW_AUTOSIZE);
-
-    // 4. 开始读取深度数据
-    while (true)
-    {
-        const NUI_IMAGE_FRAME * pImageFrame = NULL;
-
-        // 4.1 无限等待新的数据，等到后返回
-        if (WaitForSingleObject(nextColorFrameEvent, INFINITE) == 0)
-        {
-            // 4.2 从刚才打开数据流的流句柄中得到该帧数据，读取到的数据地址存于pImageFrame
-            hr = NuiImageStreamGetNextFrame(depthStreamHandle, 0, &amp;pImageFrame);
-            if (FAILED(hr))  // 判断读取是否正确
-            {
-                cout &lt;&lt; &quot;Could not get depth image&quot; &lt;&lt; endl;
-                NuiShutdown();
-                return -1;
-            }
-
-            INuiFrameTexture * pTexture = pImageFrame-&gt;pFrameTexture;
-            NUI_LOCKED_RECT LockedRect;
-
-            // 4.3 提取数据帧到LockedRect，它包括两个数据对象：Pitch每行字节数，pBits第一个字节地址
-            // 并锁定数据，这样当我们读取数据时，Kinect就不会去修改它
-            pTexture-&gt;LockRect(0, &amp;LockedRect, NULL, 0);
-
-            // 4.4 确定获得的数据是否有效
-            if (LockedRect.Pitch != 0)
-            {
-                // 4.5 将数据转换为OpenCV的Mat格式
-                for (int i = 0; i &lt; image.rows; ++i)
-                {
-                    uchar *ptr = image.ptr&lt;uchar&gt;(i);  // 第i行的指针
-
-                    // 深度图像数据含有两种格式，这里像素的低12位表示一个深度值，高4位未使用
-                    // 注意这里需要进行转换，因为每个数据是2个字节，存储的同上面获取的颜色信息不一样
-                    uchar *pBufferRun = (uchar*)(LockedRect.pBits) + i * LockedRect.Pitch;
-                    USHORT *pBuffer = (USHORT*)pBufferRun;
-                    for (int j = 0; j &lt; image.cols; ++j)
-                    {
-                        ptr[j] = 255 - (uchar)(256 * pBuffer[j] / 0x0fff);  // 直接将数据归一化处理
-                    }
-                }
-                imshow(&quot;depthImage&quot;, image);
-            }
-            else
-            {
-                cout &lt;&lt; &quot;Buffer length of received texture is bogus\r\n&quot; &lt;&lt; endl;
-            }
-
-            // 5. 这一帧已经处理完了，所以将其解锁
-            pTexture-&gt;UnlockRect(0);
-
-            // 6. 释放本帧数据，准备迎接下一帧
-            NuiImageStreamReleaseFrame(depthStreamHandle, pImageFrame);
-        }
-        if (cvWaitKey(20) == 27)
-        {
-            break;
-        }
-    }
-
-    // 7. 关闭NUI链接
-    return 0;
-}</code></pre>
-<br>
-
-<p>程序运行效果：</p>
-<p><img src="/imgs/20140716_kinect_dev_config_vs2013/kinect_opencv_depthImage.jpg" alt="Kinect + OpenCV Depth Image"></p>
-<hr>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/zouxy09/article/details/8146055" target="_blank" rel="noopener">Kinect开发学习笔记之（三）Kinect开发环境配置</a></p>
+        <p><img src="https://i.loli.net/2019/08/19/9jtMaIe18YyRDSc.jpg" alt="2018-11-13 053056.jpg"><br><img src="https://i.loli.net/2019/08/19/PkoRmYUrpJLjVd2.jpg" alt="2018-11-14 114712.jpg"><br><img src="https://i.loli.net/2019/08/19/scMXBYIJqb5GRNC.jpg" alt="2018-11-14 115528.jpg"><br><img src="https://i.loli.net/2019/08/19/EbUOvWQ9IM7mgnX.jpg" alt="2018-11-14 115521.jpg"><br><img src="https://i.loli.net/2019/08/19/kFnfY9ACilGyorx.jpg" alt="2018-11-14 115541.jpg"><br><img src="https://i.loli.net/2019/08/19/DuYZHbhI1rJGapX.jpg" alt="2018-11-14 115554.jpg"><br><img src="https://i.loli.net/2019/08/19/vyidoFe2Uf6EHaG.jpg" alt="2018-11-15 003641.jpg"><br><img src="https://i.loli.net/2019/08/19/AEqyUKJYvGtoIp3.jpg" alt="2018-11-15 003738.jpg"><br><img src="https://i.loli.net/2019/08/19/wth4IOomkyDLCBr.jpg" alt="2018-11-15 003841.jpg"><br><img src="https://i.loli.net/2019/08/19/iAgoHm7xSQKBVbN.jpg" alt="2018-11-15 003815.jpg"><br><img src="https://i.loli.net/2019/08/19/WFKt4EzaUCIxuyO.jpg" alt="2018-11-15 003927.jpg"><br><img src="https://i.loli.net/2019/08/19/BJikMD7YAap8XFU.jpg" alt="2018-11-16 160341.jpg"><br><img src="https://i.loli.net/2019/08/19/HTmSKMy6vJFCcps.jpg" alt="2018-11-16 044117.jpg"><br><img src="https://i.loli.net/2019/08/19/lgi4VfjD8KLBwZ1.jpg" alt="2018-11-16 155945.jpg"><br><img src="https://i.loli.net/2019/08/19/nCtxD5FPi9eSEyz.jpg" alt="2018-11-16 155936.jpg"><br><img src="https://i.loli.net/2019/08/19/bH1QVIFci2gpaZk.jpg" alt="2018-11-17 045819.jpg"><br><img src="https://i.loli.net/2019/08/19/RyVDgCLEJ3ahw1I.jpg" alt="2018-11-17 045908.jpg"></p>
 
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2014/07/16/kinect_dev_config_vs2013/">
-    <time datetime="2014-07-16T14:15:19.000Z" class="entry-date">
-        2014-07-16
+    <a href="/photos/1810_usa.html">
+    <time datetime="2018-12-01T02:30:22.000Z" class="entry-date">
+        2018-12-01
     </time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Programming/">Programming</a>
-  </div>
-
     
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kinect/">Kinect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenCV/">OpenCV</a></li></ul>
-
     </footer>
 </article>
 
 
     
-<nav class="nav-single">
-    <h3 class="assistive-text">文章导航</h3>
-    
-        <span class="nav-previous"><a href="/2015/03/25/rotation_matrix_and_quaternions/" rel="prev"><span class="meta-nav">←</span> 旋转矩阵与四元数</a></span>
-    
-    
-        <span class="nav-next"><a href="/2014/06/28/140328_can_jin_zhi_shang_de_chuang_ye_ke/" rel="next">&lt;餐巾纸上的创业课&gt;读书笔记 <span class="meta-nav">→</span></a></span>
-    
-</nav><!-- .nav-single -->
-
 
 
 
