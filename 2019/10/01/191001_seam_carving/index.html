@@ -53,9 +53,7 @@ Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的�
 <meta property="og:image" content="https://i.loli.net/2019/10/04/cPeThdFWDfRJ1om.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/04/HmL2fPoWsEcpuy8.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/04/Kfpkv8lu6VzgwG3.png">
-<meta property="og:image" content="https://github.com/insaneyilin/SeamCarving/blob/master/screenshots/seam_carving_screenshots.gif">
-<meta property="og:image" content="https://github.com/insaneyilin/SeamCarving/blob/master/screenshots/seam_carving_object_removal.gif">
-<meta property="og:updated_time" content="2019-10-03T18:25:11.787Z">
+<meta property="og:updated_time" content="2019-10-03T18:32:54.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Seam Carving -- 基于内容的图像缩放算法">
 <meta name="twitter:description" content="1 背景我们经常会有缩放图像的需求，然而直接缩放的问题是，如果宽高缩放比例不一致，会导致图像内容发生形变“失真”。 Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的好处是可以尽可能保持图像中“重要区域”的比例，避免由于直接缩放造成的“失真”。  @inproceedings{avidan2007seam,  title={Seam carving for content-aw">
@@ -131,7 +129,7 @@ Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck1b139vk000nfxbhbv0xj43i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck1b1bngo000hmdbhvz6wcinz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -247,10 +245,8 @@ void SeamCarver::FindSeamWithDynamicProgramming(const cv::Mat &amp;energy_map,
 <p><img src="https://i.loli.net/2019/10/04/HmL2fPoWsEcpuy8.png" alt="multi seam insertion"></p>
 <h3 id="目标保护与去除"><a href="#目标保护与去除" class="headerlink" title="目标保护与去除"></a>目标保护与去除</h3><p>我们可以通过修改能量图来实现图像中目标的保护和去除，增加能量图中相关像素的能量值则可以起到保护作用，降低能量值则可以起到删除作用。</p>
 <p><img src="https://i.loli.net/2019/10/04/Kfpkv8lu6VzgwG3.png" alt="object removal and protection"></p>
-<h2 id="5-C-实现"><a href="#5-C-实现" class="headerlink" title="5 C++ 实现"></a>5 C++ 实现</h2><p>我用 C++ 和 OpenCV 实现了基本的 Seam Carving 算法，代码地址在：</p>
+<h2 id="5-C-实现"><a href="#5-C-实现" class="headerlink" title="5 C++ 实现"></a>5 C++ 实现</h2><p>我用 C++ 和 OpenCV 实现了基本的 Seam Carving 算法（包含目标保护与去除），代码地址在：</p>
 <p><a href="https://github.com/insaneyilin/SeamCarving" target="_blank" rel="noopener">https://github.com/insaneyilin/SeamCarving</a></p>
-<p><img src="https://github.com/insaneyilin/SeamCarving/blob/master/screenshots/seam_carving_screenshots.gif" alt></p>
-<p><img src="https://github.com/insaneyilin/SeamCarving/blob/master/screenshots/seam_carving_object_removal.gif" alt></p>
 <h2 id="6-更多"><a href="#6-更多" class="headerlink" title="6 更多"></a>6 更多</h2><p>Github 上有一个 <a href="https://github.com/avidLearnerInProgress/pyCAIR" target="_blank" rel="noopener">pyCAIR</a> 项目，用 Python 较为完整地实现了 Seam Carving 算法，可以直接使用。</p>
 <hr>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://www.faculty.idc.ac.il/arik/SCWeb/imret/index.html" target="_blank" rel="noopener">http://www.faculty.idc.ac.il/arik/SCWeb/imret/index.html</a></p>
