@@ -93,7 +93,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck1b0n03d000f2bbhbf3bdtm9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck1b11ns4000nebbh1rpypb1d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -109,8 +109,9 @@
 <h2 id="2-算法原理"><a href="#2-算法原理" class="headerlink" title="2 算法原理"></a>2 算法原理</h2><h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>算法的基本思想非常直观，先考虑下沿着宽的方向进行缩放，缩放实质是删去了若干条纵向的像素“路径”(或者 seam，缝隙)，直接缩放删去的路径都是竖直的长条，相当于沿着图像竖直方向做了均匀的降采样。那么我们为什么一定要删去竖直的“路径”呢，如果能保持删去路径后，剩余的图像部分还是“平滑”的，或者说删去的路径是最不重要的，那么不就实现了基于图像内容的缩放了吗？</p>
 <p>于是该论文作者提出了可以删去“能量”最少的 seam 来实现图像缩小。</p>
 <p>“能量” 如何定义，最容易想到的就是梯度信息：</p>
-<img src="https://latex.codecogs.com/gif.latex?energy(\mathbf{I})&space;=&space;|\frac{\partial}{\partial&space;x}&space;\mathbf{I}|&space;&plus;&space;|\frac{\partial}{\partial&space;y}&space;\mathbf{I}|" title="energy(\mathbf{I}) = |\frac{\partial}{\partial x} \mathbf{I}| + |\frac{\partial}{\partial y} \mathbf{I}|">
+<img src="https://latex.codecogs.com/gif.latex?energy(\mathbf{I})&space;=&space;|\frac{\partial}{\partial&space;x}&space;\mathbf{I}|&space;&plus;&space;|\frac{\partial}{\partial&space;y}&space;\mathbf{I}|">
 
+<p>[上面的公式]: “energy(\mathbf{I}) = |\frac{\partial}{\partial x} \mathbf{I}| + |\frac{\partial}{\partial y} \mathbf{I}|”</p>
 <p>用像素在水平和竖直方向上的一阶梯度值的之和来表示该像素点的能量，那么一条缝隙的能量就是该缝隙上所有像素点能量之和。</p>
 <p>我们需要做的就是每次找到像素能量最小的一条缝隙，然后删去它。</p>
 <p><img src="https://i.loli.net/2019/10/04/74m8aN23Bf6R9j5.png" alt="seam with min energy"></p>
@@ -197,7 +198,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck1b0n03f000i2bbhcdh1s81q" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck1b11ns8000rebbhk08j0kdk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -276,7 +277,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck1b0n03n000q2bbhfmr58cq9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck1b11nsa000tebbh5ahf2s6q" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -355,7 +356,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck1b0n03l000n2bbheljfpghq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck1b11nrz000mebbhltkoqnvu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -465,7 +466,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck1b0n038000a2bbher5bliod" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck1b11nrx000hebbhdk69dvfn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -548,7 +549,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck1b0n039000b2bbh8g75vmqx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck1b11nrv000febbh30721904" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -649,7 +650,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck1b0n03500072bbh7ulejbqw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck1b11nrq000aebbhvzqqz5vs" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -739,7 +740,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck1b0n03400062bbh2nxntiqq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck1b11nrk0008ebbh5r1b4q5g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -822,7 +823,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck1b0n03200052bbhh3502k1z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck1b11nri0006ebbh5n2d1527" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -915,7 +916,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ck1b0n03y001c2bbhzq3jiqlx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ck1b11nsn001gebbh1i0qeyu3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 

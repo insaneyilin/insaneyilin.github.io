@@ -16,6 +16,7 @@ Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的�
 “能量” 如何定义，最容易想到的就是梯度信息：
 
 
+[上面的公式]: “energy(\mathbf{I}) = |\frac{\partial}{\partial x} \mathbf{I}| + |\frac{\partial}{\partial y} \mathbf{I}|”
 用像素在水平和竖直方向上的一阶梯度值的之和来表示该像素点的能量，那么一条缝隙的能量就是该缝隙上所有像素点能量之和。
 我们需要做的就是每次找到像素能量最小的一条缝隙，然后删去它。
 
@@ -53,7 +54,7 @@ Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的�
 <meta property="og:image" content="https://i.loli.net/2019/10/04/Kfpkv8lu6VzgwG3.png">
 <meta property="og:image" content="https://github.com/insaneyilin/SeamCarving/blob/master/screenshots/seam_carving_screenshots.gif">
 <meta property="og:image" content="https://github.com/insaneyilin/SeamCarving/blob/master/screenshots/seam_carving_object_removal.gif">
-<meta property="og:updated_time" content="2019-10-03T18:18:46.315Z">
+<meta property="og:updated_time" content="2019-10-03T18:22:21.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Seam Carving -- 基于内容的图像缩放算法">
 <meta name="twitter:description" content="1 背景我们经常会有缩放图像的需求，然而直接缩放的问题是，如果宽高缩放比例不一致，会导致图像内容发生形变“失真”。 Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的好处是可以尽可能保持图像中“重要区域”的比例，避免由于直接缩放造成的“失真”。  @inproceedings{avidan2007seam,  title={Seam carving for content-aw">
@@ -129,7 +130,7 @@ Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的�
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck1b0n03d000f2bbhbf3bdtm9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck1b11ns4000nebbh1rpypb1d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -145,8 +146,9 @@ Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的�
 <h2 id="2-算法原理"><a href="#2-算法原理" class="headerlink" title="2 算法原理"></a>2 算法原理</h2><h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>算法的基本思想非常直观，先考虑下沿着宽的方向进行缩放，缩放实质是删去了若干条纵向的像素“路径”(或者 seam，缝隙)，直接缩放删去的路径都是竖直的长条，相当于沿着图像竖直方向做了均匀的降采样。那么我们为什么一定要删去竖直的“路径”呢，如果能保持删去路径后，剩余的图像部分还是“平滑”的，或者说删去的路径是最不重要的，那么不就实现了基于图像内容的缩放了吗？</p>
 <p>于是该论文作者提出了可以删去“能量”最少的 seam 来实现图像缩小。</p>
 <p>“能量” 如何定义，最容易想到的就是梯度信息：</p>
-<img src="https://latex.codecogs.com/gif.latex?energy(\mathbf{I})&space;=&space;|\frac{\partial}{\partial&space;x}&space;\mathbf{I}|&space;&plus;&space;|\frac{\partial}{\partial&space;y}&space;\mathbf{I}|" title="energy(\mathbf{I}) = |\frac{\partial}{\partial x} \mathbf{I}| + |\frac{\partial}{\partial y} \mathbf{I}|">
+<img src="https://latex.codecogs.com/gif.latex?energy(\mathbf{I})&space;=&space;|\frac{\partial}{\partial&space;x}&space;\mathbf{I}|&space;&plus;&space;|\frac{\partial}{\partial&space;y}&space;\mathbf{I}|">
 
+<p>[上面的公式]: “energy(\mathbf{I}) = |\frac{\partial}{\partial x} \mathbf{I}| + |\frac{\partial}{\partial y} \mathbf{I}|”</p>
 <p>用像素在水平和竖直方向上的一阶梯度值的之和来表示该像素点的能量，那么一条缝隙的能量就是该缝隙上所有像素点能量之和。</p>
 <p>我们需要做的就是每次找到像素能量最小的一条缝隙，然后删去它。</p>
 <p><img src="https://i.loli.net/2019/10/04/74m8aN23Bf6R9j5.png" alt="seam with min energy"></p>
