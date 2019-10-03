@@ -78,6 +78,110 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-191001_seam_carving" class="post-191001_seam_carving post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/10/01/191001_seam_carving/">Seam Carving -- 基于内容的图像缩放算法</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck1b0n03d000f2bbhbf3bdtm9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h2><p>我们经常会有缩放图像的需求，然而直接缩放的问题是，如果宽高缩放比例不一致，会导致图像内容发生形变“失真”。</p>
+<p>Seam Carving 算法是下面论文中提出的一种图像缩放算法，它的好处是可以尽可能保持图像中“重要区域”的比例，避免由于直接缩放造成的“失真”。</p>
+<blockquote>
+<p>@inproceedings{avidan2007seam,<br>  title={Seam carving for content-aware image resizing},<br>  author={Avidan, Shai and Shamir, Ariel},<br>  booktitle={ACM Transactions on graphics (TOG)},<br>  volume={26},<br>  number={3},<br>  pages={10},<br>  year={2007},<br>  organization={ACM}<br>}</p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/10/04/xXtzRmVSC3gD5O1.png" alt="compare_resizing"></p>
+<p>上图是几种缩放方法的对比，左侧是 seam carving 结果，中间是直接缩放，右侧是 crop ，可以发现 seam carving 方法很好地保持了原图中大部分“信息”，且看起来画面中的主要物体也没有出现比例“失真”的情况（比如图片底部的岩石，直接缩放比例变化很大，crop 的话直接就没了）。</p>
+<h2 id="2-算法原理"><a href="#2-算法原理" class="headerlink" title="2 算法原理"></a>2 算法原理</h2><h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>算法的基本思想非常直观，先考虑下沿着宽的方向进行缩放，缩放实质是删去了若干条纵向的像素“路径”(或者 seam，缝隙)，直接缩放删去的路径都是竖直的长条，相当于沿着图像竖直方向做了均匀的降采样。那么我们为什么一定要删去竖直的“路径”呢，如果能保持删去路径后，剩余的图像部分还是“平滑”的，或者说删去的路径是最不重要的，那么不就实现了基于图像内容的缩放了吗？</p>
+<p>于是该论文作者提出了可以删去“能量”最少的 seam 来实现图像缩小。</p>
+<p>“能量” 如何定义，最容易想到的就是梯度信息：</p>
+<img src="https://latex.codecogs.com/gif.latex?energy(\mathbf{I})&space;=&space;|\frac{\partial}{\partial&space;x}&space;\mathbf{I}|&space;&plus;&space;|\frac{\partial}{\partial&space;y}&space;\mathbf{I}|" title="energy(\mathbf{I}) = |\frac{\partial}{\partial x} \mathbf{I}| + |\frac{\partial}{\partial y} \mathbf{I}|">
+
+<p>用像素在水平和竖直方向上的一阶梯度值的之和来表示该像素点的能量，那么一条缝隙的能量就是该缝隙上所有像素点能量之和。</p>
+<p>我们需要做的就是每次找到像素能量最小的一条缝隙，然后删去它。</p>
+<p><img src="https://i.loli.net/2019/10/04/74m8aN23Bf6R9j5.png" alt="seam with min energy"></p>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><p>有了基本思想的铺垫，算法步骤也非常直观了，假设我们要删去 K 条 seam：</p>
+<ol>
+<li>计算每个像素点的能量；</li>
+<li>找到竖直/水平方向上的能量最小的路径，称为 seam；</li>
+<li>移除 seam，得到新图像；</li>
+<li>重复步骤 1 至步骤 3 K 次，得到缩放后的图像，</li>
+</ol>
+<h2 id="3-实现细节"><a href="#3-实现细节" class="headerlink" title="3 实现细节"></a>3 实现细节</h2>
+        
+          <p class="article-more-link">
+            <a href="/2019/10/01/191001_seam_carving/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/10/01/191001_seam_carving/">
+    <time datetime="2019-10-01T09:56:29.000Z" class="entry-date">
+        2019-10-01
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image-Processing/">Image Processing</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
+
+
+  
     <article id="post-190819_movie_parasite" class="post-190819_movie_parasite post type-post status-publish format-standard hentry">
     <!---->
 
@@ -93,7 +197,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck16o7ppm000r31bhl52cfzip" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck1b0n03f000i2bbhcdh1s81q" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -172,7 +276,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck16o7pph000n31bhynwzdlyo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck1b0n03n000q2bbhfmr58cq9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -251,7 +355,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck16o7ppf000m31bh0cik0kzc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck1b0n03l000n2bbheljfpghq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -361,7 +465,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck16o7ppb000h31bhh7kwo5vv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck1b0n038000a2bbher5bliod" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -444,7 +548,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck16o7pp6000f31bh4ez3x685" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck1b0n039000b2bbh8g75vmqx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -545,7 +649,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck16o7pp1000a31bhk79frxgz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck1b0n03500072bbh7ulejbqw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -635,7 +739,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck16o7pox000831bh2cuw526c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck1b0n03400062bbh2nxntiqq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -718,7 +822,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck16o7por000631bh5b3zqvf3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck1b0n03200052bbhh3502k1z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -811,7 +915,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ck16o7pq2001e31bhz010cm7n" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ck1b0n03y001c2bbhzq3jiqlx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -878,103 +982,6 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
 
 
   
-    <article id="post-150705_webgl_first_try" class="post-150705_webgl_first_try post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="ck16o7pmy000231bh16v0j5ka" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>Coursera 上最近新开了一门课 <a href="http://www.coursera.org/course/webgl" target="_blank" rel="noopener">Interactive Computer Graphics with WebGL</a>，通过 WebGL 来介绍计算机图形学。</p>
-<p>从本科时学习 OpenGL 1.x ，到研一重新学习 OpenGL 3.x 之后基于 shader 的方法，OpenGL 也算是我的一位老朋友了。现在 Web 开发热火朝天，桌面应用 Web 化早已成为趋势，我正好借着这门课学习下 WebGL，同时也了解一下网络前端开发。</p>
-<br>
-
-<h2 id="OpenGL"><a href="#OpenGL" class="headerlink" title="OpenGL"></a>OpenGL</h2><p>OpenGL = Open Graphics Library，是图形硬件的一种标准软件接口，其最初由 SGI 创建，用于在不同硬件体系结构的图形设备上进行二维和三维图形的绘制。OpenGL 不是一种编程语言，也不是 OpenCV 之类的算法工具库，而是一个图形显示标准 API 集合。</p>
-<br>
-
-<h2 id="Modern-OpenGL"><a href="#Modern-OpenGL" class="headerlink" title="Modern OpenGL"></a>Modern OpenGL</h2><p>学习过 OpenGL 1.x 和 2.x 的朋友应该对 <code>glBegin()</code> 、<code>glVertex()</code> 和 <code>glEnd()</code> 印象深刻，使用这种方式绘制属于“立即模式”(immediate mode)，每次顶点被创建后都会由 CPU 发送给 GPU 进行绘制，从而造成了 CPU 和 GPU 之间的性能瓶颈。</p>
-<p>立即模式在 OpenGL 3.1 及之后的版本已经被移除，Modern OpenGL 是基于 Shader 来进行图形的绘制的，即所有绘制工作都应由 GPU 负责，CPU 仅仅负责将要绘制的数据传送给 GPU。</p>
-<p>Shader(着色器) 也是一种程序，其使用 GLSL(GL Shading Language) 编写，分为顶点着色器(vertex shader)和片段着色器(fragment shader)，前者处理顶点相关的属性，后者处理像素点相关的属性。着色器在程序运行时进行编译。</p>
-<p>Modern OpenGL 通过“保留模式”(retained mode) 进行图形绘制：将所有顶点数据放在一个数组中，将该数组发送给 GPU ，通过 shaders 完成绘制。</p>
-<br>
-
-<h2 id="WebGL"><a href="#WebGL" class="headerlink" title="WebGL"></a>WebGL</h2><p>WebGL 是 OpenGL ES 2.0 的 JavaScript 实现，是面向浏览器的 OpenGL。WebGL 可以与 HTML5、CSS 结合使用，借助本地系统显卡在浏览器中构建和显示三维场景与模型。</p>
-<p>WebGL 使用 JavaScript 作为编程语言，尽管有一些问题和局限性，但能在浏览器轻松构建三维图形程序仍是一件很酷的事！</p>
-<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/07/05/150705_webgl_first_try/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2015/07/05/150705_webgl_first_try/">
-    <time datetime="2015-07-05T09:56:29.000Z" class="entry-date">
-        2015-07-05
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Programming/">Programming</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/graphics/">graphics</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-
-<section id="comments" class="comments">
-  <style>
-    .comments{margin:30px;padding:10px;background:#fff}
-    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
-  </style>
-  <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'true' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
-            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
-            placeholder: "Comments are welcome. (Markdown is supported)",
-            avatar:"mm"
-        });
-    }
-</script>
-
-  </section>
-
-
-  
 
 
   <nav id="page-nav">
@@ -989,7 +996,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Movie/">Movie</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReadingNotes/">ReadingNotes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/casual-writing/">casual writing</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Movie/">Movie</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReadingNotes/">ReadingNotes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/casual-writing/">casual writing</a></li></ul>
     </div>
   </div>
 
@@ -1000,6 +1007,10 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
     <h3 class="widget-title">Recents</h3>
     <div class="widget-content">
       <ul>
+        
+          <li>
+            <a href="/2019/10/01/191001_seam_carving/">Seam Carving -- 基于内容的图像缩放算法</a>
+          </li>
         
           <li>
             <a href="/2019/08/19/190819_movie_parasite/">韩国电影《寄生虫》观后感</a>
@@ -1017,10 +1028,6 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
             <a href="/2019/06/24/190624_gaokao_10y/">高考10年</a>
           </li>
         
-          <li>
-            <a href="/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/">夏虫不可语冰，井蛙不可语海</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -1030,7 +1037,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -1039,7 +1046,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12.5px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 10px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12.5px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 12.5px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
     </div>
   </aside>
 
