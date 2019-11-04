@@ -78,6 +78,129 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-scala_week3_notes" class="post-scala_week3_notes post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2014/05/28/scala_week3_notes/">Notes of Scala course on Coursera -- Week 3</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/scala_week3_notes/" data-id="ck2kpzp3m003jitjdq8tzbsez" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Here are my notes for the week 3’s lecture of <a href="https://www.coursera.org/course/progfun" target="_blank" rel="noopener">Functional Programming Principles in Scala</a> on <a href="https://www.coursera.org/" target="_blank" rel="noopener">Coursera</a>.</p>
+<br>
+<br>
+
+<hr>
+<h2 id="1-Class-Hierarchies"><a href="#1-Class-Hierarchies" class="headerlink" title="1. Class Hierarchies"></a>1. Class Hierarchies</h2><h3 id="1-1-Abstract-Classes"><a href="#1-1-Abstract-Classes" class="headerlink" title="1.1 Abstract Classes"></a>1.1 Abstract Classes</h3><p>Consider the task of writing <em>a class for sets of integers</em> with the following operations.</p>
+<pre><code class="scala">abstract class IntSet {
+  def incl(x: Int): IntSet
+  def contains(x: Int): Boolean
+}</code></pre>
+<p><code>IntSet</code> is an <em>abstract</em> class.</p>
+<p>Abstract classes can contain members which are <em>missing an implementation</em> (in our case, <code>incl</code> and <code>contains</code> ).</p>
+<p>Consequently, <strong>no instances</strong> of an abstract class can be created with the operator <code>new</code>.</p>
+<br>
+
+<hr>
+<h3 id="1-2-Class-Extensions"><a href="#1-2-Class-Extensions" class="headerlink" title="1.2 Class Extensions"></a>1.2 Class Extensions</h3><p>Let’s consider implementing sets as <em>binary trees</em>.</p>
+<p>There are two types of possible trees: a tree for the empty set, and a tree consisting of an integer and two sub-trees.</p>
+<p>Here are their implementations:</p>
+<pre><code class="scala">class Empty extends IntSet {
+  def contains(x: Int): Boolean = false
+  def incl(x: Int): IntSet = new NonEmpty(x, new Empty, new Empty)
+}
+
+class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet {
+  def contains(x: Int): Boolean =
+    if (x &lt; elem) left contains x
+    else if (x &gt; elem) right contains x
+    else true
+  def incl(x: Int): IntSet =
+    if (x &lt; elem) new NonEmpty(elem, left incl x, right)
+    else if (x &gt; elem) new NonEmpty(elem, left, right incl x)
+    else this
+}</code></pre>
+<p>Empty and NonEmpty both <em>extend</em> the class <code>IntSet</code> .</p>
+<p>This implies that the types <code>Empty</code> and <code>NonEmpty</code> <em>conform</em> to the type <code>IntSet</code></p>
+<ul>
+<li>an object of type <code>Empty</code> or <code>NonEmpty</code> can be used wherever an object of type <code>IntSet</code> is required.</li>
+</ul>
+<br>
+
+<hr>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/28/scala_week3_notes/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/05/28/scala_week3_notes/">
+    <time datetime="2014-05-28T13:56:29.000Z" class="entry-date">
+        2014-05-28
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fp/">fp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/">notes</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
+
+
+  
     <article id="post-ruby_quickstart_notes_2" class="post-ruby_quickstart_notes_2 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -93,7 +216,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="ck2j6syqe0046thjd3v6vc3kg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/28/ruby_quickstart_notes_2/" data-id="ck2kpzp4a004bitjdhj9t3ro2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -204,7 +327,7 @@ p2.talk</code></pre>
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="ck2j6sypg002sthjdpyyt5zei" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/26/ruby_quickstart_notes_1/" data-id="ck2kpzp3e0035itjd1nlczfnl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -297,7 +420,7 @@ p2.talk</code></pre>
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="ck2j6syqd0045thjdl9u77p9r" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_2/" data-id="ck2kpzp48004aitjd1gat64pb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -406,7 +529,7 @@ void f(int *&amp;x)    // 使用指针变量的引用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="ck2j6syqu004cthjd62yymimr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/22/150_tips_on_writing_high_quality_cpp_codes_1/" data-id="ck2kpzp4h004hitjdev5vkmil" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -520,7 +643,7 @@ void f(int *&amp;x)    // 使用指针变量的引用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="ck2j6sypu003bthjdxbb936ea" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/20/scala_week2_notes_3/" data-id="ck2kpzp3j003gitjdvb5r7b1m" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -615,7 +738,7 @@ void f(int *&amp;x)    // 使用指针变量的引用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="ck2j6syob0018thjdpiq0u86l" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_2/" data-id="ck2kpzp2n001gitjd90le3jd0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -708,7 +831,7 @@ void f(int *&amp;x)    // 使用指针变量的引用
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="ck2j6syps0037thjd9gvv2dix" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week2_notes_1/" data-id="ck2kpzp3i003ditjdx9zfoegh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -824,7 +947,7 @@ def gcd(a: Int, b: Int): Int =
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="ck2j6sypq0032thjd8u7d2z6z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/19/scala_week1_notes/" data-id="ck2kpzp3h003bitjdrupmx32w" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -951,7 +1074,7 @@ square(3) + square(4)
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="ck2j6sypy003hthjdz523ylgf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/17/start_learning_scala/" data-id="ck2kpzp3n003mitjdpovmp8ov" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1036,93 +1159,11 @@ square(3) + square(4)
 
 
   
-    <article id="post-hello_world" class="post-hello_world post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/05/16/hello_world/">Hello World</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/05/16/hello_world/" data-id="ck2j6syo80011thjdqnp3i21z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>在知乎上的一个问题<a href="http://www.zhihu.com/question/20962496" target="_blank" rel="noopener">如何在github上写博客？</a>中看到<a href="http://zipperary.com/" target="_blank" rel="noopener">Zippera</a>的回答，参考他的系列博文<a href="http://zipperary.com/categories/hexo/" target="_blank" rel="noopener">hexo | Zippera’s blog</a>搭建了这个blog。
-        
-          </p><p class="article-more-link">
-            <a href="/2014/05/16/hello_world/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2014/05/16/hello_world/">
-    <time datetime="2014-05-16T01:30:29.000Z" class="entry-date">
-        2014-05-16
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Diary/">Diary</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-
-<section id="comments" class="comments">
-  <style>
-    .comments{margin:30px;padding:10px;background:#fff}
-    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
-  </style>
-  <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'true' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
-            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
-            placeholder: "Comments are welcome. (Markdown is supported)",
-            avatar:"mm"
-        });
-    }
-</script>
-
-  </section>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">next &raquo;</a>
   </nav>
 
 </div></div>
@@ -1153,15 +1194,15 @@ square(3) + square(4)
           </li>
         
           <li>
+            <a href="/2019/07/22/191011_python_document_scanner/">用 Python 实现“文档扫描”</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/21/190728_when_cyber_violence_comes_into_reality/">当网络暴力成为现实</a>
           </li>
         
           <li>
             <a href="/2019/07/10/190710_cpp_shared_object_pool/">一个简单的 C++ 对象池实现</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/24/190624_gaokao_10y/">高考10年</a>
           </li>
         
       </ul>
@@ -1173,7 +1214,7 @@ square(3) + square(4)
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -1182,7 +1223,7 @@ square(3) + square(4)
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12.5px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 12.5px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12.5px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 15px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 17.5px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 17.5px;">fp</a> <a href="/tags/graphics/" style="font-size: 12.5px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 14px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 16px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 18px;">fp</a> <a href="/tags/graphics/" style="font-size: 12px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
     </div>
   </aside>
 

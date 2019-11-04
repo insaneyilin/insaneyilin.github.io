@@ -4,9 +4,11 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   
-  <meta name="description" content="现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误：
-std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_shared&amp;lt;A&amp;gt;());
-本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，">
+  <meta name="description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。
+如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。
+
+实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter 做了个简单的 GUI ，可以支持手动选择文档的角点，代码地址在：
+https://github.com/insaneyilin/document_scanner">
   
 
   
@@ -15,20 +17,25 @@ std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_
   
   
   
-  <title>std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑 | Yilin&#39;s Blog</title>
+  <title>用 Python 实现“文档扫描” | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误： std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_shared&amp;lt;A&amp;gt;()); 本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，实际上这个数组里所有元素都指向了同一个实例。看一下 C++ 文档上的参数说明：  val    Va">
-<meta name="keywords" content="C++,Debugging Sucks">
+  <meta name="description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
+<meta name="keywords" content="Image Processing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑">
-<meta property="og:url" content="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/index.html">
+<meta property="og:title" content="用 Python 实现“文档扫描”">
+<meta property="og:url" content="https://yilingui.xyz/2019/07/22/191011_python_document_scanner/index.html">
 <meta property="og:site_name" content="Yilin&#39;s Blog">
-<meta property="og:description" content="现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误： std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_shared&amp;lt;A&amp;gt;()); 本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，实际上这个数组里所有元素都指向了同一个实例。看一下 C++ 文档上的参数说明：  val    Va">
+<meta property="og:description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-08T17:17:14.318Z">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/UJlcANYgIEjFK32.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/RIUC7FZLaqKWuwr.gif">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/yMDgpWzNkcxBhZv.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/NuOs4zhpGo5ZV1F.png">
+<meta property="og:updated_time" content="2019-11-04T17:52:19.402Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑">
-<meta name="twitter:description" content="现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误： std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_shared&amp;lt;A&amp;gt;()); 本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，实际上这个数组里所有元素都指向了同一个实例。看一下 C++ 文档上的参数说明：  val    Va">
+<meta name="twitter:title" content="用 Python 实现“文档扫描”">
+<meta name="twitter:description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/05/UJlcANYgIEjFK32.png">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -85,7 +92,7 @@ std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_
 </header>
 
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-180425_shared_ptr_with_vector" class="post-180425_shared_ptr_with_vector post type-post status-publish format-standard hentry">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-191011_python_document_scanner" class="post-191011_python_document_scanner post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -93,50 +100,142 @@ std::vector&amp;lt;std::shared_ptr&amp;lt;A&amp;gt; &amp;gt; a_vec(n, std::make_
         
   
     <h1 class="entry-title article-title">
-      std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑
+      用 Python 实现“文档扫描”
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck2kpzp1v000aitjdd5sw5scb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/191011_python_document_scanner/" data-id="ck2kpzp2b000yitjdcaoqbfzv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误：</p>
-<pre><code class="cpp">std::vector&lt;std::shared_ptr&lt;A&gt; &gt; a_vec(n, std::make_shared&lt;A&gt;());</code></pre>
-<p>本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，实际上这个数组里所有元素都指向了同一个实例。看一下 C++ 文档上的参数说明：</p>
-<blockquote>
-<p>val<br>    Value to fill the container with. Each of the n elements in the container will <em>be initialized to a copy of this value</em>.
-    Member type value_type is the type of the elements in the container, defined in vector as an alias of its first template parameter (T).</p>
-</blockquote>
-<p><code>vector</code> 所有成员用 <code>val</code> 的拷贝来初始化，智能指针的拷贝嘛，还是指向同一个实例。</p>
-<p>正确的初始化方式：</p>
-<pre><code class="cpp">std::vector&lt;std::shared_ptr&lt;A&gt; &gt; a_vec(n);
-std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &amp;ptr) {
-  ptr = std::make_shared&lt;A&gt;();
-});</code></pre>
+        <p><a href="https://www.camscanner.com" target="_blank" rel="noopener">“扫描全能王”</a> 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。</p>
+<p>如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。</p>
+<p><img src="https://i.loli.net/2019/11/05/UJlcANYgIEjFK32.png" alt="camscanner_demo.png"></p>
+<p>实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter 做了个简单的 GUI ，可以支持手动选择文档的角点，代码地址在：</p>
+<p><a href="https://github.com/insaneyilin/document_scanner" target="_blank" rel="noopener">https://github.com/insaneyilin/document_scanner</a></p>
+<p><img src="https://i.loli.net/2019/11/05/RIUC7FZLaqKWuwr.gif" alt></p>
+<a id="more"></a>
+
+<hr>
+<h2 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h2><p>第一步是检测目标文档的边界，即找出四条边，最容易想到的就是边缘检测算法。我们直接用 Canny 算法得到图像中的所有 Edges。</p>
+<p><img src="https://i.loli.net/2019/11/05/yMDgpWzNkcxBhZv.png" alt="canny_edges.png"></p>
+<p>接下来我们需要找到我们需要的文档边界。这里图像比较“干净”，我们可以用 OpenCV 自带的 <code>findContours()</code> 找到所有的轮廓，然后取面积最大的轮廓并用四边形近似即可：</p>
+<pre><code class="python">def find_corners_by_approx_contour(input_image):
+    corners = []
+    image = input_image.copy()
+    # convert to grayscale and detect edges
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray_image = cv2.GaussianBlur(gray_image, (5, 5), 0)
+    edged_image = cv2.Canny(gray_image, 50, 100)
+    # cv2.imshow(&quot;edged&quot;, edged_image)
+    # cv2.waitKey(0)
+    # find contours
+    cntrs, _ = cv2.findContours(edged_image.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    cntrs = sorted(cntrs, key = cv2.contourArea, reverse=True)[:5]
+    # loop over the contours, find approx with 4 points
+    for c in cntrs:
+        # approximate the contour
+        peri = cv2.arcLength(c, True)
+        approx = cv2.approxPolyDP(c, 0.02*peri, True)
+        if len(approx) == 4:
+            corners = approx
+            break
+
+    return corners</code></pre>
+<p>还有一种做法是利用 <code>Hough 变换</code> 找到相应的直线段，通过一些规则得到文档边界，可以参考<a href="http://daisygao.me/2014/02/17/opencv-scanner/" target="_blank" rel="noopener">这里</a>。</p>
+<h2 id="透视变换"><a href="#透视变换" class="headerlink" title="透视变换"></a>透视变换</h2><p>接下来我们把检测到边界的文档“摆正”。这里需要用到“透视变换”（Perspective Transformation）的概念。</p>
+<p>透视变换(Perspective Transformation)是将图片平面投影到一个新的视平面(Viewing Plane)，可以实现平面图像的透视形变。</p>
+<p><img src="https://i.loli.net/2019/11/05/NuOs4zhpGo5ZV1F.png" alt="perspective_transform.png"></p>
+<p>相关原理可以参考<a href="https://blog.csdn.net/xiaowei_cqu/article/details/26471527" target="_blank" rel="noopener">这篇 Blog</a>。</p>
+<p>回到代码，我们只需要找到刚刚检测到的文档边界四边形的四个顶点和要变换成的“正视图”矩形的四个顶点的对应关系，然后调用 <code>getPerspectiveTransform()</code> 即可以得到透视变换矩阵，最后调用 <code>warpPerspective()</code> 即可以实现“文档扫描”的效果了。相关代码如下，注意这里的 <code>sort_rect_points()</code> 就是按照一定顺序给边界的四个顶点排序，排序后我们自然就得到了对应关系。</p>
+<pre><code class="python">def sort_rect_points(points):
+    mass_center = get_mass_center(points)
+    top_pts = []
+    bottom_pts = []
+    for pt in points:
+        if pt[1] &lt; mass_center[1]:
+            top_pts.append(pt)
+        else:
+            bottom_pts.append(pt)
+
+    if len(top_pts) &gt; 2:
+        idx = np.argmax(top_pts, axis=0)[1]
+        bottom_pts.append(top_pts[idx])
+        top_pts.pop(idx)
+    if len(bottom_pts) &gt; 2:
+        idx = np.argmin(bottom_pts, axis=0)[1]
+        top_pts.append(bottom_pts[idx])
+        bottom_pts.pop(idx)
+
+    tl = top_pts[0] if top_pts[0][0] &lt; top_pts[1][0] else top_pts[1]
+    tr = top_pts[1] if top_pts[0][0] &lt; top_pts[1][0] else top_pts[0]
+    bl = bottom_pts[0] if bottom_pts[0][0] &lt; bottom_pts[1][0] else bottom_pts[1]
+    br = bottom_pts[1] if bottom_pts[0][0] &lt; bottom_pts[1][0] else bottom_pts[0]
+
+    return tl, tr, br, bl
+
+def apply_four_point_perspective_transform(input_image, points):
+    (tl, tr, br, bl) = sort_rect_points(points)
+
+    # compute the width of the new image, which will be the
+    # maximum distance between bottom-right and bottom-left
+    # x-coordinates or the top-right and top-left coordinates
+    width_1 = math.hypot(br[0]-bl[0], br[1]-bl[1])
+    width_2 = math.hypot(tr[0]-tl[0], tr[1]-tl[1])
+    max_width = max(int(width_1), int(width_2))
+
+    # compute the height of the new image, which will be the
+    # maximum distance between top-right and bottom-right
+    # y coordinates or the top-left and bottom-left y coordinates
+    height_1 = math.hypot(tr[0]-br[0], tr[1]-br[1])
+    height_2 = math.hypot(tl[0]-bl[0], tl[1]-bl[1])
+    max_height = max(int(height_1), int(height_2))
+
+    # now that we have dimensions of the new image, construct
+    # the set of destination points to obtain a &quot;birds eye view&quot;,
+    # (i.e. top-down view) of the image, again specifying points
+    # in the top-left, top-right, bottom-right, bottom-left order
+    dst = np.array([
+                   [0, 0],
+                   [max_width-1, 0],
+                   [max_width-1, max_height-1],
+                   [0, max_height-1]], dtype=&quot;float32&quot;)
+
+    # compute the perspective transform matrix and then apply it
+    rect_pts = np.array([
+            [tl[0], tl[1]],
+            [tr[0], tr[1]],
+            [br[0], br[1]],
+            [bl[0], bl[1]]], dtype=&quot;float32&quot;)
+    persp_trans_mat = cv2.getPerspectiveTransform(rect_pts, dst)
+    warped_image = cv2.warpPerspective(input_image, persp_trans_mat, (max_width,max_height))
+    # return the warped image
+    return warped_image</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/" target="_blank" rel="noopener">http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/</a></p>
+<p><a href="https://blog.csdn.net/xiaowei_cqu/article/details/26471527" target="_blank" rel="noopener">https://blog.csdn.net/xiaowei_cqu/article/details/26471527</a></p>
 
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2018/04/25/180425_shared_ptr_with_vector/">
-    <time datetime="2018-04-25T14:00:00.000Z" class="entry-date">
-        2018-04-25
+    <a href="/2019/07/22/191011_python_document_scanner/">
+    <time datetime="2019-07-22T07:00:21.000Z" class="entry-date">
+        2019-07-22
     </time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Programming/">Programming</a>
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
   </div>
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image-Processing/">Image Processing</a></li></ul>
 
     </footer>
 </article>
@@ -146,10 +245,10 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" rel="prev"><span class="meta-nav">←</span> 夏虫不可语冰，井蛙不可语海</a></span>
+        <span class="nav-previous"><a href="/2019/08/19/190819_movie_parasite/" rel="prev"><span class="meta-nav">←</span> 韩国电影《寄生虫》观后感</a></span>
     
     
-        <span class="nav-next"><a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/" rel="next">C++ 更新动态库后强制转换基类指针遇到的坑 <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2019/07/21/190728_when_cyber_violence_comes_into_reality/" rel="next">当网络暴力成为现实 <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
