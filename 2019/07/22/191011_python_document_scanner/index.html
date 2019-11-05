@@ -20,7 +20,7 @@ https://github.com/insaneyilin/document_scanner">
   <title>用 Python 实现“文档扫描” | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
-<meta name="keywords" content="Image Processing">
+<meta name="keywords" content="Image Processing,Computer Vision">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用 Python 实现“文档扫描”">
 <meta property="og:url" content="https://yilingui.xyz/2019/07/22/191011_python_document_scanner/index.html">
@@ -31,7 +31,8 @@ https://github.com/insaneyilin/document_scanner">
 <meta property="og:image" content="https://i.loli.net/2019/11/05/RIUC7FZLaqKWuwr.gif">
 <meta property="og:image" content="https://i.loli.net/2019/11/05/yMDgpWzNkcxBhZv.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/05/NuOs4zhpGo5ZV1F.png">
-<meta property="og:updated_time" content="2019-11-04T17:52:19.402Z">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\left[&space;\begin{array}{c}&space;x^{\prime}&space;\\&space;y^{\prime}&space;\\&space;w^{\prime}&space;\end{array}&space;\right]&space;=&space;M&space;\left[&space;\begin{array}{c}&space;u&space;\\&space;v&space;\\&space;1&space;\end{array}&space;\right]">
+<meta property="og:updated_time" content="2019-11-05T15:48:26.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用 Python 实现“文档扫描”">
 <meta name="twitter:description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
@@ -107,7 +108,7 @@ https://github.com/insaneyilin/document_scanner">
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/191011_python_document_scanner/" data-id="ck2kpzp2b000yitjdcaoqbfzv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/191011_python_document_scanner/" data-id="ck2m12xeb001h0vjdm6rnld2g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -151,7 +152,23 @@ https://github.com/insaneyilin/document_scanner">
 <h2 id="透视变换"><a href="#透视变换" class="headerlink" title="透视变换"></a>透视变换</h2><p>接下来我们把检测到边界的文档“摆正”。这里需要用到“透视变换”（Perspective Transformation）的概念。</p>
 <p>透视变换(Perspective Transformation)是将图片平面投影到一个新的视平面(Viewing Plane)，可以实现平面图像的透视形变。</p>
 <p><img src="https://i.loli.net/2019/11/05/NuOs4zhpGo5ZV1F.png" alt="perspective_transform.png"></p>
-<p>相关原理可以参考<a href="https://blog.csdn.net/xiaowei_cqu/article/details/26471527" target="_blank" rel="noopener">这篇 Blog</a>。</p>
+<p>设 (u, v) 为原始图像坐标，变换后的图像坐标为 (x, y)，变换矩阵为 M (3x3 矩阵)，则透视变换可以表示为：</p>
+<!--
+\left[ \begin{array}{c}
+x^{\prime} \\
+y^{\prime} \\
+w^{\prime}
+\end{array} \right]
+= M
+\left[ \begin{array}{c}
+u \\
+v \\
+1
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\left[&space;\begin{array}{c}&space;x^{\prime}&space;\\&space;y^{\prime}&space;\\&space;w^{\prime}&space;\end{array}&space;\right]&space;=&space;M&space;\left[&space;\begin{array}{c}&space;u&space;\\&space;v&space;\\&space;1&space;\end{array}&space;\right]" title="\left[ \begin{array}{c} x^{\prime} \\ y^{\prime} \\ w^{\prime} \end{array} \right] = M \left[ \begin{array}{c} u \\ v \\ 1 \end{array} \right]">
+
 <p>回到代码，我们只需要找到刚刚检测到的文档边界四边形的四个顶点和要变换成的“正视图”矩形的四个顶点的对应关系，然后调用 <code>getPerspectiveTransform()</code> 即可以得到透视变换矩阵，最后调用 <code>warpPerspective()</code> 即可以实现“文档扫描”的效果了。相关代码如下，注意这里的 <code>sort_rect_points()</code> 就是按照一定顺序给边界的四个顶点排序，排序后我们自然就得到了对应关系。</p>
 <pre><code class="python">def sort_rect_points(points):
     mass_center = get_mass_center(points)
@@ -235,7 +252,7 @@ def apply_four_point_perspective_transform(input_image, points):
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image-Processing/">Image Processing</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image-Processing/">Image Processing</a></li></ul>
 
     </footer>
 </article>
@@ -334,7 +351,7 @@ def apply_four_point_perspective_transform(input_image, points):
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -343,7 +360,7 @@ def apply_four_point_perspective_transform(input_image, points):
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 14px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 16px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 18px;">fp</a> <a href="/tags/graphics/" style="font-size: 12px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 14px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 16px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 18px;">fp</a> <a href="/tags/graphics/" style="font-size: 12px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
     </div>
   </aside>
 
