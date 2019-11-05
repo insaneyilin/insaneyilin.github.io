@@ -31,8 +31,16 @@ https://github.com/insaneyilin/document_scanner">
 <meta property="og:image" content="https://i.loli.net/2019/11/05/RIUC7FZLaqKWuwr.gif">
 <meta property="og:image" content="https://i.loli.net/2019/11/05/yMDgpWzNkcxBhZv.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/05/NuOs4zhpGo5ZV1F.png">
-<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\left[&space;\begin{array}{c}&space;x^{\prime}&space;\\&space;y^{\prime}&space;\\&space;w^{\prime}&space;\end{array}&space;\right]&space;=&space;M&space;\left[&space;\begin{array}{c}&space;u&space;\\&space;v&space;\\&space;1&space;\end{array}&space;\right]">
-<meta property="og:updated_time" content="2019-11-05T15:48:26.957Z">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{c}&space;x^{\prime}&space;\\&space;y^{\prime}&space;\\&space;w^{\prime}&space;\end{array}&space;\right]&space;=&space;M&space;\left[&space;\begin{array}{c}&space;u&space;\\&space;v&space;\\&space;1&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;x&space;=&space;x^{\prime}&space;/&space;w^{\prime},&space;y&space;=&space;y^{\prime}&space;/&space;w^{\prime}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;M&space;=&space;\left[&space;\begin{array}{ccc}&space;m_{11}&space;&&space;m_{12}&space;&&space;m_{13}&space;\\&space;m_{21}&space;&&space;m_{22}&space;&&space;m_{23}&space;\\&space;m_{31}&space;&&space;m_{32}&space;&&space;m_{33}&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{cc}&space;m_{11}&space;&&space;m_{12}\\&space;m_{21}&space;&&space;m_{22}&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{c}&space;m_{13}\\&space;m_{23}&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{cc}&space;m_{31}&space;&&space;m_{32}&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\begin{array}{c}&space;(0,0)\rightarrow(x1,y1)&space;\\&space;(1,0)\rightarrow(x2,y2)&space;\\&space;(1,1)\rightarrow(x3,y3)&space;\\&space;(0,1)\rightarrow(x4,y4)&space;\end{array}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\begin{cases}&space;x_1&space;=&space;\frac{m_{13}}{m_{33}}&space;\\&space;y_1&space;=&space;\frac{m_{23}}{m_{33}}\\&space;x_2&space;=&space;\frac{m_{11}&space;+&space;m_{13}}{m_{31}&space;+&space;m_{33}}&space;\\&space;y_2&space;=&space;\frac{m_{21}&space;+&space;m_{23}}{m_{31}&space;+&space;m_{33}}&space;\\&space;x_3&space;=&space;\frac{m_{11}&space;+&space;m_{12}&space;+&space;m_{13}}{m_{31}&space;+&space;m_{32}&space;+&space;m_{33}}&space;\\&space;y_3&space;=&space;\frac{m_{21}&space;+&space;m_{22}&space;+&space;m_{23}}{m_{31}&space;+&space;m_{32}&space;+&space;m_{33}}&space;\\&space;x_4&space;=&space;\frac{m_{12}&space;+&space;m_{13}}{m_{32}&space;+&space;m_{33}}&space;\\&space;y_4&space;=&space;\frac{m_{22}&space;+&space;m_{23}}{m_{32}&space;+&space;m_{33}}&space;\end{cases}">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/HCjUrei9JmlfDbg.png">
+<meta property="og:updated_time" content="2019-11-05T16:01:34.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用 Python 实现“文档扫描”">
 <meta name="twitter:description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
@@ -108,7 +116,7 @@ https://github.com/insaneyilin/document_scanner">
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/191011_python_document_scanner/" data-id="ck2m12xeb001h0vjdm6rnld2g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/191011_python_document_scanner/" data-id="ck2m13fk7000y1mjdlin008pw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -167,8 +175,89 @@ v \\
 \end{array} \right]
 -->
 
-<img src="https://latex.codecogs.com/gif.latex?\left[&space;\begin{array}{c}&space;x^{\prime}&space;\\&space;y^{\prime}&space;\\&space;w^{\prime}&space;\end{array}&space;\right]&space;=&space;M&space;\left[&space;\begin{array}{c}&space;u&space;\\&space;v&space;\\&space;1&space;\end{array}&space;\right]" title="\left[ \begin{array}{c} x^{\prime} \\ y^{\prime} \\ w^{\prime} \end{array} \right] = M \left[ \begin{array}{c} u \\ v \\ 1 \end{array} \right]">
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{c}&space;x^{\prime}&space;\\&space;y^{\prime}&space;\\&space;w^{\prime}&space;\end{array}&space;\right]&space;=&space;M&space;\left[&space;\begin{array}{c}&space;u&space;\\&space;v&space;\\&space;1&space;\end{array}&space;\right]">
 
+<br>
+
+<!--
+x = x^{\prime} / w^{\prime}, y = y^{\prime} / w^{\prime}
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;x&space;=&space;x^{\prime}&space;/&space;w^{\prime},&space;y&space;=&space;y^{\prime}&space;/&space;w^{\prime}">
+
+<p>变换矩阵 M 可以分拆成四个部分</p>
+<!--
+M = \left[ \begin{array}{ccc}
+m_{11} & m_{12} & m_{13} \\
+m_{21} & m_{22} & m_{23} \\
+m_{31} & m_{32} & m_{33}
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;M&space;=&space;\left[&space;\begin{array}{ccc}&space;m_{11}&space;&&space;m_{12}&space;&&space;m_{13}&space;\\&space;m_{21}&space;&&space;m_{22}&space;&&space;m_{23}&space;\\&space;m_{31}&space;&&space;m_{32}&space;&&space;m_{33}&space;\end{array}&space;\right]">
+
+<p>线性变换部分（rotation，scaling，shearing）：</p>
+<!--
+\left[ \begin{array}{cc}
+m_{11} & m_{12}\\
+m_{21} & m_{22}
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{cc}&space;m_{11}&space;&&space;m_{12}\\&space;m_{21}&space;&&space;m_{22}&space;\end{array}&space;\right]">
+
+<p>平移部分：</p>
+<!--
+\left[ \begin{array}{c}
+m_{13}\\
+m_{23}
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{c}&space;m_{13}\\&space;m_{23}&space;\end{array}&space;\right]">
+
+<p>透视投影部分：</p>
+<!--
+\left[ \begin{array}{cc}
+m_{31} & m_{32}
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{cc}&space;m_{31}&space;&&space;m_{32}&space;\end{array}&space;\right]">
+
+<p>可以看出仿射变换是透视变换的一种特殊形式。</p>
+<p>矩阵 M 实际只有 8 个自由度。因此我们只需要 4 对点（一对点的 x、y 坐标各有一个方程）就可以求解出对应的变换矩阵。</p>
+<p>下面看一个将正方形变换为一个一般四边形的例子。</p>
+<!--
+\begin{array}{c}
+(0,0)\rightarrow(x1,y1) \\
+(1,0)\rightarrow(x2,y2) \\
+(1,1)\rightarrow(x3,y3) \\
+(0,1)\rightarrow(x4,y4)
+\end{array}
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\begin{array}{c}&space;(0,0)\rightarrow(x1,y1)&space;\\&space;(1,0)\rightarrow(x2,y2)&space;\\&space;(1,1)\rightarrow(x3,y3)&space;\\&space;(0,1)\rightarrow(x4,y4)&space;\end{array}">
+
+<p>根据变换公式我们可以列出方程组：</p>
+<!--
+\begin{cases}
+x_1 = \frac{m_{13}}{m_{33}} \\
+y_1 = \frac{m_{23}}{m_{33}}\\
+x_2 = \frac{m_{11} + m_{13}}{m_{31} + m_{33}} \\
+y_2 = \frac{m_{21} + m_{23}}{m_{31} + m_{33}} \\
+x_3 = \frac{m_{11} + m_{12} + m_{13}}{m_{31} + m_{32} + m_{33}} \\
+y_3 = \frac{m_{21} + m_{22} + m_{23}}{m_{31} + m_{32} + m_{33}} \\
+x_4 = \frac{m_{12} + m_{13}}{m_{32} + m_{33}} \\
+y_4 = \frac{m_{22} + m_{23}}{m_{32} + m_{33}}
+\end{cases}
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\begin{cases}&space;x_1&space;=&space;\frac{m_{13}}{m_{33}}&space;\\&space;y_1&space;=&space;\frac{m_{23}}{m_{33}}\\&space;x_2&space;=&space;\frac{m_{11}&space;&plus;&space;m_{13}}{m_{31}&space;&plus;&space;m_{33}}&space;\\&space;y_2&space;=&space;\frac{m_{21}&space;&plus;&space;m_{23}}{m_{31}&space;&plus;&space;m_{33}}&space;\\&space;x_3&space;=&space;\frac{m_{11}&space;&plus;&space;m_{12}&space;&plus;&space;m_{13}}{m_{31}&space;&plus;&space;m_{32}&space;&plus;&space;m_{33}}&space;\\&space;y_3&space;=&space;\frac{m_{21}&space;&plus;&space;m_{22}&space;&plus;&space;m_{23}}{m_{31}&space;&plus;&space;m_{32}&space;&plus;&space;m_{33}}&space;\\&space;x_4&space;=&space;\frac{m_{12}&space;&plus;&space;m_{13}}{m_{32}&space;&plus;&space;m_{33}}&space;\\&space;y_4&space;=&space;\frac{m_{22}&space;&plus;&space;m_{23}}{m_{32}&space;&plus;&space;m_{33}}&space;\end{cases}">
+
+<p>求解方程组即可以得到将一个正方形变换为指定四边形的透视变换矩阵。</p>
+<p>反之，我们也可以得到将任意一个四边形变换为正方形的透视变换。我们通过两次变换：四边形变换到正方形+正方形变换到四边形就可以将任意一个四边形变换到另一个四边形。</p>
+<p><img src="https://i.loli.net/2019/11/05/HCjUrei9JmlfDbg.png" alt="perspective_transform_rect_to_quad.png"></p>
 <p>回到代码，我们只需要找到刚刚检测到的文档边界四边形的四个顶点和要变换成的“正视图”矩形的四个顶点的对应关系，然后调用 <code>getPerspectiveTransform()</code> 即可以得到透视变换矩阵，最后调用 <code>warpPerspective()</code> 即可以实现“文档扫描”的效果了。相关代码如下，注意这里的 <code>sort_rect_points()</code> 就是按照一定顺序给边界的四个顶点排序，排序后我们自然就得到了对应关系。</p>
 <pre><code class="python">def sort_rect_points(points):
     mass_center = get_mass_center(points)
