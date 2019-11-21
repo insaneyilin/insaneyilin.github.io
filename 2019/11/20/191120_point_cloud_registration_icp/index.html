@@ -4,6 +4,39 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   
+  <meta name="description" content="1 问题描述点云配准（Point Cloud Registration）指的是输入两幅点云 P_s (source) 和 P_t (target) ，输出一个变换 T 使得 T(P_s) 和 P_t 的重合程度尽可能高。变换 T 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。
+点云配准可以分为粗配准（Coarse Registration）和精配准（Fine Registration）两步。粗配准指的是在两幅点云之间的变换完全未知的情况下进行较为粗糙的配准，目的主要是为精配准提供较好的变换初值；精配准则是给定一个初始变换，进一步优化得到更精确的变换。
+目前应用最广泛的点云精配准算法是迭代最近点算法（Iterative Closest Point, ICP）及各种变种 ICP 算法。
+2 算法描述ICP 算法的直观想法如下：
+
+如果我们知道两幅点云上点的对应关系，那么我们可以用 Least Squares 来求解 R, t 参数；
+怎么知道点的对应关系呢？如果我们已经知道了一个大概靠谱的 R, t 参数，那么我们可以通过贪心的方式找两幅点云上点的对应关系（直接找距离最近的点作为对应点）。
+
+ICP 算法实际上就是交替进行上述两个步骤，迭代进行计算，直到收敛。
+ICP 一般算法流程为：
+
+点云预处理
+滤波、清理数据等
+
+
+匹配
+应用上一步求解出的变换，找最近点
+
+
+加权
+调整一些对应点对的权重
+
+
+剔除不合理的对应点对
+计算 loss
+最小化 loss，求解当前最优变换
+回到步骤 2. 进行迭代，直到收敛
+
+整体上来看，ICP 把点云配准问题拆分成了两个子问题：
+
+找最近点
+找最优变换">
+  
 
   
   
@@ -11,15 +44,20 @@
   
   
   
-  <title>Archives: 2015/7 | Yilin&#39;s Blog</title>
+  <title>点云配准 -- ICP 算法 | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Yilin&#39;s Blog">
-<meta property="og:url" content="https://yilingui.xyz/archives/2015/07/index.html">
+  <meta name="description" content="1 问题描述点云配准（Point Cloud Registration）指的是输入两幅点云 P_s (source) 和 P_t (target) ，输出一个变换 T 使得 T(P_s) 和 P_t 的重合程度尽可能高。变换 T 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。 点云配准可以分为粗配准（Coarse Registration）和精配准（Fin">
+<meta name="keywords" content="Point Cloud Processing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="点云配准 -- ICP 算法">
+<meta property="og:url" content="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/index.html">
 <meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="1 问题描述点云配准（Point Cloud Registration）指的是输入两幅点云 P_s (source) 和 P_t (target) ，输出一个变换 T 使得 T(P_s) 和 P_t 的重合程度尽可能高。变换 T 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。 点云配准可以分为粗配准（Coarse Registration）和精配准（Fin">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-21T18:31:46.094Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yilin&#39;s Blog">
+<meta name="twitter:title" content="点云配准 -- ICP 算法">
+<meta name="twitter:description" content="1 问题描述点云配准（Point Cloud Registration）指的是输入两幅点云 P_s (source) 和 P_t (target) ，输出一个变换 T 使得 T(P_s) 和 P_t 的重合程度尽可能高。变换 T 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。 点云配准可以分为粗配准（Coarse Registration）和精配准（Fin">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -76,51 +114,128 @@
 </header>
 
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-191120_point_cloud_registration_icp" class="post-191120_point_cloud_registration_icp post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2015/07/05/150705_webgl_first_try/">WebGL初探</a>
+    <h1 class="entry-title article-title">
+      点云配准 -- ICP 算法
     </h1>
   
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2015/07/05/150705_webgl_first_try/">
-    <time datetime="2015-07-05T09:56:29.000Z" class="entry-date">
-        2015-07-05
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/" data-id="ck391su03000rzbjig36231jh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1 问题描述"></a>1 问题描述</h2><p>点云配准（Point Cloud Registration）指的是输入两幅点云 <code>P_s</code> (source) 和 <code>P_t</code> (target) ，输出一个变换 <code>T</code> 使得 <code>T(P_s)</code> 和 <code>P_t</code> 的重合程度尽可能高。变换 <code>T</code> 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。</p>
+<p>点云配准可以分为粗配准（Coarse Registration）和精配准（Fine Registration）两步。粗配准指的是在两幅点云之间的变换完全未知的情况下进行较为粗糙的配准，目的主要是为精配准提供较好的变换初值；精配准则是给定一个初始变换，进一步优化得到更精确的变换。</p>
+<p>目前应用最广泛的点云精配准算法是迭代最近点算法（Iterative Closest Point, ICP）及各种变种 ICP 算法。</p>
+<h2 id="2-算法描述"><a href="#2-算法描述" class="headerlink" title="2 算法描述"></a>2 算法描述</h2><p>ICP 算法的直观想法如下：</p>
+<ul>
+<li>如果我们知道两幅点云上点的对应关系，那么我们可以用 Least Squares 来求解 R, t 参数；</li>
+<li>怎么知道点的对应关系呢？如果我们已经知道了一个大概靠谱的 R, t 参数，那么我们可以通过贪心的方式找两幅点云上点的对应关系（直接找距离最近的点作为对应点）。</li>
+</ul>
+<p>ICP 算法实际上就是交替进行上述两个步骤，迭代进行计算，直到收敛。</p>
+<p>ICP 一般算法流程为：</p>
+<ol>
+<li>点云预处理<ul>
+<li>滤波、清理数据等</li>
+</ul>
+</li>
+<li>匹配<ul>
+<li>应用上一步求解出的变换，找最近点</li>
+</ul>
+</li>
+<li>加权<ul>
+<li>调整一些对应点对的权重</li>
+</ul>
+</li>
+<li>剔除不合理的对应点对</li>
+<li>计算 loss</li>
+<li>最小化 loss，求解当前最优变换</li>
+<li>回到步骤 2. 进行迭代，直到收敛</li>
+</ol>
+<p>整体上来看，ICP 把点云配准问题拆分成了两个子问题：</p>
+<ul>
+<li>找最近点</li>
+<li>找最优变换</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="2-1-Find-Closet-Point"><a href="#2-1-Find-Closet-Point" class="headerlink" title="2.1 Find Closet Point"></a>2.1 Find Closet Point</h3><h3 id="2-2-Find-Best-Transform"><a href="#2-2-Find-Best-Transform" class="headerlink" title="2.2 Find Best Transform"></a>2.2 Find Best Transform</h3><p>（未完待续）</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/11/20/191120_point_cloud_registration_icp/">
+    <time datetime="2019-11-20T15:56:29.000Z" class="entry-date">
+        2019-11-20
     </time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Programming/">Programming</a>
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
   </div>
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coursera/">coursera</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/graphics/">graphics</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Point-Cloud-Processing/">Point Cloud Processing</a></li></ul>
 
     </footer>
 </article>
-  
-  
-    </div></section>
-  
 
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2019/10/01/191001_seam_carving/" rel="next">Seam Carving -- 基于内容的图像缩放算法 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
 
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">

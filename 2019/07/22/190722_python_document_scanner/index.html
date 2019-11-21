@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。
+如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。
+
+实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter 做了个简单的 GUI ，可以支持手动选择文档的角点，代码地址在：
+https://github.com/insaneyilin/document_scanner">
+  
+
+  
+  
+  
+  
+  
+  
+  <title>用 Python 实现“文档扫描” | Yilin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
+<meta name="keywords" content="Image Processing,Computer Vision">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 Python 实现“文档扫描”">
+<meta property="og:url" content="https://yilingui.xyz/2019/07/22/190722_python_document_scanner/index.html">
+<meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/UJlcANYgIEjFK32.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/RIUC7FZLaqKWuwr.gif">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/yMDgpWzNkcxBhZv.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/NuOs4zhpGo5ZV1F.png">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{c}&space;x^{\prime}&space;\\&space;y^{\prime}&space;\\&space;w^{\prime}&space;\end{array}&space;\right]&space;=&space;M&space;\left[&space;\begin{array}{c}&space;u&space;\\&space;v&space;\\&space;1&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;x&space;=&space;x^{\prime}&space;/&space;w^{\prime},&space;y&space;=&space;y^{\prime}&space;/&space;w^{\prime}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;M&space;=&space;\left[&space;\begin{array}{ccc}&space;m_{11}&space;&&space;m_{12}&space;&&space;m_{13}&space;\\&space;m_{21}&space;&&space;m_{22}&space;&&space;m_{23}&space;\\&space;m_{31}&space;&&space;m_{32}&space;&&space;m_{33}&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{cc}&space;m_{11}&space;&&space;m_{12}\\&space;m_{21}&space;&&space;m_{22}&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{c}&space;m_{13}\\&space;m_{23}&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{cc}&space;m_{31}&space;&&space;m_{32}&space;\end{array}&space;\right]">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\begin{array}{c}&space;(0,0)\rightarrow(x1,y1)&space;\\&space;(1,0)\rightarrow(x2,y2)&space;\\&space;(1,1)\rightarrow(x3,y3)&space;\\&space;(0,1)\rightarrow(x4,y4)&space;\end{array}">
+<meta property="og:image" content="https://latex.codecogs.com/gif.latex?\inline&space;\begin{cases}&space;x_1&space;=&space;\frac{m_{13}}{m_{33}}&space;\\&space;y_1&space;=&space;\frac{m_{23}}{m_{33}}\\&space;x_2&space;=&space;\frac{m_{11}&space;+&space;m_{13}}{m_{31}&space;+&space;m_{33}}&space;\\&space;y_2&space;=&space;\frac{m_{21}&space;+&space;m_{23}}{m_{31}&space;+&space;m_{33}}&space;\\&space;x_3&space;=&space;\frac{m_{11}&space;+&space;m_{12}&space;+&space;m_{13}}{m_{31}&space;+&space;m_{32}&space;+&space;m_{33}}&space;\\&space;y_3&space;=&space;\frac{m_{21}&space;+&space;m_{22}&space;+&space;m_{23}}{m_{31}&space;+&space;m_{32}&space;+&space;m_{33}}&space;\\&space;x_4&space;=&space;\frac{m_{12}&space;+&space;m_{13}}{m_{32}&space;+&space;m_{33}}&space;\\&space;y_4&space;=&space;\frac{m_{22}&space;+&space;m_{23}}{m_{32}&space;+&space;m_{33}}&space;\end{cases}">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/HCjUrei9JmlfDbg.png">
+<meta property="og:updated_time" content="2019-11-21T17:42:32.486Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用 Python 实现“文档扫描”">
+<meta name="twitter:description" content="“扫描全能王” 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。 如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。  实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/05/UJlcANYgIEjFK32.png">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+
+  <link rel="stylesheet" href="/css/desert.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src="//push.zhanzhang.baidu.com/push.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yilin&#39;s Blog" rel="home">Yilin&#39;s Blog</a>
+      </h1>
+      
+        <h2 class="rand_word"></h2>
+        <script type="text/javascript" src="/js/rand_word.js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://yilingui.xyz/wiki/">Wiki</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/daily_thoughts">Daily Thoughts</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/photos">Photos</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/insaneyilin">Github</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.zhihu.com/people/insaneguy">Zhihu</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://weibo.com/guiyilin">WEIBO</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-190722_python_document_scanner" class="post-190722_python_document_scanner post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      用 Python 实现“文档扫描”
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/190722_python_document_scanner/" data-id="ck391su1j0031zbji75fvgl6z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><a href="https://www.camscanner.com" target="_blank" rel="noopener">“扫描全能王”</a> 是我手机里一直都有的 App，我非常喜欢把一些纸质内容电子化，比如书中看到的喜欢的段落、日常生活中的票据、产品说明书等等。</p>
+<p>如下图所示，只需要拍一张照片，App 就会自动识别文档的边缘，并将文档转换为“正视图”。</p>
+<p><img src="https://i.loli.net/2019/11/05/UJlcANYgIEjFK32.png" alt="camscanner_demo.png"></p>
+<p>实际上这个 App 用到的算法非常简单，核心就是“边缘检测 + 透视变换”，下面我们就用 Python 和 OpenCV 实现一个简单的 Demo。我用 Tkinter 做了个简单的 GUI ，可以支持手动选择文档的角点，代码地址在：</p>
+<p><a href="https://github.com/insaneyilin/document_scanner" target="_blank" rel="noopener">https://github.com/insaneyilin/document_scanner</a></p>
+<p><img src="https://i.loli.net/2019/11/05/RIUC7FZLaqKWuwr.gif" alt></p>
+<a id="more"></a>
+
+<hr>
+<h2 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h2><p>第一步是检测目标文档的边界，即找出四条边，最容易想到的就是边缘检测算法。我们直接用 Canny 算法得到图像中的所有 Edges。</p>
+<p><img src="https://i.loli.net/2019/11/05/yMDgpWzNkcxBhZv.png" alt="canny_edges.png"></p>
+<p>接下来我们需要找到我们需要的文档边界。这里图像比较“干净”，我们可以用 OpenCV 自带的 <code>findContours()</code> 找到所有的轮廓，然后取面积最大的轮廓并用四边形近似即可：</p>
+<pre><code class="python">def find_corners_by_approx_contour(input_image):
+    corners = []
+    image = input_image.copy()
+    # convert to grayscale and detect edges
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray_image = cv2.GaussianBlur(gray_image, (5, 5), 0)
+    edged_image = cv2.Canny(gray_image, 50, 100)
+    # cv2.imshow(&quot;edged&quot;, edged_image)
+    # cv2.waitKey(0)
+    # find contours
+    cntrs, _ = cv2.findContours(edged_image.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    cntrs = sorted(cntrs, key = cv2.contourArea, reverse=True)[:5]
+    # loop over the contours, find approx with 4 points
+    for c in cntrs:
+        # approximate the contour
+        peri = cv2.arcLength(c, True)
+        approx = cv2.approxPolyDP(c, 0.02*peri, True)
+        if len(approx) == 4:
+            corners = approx
+            break
+
+    return corners</code></pre>
+<p>还有一种做法是利用 <code>Hough 变换</code> 找到相应的直线段，通过一些规则得到文档边界，可以参考<a href="http://daisygao.me/2014/02/17/opencv-scanner/" target="_blank" rel="noopener">这里</a>。</p>
+<h2 id="透视变换"><a href="#透视变换" class="headerlink" title="透视变换"></a>透视变换</h2><p>接下来我们把检测到边界的文档“摆正”。这里需要用到“透视变换”（Perspective Transformation）的概念。</p>
+<p>透视变换(Perspective Transformation)是将图片平面投影到一个新的视平面(Viewing Plane)，可以实现平面图像的透视形变。</p>
+<p><img src="https://i.loli.net/2019/11/05/NuOs4zhpGo5ZV1F.png" alt="perspective_transform.png"></p>
+<p>设 (u, v) 为原始图像坐标，变换后的图像坐标为 (x, y)，变换矩阵为 M (3x3 矩阵)，则透视变换可以表示为：</p>
+<!--
+\left[ \begin{array}{c}
+x^{\prime} \\
+y^{\prime} \\
+w^{\prime}
+\end{array} \right]
+= M
+\left[ \begin{array}{c}
+u \\
+v \\
+1
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{c}&space;x^{\prime}&space;\\&space;y^{\prime}&space;\\&space;w^{\prime}&space;\end{array}&space;\right]&space;=&space;M&space;\left[&space;\begin{array}{c}&space;u&space;\\&space;v&space;\\&space;1&space;\end{array}&space;\right]">
+
+<br>
+
+<!--
+x = x^{\prime} / w^{\prime}, y = y^{\prime} / w^{\prime}
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;x&space;=&space;x^{\prime}&space;/&space;w^{\prime},&space;y&space;=&space;y^{\prime}&space;/&space;w^{\prime}">
+
+<p>变换矩阵 M 可以分拆成四个部分</p>
+<!--
+M = \left[ \begin{array}{ccc}
+m_{11} & m_{12} & m_{13} \\
+m_{21} & m_{22} & m_{23} \\
+m_{31} & m_{32} & m_{33}
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;M&space;=&space;\left[&space;\begin{array}{ccc}&space;m_{11}&space;&&space;m_{12}&space;&&space;m_{13}&space;\\&space;m_{21}&space;&&space;m_{22}&space;&&space;m_{23}&space;\\&space;m_{31}&space;&&space;m_{32}&space;&&space;m_{33}&space;\end{array}&space;\right]">
+
+<p>线性变换部分（rotation，scaling，shearing）：</p>
+<!--
+\left[ \begin{array}{cc}
+m_{11} & m_{12}\\
+m_{21} & m_{22}
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{cc}&space;m_{11}&space;&&space;m_{12}\\&space;m_{21}&space;&&space;m_{22}&space;\end{array}&space;\right]">
+
+<p>平移部分：</p>
+<!--
+\left[ \begin{array}{c}
+m_{13}\\
+m_{23}
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{c}&space;m_{13}\\&space;m_{23}&space;\end{array}&space;\right]">
+
+<p>透视投影部分：</p>
+<!--
+\left[ \begin{array}{cc}
+m_{31} & m_{32}
+\end{array} \right]
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\left[&space;\begin{array}{cc}&space;m_{31}&space;&&space;m_{32}&space;\end{array}&space;\right]">
+
+<p>可以看出仿射变换是透视变换的一种特殊形式。</p>
+<p>矩阵 M 实际只有 8 个自由度。因此我们只需要 4 对点（一对点的 x、y 坐标各有一个方程）就可以求解出对应的变换矩阵。</p>
+<p>下面看一个将正方形变换为一个一般四边形的例子。</p>
+<!--
+\begin{array}{c}
+(0,0)\rightarrow(x1,y1) \\
+(1,0)\rightarrow(x2,y2) \\
+(1,1)\rightarrow(x3,y3) \\
+(0,1)\rightarrow(x4,y4)
+\end{array}
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\begin{array}{c}&space;(0,0)\rightarrow(x1,y1)&space;\\&space;(1,0)\rightarrow(x2,y2)&space;\\&space;(1,1)\rightarrow(x3,y3)&space;\\&space;(0,1)\rightarrow(x4,y4)&space;\end{array}">
+
+<p>根据变换公式我们可以列出方程组：</p>
+<!--
+\begin{cases}
+x_1 = \frac{m_{13}}{m_{33}} \\
+y_1 = \frac{m_{23}}{m_{33}}\\
+x_2 = \frac{m_{11} + m_{13}}{m_{31} + m_{33}} \\
+y_2 = \frac{m_{21} + m_{23}}{m_{31} + m_{33}} \\
+x_3 = \frac{m_{11} + m_{12} + m_{13}}{m_{31} + m_{32} + m_{33}} \\
+y_3 = \frac{m_{21} + m_{22} + m_{23}}{m_{31} + m_{32} + m_{33}} \\
+x_4 = \frac{m_{12} + m_{13}}{m_{32} + m_{33}} \\
+y_4 = \frac{m_{22} + m_{23}}{m_{32} + m_{33}}
+\end{cases}
+-->
+
+<img src="https://latex.codecogs.com/gif.latex?\inline&space;\begin{cases}&space;x_1&space;=&space;\frac{m_{13}}{m_{33}}&space;\\&space;y_1&space;=&space;\frac{m_{23}}{m_{33}}\\&space;x_2&space;=&space;\frac{m_{11}&space;&plus;&space;m_{13}}{m_{31}&space;&plus;&space;m_{33}}&space;\\&space;y_2&space;=&space;\frac{m_{21}&space;&plus;&space;m_{23}}{m_{31}&space;&plus;&space;m_{33}}&space;\\&space;x_3&space;=&space;\frac{m_{11}&space;&plus;&space;m_{12}&space;&plus;&space;m_{13}}{m_{31}&space;&plus;&space;m_{32}&space;&plus;&space;m_{33}}&space;\\&space;y_3&space;=&space;\frac{m_{21}&space;&plus;&space;m_{22}&space;&plus;&space;m_{23}}{m_{31}&space;&plus;&space;m_{32}&space;&plus;&space;m_{33}}&space;\\&space;x_4&space;=&space;\frac{m_{12}&space;&plus;&space;m_{13}}{m_{32}&space;&plus;&space;m_{33}}&space;\\&space;y_4&space;=&space;\frac{m_{22}&space;&plus;&space;m_{23}}{m_{32}&space;&plus;&space;m_{33}}&space;\end{cases}">
+
+<p>求解方程组即可以得到将一个正方形变换为指定四边形的透视变换矩阵。</p>
+<p>反之，我们也可以得到将任意一个四边形变换为正方形的透视变换。我们通过两次变换：四边形变换到正方形+正方形变换到四边形就可以将任意一个四边形变换到另一个四边形。</p>
+<p><img src="https://i.loli.net/2019/11/05/HCjUrei9JmlfDbg.png" alt="perspective_transform_rect_to_quad.png"></p>
+<p>回到代码，我们只需要找到刚刚检测到的文档边界四边形的四个顶点和要变换成的“正视图”矩形的四个顶点的对应关系，然后调用 <code>getPerspectiveTransform()</code> 即可以得到透视变换矩阵，最后调用 <code>warpPerspective()</code> 即可以实现“文档扫描”的效果了。相关代码如下，注意这里的 <code>sort_rect_points()</code> 就是按照一定顺序给边界的四个顶点排序，排序后我们自然就得到了对应关系。</p>
+<pre><code class="python">def sort_rect_points(points):
+    mass_center = get_mass_center(points)
+    top_pts = []
+    bottom_pts = []
+    for pt in points:
+        if pt[1] &lt; mass_center[1]:
+            top_pts.append(pt)
+        else:
+            bottom_pts.append(pt)
+
+    if len(top_pts) &gt; 2:
+        idx = np.argmax(top_pts, axis=0)[1]
+        bottom_pts.append(top_pts[idx])
+        top_pts.pop(idx)
+    if len(bottom_pts) &gt; 2:
+        idx = np.argmin(bottom_pts, axis=0)[1]
+        top_pts.append(bottom_pts[idx])
+        bottom_pts.pop(idx)
+
+    tl = top_pts[0] if top_pts[0][0] &lt; top_pts[1][0] else top_pts[1]
+    tr = top_pts[1] if top_pts[0][0] &lt; top_pts[1][0] else top_pts[0]
+    bl = bottom_pts[0] if bottom_pts[0][0] &lt; bottom_pts[1][0] else bottom_pts[1]
+    br = bottom_pts[1] if bottom_pts[0][0] &lt; bottom_pts[1][0] else bottom_pts[0]
+
+    return tl, tr, br, bl
+
+def apply_four_point_perspective_transform(input_image, points):
+    (tl, tr, br, bl) = sort_rect_points(points)
+
+    # compute the width of the new image, which will be the
+    # maximum distance between bottom-right and bottom-left
+    # x-coordinates or the top-right and top-left coordinates
+    width_1 = math.hypot(br[0]-bl[0], br[1]-bl[1])
+    width_2 = math.hypot(tr[0]-tl[0], tr[1]-tl[1])
+    max_width = max(int(width_1), int(width_2))
+
+    # compute the height of the new image, which will be the
+    # maximum distance between top-right and bottom-right
+    # y coordinates or the top-left and bottom-left y coordinates
+    height_1 = math.hypot(tr[0]-br[0], tr[1]-br[1])
+    height_2 = math.hypot(tl[0]-bl[0], tl[1]-bl[1])
+    max_height = max(int(height_1), int(height_2))
+
+    # now that we have dimensions of the new image, construct
+    # the set of destination points to obtain a &quot;birds eye view&quot;,
+    # (i.e. top-down view) of the image, again specifying points
+    # in the top-left, top-right, bottom-right, bottom-left order
+    dst = np.array([
+                   [0, 0],
+                   [max_width-1, 0],
+                   [max_width-1, max_height-1],
+                   [0, max_height-1]], dtype=&quot;float32&quot;)
+
+    # compute the perspective transform matrix and then apply it
+    rect_pts = np.array([
+            [tl[0], tl[1]],
+            [tr[0], tr[1]],
+            [br[0], br[1]],
+            [bl[0], bl[1]]], dtype=&quot;float32&quot;)
+    persp_trans_mat = cv2.getPerspectiveTransform(rect_pts, dst)
+    warped_image = cv2.warpPerspective(input_image, persp_trans_mat, (max_width,max_height))
+    # return the warped image
+    return warped_image</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/" target="_blank" rel="noopener">http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/</a></p>
+<p><a href="https://blog.csdn.net/xiaowei_cqu/article/details/26471527" target="_blank" rel="noopener">https://blog.csdn.net/xiaowei_cqu/article/details/26471527</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/07/22/190722_python_document_scanner/">
+    <time datetime="2019-07-22T07:00:21.000Z" class="entry-date">
+        2019-07-22
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Image-Processing/">Image Processing</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/08/19/190819_movie_parasite/" rel="prev"><span class="meta-nav">←</span> 韩国电影《寄生虫》观后感</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/07/21/190728_when_cyber_violence_comes_into_reality/" rel="next">当网络暴力成为现实 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Movie/">Movie</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReadingNotes/">ReadingNotes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/casual-writing/">casual writing</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/20/191120_point_cloud_registration_icp/">点云配准 -- ICP 算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/01/191001_seam_carving/">Seam Carving -- 基于内容的图像缩放算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/19/190819_movie_parasite/">韩国电影《寄生虫》观后感</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/190722_python_document_scanner/">用 Python 实现“文档扫描”</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/190728_when_cyber_violence_comes_into_reality/">当网络暴力成为现实</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Point-Cloud-Processing/">Point Cloud Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 14px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12px;">OpenCV</a> <a href="/tags/Point-Cloud-Processing/" style="font-size: 10px;">Point Cloud Processing</a> <a href="/tags/Ruby/" style="font-size: 16px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 18px;">fp</a> <a href="/tags/graphics/" style="font-size: 12px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yilin Gui
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      <!--$表示行内元素，$$表示块状元素 -->
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<!--prettify代码高亮脚本引入-->
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+$(window).on('load', function(){ 
+  $('pre').addClass('prettyprint linenums');
+  prettyPrint();
+});
+</script>
+
+<!--Mermaid流程图-->
+<script src="https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+<!--引入不蒜子访问统计-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

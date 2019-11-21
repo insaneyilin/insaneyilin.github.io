@@ -78,6 +78,120 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-191120_point_cloud_registration_icp" class="post-191120_point_cloud_registration_icp post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/11/20/191120_point_cloud_registration_icp/">点云配准 -- ICP 算法</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/" data-id="ck391su03000rzbjig36231jh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1 问题描述"></a>1 问题描述</h2><p>点云配准（Point Cloud Registration）指的是输入两幅点云 <code>P_s</code> (source) 和 <code>P_t</code> (target) ，输出一个变换 <code>T</code> 使得 <code>T(P_s)</code> 和 <code>P_t</code> 的重合程度尽可能高。变换 <code>T</code> 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。</p>
+<p>点云配准可以分为粗配准（Coarse Registration）和精配准（Fine Registration）两步。粗配准指的是在两幅点云之间的变换完全未知的情况下进行较为粗糙的配准，目的主要是为精配准提供较好的变换初值；精配准则是给定一个初始变换，进一步优化得到更精确的变换。</p>
+<p>目前应用最广泛的点云精配准算法是迭代最近点算法（Iterative Closest Point, ICP）及各种变种 ICP 算法。</p>
+<h2 id="2-算法描述"><a href="#2-算法描述" class="headerlink" title="2 算法描述"></a>2 算法描述</h2><p>ICP 算法的直观想法如下：</p>
+<ul>
+<li>如果我们知道两幅点云上点的对应关系，那么我们可以用 Least Squares 来求解 R, t 参数；</li>
+<li>怎么知道点的对应关系呢？如果我们已经知道了一个大概靠谱的 R, t 参数，那么我们可以通过贪心的方式找两幅点云上点的对应关系（直接找距离最近的点作为对应点）。</li>
+</ul>
+<p>ICP 算法实际上就是交替进行上述两个步骤，迭代进行计算，直到收敛。</p>
+<p>ICP 一般算法流程为：</p>
+<ol>
+<li>点云预处理<ul>
+<li>滤波、清理数据等</li>
+</ul>
+</li>
+<li>匹配<ul>
+<li>应用上一步求解出的变换，找最近点</li>
+</ul>
+</li>
+<li>加权<ul>
+<li>调整一些对应点对的权重</li>
+</ul>
+</li>
+<li>剔除不合理的对应点对</li>
+<li>计算 loss</li>
+<li>最小化 loss，求解当前最优变换</li>
+<li>回到步骤 2. 进行迭代，直到收敛</li>
+</ol>
+<p>整体上来看，ICP 把点云配准问题拆分成了两个子问题：</p>
+<ul>
+<li>找最近点</li>
+<li>找最优变换</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2019/11/20/191120_point_cloud_registration_icp/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/11/20/191120_point_cloud_registration_icp/">
+    <time datetime="2019-11-20T15:56:29.000Z" class="entry-date">
+        2019-11-20
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Point-Cloud-Processing/">Point Cloud Processing</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
+
+
+  
     <article id="post-191001_seam_carving" class="post-191001_seam_carving post type-post status-publish format-standard hentry">
     <!---->
 
@@ -93,7 +207,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck38zxdyv000oshji08saqq0f" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck391su0j0010zbjixwvq2v8d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -201,7 +315,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck38zxdym000gshjibgnwvwid" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck391su06000tzbji3pzg6gvl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -265,7 +379,7 @@
 
 
   
-    <article id="post-191011_python_document_scanner" class="post-191011_python_document_scanner post type-post status-publish format-standard hentry">
+    <article id="post-190722_python_document_scanner" class="post-190722_python_document_scanner post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -273,14 +387,14 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/07/22/191011_python_document_scanner/">用 Python 实现“文档扫描”</a>
+      <a class="article-title" href="/2019/07/22/190722_python_document_scanner/">用 Python 实现“文档扫描”</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/191011_python_document_scanner/" data-id="ck38zxdzx002nshjizssgove7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/190722_python_document_scanner/" data-id="ck391su1j0031zbji75fvgl6z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -294,14 +408,14 @@
 <p><img src="https://i.loli.net/2019/11/05/RIUC7FZLaqKWuwr.gif" alt></p>
         
           <p class="article-more-link">
-            <a href="/2019/07/22/191011_python_document_scanner/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2019/07/22/190722_python_document_scanner/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2019/07/22/191011_python_document_scanner/">
+    <a href="/2019/07/22/190722_python_document_scanner/">
     <time datetime="2019-07-22T07:00:21.000Z" class="entry-date">
         2019-07-22
     </time>
@@ -367,7 +481,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck38zxdyo000hshjiuup670p4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck391stzw000nzbjii4movsjf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -446,7 +560,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck38zxdyt000lshjio1kqjoow" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck391stzt000mzbjiu7l37ovo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -556,7 +670,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck38zxdyi000cshji0fkpq173" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck391stzq000hzbjiv0g5c4k8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -639,7 +753,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck38zxdyh000bshji4tao8kpp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck391stzm000fzbji0xlc556g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -740,7 +854,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck38zxdyd0006shjiqd8vj9gl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck391stzf000azbjiu4smt3ph" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -830,7 +944,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck38zxdye0007shjivl5f3acp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck391stzb0008zbjiq44jbc1c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -898,99 +1012,6 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
 
 
   
-    <article id="post-171123_visa_to_usa" class="post-171123_visa_to_usa post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/11/23/171123_visa_to_usa/">美签小记</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck38zxdy20002shjismqz344i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>最近公司一些业务要派人去美国分公司出差半个月，虽然没准备派我去，不过作为刚入职半年的壮丁，难免以后要去当苦力，还是让我先去办理一下。</p>
-<p>读本科的时候总想着去美帝读书，后来因为各种原因打消了念头，没想到工作没多久竟然要去办理美帝的签证，真是造化弄人。</p>
-<p>问了下同事，办理的是 B1/B2 商务签证，大部分人都是一年签证，每年都要去办一次，还有种是十年签证，拿到的人比较少。</p>
-<p>按照公司提供的流程准备了材料，提交给中美商会，然后等着去面签就可以了。</p>
-<p>面签之前要准备好的材料有：</p>
-<ul>
-<li>护照</li>
-<li>蓝色面试预约单</li>
-<li>预约确认单</li>
-<li>DS-160 确认页</li>
-<li>照片</li>
-<li>签证申请费收据</li>
-<li>邀请信（公司提供）</li>
-<li>在职证明</li>
-<li>英文简历</li>
-</ul>
-<p>这里说下 DS-160 ，这表格真的够长，同事告诉我说一定要认真填，有些时候 DS-160 填写情况就决定了你这次签证成功与否。还有就是照片要是白色背景、不能戴眼镜。</p>
-<p>面签当天，没想到人非常多，我预约的是9点半，最后排队到11点才轮到我。英语口语一直不太好，有点紧张，前一天晚上还找了些面签的对话材料练习了下，我前面的小哥用英文和签证官（一个白人小哥）扯了半天，好像签证官还是不太满意，小哥还来了句“我是英文专业的” Orz 。到我了，我刚想开口用英文说明申请理由，小哥用非常不标准的普通话问我：“你为什么要去美国？”（请自行脑补音调），我愣了一下没说话，他又重新问了一遍，我才反应过来，用中文回答道：“公司派我去的。”完了就让我递给他邀请信和 DS-160 确认页。我还再想等下会问到什么英文问题，结果小哥对我微笑着说：“你通过了，可以走了。”啥？这也太顺利了吧，我很怀疑😂</p>
-<p>过两天查了下邮件，真的过了，还是 10 年签。。。总有种今年人品用光了的感觉。。。</p>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2017/11/23/171123_visa_to_usa/">
-    <time datetime="2017-11-23T14:00:00.000Z" class="entry-date">
-        2017-11-23
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Diary/">Diary</a>
-  </div>
-
-    
-    </footer>
-</article>
-
-
-
-
-
-
-
-<section id="comments" class="comments">
-  <style>
-    .comments{margin:30px;padding:10px;background:#fff}
-    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
-  </style>
-  <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'true' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
-            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
-            placeholder: "Comments are welcome. (Markdown is supported)",
-            avatar:"mm"
-        });
-    }
-</script>
-
-  </section>
-
-
-  
 
 
   <nav id="page-nav">
@@ -1018,6 +1039,10 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
       <ul>
         
           <li>
+            <a href="/2019/11/20/191120_point_cloud_registration_icp/">点云配准 -- ICP 算法</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/01/191001_seam_carving/">Seam Carving -- 基于内容的图像缩放算法</a>
           </li>
         
@@ -1026,15 +1051,11 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
           </li>
         
           <li>
-            <a href="/2019/07/22/191011_python_document_scanner/">用 Python 实现“文档扫描”</a>
+            <a href="/2019/07/22/190722_python_document_scanner/">用 Python 实现“文档扫描”</a>
           </li>
         
           <li>
             <a href="/2019/07/21/190728_when_cyber_violence_comes_into_reality/">当网络暴力成为现实</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/10/190710_cpp_shared_object_pool/">一个简单的 C++ 对象池实现</a>
           </li>
         
       </ul>
@@ -1046,7 +1067,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Point-Cloud-Processing/">Point Cloud Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -1055,7 +1076,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 14px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12px;">OpenCV</a> <a href="/tags/Ruby/" style="font-size: 16px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 18px;">fp</a> <a href="/tags/graphics/" style="font-size: 12px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 14px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12px;">OpenCV</a> <a href="/tags/Point-Cloud-Processing/" style="font-size: 10px;">Point Cloud Processing</a> <a href="/tags/Ruby/" style="font-size: 16px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 18px;">fp</a> <a href="/tags/graphics/" style="font-size: 12px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
     </div>
   </aside>
 
