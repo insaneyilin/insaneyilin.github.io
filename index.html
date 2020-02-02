@@ -86,23 +86,26 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/11/20/191120_point_cloud_registration_icp/">点云配准 -- ICP 算法</a>
+      <a class="article-title" href="/2019/11/20/191120_point_cloud_registration_icp/">三维点云配准 -- ICP 算法</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/" data-id="ck5xp25dz0011rybhd40av16b" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/" data-id="ck64olayo002s0wjicisxa7fk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1 问题描述"></a>1 问题描述</h2><p>点云配准（Point Cloud Registration）指的是输入两幅点云 <code>P_s</code> (source) 和 <code>P_t</code> (target) ，输出一个变换 <code>T</code> 使得 <code>T(P_s)</code> 和 <code>P_t</code> 的重合程度尽可能高。变换 <code>T</code> 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。</p>
+        <h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1 问题描述"></a>1 问题描述</h2><p>点云配准（Point Cloud Registration）指的是输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。变换 $T$ 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。</p>
 <p>点云配准可以分为粗配准（Coarse Registration）和精配准（Fine Registration）两步。粗配准指的是在两幅点云之间的变换完全未知的情况下进行较为粗糙的配准，目的主要是为精配准提供较好的变换初值；精配准则是给定一个初始变换，进一步优化得到更精确的变换。</p>
 <p>目前应用最广泛的点云精配准算法是迭代最近点算法（Iterative Closest Point, ICP）及各种变种 ICP 算法。</p>
-<h2 id="2-算法描述"><a href="#2-算法描述" class="headerlink" title="2 算法描述"></a>2 算法描述</h2><p>ICP 算法的直观想法如下：</p>
+<h2 id="2-算法描述"><a href="#2-算法描述" class="headerlink" title="2 算法描述"></a>2 算法描述</h2><p>对于 $T$ 是刚性变换的情形，点云配准问题可以描述为：</p>
+<p>\begin{equation}<br>R^{\ast}, t^{\ast} = \mathop{\arg\min}_{R, t} \frac{1}{|P_s|} \sum_{i=1}^{|P_s|} || p_t^i - (R \cdot p_s^i + t) ||^2<br>\end{equation}</p>
+<p>这里 $p_s$ 和 $p_t$ 是源点云和目标点云中的一一对应点。</p>
+<p>ICP 算法的直观想法如下：</p>
 <ul>
 <li>如果我们知道两幅点云上点的对应关系，那么我们可以用 Least Squares 来求解 R, t 参数；</li>
 <li>怎么知道点的对应关系呢？如果我们已经知道了一个大概靠谱的 R, t 参数，那么我们可以通过贪心的方式找两幅点云上点的对应关系（直接找距离最近的点作为对应点）。</li>
@@ -207,7 +210,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck5xp25dt000urybhrzlloj7m" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck64olax9000n0wji9bctqxk8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -315,7 +318,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck5xp25df000hrybh6h5l6ce5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck64olax8000l0wjig3z4kmv5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -394,7 +397,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/190722_python_document_scanner/" data-id="ck5xp25fa002vrybh84dw4rqa" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/190722_python_document_scanner/" data-id="ck64olaym002q0wjiylfa3ub1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -481,7 +484,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck5xp25dm000lrybhrd05fdtd" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck64olax2000h0wji856xikgf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -560,7 +563,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck5xp25dd000grybhqb1jp1g8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck64olax0000g0wjirsue174h" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -670,7 +673,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck5xp25da000crybhtktsujq0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck64olawx000c0wjiwp55m3fs" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -753,7 +756,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck5xp25d8000brybhr2pivp3d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck64olawv000b0wjid2xlkszt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -854,7 +857,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck5xp25d60007rybhdv9kppbb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck64olawu00070wji5xiefghz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -944,7 +947,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck5xp25d50006rybhklqffa8v" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck64olaws00060wjimh4fnf28" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1039,7 +1042,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
       <ul>
         
           <li>
-            <a href="/2019/11/20/191120_point_cloud_registration_icp/">点云配准 -- ICP 算法</a>
+            <a href="/2019/11/20/191120_point_cloud_registration_icp/">三维点云配准 -- ICP 算法</a>
           </li>
         
           <li>
