@@ -57,7 +57,7 @@ ICP 一般算法流程为：
 <meta property="og:site_name" content="Yilin&#39;s Blog">
 <meta property="og:description" content="1 问题描述点云配准（Point Cloud Registration）指的是输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。变换 $T$ 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。 点云配准可以分为粗配准（Coarse Registrat">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-02-02T09:34:28.730Z">
+<meta property="og:updated_time" content="2020-02-02T10:22:34.627Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三维点云配准 -- ICP 算法">
 <meta name="twitter:description" content="1 问题描述点云配准（Point Cloud Registration）指的是输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。变换 $T$ 可以是刚性的(rigid)，也可以不是，本文下面只考虑刚性变换，即变换只包括旋转、平移。 点云配准可以分为粗配准（Coarse Registrat">
@@ -132,7 +132,7 @@ ICP 一般算法流程为：
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/" data-id="ck64olayo002s0wjicisxa7fk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/" data-id="ck74uujyz002xyl1cu2wg63dh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -226,7 +226,7 @@ ICP 一般算法流程为：
 <p>至此公式推导完了，简单总结一下求解最优变换的步骤：</p>
 <ol>
 <li>计算源点云和目标点云质心；</li>
-<li>将源点云和目标点云进行转换到质心坐标系；</li>
+<li>将源点云和目标点云转换到质心坐标系；</li>
 <li>计算矩阵 H（形式类似“协方差矩阵”）；</li>
 <li>对 H 求 SVD 分解，根据公式求得 $R^{\ast}$；</li>
 <li>根据公式计算 $t^{\ast}$。</li>
