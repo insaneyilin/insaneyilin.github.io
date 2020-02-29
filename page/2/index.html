@@ -78,6 +78,89 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-171204_shared_lib_and_dynamic_cast" class="post-171204_shared_lib_and_dynamic_cast post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/04/171204_shared_lib_and_dynamic_cast/">C++ 更新动态库后强制转换基类指针遇到的坑</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck77u0hub0003cn1cpwvsmlvq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>这两天被一个 bug 折磨得不轻，发新版本更新了 caffe-output 动态库，结果发现某一 layer 中一个参数读出来是随机数，模型预测结果总是不对。最后一点一点找 diff，发现是发布时打包的 caffe 动态库有错误，新版本 caffe 基类 layer 增加了这个参数作为成员变量，而老版本 caffe 动态库中没有这个成员变量。</p>
+<p>直接看下面的例子吧=_=_</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/04/171204_shared_lib_and_dynamic_cast/">
+    <time datetime="2017-12-04T14:00:00.000Z" class="entry-date">
+        2017-12-04
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
+
+
+  
     <article id="post-171123_visa_to_usa" class="post-171123_visa_to_usa post type-post status-publish format-standard hentry">
     <!---->
 
@@ -93,7 +176,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck76f060500062y1cogqfnodr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck77u0hvh000bcn1cpxx9x7l7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -186,7 +269,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ck76f061e001g2y1cu9euxkrc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ck77u0hwn001lcn1co7r8si43" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -268,7 +351,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="ck76f05zx00022y1cnphgej8d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="ck77u0hvc0009cn1cb0ckyf4y" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -365,7 +448,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="ck76f0612000y2y1crzdcpfni" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="ck77u0hwb0010cn1c80khtzhr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -449,7 +532,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="ck76f061300102y1cf7efuri9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="ck77u0hwe0015cn1cs10xfmsb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -537,7 +620,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="ck76f062e002z2y1c55ovx7a7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="ck77u0hxo0031cn1c8ipktfje" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -624,7 +707,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="ck76f062g00302y1c6t77407z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="ck77u0hxr0034cn1c8h3f2hkj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -707,7 +790,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="ck76f061600132y1cotg71ily" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="ck77u0hwf0017cn1c2jzm27tw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -792,7 +875,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/06/28/140328_can_jin_zhi_shang_de_chuang_ye_ke/" data-id="ck76f05zo00002y1c16mua915" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/06/28/140328_can_jin_zhi_shang_de_chuang_ye_ke/" data-id="ck77u0hty0001cn1cxlazrqd4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -866,115 +949,6 @@
 
 
   
-    <article id="post-ruby_quickstart_notes_4" class="post-ruby_quickstart_notes_4 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/06/03/ruby_quickstart_notes_4/">Ruby Quick Start (4) -- Array, String, Closure</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/06/03/ruby_quickstart_notes_4/" data-id="ck76f062j00372y1c4fdc4mff" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p><a href="http://www.open-open.com/doc/view/86a9fdd174dc44c18191d985e845a7c4" target="_blank" rel="noopener">《Ruby语言入门教程v1.0》</a>笔记（4）<br><br></p>
-<hr>
-<h2 id="第八章-Ruby中的数组、字符串、闭包"><a href="#第八章-Ruby中的数组、字符串、闭包" class="headerlink" title="第八章 Ruby中的数组、字符串、闭包"></a>第八章 Ruby中的数组、字符串、闭包</h2><h3 id="1-Ruby中的数组"><a href="#1-Ruby中的数组" class="headerlink" title="1. Ruby中的数组"></a>1. Ruby中的数组</h3><h4 id="1-1-建立数组"><a href="#1-1-建立数组" class="headerlink" title="1.1 建立数组"></a>1.1 建立数组</h4><pre><code class="ruby">arr1 = []
-arr2 = Array.new
-arr3 = [&#39;4 &#39;, &#39;5 &#39;, &#39;6 &#39;]
-print arr1, &quot;\n&quot;
-print arr2, &quot;\n&quot;
-print arr3, &quot;\n&quot;</code></pre>
-<br>
-
-<hr>
-<h4 id="1-2-访问数组元素"><a href="#1-2-访问数组元素" class="headerlink" title="1.2 访问数组元素"></a>1.2 访问数组元素</h4><pre><code class="ruby">arr = [3, 4, 5, 6, 7, 8, 9]
-puts arr[0]    # 3
-puts arr.first    # 3
-puts arr[arr.length-1]    # 9
-puts arr[arr.size-1]    # 9
-puts arr.last    # 9
-puts arr[-1]    # 9
-puts arr[-2]    # 8
-print arr[1..3] ,&quot;\n&quot;    # 456
-print arr[-3, 2] ,&quot;\n&quot;    # 78</code></pre>
-<p>数组的索引从 <code>0</code> 开始，一直到数组的长度减去 <code>1</code>；</p>
-<p>负数表示从数组末尾开始的索引；</p>
-<p>用一对数字来索引数组，第一个数字表示开始位置，第二数字表示从开始位置起的元素数目。</p>
-<br>
-
-<hr>
-<h4 id="1-3-增加、删除数组元素"><a href="#1-3-增加、删除数组元素" class="headerlink" title="1.3 增加、删除数组元素"></a>1.3 增加、删除数组元素</h4><p>Ruby 的数组大小是动态的，你能够随时增加、删除数组元素。</p>
-        
-          <p class="article-more-link">
-            <a href="/2014/06/03/ruby_quickstart_notes_4/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2014/06/03/ruby_quickstart_notes_4/">
-    <time datetime="2014-06-03T14:30:29.000Z" class="entry-date">
-        2014-06-03
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Programming/">Programming</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-
-<section id="comments" class="comments">
-  <style>
-    .comments{margin:30px;padding:10px;background:#fff}
-    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
-  </style>
-  <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'true' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
-            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
-            placeholder: "Comments are welcome. (Markdown is supported)",
-            avatar:"mm"
-        });
-    }
-</script>
-
-  </section>
-
-
-  
 
 
   <nav id="page-nav">
@@ -989,7 +963,7 @@ print arr[-3, 2] ,&quot;\n&quot;    # 78</code></pre>
   <div class="widget-wrap">
     <h3 class="widget-title">categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Movie/">Movie</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReadingNotes/">ReadingNotes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/casual-writing/">casual writing</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Computer-Graphics/">Computer Graphics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mathematics/">Mathematics</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Movie/">Movie</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Music/">Music</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programming/">Programming</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReadingNotes/">ReadingNotes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/casual-writing/">casual writing</a></li></ul>
     </div>
   </div>
 
@@ -1000,6 +974,10 @@ print arr[-3, 2] ,&quot;\n&quot;    # 78</code></pre>
     <h3 class="widget-title">Recents</h3>
     <div class="widget-content">
       <ul>
+        
+          <li>
+            <a href="/2020/02/29/20200229_myou_ni_kira_wa_re_te_i_ru_by_azki/">&lt;命に嫌われている(被生命所厌恶)&gt; by AZKi</a>
+          </li>
         
           <li>
             <a href="/2019/11/20/191120_point_cloud_registration_icp/">三维点云配准 -- ICP 算法</a>
@@ -1015,10 +993,6 @@ print arr[-3, 2] ,&quot;\n&quot;    # 78</code></pre>
         
           <li>
             <a href="/2019/07/22/190722_python_document_scanner/">用 Python 实现“文档扫描”</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/21/190728_when_cyber_violence_comes_into_reality/">当网络暴力成为现实</a>
           </li>
         
       </ul>
