@@ -78,6 +78,96 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-180425_shared_ptr_with_vector" class="post-180425_shared_ptr_with_vector post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/04/25/180425_shared_ptr_with_vector/">std::vector&lt;std::shared_ptr&lt;XXX&gt; &gt; 初始化的坑</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ck7as8lyc000bh81cyd9yzrhv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>现在写 C++ 用智能指针基本是习惯了，不过今天遇到一个细节处的错误：</p>
+<pre><code class="cpp">std::vector&lt;std::shared_ptr&lt;A&gt; &gt; a_vec(n, std::make_shared&lt;A&gt;());</code></pre>
+<p>本意是初始化了一个元素都是智能指针对象的数组，看起来很美好，实际上这个数组里所有元素都指向了同一个实例。看一下 C++ 文档上的参数说明：</p>
+<blockquote>
+<p>val<br>    Value to fill the container with. Each of the n elements in the container will <em>be initialized to a copy of this value</em>.
+    Member type value_type is the type of the elements in the container, defined in vector as an alias of its first template parameter (T).</p>
+</blockquote>
+<p><code>vector</code> 所有成员用 <code>val</code> 的拷贝来初始化，智能指针的拷贝嘛，还是指向同一个实例。</p>
+<p>正确的初始化方式：</p>
+<pre><code class="cpp">std::vector&lt;std::shared_ptr&lt;A&gt; &gt; a_vec(n);
+std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &amp;ptr) {
+  ptr = std::make_shared&lt;A&gt;();
+});</code></pre>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/04/25/180425_shared_ptr_with_vector/">
+    <time datetime="2018-04-25T14:00:00.000Z" class="entry-date">
+        2018-04-25
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.zhimg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
+            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
+            placeholder: "Comments are welcome. (Markdown is supported)",
+            avatar:"mm"
+        });
+    }
+</script>
+
+  </section>
+
+
+  
     <article id="post-171204_shared_lib_and_dynamic_cast" class="post-171204_shared_lib_and_dynamic_cast post type-post status-publish format-standard hentry">
     <!---->
 
@@ -93,7 +183,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck79rrzsj00066x1c8p4vyfns" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ck7as8ly20005h81cp5l3aa88" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -176,7 +266,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck79rrzsf00056x1c5jnnhacz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ck7as8lxw0002h81cz03nfm84" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -269,7 +359,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ck79rrzu5001e6x1c5p3292h4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ck7as8lzs001ih81cytb8svq0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -351,7 +441,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="ck79rrzs600026x1cqjx9g45j" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="ck7as8ly80007h81cgt0j5he1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -448,7 +538,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="ck79rrzts000u6x1c6yekyxk5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="ck7as8lzi0010h81c28tj47x0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -532,7 +622,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="ck79rrztu000x6x1cys45wjv5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="ck7as8lzj0012h81cs03ijou2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -620,7 +710,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="ck79rrzv0002y6x1cjxcts6q5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="ck7as8m0q0030h81cbzac19r0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -707,7 +797,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="ck79rrzv300306x1cujucn3ni" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/25/rotation_matrix_and_quaternions/" data-id="ck7as8m0t0036h81cw7bq6eg7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -790,7 +880,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="ck79rrzty00146x1cww3ykbms" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/07/16/kinect_dev_config_vs2013/" data-id="ck7as8lzn0017h81cuzkw4dy0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -860,95 +950,6 @@
 
 
   
-    <article id="post-140328_can_jin_zhi_shang_de_chuang_ye_ke" class="post-140328_can_jin_zhi_shang_de_chuang_ye_ke post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2014/06/28/140328_can_jin_zhi_shang_de_chuang_ye_ke/">&lt;餐巾纸上的创业课&gt;读书笔记</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2014/06/28/140328_can_jin_zhi_shang_de_chuang_ye_ke/" data-id="ck79rrzrw00006x1cctkl7qsm" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p><a href="https://book.douban.com/subject/4168140/" target="_blank" rel="noopener">https://book.douban.com/subject/4168140/</a></p>
-<p>很喜欢这种风格，把很多道理融入在故事中，让人忍不住一口气读完。下面是从中摘录的一些笔记：</p>
-<p>每个公司企业看似都有自己独特的成长模式，其实这些模式顶多不过三四种。</p>
-<p>创业，<strong>失败率高达90%以上</strong>。</p>
-<p>地雷总<strong>埋藏在你意想不到的地方</strong>。</p>
-<p>没有人能带着成功全身而退。</p>
-<p><strong>扁平化</strong>组织：老板必须拥有绝对的领导地位。管理部门完全听从老板的指示行事，没有实权。</p>
-<p>我们<strong>必须熟知模式，才有跳脱模式发展自己的可能</strong>；要知道自己正走在埋有地雷的道路上，遇上时才能够妥善处理。</p>
-        
-          <p class="article-more-link">
-            <a href="/2014/06/28/140328_can_jin_zhi_shang_de_chuang_ye_ke/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2014/06/28/140328_can_jin_zhi_shang_de_chuang_ye_ke/">
-    <time datetime="2014-06-28T09:56:29.000Z" class="entry-date">
-        2014-06-28
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/ReadingNotes/">ReadingNotes</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/创业/">创业</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-
-<section id="comments" class="comments">
-  <style>
-    .comments{margin:30px;padding:10px;background:#fff}
-    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
-  </style>
-  <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.zhimg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'true' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '.comment',
-            notify: notify,
-            verify: verify,
-            app_id: "M7FPr33VN0cA59xJ3futR49a-gzGzoHsz",
-            app_key: "AwLDuILTEjzxdq5Ppc1y7o0S",
-            placeholder: "Comments are welcome. (Markdown is supported)",
-            avatar:"mm"
-        });
-    }
-</script>
-
-  </section>
-
-
-  
 
 
   <nav id="page-nav">
@@ -976,6 +977,10 @@
       <ul>
         
           <li>
+            <a href="/2020/03/02/20200303_normal_distribution_transform/">三维点云配准 -- NDT 算法</a>
+          </li>
+        
+          <li>
             <a href="/2020/02/29/20200229_myou_ni_kira_wa_re_te_i_ru_by_azki/">&lt;命に嫌われている(被生命所厌恶)&gt; by AZKi</a>
           </li>
         
@@ -991,10 +996,6 @@
             <a href="/2019/08/19/190819_movie_parasite/">韩国电影《寄生虫》观后感</a>
           </li>
         
-          <li>
-            <a href="/2019/07/22/190722_python_document_scanner/">用 Python 实现“文档扫描”</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -1004,7 +1005,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Point-Cloud-Processing/">Point Cloud Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Vision/">Computer Vision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Debugging-Sucks/">Debugging Sucks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Image-Processing/">Image Processing</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/">Kinect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OpenCV/">OpenCV</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Point-Cloud-Processing/">Point Cloud Processing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autonomous-driving/">autonomous_driving</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/coursera/">coursera</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/data-structure/">data structure</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fp/">fp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/graphics/">graphics</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd-tree/">kd tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda-expression/">lambda expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/notes/">notes</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/octree/">octree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高考/">高考</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -1013,7 +1014,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 14px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12px;">OpenCV</a> <a href="/tags/Point-Cloud-Processing/" style="font-size: 10px;">Point Cloud Processing</a> <a href="/tags/Ruby/" style="font-size: 16px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 18px;">fp</a> <a href="/tags/graphics/" style="font-size: 12px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
+      <a href="/tags/C/" style="font-size: 20px;">C++</a> <a href="/tags/Computer-Vision/" style="font-size: 10px;">Computer Vision</a> <a href="/tags/Debugging-Sucks/" style="font-size: 12px;">Debugging Sucks</a> <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/Image-Processing/" style="font-size: 14px;">Image Processing</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/OpenCV/" style="font-size: 12px;">OpenCV</a> <a href="/tags/Point-Cloud-Processing/" style="font-size: 12px;">Point Cloud Processing</a> <a href="/tags/Ruby/" style="font-size: 16px;">Ruby</a> <a href="/tags/Scala/" style="font-size: 18px;">Scala</a> <a href="/tags/autonomous-driving/" style="font-size: 10px;">autonomous_driving</a> <a href="/tags/coursera/" style="font-size: 20px;">coursera</a> <a href="/tags/data-structure/" style="font-size: 10px;">data structure</a> <a href="/tags/fp/" style="font-size: 18px;">fp</a> <a href="/tags/graphics/" style="font-size: 12px;">graphics</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/kd-tree/" style="font-size: 10px;">kd tree</a> <a href="/tags/lambda-expression/" style="font-size: 10px;">lambda expression</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/octree/" style="font-size: 10px;">octree</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/高考/" style="font-size: 10px;">高考</a>
     </div>
   </aside>
 
