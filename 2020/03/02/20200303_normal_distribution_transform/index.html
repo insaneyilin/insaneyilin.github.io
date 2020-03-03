@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="Yilin&#39;s Blog">
 <meta property="og:description" content="1 背景在上一篇文章中介绍了什么是点云配准和经典的 ICP 算法。  点云配准（Point Cloud Registration）：输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。  点云配准的一个常见应用就是用来解决无人车的定位（localization）问题。 什么是无人车的定位呢">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-02T18:18:27.300Z">
+<meta property="og:updated_time" content="2020-03-03T23:46:59.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三维点云配准 -- NDT 算法">
 <meta name="twitter:description" content="1 背景在上一篇文章中介绍了什么是点云配准和经典的 ICP 算法。  点云配准（Point Cloud Registration）：输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。  点云配准的一个常见应用就是用来解决无人车的定位（localization）问题。 什么是无人车的定位呢">
@@ -102,7 +102,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/" data-id="ck7as8lzf000xh81c0wp1bs47" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/" data-id="ck7cjj7uw000x9v1cwnhuhlcb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -120,9 +120,25 @@
 <p>使用差分GPS（differential GPS-DGPS，DGPS）可以有效提高 GPS 的定位精度，常见的 RTK(Real time kinematic) 载波相位差分技术可以达到厘米级精度，基本满足自动驾驶定位的需求。但 RTK 需要架设基站，且较容易受卫星状况、天气状况、数据传输状况的影响。</p>
 <p>使用 GPS 属于全局定位的方法，还有一类相对定位的方法，比如使用 IMU 和里程计(Odometry)，根据上一时刻的位置和方位推断现在的位置和方位，也叫航迹推算，优点是输出频率高、短时间内精度高，缺点是定位误差会随着时间累积。</p>
 <p>其实仔细思考一下人开车的过程，我们的大脑是没有 GPS 和 IMU 这种类似的东西的，我们靠的是我们的眼睛，先对环境进行感知、观察，然后同大脑里已经见过的位置场景进行“匹配”，从而实现了定位。这是一种基于环境特征匹配的定位。</p>
-<p>无人车的“眼睛”是什么呢？虽然基于相机的视觉方案潜力巨大，但目前业界使用的最普遍还是 3D 激光雷达(Lidar)。我们可以使用 Lidar 进行基于环境特征的定位，用我们每一帧得到的点云和预先制作的地图进行匹配，从而得到实时的车的位置和姿态，这就需要用到点云配准。</p>
+<p>无人车的“眼睛”是什么呢？虽然基于相机的视觉方案潜力巨大，但目前业界使用最普遍的还是 3D 激光雷达(Lidar)。我们可以使用 Lidar 进行基于环境特征的定位，用我们每一帧得到的点云和预先制作的地图进行匹配，从而得到实时的车的位置和姿态，这就可以利用点云配准。</p>
 <p>我们可以使用 ICP 算法完成点云配准，但 ICP 算法对位姿初值较敏感，且最近邻点搜索较耗时。</p>
 <p>本文要介绍的 NDT(Normal Distribution Transform，正态分布变换) 算法是一种基于概率分布的点云配准算法，其比 ICP 算法耗时更加稳定，实际定位测试效果也更加鲁棒。</p>
+<hr>
+<h2 id="2-2D-NDT-算法描述"><a href="#2-2D-NDT-算法描述" class="headerlink" title="2 2D NDT 算法描述"></a>2 2D NDT 算法描述</h2><p><em>The Normal Distributions Transform: A New Approach to Laser Scan Matching</em> 这篇论文提出了用于匹配两幅 2D 激光扫描点云的 NDT 算法。</p>
+<p>NDT 配准的基本思想如下：我们不用去比较两个点云里点到点之间的距离，而是先将参考点云/目标点云（reference scan，在无人车定位的场景里就是我们事先构建的点云地图）网格化，按照空间划分为一个个小格子，统计出每个小格子里点云的正态分布。如果给定一组变换参数（旋转、平移），对源点云进行变换后，则可以得到其在参考点云网格中每个格子里对应的概率密度，概率密度越大，说明两幅点云匹配程度越高。因此我们可以通过优化的方法求解变换参数，使得变换后的源点云同参考点云匹配尽可能匹配。</p>
+<h3 id="2-1-正态分布变换"><a href="#2-1-正态分布变换" class="headerlink" title="2.1 正态分布变换"></a>2.1 正态分布变换</h3><p>NDT 把参考点云表示成了一组局部正态分布的集合，具体做法如下：</p>
+<ol>
+<li>将参考点云所在 2D 空间划分为指定大小的网格（cell），设每个格子里的点为 $ \{\mathbf{x}_i\}_{i=1,…,n} $</li>
+<li>计算每个格子中点云的多元正态分布参数：<ul>
+<li>均值 $\mathbf{q} = \frac{1}{n}\sum_i \mathbf{x}_i$</li>
+<li>协方差矩阵 $\Sigma = \frac{1}{n}\sum_i (\mathbf{x}_i - \mathbf{q}) (\mathbf{x}_i - \mathbf{q})^t$</li>
+</ul>
+</li>
+</ol>
+<p>这样每个格子中的一个点 $\mathbf{x}$ 可以用概率分布 $N(\mathbf{q}, \Sigma)$ 来描述：</p>
+<p>$$ p(\mathbf{x})\sim exp(- \frac{(\mathbf{x}_i - \mathbf{q})^t \Sigma^{-1} (\mathbf{x}_i - \mathbf{q})}{2})<br>$$</p>
+<p>NDT 这种表示方法的好处是我们得到了 2D 空间的一种分段 <strong>连续、可微</strong> 的概率密度形式的描述。这对于我们求解优化是十分有帮助的（能求导）。（对比 ICP 算法，其查找对应点关系的时候只能用暴力或者启发式方法）</p>
+<p>原论文里提到求解协方差矩阵时有可能会出现奇异(singular)的情况，导致无法求逆。解决方法是检查协方差矩阵较小的特征值是否比较大特征值的 0.001 倍要大，如果过小，将其设为较大特征值的 0.001 倍。</p>
 <p>（未完成）</p>
 <hr>
 <!--
