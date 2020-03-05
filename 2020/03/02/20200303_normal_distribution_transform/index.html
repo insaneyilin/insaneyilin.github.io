@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="Yilin&#39;s Blog">
 <meta property="og:description" content="1 背景在上一篇文章中介绍了什么是点云配准和经典的 ICP 算法。  点云配准（Point Cloud Registration）：输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。  点云配准的一个常见应用就是用来解决无人车的定位（localization）问题。 什么是无人车的定位呢">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-03T23:46:59.933Z">
+<meta property="og:updated_time" content="2020-03-05T18:03:18.076Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三维点云配准 -- NDT 算法">
 <meta name="twitter:description" content="1 背景在上一篇文章中介绍了什么是点云配准和经典的 ICP 算法。  点云配准（Point Cloud Registration）：输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。  点云配准的一个常见应用就是用来解决无人车的定位（localization）问题。 什么是无人车的定位呢">
@@ -102,7 +102,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/" data-id="ck7cjj7uw000x9v1cwnhuhlcb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/" data-id="ck7f23xoq000v6u1cd4tbm3xk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -139,6 +139,17 @@
 <p>$$ p(\mathbf{x})\sim exp(- \frac{(\mathbf{x}_i - \mathbf{q})^t \Sigma^{-1} (\mathbf{x}_i - \mathbf{q})}{2})<br>$$</p>
 <p>NDT 这种表示方法的好处是我们得到了 2D 空间的一种分段 <strong>连续、可微</strong> 的概率密度形式的描述。这对于我们求解优化是十分有帮助的（能求导）。（对比 ICP 算法，其查找对应点关系的时候只能用暴力或者启发式方法）</p>
 <p>原论文里提到求解协方差矩阵时有可能会出现奇异(singular)的情况，导致无法求逆。解决方法是检查协方差矩阵较小的特征值是否比较大特征值的 0.001 倍要大，如果过小，将其设为较大特征值的 0.001 倍。</p>
+<h3 id="2-2-利用优化进行点云配准"><a href="#2-2-利用优化进行点云配准" class="headerlink" title="2.2 利用优化进行点云配准"></a>2.2 利用优化进行点云配准</h3><p>我们记 2D 空间的刚性变换为：</p>
+<p>$$<br>T =<br>\left[ \begin{array}{cccc}<br>cos(\phi) &amp; -sin(\phi) &amp; t_x \\<br>sin(\phi) &amp; cos(\phi) &amp; t_y \\<br>0 &amp; 0 &amp; 1<br>\end{array} \right]<br>$$</p>
+<p>$(t_x, t_y)$ 是平移， $\phi$ 是旋转角度。我们的目标就是给定源点云 $P_s$ 和参考点云 $P_t$ ，求解出这三个参数使得两幅点云“对齐”。</p>
+<p>我们使用 NDT 来进行点云对齐，步骤如下：</p>
+<ol>
+<li>对参考点云 $P_t$ 建立 NDT（网格化，计算每个格子的正态分布参数）；</li>
+<li>给定初始化变换 $T_0$ ；</li>
+<li>利用上一次迭代得到的变换 $T_{k-1}$ 将 $P_s$ 进行变换，计算变换后的点在参考点云 NDT 网格中的概率密度；</li>
+<li>定义 NDT 配准分数(NDT score)为每个网格中计算出的概率密度之和，使用牛顿法进行优化，求解变换参数使得 NDT score 最大，得到当期迭代的变换 $T_k$；</li>
+<li>回到第 3 步继续进行迭代，直到满足收敛条件。</li>
+</ol>
 <p>（未完成）</p>
 <hr>
 <!--
