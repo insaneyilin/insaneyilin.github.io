@@ -86,14 +86,14 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2020/03/02/20200303_normal_distribution_transform/">三维点云配准 -- NDT 算法</a>
+      <a class="article-title" href="/2020/03/02/20200303_normal_distribution_transform/">点云配准 -- 2D NDT 算法</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/" data-id="ck7knsy1c000xhi1clr6jp8b9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/" data-id="ck7l5w2wr0032zc1cts4n4p0s" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -113,52 +113,14 @@
 <p>其实仔细思考一下人开车的过程，我们的大脑是没有 GPS 和 IMU 这种类似的东西的，我们靠的是我们的眼睛，先对环境进行感知、观察，然后同大脑里已经见过的位置场景进行“匹配”，从而实现了定位。这是一种基于环境特征匹配的定位。</p>
 <p>无人车的“眼睛”是什么呢？虽然基于相机的视觉方案潜力巨大，但目前业界使用最普遍的还是 3D 激光雷达(Lidar)。我们可以使用 Lidar 进行基于环境特征的定位，用我们每一帧得到的点云和预先制作的地图进行匹配，从而得到实时的车的位置和姿态，这就可以利用点云配准。</p>
 <p>我们可以使用 ICP 算法完成点云配准，但 ICP 算法对位姿初值较敏感，且最近邻点搜索较耗时。</p>
-<p>本文要介绍的 NDT(Normal Distribution Transform，正态分布变换) 算法是一种基于概率分布的点云配准算法，其比 ICP 算法耗时更加稳定，实际定位测试效果也更加鲁棒。</p>
+<p>NDT(Normal Distribution Transform，正态分布变换) 算法是一种基于概率分布的点云配准算法，其比 ICP 算法耗时更加稳定，实际定位测试效果也更加鲁棒。本文先只介绍 2D NDT 算法，主要是为了给出 NDT 算法的基本思想和原理，3D 的情况留到下一篇。</p>
 <hr>
-<h2 id="2-2D-NDT-算法描述"><a href="#2-2D-NDT-算法描述" class="headerlink" title="2 2D NDT 算法描述"></a>2 2D NDT 算法描述</h2><p><em>The Normal Distributions Transform: A New Approach to Laser Scan Matching</em> 这篇论文提出了用于匹配两幅 2D 激光扫描点云的 NDT 算法。</p>
-<p>NDT 配准的基本思想如下：我们不用去比较两个点云里点到点之间的距离，而是先将参考点云/目标点云（reference scan，在无人车定位的场景里就是我们事先构建的点云地图）网格化，按照空间划分为一个个小格子，统计出每个小格子里点云的正态分布。如果给定一组变换参数（旋转、平移），对源点云进行变换后，则可以得到其在参考点云网格中每个格子里对应的概率密度，概率密度越大，说明两幅点云匹配程度越高。因此我们可以通过优化的方法求解变换参数，使得变换后的源点云同参考点云匹配尽可能匹配。</p>
-<h3 id="2-1-正态分布变换"><a href="#2-1-正态分布变换" class="headerlink" title="2.1 正态分布变换"></a>2.1 正态分布变换</h3><p>NDT 把参考点云表示成了一组局部正态分布的集合，具体做法如下：</p>
-<ol>
-<li>将参考点云所在 2D 空间划分为指定大小的网格（cell），设每个格子里的点为 $ \{\mathbf{x}_i\}_{i=1,…,n} $</li>
-<li>计算每个格子中点云的多元正态分布参数：<ul>
-<li>均值 $\mathbf{q} = \frac{1}{n}\sum_i \mathbf{x}_i$</li>
-<li>协方差矩阵 $\Sigma = \frac{1}{n}\sum_i (\mathbf{x}_i - \mathbf{q}) (\mathbf{x}_i - \mathbf{q})^t$</li>
-</ul>
-</li>
-</ol>
-<p>这样每个格子中的一个点 $\mathbf{x}$ 可以用概率分布 $N(\mathbf{q}, \Sigma)$ 来描述：</p>
-<p>$$ p(\mathbf{x})\sim exp(- \frac{(\mathbf{x}_i - \mathbf{q})^t \Sigma^{-1} (\mathbf{x}_i - \mathbf{q})}{2})<br>$$</p>
-<p>NDT 这种表示方法的好处是我们得到了 2D 空间的一种分段 <strong>连续、可微</strong> 的概率密度形式的描述。这对于我们求解优化是十分有帮助的（能求导）。（对比 ICP 算法，其查找对应点关系的时候只能用暴力或者启发式方法）</p>
-<p>原论文里提到求解协方差矩阵时有可能会出现奇异(singular)的情况，导致无法求逆。解决方法是检查协方差矩阵较小的特征值是否比较大特征值的 0.001 倍要大，如果过小，将其设为较大特征值的 0.001 倍。</p>
-<h3 id="2-2-利用优化进行点云配准"><a href="#2-2-利用优化进行点云配准" class="headerlink" title="2.2 利用优化进行点云配准"></a>2.2 利用优化进行点云配准</h3><p>我们记 2D 空间的刚性变换为：</p>
-<p>$$<br>T =<br>\left[ \begin{array}{cccc}<br>cos(\phi) &amp; -sin(\phi) &amp; t_x \\<br>sin(\phi) &amp; cos(\phi) &amp; t_y \\<br>0 &amp; 0 &amp; 1<br>\end{array} \right]<br>$$</p>
-<p>$(t_x, t_y)$ 是平移， $\phi$ 是旋转角度。我们的目标就是给定源点云 $P_s$ 和参考点云 $P_t$ ，求解出这三个参数使得两幅点云“对齐”。</p>
-<p>我们使用 NDT 来进行点云对齐，步骤如下：</p>
-<ol>
-<li>对参考点云 $P_t$ 建立 NDT（网格化，计算每个格子的正态分布参数）；</li>
-<li>给定初始化变换 $T_0$ ；</li>
-<li>利用上一次迭代得到的变换 $T_{k-1}$ 将 $P_s$ 进行变换，计算变换后的点在参考点云 NDT 网格中的概率密度；</li>
-<li>定义 NDT 配准分数(NDT score)为每个网格中计算出的概率密度之和，使用牛顿法进行优化，求解变换参数使得 NDT score 最大，得到当期迭代的变换 $T_k$；</li>
-<li>回到第 3 步继续进行迭代，直到满足收敛条件。</li>
-</ol>
-<p>（未完成）</p>
-<hr>
-<!--
-## 参考
-
-https://www.cnblogs.com/21207-iHome/p/8039741.html
-
-https://blog.csdn.net/u013794793/article/details/89306901
-
-https://blog.csdn.net/adamshan/article/details/79230612
-
-https://blog.csdn.net/qq_23225073/article/details/89221098
-
-https://blog.csdn.net/chepwavege/article/details/97640717
-
--->
-
-
+<h2 id="2-正态分布变换-Normal-Distributions-Transform"><a href="#2-正态分布变换-Normal-Distributions-Transform" class="headerlink" title="2 正态分布变换(Normal Distributions Transform)"></a>2 正态分布变换(Normal Distributions Transform)</h2><p><em>The Normal Distributions Transform: A New Approach to Laser Scan Matching</em> 这篇论文提出了用于匹配两幅 2D 激光扫描点云的 NDT 算法。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/02/20200303_normal_distribution_transform/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
       
     </div><!-- .entry-content -->
 
@@ -203,7 +165,7 @@ https://blog.csdn.net/chepwavege/article/details/97640717
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/02/29/20200229_myou_ni_kira_wa_re_te_i_ru_by_azki/" data-id="ck7knsy1i0017hi1czvkezp3o" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/02/29/20200229_myou_ni_kira_wa_re_te_i_ru_by_azki/" data-id="ck7l5w2ve0011zc1cr9ltkjpn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -267,7 +229,7 @@ https://blog.csdn.net/chepwavege/article/details/97640717
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/" data-id="ck7knsy2l0039hi1co2kmpv4g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/11/20/191120_point_cloud_registration_icp/" data-id="ck7l5w2wu0035zc1ciylimex5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -358,7 +320,7 @@ https://blog.csdn.net/chepwavege/article/details/97640717
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck7knsy1f0012hi1cr4035u2g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/10/01/191001_seam_carving/" data-id="ck7l5w2vc000wzc1c2z329bst" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -440,7 +402,7 @@ https://blog.csdn.net/chepwavege/article/details/97640717
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck7knsy15000ohi1c9ielwcnv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/08/19/190819_movie_parasite/" data-id="ck7l5w2v8000tzc1c6apelq84" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -493,7 +455,7 @@ https://blog.csdn.net/chepwavege/article/details/97640717
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/190722_python_document_scanner/" data-id="ck7knsy2h0036hi1cq3fu1p9i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/22/190722_python_document_scanner/" data-id="ck7l5w2wt0033zc1cwl6m6tka" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -554,7 +516,7 @@ https://blog.csdn.net/chepwavege/article/details/97640717
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck7knsy1a000uhi1ct0tkjyqp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/21/190728_when_cyber_violence_comes_into_reality/" data-id="ck7l5w2v5000ozc1c7mje4r8u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -607,7 +569,7 @@ https://blog.csdn.net/chepwavege/article/details/97640717
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck7knsy0s000mhi1cx9z8pjyw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ck7l5w2v2000mzc1cz0nae75d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -691,7 +653,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck7knsy0l000fhi1cirhw5bw3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ck7l5w2uz000hzc1c4kcejl0u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -748,7 +710,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck7knsy0o000hhi1c39oomnhg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ck7l5w2uu000fzc1ceg16fmuc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -835,7 +797,7 @@ Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指
       <ul>
         
           <li>
-            <a href="/2020/03/02/20200303_normal_distribution_transform/">三维点云配准 -- NDT 算法</a>
+            <a href="/2020/03/02/20200303_normal_distribution_transform/">点云配准 -- 2D NDT 算法</a>
           </li>
         
           <li>

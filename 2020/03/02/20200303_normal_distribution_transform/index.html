@@ -8,7 +8,19 @@
 
 点云配准（Point Cloud Registration）：输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。
 
-点">
+点云配准的一个常见应用就是用来解决无人车的定位（localization）问题。
+什么是无人车的定位呢？就是确定无人车在世界中的什么位置，具体来说，是确定无人车在我们预先构建的地图中的哪个位置。
+定位的精度直接影响感知模块和规划控制模块的效果，一般来说对无人车的定位精度要求都在 厘米 级别（平均误差 10 厘米以内）。
+如何实现无人车的定位？这取决于你使用什么样的传感器配置。
+传统的单点 GPS 定位精度在米级别（3到5米），而我国城市主干道的单一车道宽一般是 3.75 米，因此单独靠 GPS 无法实现可靠的定位系统。
+使用差分GPS（differential GPS-DGPS，DGPS）可以有效提高 GPS 的定位精度，常见的 RTK(Real time kinematic) 载波相位差分技术可以达到厘米级精度，基本满足自动驾驶定位的需求。但 RTK 需要架设基站，且较容易受卫星状况、天气状况、数据传输状况的影响。
+使用 GPS 属于全局定位的方法，还有一类相对定位的方法，比如使用 IMU 和里程计(Odometry)，根据上一时刻的位置和方位推断现在的位置和方位，也叫航迹推算，优点是输出频率高、短时间内精度高，缺点是定位误差会随着时间累积。
+其实仔细思考一下人开车的过程，我们的大脑是没有 GPS 和 IMU 这种类似的东西的，我们靠的是我们的眼睛，先对环境进行感知、观察，然后同大脑里已经见过的位置场景进行“匹配”，从而实现了定位。这是一种基于环境特征匹配的定位。
+无人车的“眼睛”是什么呢？虽然基于相机的视觉方案潜力巨大，但目前业界使用最普遍的还是 3D 激光雷达(Lidar)。我们可以使用 Lidar 进行基于环境特征的定位，用我们每一帧得到的点云和预先制作的地图进行匹配，从而得到实时的车的位置和姿态，这就可以利用点云配准。
+我们可以使用 ICP 算法完成点云配准，但 ICP 算法对位姿初值较敏感，且最近邻点搜索较耗时。
+NDT(Normal Distribution Transform，正态分布变换) 算法是一种基于概率分布的点云配准算法，其比 ICP 算法耗时更加稳定，实际定位测试效果也更加鲁棒。本文先只介绍 2D NDT 算法，主要是为了给出 NDT 算法的基本思想和原理，3D 的情况留到下一篇。
+
+2 正态分布变换(Normal Distributions Transform)The Normal Distributions Transform: A New Approach to Laser Scan Matching 这篇论文提出了用于匹配两幅 2D 激光扫描点云的 NDT 算法。">
   
 
   
@@ -17,19 +29,19 @@
   
   
   
-  <title>三维点云配准 -- NDT 算法 | Yilin&#39;s Blog</title>
+  <title>点云配准 -- 2D NDT 算法 | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1 背景在上一篇文章中介绍了什么是点云配准和经典的 ICP 算法。  点云配准（Point Cloud Registration）：输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。  点云配准的一个常见应用就是用来解决无人车的定位（localization）问题。 什么是无人车的定位呢">
 <meta name="keywords" content="Point Cloud Processing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="三维点云配准 -- NDT 算法">
+<meta property="og:title" content="点云配准 -- 2D NDT 算法">
 <meta property="og:url" content="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/index.html">
 <meta property="og:site_name" content="Yilin&#39;s Blog">
 <meta property="og:description" content="1 背景在上一篇文章中介绍了什么是点云配准和经典的 ICP 算法。  点云配准（Point Cloud Registration）：输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。  点云配准的一个常见应用就是用来解决无人车的定位（localization）问题。 什么是无人车的定位呢">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-05T18:03:18.076Z">
+<meta property="og:updated_time" content="2020-03-10T01:12:34.001Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="三维点云配准 -- NDT 算法">
+<meta name="twitter:title" content="点云配准 -- 2D NDT 算法">
 <meta name="twitter:description" content="1 背景在上一篇文章中介绍了什么是点云配准和经典的 ICP 算法。  点云配准（Point Cloud Registration）：输入两幅点云 $P_s$ (source) 和 $P_t$ (target) ，输出一个变换 $T$ 使得 $T(P_s)$ 和 $P_t$ 的重合程度尽可能高。  点云配准的一个常见应用就是用来解决无人车的定位（localization）问题。 什么是无人车的定位呢">
   
   
@@ -95,14 +107,14 @@
         
   
     <h1 class="entry-title article-title">
-      三维点云配准 -- NDT 算法
+      点云配准 -- 2D NDT 算法
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/" data-id="ck7knsy1c000xhi1clr6jp8b9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/03/02/20200303_normal_distribution_transform/" data-id="ck7l5w2wr0032zc1cts4n4p0s" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -122,11 +134,13 @@
 <p>其实仔细思考一下人开车的过程，我们的大脑是没有 GPS 和 IMU 这种类似的东西的，我们靠的是我们的眼睛，先对环境进行感知、观察，然后同大脑里已经见过的位置场景进行“匹配”，从而实现了定位。这是一种基于环境特征匹配的定位。</p>
 <p>无人车的“眼睛”是什么呢？虽然基于相机的视觉方案潜力巨大，但目前业界使用最普遍的还是 3D 激光雷达(Lidar)。我们可以使用 Lidar 进行基于环境特征的定位，用我们每一帧得到的点云和预先制作的地图进行匹配，从而得到实时的车的位置和姿态，这就可以利用点云配准。</p>
 <p>我们可以使用 ICP 算法完成点云配准，但 ICP 算法对位姿初值较敏感，且最近邻点搜索较耗时。</p>
-<p>本文要介绍的 NDT(Normal Distribution Transform，正态分布变换) 算法是一种基于概率分布的点云配准算法，其比 ICP 算法耗时更加稳定，实际定位测试效果也更加鲁棒。</p>
+<p>NDT(Normal Distribution Transform，正态分布变换) 算法是一种基于概率分布的点云配准算法，其比 ICP 算法耗时更加稳定，实际定位测试效果也更加鲁棒。本文先只介绍 2D NDT 算法，主要是为了给出 NDT 算法的基本思想和原理，3D 的情况留到下一篇。</p>
 <hr>
-<h2 id="2-2D-NDT-算法描述"><a href="#2-2D-NDT-算法描述" class="headerlink" title="2 2D NDT 算法描述"></a>2 2D NDT 算法描述</h2><p><em>The Normal Distributions Transform: A New Approach to Laser Scan Matching</em> 这篇论文提出了用于匹配两幅 2D 激光扫描点云的 NDT 算法。</p>
-<p>NDT 配准的基本思想如下：我们不用去比较两个点云里点到点之间的距离，而是先将参考点云/目标点云（reference scan，在无人车定位的场景里就是我们事先构建的点云地图）网格化，按照空间划分为一个个小格子，统计出每个小格子里点云的正态分布。如果给定一组变换参数（旋转、平移），对源点云进行变换后，则可以得到其在参考点云网格中每个格子里对应的概率密度，概率密度越大，说明两幅点云匹配程度越高。因此我们可以通过优化的方法求解变换参数，使得变换后的源点云同参考点云匹配尽可能匹配。</p>
-<h3 id="2-1-正态分布变换"><a href="#2-1-正态分布变换" class="headerlink" title="2.1 正态分布变换"></a>2.1 正态分布变换</h3><p>NDT 把参考点云表示成了一组局部正态分布的集合，具体做法如下：</p>
+<h2 id="2-正态分布变换-Normal-Distributions-Transform"><a href="#2-正态分布变换-Normal-Distributions-Transform" class="headerlink" title="2 正态分布变换(Normal Distributions Transform)"></a>2 正态分布变换(Normal Distributions Transform)</h2><p><em>The Normal Distributions Transform: A New Approach to Laser Scan Matching</em> 这篇论文提出了用于匹配两幅 2D 激光扫描点云的 NDT 算法。</p>
+<a id="more"></a>
+
+<p>NDT 配准的基本思想如下：我们不用去比较两个点云里点到点之间的距离，而是先将参考点云/目标点云（reference scan，在无人车定位的场景里就是我们事先构建的点云地图）网格化，按照空间划分为一个个 <strong>小格子</strong> ，统计出每个小格子里点云的 <strong>正态分布</strong> 。如果给定一组变换参数（旋转、平移），对源点云进行变换后，则可以得到其在参考点云网格中每个格子里对应的 <strong>概率密度</strong> ，概率密度越大，说明两幅点云匹配程度越高。因此我们可以通过优化的方法求解变换参数，使得变换后的源点云同参考点云匹配尽可能匹配。</p>
+<p>NDT 把参考点云表示成了一组局部正态分布的集合，具体做法如下：</p>
 <ol>
 <li>将参考点云所在 2D 空间划分为指定大小的网格（cell），设每个格子里的点为 $ \{\mathbf{x}_i\}_{i=1,…,n} $</li>
 <li>计算每个格子中点云的多元正态分布参数：<ul>
@@ -138,8 +152,9 @@
 <p>这样每个格子中的一个点 $\mathbf{x}$ 可以用概率分布 $N(\mathbf{q}, \Sigma)$ 来描述：</p>
 <p>$$ p(\mathbf{x})\sim exp(- \frac{(\mathbf{x}_i - \mathbf{q})^t \Sigma^{-1} (\mathbf{x}_i - \mathbf{q})}{2})<br>$$</p>
 <p>NDT 这种表示方法的好处是我们得到了 2D 空间的一种分段 <strong>连续、可微</strong> 的概率密度形式的描述。这对于我们求解优化是十分有帮助的（能求导）。（对比 ICP 算法，其查找对应点关系的时候只能用暴力或者启发式方法）</p>
-<p>原论文里提到求解协方差矩阵时有可能会出现奇异(singular)的情况，导致无法求逆。解决方法是检查协方差矩阵较小的特征值是否比较大特征值的 0.001 倍要大，如果过小，将其设为较大特征值的 0.001 倍。</p>
-<h3 id="2-2-利用优化进行点云配准"><a href="#2-2-利用优化进行点云配准" class="headerlink" title="2.2 利用优化进行点云配准"></a>2.2 利用优化进行点云配准</h3><p>我们记 2D 空间的刚性变换为：</p>
+<p>原论文里提到求解协方差矩阵时有可能会出现奇异(singular)的情况，导致无法求逆。解决方法是检查协方差矩阵较小的特征值是否比较大特征值的 0.001 倍要大，如果过小，将其设为较大特征值的 0.001 倍。（数值计算里的内容，计算协方差矩阵的逆之前，先用奇异值分解来检查矩阵是否接近奇异。如果最大奇异值比最小的大1000倍以上，即条件数大于1000，则将条件数限制在1000，用此时对应的协方差矩阵求逆。）</p>
+<hr>
+<h2 id="3-利用牛顿法求解优化问题进行点云配准"><a href="#3-利用牛顿法求解优化问题进行点云配准" class="headerlink" title="3 利用牛顿法求解优化问题进行点云配准"></a>3 利用牛顿法求解优化问题进行点云配准</h2><p>我们记 2D 空间的刚性变换为：</p>
 <p>$$<br>T =<br>\left[ \begin{array}{cccc}<br>cos(\phi) &amp; -sin(\phi) &amp; t_x \\<br>sin(\phi) &amp; cos(\phi) &amp; t_y \\<br>0 &amp; 0 &amp; 1<br>\end{array} \right]<br>$$</p>
 <p>$(t_x, t_y)$ 是平移， $\phi$ 是旋转角度。我们的目标就是给定源点云 $P_s$ 和参考点云 $P_t$ ，求解出这三个参数使得两幅点云“对齐”。</p>
 <p>我们使用 NDT 来进行点云对齐，步骤如下：</p>
@@ -147,13 +162,47 @@
 <li>对参考点云 $P_t$ 建立 NDT（网格化，计算每个格子的正态分布参数）；</li>
 <li>给定初始化变换 $T_0$ ；</li>
 <li>利用上一次迭代得到的变换 $T_{k-1}$ 将 $P_s$ 进行变换，计算变换后的点在参考点云 NDT 网格中的概率密度；</li>
-<li>定义 NDT 配准分数(NDT score)为每个网格中计算出的概率密度之和，使用牛顿法进行优化，求解变换参数使得 NDT score 最大，得到当期迭代的变换 $T_k$；</li>
+<li>定义 NDT 配准分数(NDT score)为每个网格中计算出的概率密度之和，使用牛顿法进行优化，求解变换参数使得 NDT score 最大，得到当前迭代的变换 $T_k$；</li>
 <li>回到第 3 步继续进行迭代，直到满足收敛条件。</li>
 </ol>
-<p>（未完成）</p>
+<p>下面我们来推导一下如何用牛顿法来进行优化。牛顿法利用目标函数的二阶偏导数，考虑梯度的变化趋势，比梯度下降法在确定搜索方向上考虑了更多信息。由于一般优化问题都是求最小化，我们这里记目标函数 $f = -score$，变换参数为 $\mathbf{p}=[t_x, t_y, \phi]^t=[p_1, p_2, p_3]^t$。牛顿法每次迭代是求解如下方程来得到搜索步长 $\Delta \mathbf{p}$：</p>
+<p>$$<br>H \Delta \mathbf{p}= -\frac{\partial f}{\partial \mathbf{p}}<br>$$</p>
+<p>其中 $H$ 是目标函数的 Hessian 矩阵，即 $H_{ij}=\frac{\partial f}{\partial{p_i}\partial{p_j}}$；$\frac{\partial f}{\partial \mathbf{p}}$ 是梯度。下面我们来推导他们的公式。</p>
+<p>对于源点云中的一个点 $\mathbf{x}_i$ ，如果变换后它落在 NDT 参考网格的某个格子中，我们记变换后的点为 $\mathbf{x}_i^{\prime}$，则有 $\mathbf{x}_i^{\prime}=T(\mathbf{x}_i;\mathbf{p})$，即</p>
+<p>$$<br>\left[ \begin{array}{c}<br>x^{\prime} \\<br>y^{\prime}<br>\end{array} \right]=<br>\left[<br>\begin{array}{ccc}<br>cos(\phi) &amp; -sin(\phi) \\<br>sin(\phi) &amp; cos(\phi) \\<br>\end{array}<br>\right ]<br>\left[ \begin{array}{c}<br>x^{\prime} \\<br>y^{\prime}<br>\end{array} \right] +<br>\left[ \begin{array}{c}<br>t_x \\<br>t_y<br>\end{array} \right]<br>$$</p>
+<p>变换后的点 $\mathbf{x}_i^{\prime}$ 的概率密度为：</p>
+<p>$$<br>p(\mathbf{x}_i) \sim exp(-\frac{(\mathbf{x}_i - \mathbf{q}_i)^t \Sigma_i^{-1} (\mathbf{x}_i - \mathbf{q}_i)}{2})<br>$$</p>
+<p>将所有点 $\{\mathbf{x}_i\}$ 对应的概率密度相加，得到总的 NDT 配准分数：</p>
+<p>$$<br>score(\mathbf{p})=\sum_i exp(-\frac{(\mathbf{x}_i - \mathbf{q}_i)^t \Sigma_i^{-1} (\mathbf{x}_i - \mathbf{q}_i)}{2})<br>$$</p>
+<p>这个 $score(\mathbf{p})$ 就是我们要优化的目标函数。使用牛顿法求解此优化的关键是确定一阶和二阶导数信息，也就是梯度向量和 Hessian 矩阵。</p>
+<p>因为这个目标函数是由每个格子里点的概率密度累加而来的，我们只需要分析每个点对应的分数 $s$ 的导数信息。</p>
+<p>令 $\mathbf{q}=\mathbf{x}_i - \mathbf{q}_i = T(\mathbf{x}_i;\mathbf{p}) - \mathbf{q}_i$，则</p>
+<p>$$<br>s = -exp(-\frac{\mathbf{q}^t\Sigma^{-1}\mathbf{q}}{2})<br>$$</p>
+<p>根据链式法则以及向量、矩阵求导公式，$s$ 梯度为：</p>
+<p>$$<br>\frac{\partial{s}}{\partial{p_i}} = \frac{\partial{s}}{\partial{q}} \frac{\partial{q}}{\partial{p_i}} = \mathbf{q}^t \Sigma^{-1} \frac{\partial{T(\mathbf{x};\mathbf{p})}}{\partial{p_i}} exp(-\frac{\mathbf{q}^t\Sigma^{-1}\mathbf{q}}{2}), i=1,2,3<br>$$</p>
+<p>这里我们需要求变换 $T$ 的 Jacobian 矩阵：</p>
+<p>$$<br>\frac{\partial{T(\mathbf{x};\mathbf{p})}}{\partial{\mathbf{p}}}=J_{T}=<br>\left[<br>\begin{array}{cccc}<br>1 &amp; 0 &amp; -x \sin(\phi) - y \cos(\phi)\\<br>0 &amp; 1 &amp; x \cos(\phi) - y \sin(\phi)<br>\end{array}<br>\right]<br>$$</p>
+<p>下面我们继续求 $s$ 关于 $p_i$、$p_j$ 的二阶偏导数：</p>
+<p>$$<br>\begin{aligned}<br>H_{ij} &amp;= \frac{\partial^2 s}{\partial p_i \partial p_j} = \partial(\frac{\partial s}{\partial p_i}) / \partial p_j =\partial(\mathbf{q}^t \Sigma^{-1} \frac{\partial \mathbf{q}}{\partial{p_i}} exp(-\frac{\mathbf{q}^t\Sigma^{-1}\mathbf{q}}{2})) / \partial p_j\\<br>&amp;= -exp(\frac{-\mathbf{q}^t\Sigma^{-1}\mathbf{q}}{2})\bigg[(\mathbf{q}^t\Sigma^{-1}\frac{\partial \mathbf{q}}{\partial p_i})(\mathbf{q}^t\Sigma^{-1}\frac{\partial \mathbf{q}}{\partial p_j}) - (\frac{\partial \mathbf{q}}{\partial p_j}^t \Sigma^{-1} \frac{\partial \mathbf{q}}{\partial p_i}) - (\mathbf{q}^t\Sigma^{-1}\frac{\partial^2 \mathbf{q}}{\partial p_i \partial p_j})\bigg]<br>\end{aligned}<br>$$</p>
+<p>其中，向量 $\mathbf{q}$ 对变换参数 $p$ 的二阶导数的向量为：</p>
+<p>$$<br>\frac{\partial^2 \mathbf{q}}{\partial p_i \partial p_j} =<br>\begin{cases}<br>[-x \cos(\phi) + y \sin(\phi), x \cos(\phi) - y \sin(\phi)]^t, i=j=3 \\<br>[0, 0]^t, otherwise<br>\end{cases}<br>$$</p>
+<p>有了一阶、二阶导数信息，我们就可以利用牛顿法迭代进行优化。</p>
+<p>再次总结一下 NDT 点云配准的步骤：</p>
+<ol>
+<li>将参考点云网格化；</li>
+<li>计算参考点云网格中每一个格子的正态分布统计信息；</li>
+<li>将源点云中每个点用上一次得到的变换参数变换到参考点云网格中，计算 NDT score；</li>
+<li>利用牛顿法求解最优搜索步长 $\Delta \mathbf{p}$，得到新的变换参数；</li>
+<li>判断是否满足收敛条件，如果否则返回第 3 步继续迭代。</li>
+</ol>
 <hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.researchgate.net/publication/4045903_The_Normal_Distributions_Transform_A_New_Approach_to_Laser_Scan_Matching" target="_blank" rel="noopener">The Normal Distributions Transform: A New Approach to Laser Scan Matching.</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/96908474" target="_blank" rel="noopener">两种常见的点云配准方法ICP&amp;NDT</a></p>
+<p><a href="https://www.cnblogs.com/21207-iHome/p/8039741.html" target="_blank" rel="noopener">NDT（Normal Distributions Transform）算法原理与公式推导</a></p>
 <!--
 ## 参考
+
+https://zhuanlan.zhihu.com/p/96908474
 
 https://www.cnblogs.com/21207-iHome/p/8039741.html
 
@@ -227,7 +276,7 @@ https://blog.csdn.net/chepwavege/article/details/97640717
       <ul>
         
           <li>
-            <a href="/2020/03/02/20200303_normal_distribution_transform/">三维点云配准 -- NDT 算法</a>
+            <a href="/2020/03/02/20200303_normal_distribution_transform/">点云配准 -- 2D NDT 算法</a>
           </li>
         
           <li>
