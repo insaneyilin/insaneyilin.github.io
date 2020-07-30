@@ -4,6 +4,23 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   
+  <meta name="description" content="这周在看“Apollo 行为轨迹预测”部分的代码，之前没接触过这一块，直接啃代码看得云里雾里，上网搜索了一下找到了对应的公开课 Apollo行为轨迹预测技术，感觉很有帮助，在 Apollo 开发者社区的 微信公众号文章 里可以获取到 PPT 。
+不过我一开始没有找到这篇公众号文章，而是想到了一个问题，如果我们在网上看到了感觉很有帮助的演讲、公开课视频（网页视频下载有很多浏览器插件，比如 Video DownloadHelper ），又没办法找到原作者获取到原始的 slides 怎么办？
+最笨的办法，自己截图，然后拼成一个 pdf。
+其实像这种拍摄角度固定的视频，完全可以用程序来自动帮我们提取出 slides。
+网上搜了一下，有人做过类似的事情：
+https://github.com/szanni/slideextract
+这个代码利用了 OpenCV，先用鼠标交互式选择 ROI (Region Of Interest) 区域，通过 cv::matchTemplate() 这个方法来检测重复的视频帧，从而将 slides 图像导出。
+简单来说要实现从演讲视频中提取，应该有以下几个步骤：
+
+提取视频帧；
+对每一个视频帧进行 slides 检测，提取出 slides 图像，对于固定视角的视频，手动设置一个 ROI 就可以了；
+去除重复的 slides 图像，上面代码用了模板匹配，也可以使用图像哈希，OpenCV 中也有对应的实现：image hashing algorithms；
+将 slides 图像合并成一个 pdf 文件。
+
+要实现上面的功能不难，可我的目的不是为了做一个多好用的程序，只是希望能生成一个 pdf 便于之后快速的查看复习。
+其实完全可以通过一些工具和命令行的组合来完成“从演讲视频中提取 slides”的功能，下面说一说我的做法。">
+  
 
   
   
@@ -11,15 +28,19 @@
   
   
   
-  <title>Archives: 2020 | Yilin&#39;s Blog</title>
+  <title>如何提取演讲视频中的 slides | Yilin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Yilin&#39;s Blog">
-<meta property="og:url" content="https://yilingui.xyz/archives/2020/index.html">
+  <meta name="description" content="这周在看“Apollo 行为轨迹预测”部分的代码，之前没接触过这一块，直接啃代码看得云里雾里，上网搜索了一下找到了对应的公开课 Apollo行为轨迹预测技术，感觉很有帮助，在 Apollo 开发者社区的 微信公众号文章 里可以获取到 PPT 。 不过我一开始没有找到这篇公众号文章，而是想到了一个问题，如果我们在网上看到了感觉很有帮助的演讲、公开课视频（网页视频下载有很多浏览器插件，比如 Video">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何提取演讲视频中的 slides">
+<meta property="og:url" content="https://yilingui.xyz/2020/07/30/20200730_extract_slides_from_lecture_video/index.html">
 <meta property="og:site_name" content="Yilin&#39;s Blog">
+<meta property="og:description" content="这周在看“Apollo 行为轨迹预测”部分的代码，之前没接触过这一块，直接啃代码看得云里雾里，上网搜索了一下找到了对应的公开课 Apollo行为轨迹预测技术，感觉很有帮助，在 Apollo 开发者社区的 微信公众号文章 里可以获取到 PPT 。 不过我一开始没有找到这篇公众号文章，而是想到了一个问题，如果我们在网上看到了感觉很有帮助的演讲、公开课视频（网页视频下载有很多浏览器插件，比如 Video">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-30T15:28:35.139Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yilin&#39;s Blog">
+<meta name="twitter:title" content="如何提取演讲视频中的 slides">
+<meta name="twitter:description" content="这周在看“Apollo 行为轨迹预测”部分的代码，之前没接触过这一块，直接啃代码看得云里雾里，上网搜索了一下找到了对应的公开课 Apollo行为轨迹预测技术，感觉很有帮助，在 Apollo 开发者社区的 微信公众号文章 里可以获取到 PPT 。 不过我一开始没有找到这篇公众号文章，而是想到了一个问题，如果我们在网上看到了感觉很有帮助的演讲、公开课视频（网页视频下载有很多浏览器插件，比如 Video">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -76,30 +97,70 @@
 </header>
 
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-20200730_extract_slides_from_lecture_video" class="post-20200730_extract_slides_from_lecture_video post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2020/07/30/20200730_extract_slides_from_lecture_video/">如何提取演讲视频中的 slides</a>
+    <h1 class="entry-title article-title">
+      如何提取演讲视频中的 slides
     </h1>
   
 
-  </header>
-  <footer class="entry-meta">
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2020/07/30/20200730_extract_slides_from_lecture_video/" data-id="ckd8y4vq30000041c9guv8xo2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>这周在看“Apollo 行为轨迹预测”部分的代码，之前没接触过这一块，直接啃代码看得云里雾里，上网搜索了一下找到了对应的公开课 <a href="https://apollo.auto/devcenter/courseplaying_cn.html?target=5" target="_blank" rel="noopener">Apollo行为轨迹预测技术</a>，感觉很有帮助，在 Apollo 开发者社区的 <a href="https://mp.weixin.qq.com/s/Q4me1G9B8uwwRIr6dfETEA" target="_blank" rel="noopener">微信公众号文章</a> 里可以获取到 PPT 。</p>
+<p>不过我一开始没有找到这篇公众号文章，而是想到了一个问题，如果我们在网上看到了感觉很有帮助的演讲、公开课视频（网页视频下载有很多浏览器插件，比如 Video DownloadHelper ），又没办法找到原作者获取到原始的 slides 怎么办？</p>
+<p>最笨的办法，自己截图，然后拼成一个 pdf。</p>
+<p>其实像这种拍摄角度固定的视频，完全可以用程序来自动帮我们提取出 slides。</p>
+<p>网上搜了一下，有人做过类似的事情：</p>
+<p><a href="https://github.com/szanni/slideextract" target="_blank" rel="noopener">https://github.com/szanni/slideextract</a></p>
+<p>这个代码利用了 OpenCV，先用鼠标交互式选择 ROI (Region Of Interest) 区域，通过 <code>cv::matchTemplate()</code> 这个方法来检测重复的视频帧，从而将 slides 图像导出。</p>
+<p>简单来说要实现从演讲视频中提取，应该有以下几个步骤：</p>
+<ol>
+<li>提取视频帧；</li>
+<li>对每一个视频帧进行 slides 检测，提取出 slides 图像，对于固定视角的视频，手动设置一个 ROI 就可以了；</li>
+<li>去除重复的 slides 图像，上面代码用了模板匹配，也可以使用图像哈希，OpenCV 中也有对应的实现：<a href="https://docs.opencv.org/3.4/d4/d93/group__img__hash.html" target="_blank" rel="noopener">image hashing algorithms</a>；</li>
+<li>将 slides 图像合并成一个 pdf 文件。</li>
+</ol>
+<p>要实现上面的功能不难，可我的目的不是为了做一个多好用的程序，只是希望能生成一个 pdf 便于之后快速的查看复习。</p>
+<p>其实完全可以通过一些工具和命令行的组合来完成“从演讲视频中提取 slides”的功能，下面说一说我的做法。</p>
+<a id="more"></a>
+
+<h2 id="1-提取视频帧"><a href="#1-提取视频帧" class="headerlink" title="1 提取视频帧"></a>1 提取视频帧</h2><p>使用程序自动提取视频帧的确方便，但注意到实际演讲中，演讲者往往会前后反复切换 slides，这会造成提取出的 slides 图片是乱序的，给后面的自动化处理增加了难度。</p>
+<p>想一下我们的目的，学习、看书、听课，目的都是知识内容的理解，记笔记、保存 slides 等等是“术”，为的是更好的复习。</p>
+<p>所以我放弃了自动提取视频帧，而是看视频的时候直接截图（我的机器环境是 Ubuntu 18.04 ，用 VLC 播放器，截图快捷键是 “Shift+S”），这样做我可以把更多注意力放到理解视频内容上来，也可以迫使自己停下来思考，每听完一小段作者的讲述，截一张图，想一想这段内容。</p>
+<p>还有一个好处就是图像“重复”和“乱序”的问题也都不存在了。</p>
+<h2 id="2-提取-ROI-图像并生成-pdf-文件"><a href="#2-提取-ROI-图像并生成-pdf-文件" class="headerlink" title="2 提取 ROI 图像并生成 pdf 文件"></a>2 提取 ROI 图像并生成 pdf 文件</h2><p>只要知道图像 ROI 区域的左上角图像坐标 <code>(x, y)</code> 和尺寸 <code>(width, height)</code> ，再通过 <a href="https://github.com/ImageMagick/ImageMagick" target="_blank" rel="noopener">ImageMagick</a> 可以轻松的完成这个功能。</p>
+<p>如何获取 ROI 位置、大小信息？一些图像编辑软件会显示鼠标位置的坐标，自己算一下就好。我推荐一个工具 <a href="https://github.com/yangcha/iview" target="_blank" rel="noopener">iview - Display image, show mouse position and pixel values from web browser</a>，通过浏览器打开图像，并显示鼠标位置像素坐标和 RGB 值。</p>
+<p>假设我们的截图文件在 <code>images</code> 文件夹下，ROI 的位置信息 <code>(x, y, width, height)</code> 为 <code>(20, 10, 400, 300)</code>，可以通过下面的命令完成提取 ROI 并生成 PDF 的功能：</p>
+<pre><code class="bash">mkdir crop
+cd images
+ls -v *.png | xargs -I file convert -crop 400x300+20+10 file ../crop/file
+cd -
+convert `ls -v crop/*.png` output.pdf</code></pre>
+<p>上面最后一个命令生成 pdf 的操作可能会报错：</p>
+<pre><code>convert-im6.q16: not authorized `output.pdf&#39; @ error/constitute.c/WriteImage/1037.</code></pre><p>参考<a href="https://blog.csdn.net/xidianwwy/article/details/89819130" target="_blank" rel="noopener">这篇文章</a>，手动修改 <code>/etc/ImageMagick-6/policy.xml</code> 里的内容，<code>rights</code> 的内容改成 <code>&quot;read|write&quot;</code> ：</p>
+<pre><code>&lt;policy domain=&quot;coder&quot; rights=&quot;read|write&quot; pattern=&quot;PDF&quot; /&gt;</code></pre><p>这样生成的 pdf 打开后每一页上的图像不是布满整个页面的，有很多空白区域，需要调整 <code>convert</code> 命令的参数，不过对于我的需求来说已经足够了。</p>
+<hr>
+<p>想动笔写这篇文章是因为前两天和一位朋友交流，有一些共识。</p>
+<p>非科班出身，我刚学习编程时，这也不会，那也不会，有时候想让一段代码跑起来就得花个半天甚至几天的时间。</p>
+<p>当时我的做法是，不管什么代码我都一定要亲手写一遍，这在我学习编程初期时的确很有帮助。不过这种方式效率很低，看技术类的书籍的周期很长，而且太关注细节会忽略了背后更重要的原理类的东西。</p>
+<p>我现在的看法：在你写一段代码之前，一定要想清楚写它的目的是什么？如果是学习一门新语言，新技术，那初期多写写是好事，有助于快速了解、巩固。但如果这个东西我已经比较了解它的原理了，而且也写过大量相关的代码了，我还有必要一行一行去写吗？如果是自己学习或者娱乐的目的，写写是好的，毕竟写代码本身就很有趣。但工作中一定要考虑“效率”，时间是有限的，结果导向，效率为先。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
     <a href="/2020/07/30/20200730_extract_slides_from_lecture_video/">
     <time datetime="2020-07-30T15:30:29.000Z" class="entry-date">
         2020-07-30
@@ -113,94 +174,23 @@
     
     </footer>
 </article>
-  
-    
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2020/06/20/20200620_in_memory_of_grandfather/">回忆外公</a>
-    </h1>
-  
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2020/06/20/20200620_in_memory_of_grandfather/">
-    <time datetime="2020-06-20T14:30:00.000Z" class="entry-date">
-        2020-06-20
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Diary/">Diary</a>
-  </div>
 
     
-    </footer>
-</article>
-  
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
     
     
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2020/03/02/20200303_normal_distribution_transform/">点云配准 -- 2D NDT 算法</a>
-    </h1>
-  
+        <span class="nav-next"><a href="/2020/06/20/20200620_in_memory_of_grandfather/" rel="next">回忆外公 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2020/03/02/20200303_normal_distribution_transform/">
-    <time datetime="2020-03-02T14:35:00.000Z" class="entry-date">
-        2020-03-02
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
-  </div>
 
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Autonomous-Driving/">Autonomous Driving</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Point-Cloud-Processing/">Point Cloud Processing</a></li></ul>
 
-    </footer>
-</article>
-  
-    
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2020/02/29/20200229_myou_ni_kira_wa_re_te_i_ru_by_azki/">&lt;命に嫌われている(被生命所厌恶)&gt; by AZKi</a>
-    </h1>
-  
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2020/02/29/20200229_myou_ni_kira_wa_re_te_i_ru_by_azki/">
-    <time datetime="2020-02-29T15:54:29.000Z" class="entry-date">
-        2020-02-29
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Music/">Music</a>
-  </div>
 
-    
-    </footer>
-</article>
-  
-  
-    </div></section>
-  
+
+
 
 
 </div></div>
