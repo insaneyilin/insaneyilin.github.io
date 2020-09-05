@@ -78,6 +78,90 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-190710_cpp_shared_object_pool" class="post-190710_cpp_shared_object_pool post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/07/10/190710_cpp_shared_object_pool/">一个简单的 C++ 对象池实现</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/07/10/190710_cpp_shared_object_pool/" data-id="ckeq15ha8000rym1c9j6xrl11" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="对象池"><a href="#对象池" class="headerlink" title="对象池"></a>对象池</h2><p>前一段时间的工作中，有一项任务是检查线上代码中的动态内存分配与释放，能预先分配的统一预先分配，减少线上运行时动态分配、释放造成的性能开销。对于一些大对象来说，频繁的分配、释放会影响性能，我们可以使用对象池技术(Object Pool)来进行优化。</p>
+<p>对象池，说白了就是一个池子，预先分配了一堆对象，原先的 <code>new</code> 改成从池子里取对象，<code>delete</code> 改成把对象放回池子。也就是池子中的对象是可以重复利用的，避免了频繁的分配、释放。</p>
+<p>按照上面的简单思路，一个对象池的基本功能应该包括：</p>
+<ul>
+<li>构造函数中申请一批对象</li>
+<li>析构函数中释放对象</li>
+<li>提供获取和回收对象的接口 <code>Get()</code> 和 <code>Recycle()</code></li>
+<li>池子空了的时候支持扩容</li>
+</ul>
+<p>实现起来也不难，用一个队列维护所有对象，用的时候从队列中取，回收了 push 回队列即可。不过显式的 <strong>回收</strong> 操作用起来不是很方便，忘记回收会造成资源浪费。可以考虑利用 C++ 智能指针(smart pointer)自定义删除器(deleter)来实现自动回收。</p>
+<h2 id="自定义智能指针的删除器"><a href="#自定义智能指针的删除器" class="headerlink" title="自定义智能指针的删除器"></a>自定义智能指针的删除器</h2><p>先看一个例子(这是一个错误使用智能指针的例子，只是为了展示 deleter 做了什么)：</p>
+<pre><code class="cpp">int main(int argc, char **argv) {
+  Object *obj1 = new Object;
+
+  std::shared_ptr&lt;Object&gt; p1(obj1);
+  std::cout &lt;&lt; p1.use_count() &lt;&lt; std::endl;
+
+  std::shared_ptr&lt;Object&gt; p2(obj1);
+  std::cout &lt;&lt; p2.use_count() &lt;&lt; std::endl;
+
+  return 0;
+}</code></pre>
+<p>运行结果：</p>
+<pre><code>1
+1
+malloc: *** error for object 0x7f845f400340: pointer being freed was not allocated
+*** set a breakpoint in malloc_error_break to debug
+Abort trap: 6</code></pre><p>报错了，提示说释放了一个未分配的指针。这是因为 <code>std::shared_ptr</code> 默认的 deleter 就是 <code>delete</code>，当两个 <code>shared_ptr</code> 实例出作用域时，执行了两次 <code>delete obj1</code>，所以出错。</p>
+<p>我们不用默认的 deleter ，试试自己定义一个 deleter 来避免第二次 <code>delete</code> （再强调下，这个例子只是为了展示 deleter ，实际工作中没人会这么写的）：</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/07/10/190710_cpp_shared_object_pool/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/07/10/190710_cpp_shared_object_pool/">
+    <time datetime="2019-07-10T14:30:29.000Z" class="entry-date">
+        2019-07-10
+    </time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Programming/">Programming</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-190624_gaokao_10y" class="post-190624_gaokao_10y post type-post status-publish format-standard hentry">
     <!---->
 
@@ -93,7 +177,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="cke5z5i7p000hdi1ct0xmn1n0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2019/06/24/190624_gaokao_10y/" data-id="ckeq15ha5000oym1c3a7ozta0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -150,7 +234,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="cke5z5i7g000adi1c70zztvjy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/07/04/180704_dont_talk_about_sea_with_a_well_frog/" data-id="ckeq15h9v000lym1cs302hyeu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -225,7 +309,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="cke5z5i7c0008di1ckfqe1se0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2018/04/25/180425_shared_ptr_with_vector/" data-id="ckeq15h9p000iym1ctobevdmw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -289,7 +373,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="cke5z5i780006di1c9piq53pr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/12/04/171204_shared_lib_and_dynamic_cast/" data-id="ckeq15h9d000dym1ci970jzsf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -346,7 +430,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="cke5z5i710002di1cfgnvc298" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2017/11/23/171123_visa_to_usa/" data-id="ckeq15h9j000fym1ccgendssn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -413,7 +497,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="cke5z5i8q001sdi1celpw768o" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2016/05/03/spatial_data_structure/" data-id="ckeq15hbx0022ym1ctfdzkiz4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -469,7 +553,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="cke5z5i7r000ndi1cisl7s9sb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/07/05/150705_webgl_first_try/" data-id="ckeq15h4o0002ym1cn113rbdb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -540,7 +624,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="cke5z5i8g0019di1cvg9f0wxu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/05/cheshire_cat_in_cpp-pimpl_idiom/" data-id="ckeq15hbb001mym1cqy5unl71" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -598,7 +682,7 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="cke5z5i8k001gdi1cpq3fehz0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/04/02/crop_pdf_with_OpenCV/" data-id="ckeq15hb7001hym1cam8owo2f" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -645,67 +729,6 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
 
 
   
-    <article id="post-lambda_expressions_in_cpp" class="post-lambda_expressions_in_cpp post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2015/03/30/lambda_expressions_in_cpp/">C++ 中的 lambda 表达式</a>
-    </h1>
-  
-
-        
-        <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yilingui.xyz/2015/03/30/lambda_expressions_in_cpp/" data-id="cke5z5i9m0039di1cucgx3qy1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>lambda 表达式是函数式编程语言中一个很 cool 的特性，而 C++11 标准加入了对 lambda 表达式的支持。本篇文章对 C++11 中的 lambda 表达式做一个简单的介绍。</p>
-<br>
-
-<hr>
-<h2 id="什么是-lambda-表达式"><a href="#什么是-lambda-表达式" class="headerlink" title="什么是 lambda 表达式"></a>什么是 lambda 表达式</h2><p>说到 <a href="http://en.wikipedia.org/wiki/Lambda_Calculus" target="_blank" rel="noopener">lambda expression</a> 就不能不提 lambda calculus，前者是从后者中衍生出的概念，lambda calculus 有着严格的数学定义，与<a href="http://en.wikipedia.org/wiki/Turing_machine" target="_blank" rel="noopener">图灵机</a>有着等价的计算能力。这里只介绍编程语言中的 lambda 表达式概念。</p>
-<p>在函数式编程语言中，函数是一等公民。有时我们需要一个函数，但又不想要定义一个具有名字的函数，即我们需要一个<strong>匿名函数</strong>，而一个 lambda 表达式实际上就是通过表达式的方式定义了一个匿名函数。</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/30/lambda_expressions_in_cpp/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2015/03/30/lambda_expressions_in_cpp/">
-    <time datetime="2015-03-30T14:56:29.000Z" class="entry-date">
-        2015-03-30
-    </time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Programming/">Programming</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lambda-expression/">lambda expression</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -733,6 +756,10 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
       <ul>
         
           <li>
+            <a href="/2020/09/06/20200906_bob_dylan_retrospectrum_on_beijing/">Bob Dylan 艺术大展 @ 北京</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/30/20200730_extract_slides_from_lecture_video/">如何提取演讲视频中的 slides</a>
           </li>
         
@@ -746,10 +773,6 @@ std::for_each(std::begin(a_vec), std::end(a_vec), [](std::shared_ptr&lt;A&gt; &a
         
           <li>
             <a href="/2020/02/29/20200229_myou_ni_kira_wa_re_te_i_ru_by_azki/">&lt;命に嫌われている(被生命所厌恶)&gt; by AZKi</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/20/191120_point_cloud_registration_icp/">三维点云配准 -- ICP 算法</a>
           </li>
         
       </ul>
